@@ -1,0 +1,95 @@
+﻿@model tblPreCommissioningDetail
+
+<div id="myForm">
+    @Html.HiddenFor(m => m.PCDetailId)
+    @Html.HiddenFor(m => m.PCMachineId)
+    @Html.HiddenFor(m => m.PCAccesseriesId)
+
+    <div class="editor-label">
+        @Html.LabelFor(m => m.PCMachineIdList)
+    </div>
+    <div class="editor-field">
+        @(Html.Kendo().MultiSelectFor(m => m.PCMachineIdList)
+                              //.Value(Model.PCMachineIdList == 0 ? string.Empty : Model.PCMachineIdList.ToString())
+                              .Placeholder("--Select --")
+                              .DataTextField("MachineSerialNo")
+                              .DataValueField("PCMachined")
+                              .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 1 })
+                              .DataSource(source =>
+                              {
+                                  source.Read(read =>
+                                  {
+                                      read.Action("GetPCMachineList", "PreCommissioningMachine").Data("filterDetailMachine");
+                                  });
+                              })
+        )
+        @Html.ValidationMessageFor(m => m.PCMachineIdList)
+    </div>
+
+
+    <div class="editor-label">
+        @Html.LabelFor(m => m.PCAccessoryIdList)
+    </div>
+
+    <div class="editor-field">
+        @(Html.Kendo().MultiSelectFor(m => m.PCAccessoryIdList)
+                              //.Value(Model.PCMachineIdList == 0 ? string.Empty : Model.PCMachineIdList.ToString())
+                              .Placeholder("--Select --")
+                              .DataTextField("AccessoriesSerialNo")
+                              .DataValueField("PCAccessoriesId")
+                              .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 1 })
+                              .DataSource(source =>
+                              {
+                                  source.Read(read =>
+                                  {
+                                      read.Action("GetPCAccessoryList", "PreCommissioningAccessories").Data("filterDetailMachine");
+                                  });
+                              })
+        )
+        @Html.ValidationMessageFor(m => m.PCAccessoryIdList)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(m => m.PreCommisoningDate)
+    </div>
+    <div class="editor-field">
+        @Html.Kendo().DatePickerFor(m => m.PreCommisoningDate).HtmlAttributes(new { @tabindex = 3 })
+        @Html.ValidationMessageFor(m => m.PreCommisoningDate)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(m => m.ServiceEngineerId)
+    </div>
+    <div class="editor-field">
+        @(Html.Kendo().ComboBoxFor(m => m.ServiceEngineerId)
+                                                                      .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
+                                                                      .Placeholder("--Select --")
+                                                                      .DataTextField("Name")
+                                                                      .DataValueField("UserId")
+                                                                      .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 4 })
+                                                                      .DataSource(source =>
+                                                                      {
+                                                                          source.Read(read =>
+                                                                          {
+                                                                              read.Action("GetServiceEngineerList", "Common");
+                                                                          });
+                                                                      })
+        )
+        @Html.ValidationMessageFor(m => m.ServiceEngineerId)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(m => m.PrecommisioningRemark)
+    </div>
+    <div class="editor-field">
+        @Html.TextAreaFor(m => m.PrecommisioningRemark, new { @class = "k-textbox", @tabindex = 5, @rows = "4" })
+        @Html.ValidationMessageFor(m => m.PrecommisioningRemark)
+    </div>
+</div>
+
+
+
+
+
+
+

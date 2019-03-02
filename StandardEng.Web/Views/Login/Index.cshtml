@@ -1,0 +1,147 @@
+﻿@using System.Collections
+@using StandardEng.Common
+@model StandardEng.Data.CustomModel.LoginModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - Standard Engineering</title>
+
+    <link rel="icon" type="image/png" href="~/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/favicon-16x16.png" sizes="16x16" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/Content/css/styles.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap_limitless.min.css" rel="stylesheet" />
+    <link href="~/Content/css/layout.min.css" rel="stylesheet" />
+    <link href="~/Content/css/components.min.css" rel="stylesheet" />
+    <link href="~/Content/css/colors.min.css" rel="stylesheet" />
+    <link href="~/Content/css/pnotify.custom.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- Page content -->
+    <div class="page-content login-cover">
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content d-flex justify-content-center align-items-center">
+
+                <!-- Login form -->
+                <form class="login-form" action="@Url.Action("LoginUser","Login")" method="post">
+                    <div class="card mb-0">
+                        <div class="tab-content card-body">
+                            <div class="tab-pane fade show active" id="login-tab1">
+                                <div class="text-center mb-3">
+                                    <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                                    <h5 class="mb-0">Login to your account</h5>
+                                    <span class="d-block text-muted">Your credentials</span>
+                                </div>
+
+                                @Html.HiddenFor(m => m.RememberMe)
+
+                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @required = "required", @placeholder = "User Name" })
+                                    @*@Html.LabelFor(m => m.UserName, new { @class = "md-control-label" })*@
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "password", @required = "required", @placeholder = "Password" })
+                                    @*@Html.LabelFor(m => m.Password, new { @class = "md-control-label" })*@
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                    <div class="form-control-feedback">
+                                        <i class="icon-lock2 text-muted"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group d-flex align-items-center">
+                                    <div class="form-check mb-0">
+                                        <label class="form-check-label">
+                                            <input class="form-input-styled" type="checkbox" checked="checked" id="rememberMe" onclick="RememberMeChk();">
+                                            Keep me signed in
+                                        </label>
+                                    </div>
+
+                                    <a href="@Url.Action("ForgotPassword","Login")" class="ml-auto">Forgot password?</a>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                </div>
+                                <span class="form-text text-center text-muted">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /login form -->
+
+            </div>
+            <!-- /content area -->
+
+        </div>
+        <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+    <script src="~/Scripts/JS/jquery.min.js"></script>
+    <script src="~/Scripts/JS/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/JS/uniform.min.js"></script>
+    <script src="~/Scripts/JS/app.js"></script>
+    <script src="~/Scripts/JS/login.js"></script>
+    <script src="~/Scripts/JS/login_validation.js"></script>
+    <script src="~/Scripts/pnotify.custom.min.js"></script>
+
+    <script type="text/javascript">
+         $(document).ready(function () {
+            var rememberMe = $('#rememberMe').is(":checked");
+            $("#RememberMe").val(rememberMe);
+
+            var errormessage = '@TempData[Enums.NotifyType.Error.GetDescription()]';
+            var successmessage = '@TempData[Enums.NotifyType.Success.GetDescription()]';
+            if (errormessage !== "") {
+                ShowErrorMessage(errormessage);
+            }
+
+            if (successmessage !== "") {
+                SucessMessage(successmessage);
+            }
+        });
+
+        function ShowErrorMessage(msg) {
+            new PNotify({
+                text: msg,
+                type: 'error'
+            });
+        }
+
+
+        function SucessMessage(msg) {
+            new PNotify({
+                text: msg,
+                type: 'success'
+            });
+
+        }
+
+        function RememberMeChk() {
+            var rememberMe = $('#rememberMe').is(":checked");
+            $("#RememberMe").val(rememberMe);
+        }
+    </script>
+</body>
+</html>

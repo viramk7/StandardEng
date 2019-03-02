@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewBag.Title = "AMC Quotation";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - AMC Quotation</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">AMC Quotation</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">AMC Quotation List</h5>
+                </div>
+                <div class="card-body">
+
+                    @(Html.Kendo().Grid<tblAMCQuotation>()
+                                                          .Name("gridAMCQuotation")
+                                                          .Columns(columns =>
+                                                          {
+                                                              if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                              {
+                                                                  columns.Command(command =>
+                                                                  {
+                                                                      if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                      {
+                                                                          command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                                      }
+                                                                      if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                      {
+                                                                          command.Destroy().Text(" ");
+                                                                      }
+                                                                      if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                      {
+                                                                          command.Custom("Report").Text("<span class='k-icon k-i-file-txt' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                                                      }
+                                                                  }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                                  .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                                              }
+                                                              columns.Bound(d => d.AMCQuotationNo).Width(120);
+                                                              columns.Bound(d => d.QuotationDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                              columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName").Title("Customer");
+                                                              columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName").Title("Machine Type");
+                                                              columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName").Title("Machine Model");
+                                                              columns.Bound(d => d.MachineSerialNo);
+                                                              columns.Bound(d => d.ActualAmount);
+                                                              columns.Bound(d => d.GSTPercentage);
+                                                              columns.Bound(d => d.TotalAmount);
+                                                              columns.Command(command =>
+                                                              {
+                                                                  command.Custom("GenerateAMC").Text("<span class='k-icon k-i-more-horizontal' title='Generate AMC'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMC" }).Click("onGenerateAMC");
+                                                              }).Title("Generate AMC").HtmlAttributes(WebHelper.StatusColumnStyle)
+                                                              .HeaderHtmlAttributes(WebHelper.StatusColumnStyle);
+
+                                                          })
+                                                          .ToolBar(toolbar =>
+                                                          {
+                                                              if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                              {
+                                                                  toolbar.Template("<a class='k-button k-button-icontext' onclick='onAdd()' href='javascript:void(0)'><span class='k-icon k-i-plus' title='Add'></span>Add</a> ");
+                                                              }
+                                                          })
+                                                          .Pageable(x =>
+                                                          {
+                                                              x.Refresh(true);
+                                                              x.PageSizes(WebHelper.PageSizes);
+                                                          })
+                                                           .Editable(editable =>
+                                                           {
+                                                               editable.DisplayDeleteConfirmation("Are you sure you want to delete these AMC Quotation?");
+                                                           })
+                                                          .Sortable(sortable => sortable.AllowUnsort(false))
+                                                          .Filterable()
+                                                          .Scrollable(e => e.Enabled(true))
+                                                          .NoRecords()
+                                                          .Events(e => e.DataBound("onDataBound"))
+                                                          .DataSource(dataSource => dataSource
+                                                          .Ajax()
+                                                          .ServerOperation(true)
+                                                          .PageSize(WebHelper.PageSize)
+                                                          .Model(model => model.Id(d => d.Id))
+                                                          .Events(events => events.Error("onError(\"gridAMCQuotation\")"))
+                                                          .Read(read => read.Action("KendoRead", "AMCQuotation"))
+                                                          .Destroy(update => update.Action("KendoDestroy", "AMCQuotation"))
+
+                                        ))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@(Html.Kendo().Window()
+              .Name("wAMC")
+              .Title("Generate AMC From Quotation")
+              .Visible(false)
+              .Draggable(true)
+              .Modal(true)
+              .Width(680)
+              .Height(180))
+
+@(Html.Kendo().Window()
+              .Name("wReport")
+              .Title("AMC Quotation Report")
+              .Visible(false)
+              .Draggable(true)
+              .Modal(true)
+              .Width(850)
+              .Height(600))
+
+<script type="text/javascript">
+
+    function onAdd() {
+        window.location.href = '@Url.Action("Create", "AMCQuotation")'
+    }
+
+    function onEdit(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("Edit", "AMCQuotation")';
+        if (data != null)
+            window.location.href = urllink + "?id=" + data.Id;
+    }
+
+    function onDataBound(e) {
+        var grid = $("#gridAMCQuotation").data("kendoGrid");
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
+
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (gridData[i].IsConvertedIntoAMC) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var editButton = $(currenRow).find("#btnAMC");
+                editButton.hide();
+            }
+        }
+    }
+
+    function onGenerateAMC(e) {
+        var grid = $("#gridAMCQuotation").data("kendoGrid");
+        var tr = $(e.target).closest("tr");
+        var data = grid.dataItem(tr);
+
+        var urllink = '@Url.Action("GenerateAMCPartial", "AMCQuotation")';
+        var window = $("#wAMC").data("kendoWindow");
+        window.refresh({
+            url: urllink,
+            data: { "AMCQuotationId": data.Id }
+        });
+        window.center();
+        window.open();
+    }
+
+    function ClosePopupItems() {
+        closeKendoWindow("wAMC");
+    }
+
+    function GenerateAMC() {
+            var dataModel = {
+                'AMCQuotationId': getInputValueById('AMCQuotationId'),
+                'Remarks': getInputValueById('Remarks')
+            };
+
+
+            var url = '@Url.Action("GenerateAMC", "AMCQuotation")';
+            callwebservice(url, { model: dataModel }, GenerateAMCCompleted, false, datatypeEnum.text, typeEnum.post);
+    }
+
+    function GenerateAMCCompleted(returString) {
+        if (returString != null) {
+            if (returString !== "") {
+                var amcId = returString;
+                closeKendoWindow("wAMC");
+                window.location.href = '@Url.Action("Edit", "AMC")?id=' + amcId;
+            } else {
+                showMessageOnly('Something Went Wrong.', 'popup-error');
+            }
+        }
+    }
+
+    function onReport(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("AMCQuotationReport", "AMCQuotation")';
+        var window = $("#wReport").data("kendoWindow");
+        window.refresh({
+            url: urllink,
+            data: { "AMCQuotationId": data.Id, "Reportname": "AMCQuotation_" + data.AMCQuotationNo }
+        });
+        window.center();
+        window.open();
+    }
+</script>
+
+

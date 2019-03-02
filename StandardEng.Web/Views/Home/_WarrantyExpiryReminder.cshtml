@@ -1,0 +1,37 @@
+﻿@(Html.Kendo().Grid<GetWarrantyExpiryCustomerList_Result>()
+                        .Name("warrantyExpirygrid")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(d => d.MachineTypeName);
+                            columns.Bound(d => d.MachineName);
+                            columns.Bound(d => d.MachineSerialNo);
+                            columns.Bound(d => d.CustomerName);
+                            columns.Bound(d => d.CustomerContactNo);
+                            columns.Bound(d => d.CustomerEmail);
+
+                        })
+                        .ToolBar(tools => tools.Excel())
+                        .Pageable(x =>
+                        {
+                            x.Refresh(true);
+                            x.PageSizes(WebHelper.PageSizes);
+                        })
+                        .Excel(excel => excel
+                            .FileName("Warranty Expiry Customer List")
+                            .Filterable(true)
+                            .AllPages(true)
+                            .ProxyURL(Url.Action("Excel_Export_Save", "Home"))
+                        )
+                        .Sortable(sortable => sortable.AllowUnsort(false))
+                        .Filterable(filter => filter.Enabled(false))
+                        .NoRecords()
+                         //.Scrollable(scrollable => scrollable.Height(540))
+
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .ServerOperation(true)
+                        .PageSize(WebHelper.PageSize)
+                        .Model(model => model.Id(d => d.CommissioningId))
+                        .Events(events => events.Error("onError(\"warrantyExpirygrid\")"))
+                        .Read(read => read.Action("KendoReadWarrantyExpiry", "Home"))
+                    ))

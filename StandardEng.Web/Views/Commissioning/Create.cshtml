@@ -1,0 +1,341 @@
+﻿@model tblCommissioning
+@{
+    ViewBag.Title = "Manage Commissioning";
+}
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Commissioning</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Manage Commissioning</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("SaveModelData", "Commissioning", FormMethod.Post, new { @class = "form form-horizontal", @id = "validation-form", @enctype = "multipart/form-data" }))
+            {
+                <div class="card">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title"></h5>
+                        <div class="col-lg-7 text-right">
+                            <input type="submit" class="btn btn-outline-primary legitRipple" value="Save" name="create" tabindex="15" />
+                            <input type="button" class="btn btn-outline-primary legitRipple" value="Generate Parts Quotation" onclick="onPartsQuotation()" />
+                            <a href="@Url.Action("Index", "Commissioning")" class="btn btn-outline-primary legitRipple" tabindex="18">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        @Html.HiddenFor(m => m.CommissioningId)
+                        @Html.HiddenFor(m => m.PreCommissioningDetailId)
+                        @Html.HiddenFor(m => m.CreatedBy)
+                        @Html.HiddenFor(m => m.CreatedDate)
+                        @Html.HiddenFor(m => m.CommissioningFileName)
+                        @Html.HiddenFor(m => m.IsReadyForAMC)
+                        @Html.HiddenFor(m => m.IsConvertedToAMC)
+                        @Html.HiddenFor(m=>m.IsWarrantyPeriodChange)
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
+                                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                                      .Placeholder("--Select Customer --")
+                                                                      .DataTextField("CustomerName")
+                                                                      .DataValueField("CustomerId")
+                                                                      .HtmlAttributes(new { @readonly = "readonly" })
+                                                                      .DataSource(source =>
+                                                                      {
+                                                                          source.Read(read =>
+                                                                          {
+                                                                              read.Action("GetCustomerList", "Common");
+                                                                          });
+                                                                      })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.CustomerId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MachineTypeId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.MachineTypeId)
+                                                                                                                      .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
+                                                                                                                      .Placeholder("--Select Machine Type --")
+                                                                                                                      .DataTextField("MachineTypeName")
+                                                                                                                      .DataValueField("MachineTypeId")
+                                                                                                                      .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
+                                                                                                                      .DataSource(source =>
+                                                                                                                      {
+                                                                                                                          source.Read(read =>
+                                                                                                                          {
+                                                                                                                              read.Action("GetMachineTypeList", "Common");
+                                                                                                                          });
+                                                                                                                      })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.MachineTypeId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MachineModelId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.MachineModelId)
+                                                                                                                   .Value(Model.MachineModelId == 0 ? string.Empty : Model.MachineModelId.ToString())
+                                                                                                              .Placeholder("--Select Machine --")
+                                                                                                              .DataTextField("MachineName")
+                                                                                                              .DataValueField("MachineModelId")
+                                                                                                              .Enable(false)
+                                                                                                              .AutoBind(false)
+                                                                                                              .CascadeFrom("MachineTypeId")
+                                                                                                              .HtmlAttributes(new { @tabindex = 4 })
+                                                                                                              .DataSource(source =>
+                                                                                                              {
+                                                                                                                  source.Read(read =>
+                                                                                                                  {
+                                                                                                                      read.Action("GetMachineModelList", "Common").Data("filterMachine");
+                                                                                                                  }).ServerFiltering(true);
+                                                                                                              })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.MachineModelId)
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AccessoriesTypeId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.AccessoriesTypeId)
+                                                          .Value(Model.AccessoriesTypeId == 0 ? string.Empty : Model.AccessoriesTypeId.ToString())
+                                                          .Placeholder("--Select Accessories Type --")
+                                                          .DataTextField("AccessoriesTypeName")
+                                                          .DataValueField("AccessoriesTypeId")
+                                                          .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 5 })
+                                                          .DataSource(source =>
+                                                          {
+                                                              source.Read(read =>
+                                                              {
+                                                                  read.Action("GetAccessoriesTypeList", "Common");
+                                                              });
+                                                          })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.AccessoriesTypeId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AccessoriesSerialNo, new { @class = "col-sm-6 col-lg-6 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.AccessoriesSerialNo).HtmlAttributes(new { @tabindx = 7 })
+                                        @Html.ValidationMessageFor(m => m.AccessoriesSerialNo)
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CommissioningDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().DatePickerFor(m => m.CommissioningDate).HtmlAttributes(new { @tabindex = 9, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.CommissioningDate)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.WarrantyPeriod, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().NumericTextBoxFor(m => m.WarrantyPeriod).HtmlAttributes(new { @tabindex = 7 }).Events(e => e.Change("onChangeWarrantyPeriod"))
+                                        @Html.ValidationMessageFor(m => m.WarrantyPeriod)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ReportServiceNo, new { @class = "col-sm-6 col-lg-6 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.ReportServiceNo).HtmlAttributes(new { @tabindx = "1" })
+                                        @Html.ValidationMessageFor(m => m.ReportServiceNo)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CommissioningFileName, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @(Html.Kendo().Upload()
+                                                                              .Name("fileUnit")
+                                                                              .Multiple(false)
+                                                                              .Validation(validation => validation.AllowedExtensions(new string[] { ".pdf", ".jpeg", ".jpg" }))
+                                        )
+
+
+                                    </div>
+                                    <br />
+                                    @if (!string.IsNullOrEmpty(Model.CommissioningFileName))
+                                    {
+                                        <div class="col-sm-6 col-lg-9">
+                                            <a href="@Url.Action("DownloadFile","Commissioning")?file=@Model.CommissioningFileName" target="_blank">Download Uploaded File</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-6 col-lg-9">
+                                            <a href="#">No Files Uploaded</a>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ContactPersonId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.ContactPersonId)
+                                                                      .Value(Model.ContactPersonId == 0 ? string.Empty : Model.ContactPersonId.ToString())
+                                                                      .Placeholder("--Select Contact Person --")
+                                                                      .DataTextField("ContactPersonName")
+                                                                      .DataValueField("ContactPersonId")
+                                                                      .HtmlAttributes(new { @readonly = "readonly" , @tabindex = 2})
+                                                                      .DataSource(source =>
+                                                                      {
+                                                                          source.Read(read =>
+                                                                         {
+                                                                             read.Action("GetCustomerContactPersonList", "Common");
+                                                                         });
+                                                                      })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.ContactPersonId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ContactPersonContactNo, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.ContactPersonContactNo).HtmlAttributes(new { @readonly = "readonly", @tabindex = 3})
+                                        @Html.ValidationMessageFor(m => m.ContactPersonContactNo)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MachineSerialNo, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().TextBoxFor(m => m.MachineSerialNo).HtmlAttributes(new { @tabindex = 2, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.MachineSerialNo)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MachineAccessoriesId, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @(Html.Kendo().ComboBoxFor(m => m.MachineAccessoriesId)
+                                                         .Value(Model.MachineAccessoriesId == 0 ? string.Empty : Model.MachineAccessoriesId.ToString())
+                                                         .Placeholder("--Select Machine Accessories --")
+                                                         .DataTextField("AccessoriesName")
+                                                         .DataValueField("MachineAccessoriesId")
+                                                         .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 6 })
+                                                         .Enable(false)
+                                                         .AutoBind(false)
+                                                         .CascadeFrom("AccessoriesTypeId")
+                                                         .DataSource(source =>
+                                                         {
+                                                             source.Read(read =>
+                                                             {
+                                                                 read.Action("GetMachineAccessoriesList", "Common").Data("filterAccessoriesType");
+                                                             }).ServerFiltering(true);
+                                                         })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.MachineAccessoriesId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ServiceEngineerId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.ServiceEngineerId)
+                                                                                                                                      .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
+                                                                                                                                      .Placeholder("--Select Service Engineer --")
+                                                                                                                                      .DataTextField("Name")
+                                                                                                                                      .DataValueField("UserId")
+                                                                                                                                      .HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
+                                                                                                                                      .DataSource(source =>
+                                                                                                                                      {
+                                                                                                                                          source.Read(read =>
+                                                                                                                                          {
+                                                                                                                                              read.Action("GetServiceEngineerList", "Common");
+                                                                                                                                          });
+                                                                                                                                      })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.ServiceEngineerId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.WarrantyExpireDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().DatePickerFor(m => m.WarrantyExpireDate).HtmlAttributes(new { @tabindex = 6, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.WarrantyExpireDate)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Remark, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.TextAreaFor(m => m.Remark, new { @tabindex = 6, @class = "k-textbox", @rows = "4", @cols = "5" })
+                                        @Html.ValidationMessageFor(m => m.Remark)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+     function filterMachine(e) {
+        return {
+            MachineTypeId: getKendComboboxValue('MachineTypeId')
+        };
+    }
+
+    function onPartsQuotation() {
+        bootbox.confirm('Are you sure you want to Generate Parts Quotation?', function (result) {
+            if (result === true) {
+                var url = '@Url.Action("GeneratePartsQuotation", "Commissioning", new { CommisionId = Model.CommissioningId })';
+                window.location.href = url;
+            }
+        }, 'popup-confirmation');
+    }
+
+    function onChangeWarrantyPeriod(e) {
+        debugger;
+        var expiryPeriod = getkendoNumericTextBoxValue('WarrantyPeriod');
+        var commissoningDate = getKendoDatePickerValue('CommissioningDate');
+        var newExpiryDate = commissoningDate.setMonth(commissoningDate.getMonth() + expiryPeriod);
+        setKendoDatePickerValue('WarrantyExpireDate', commissoningDate);
+        setInputValueById('IsWarrantyPeriodChange', true);
+    }
+
+    function filterAccessoriesType(e) {
+        return {
+            AccessoriesTypeId: $("#AccessoriesTypeId").val()
+        }
+    }
+</script>

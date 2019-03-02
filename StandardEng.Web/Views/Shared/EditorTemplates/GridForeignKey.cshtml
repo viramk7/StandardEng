@@ -1,0 +1,11 @@
+﻿@model object
+
+@(
+ Html.Kendo().ComboBoxFor(m => m)
+ .Placeholder(WebHelper.PleaseSelect)
+ .Filter(FilterType.Contains)
+ .HtmlAttributes(new { @data_value_primitive = true })
+        .BindTo((SelectList)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("") + "_Data"])
+)
+
+

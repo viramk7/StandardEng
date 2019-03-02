@@ -1,0 +1,195 @@
+﻿@using StandardEng.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - Standard Engineering</title>
+
+    <link rel="icon" type="image/png" href="~/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/favicon-16x16.png" sizes="16x16">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+
+    <link href="~/Content/css/styles.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap_limitless.min.css" rel="stylesheet" />
+    <link href="~/Content/css/layout.min.css" rel="stylesheet" />
+    <link href="~/Content/css/components.min.css" rel="stylesheet" />
+    <link href="~/Content/css/colors.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootbox.css" rel="stylesheet" />
+
+    <link href="~/Content/kendo-ui/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo-ui/styles/kendo.silver.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo-ui/styles/kendo.custom.css" rel="stylesheet" />
+    <link href="~/Content/kendo-ui/styles/kendoCustom.css" rel="stylesheet" />
+    <link href="~/Content/kendo-ui/styles/telerikReportViewer.css" rel="stylesheet" />
+    <link href="~/Content/css/pnotify.custom.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/JS/jquery.min.js"></script>
+    <script src="~/Scripts/JS/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.js"></script>
+    @*<script src="~/Scripts/JS/uniform.min.js"></script>*@
+    <script src="~/Scripts/JS/app.js"></script>
+    @*<script src="~/Scripts/JS/dashboard.js"></script>*@
+    @*<script src="~/Scripts/JS/form_layouts.js"></script>*@
+
+    <script src="~/Content/kendo-ui/js/kendo.all.min.js"></script>
+    <script src="~/Content/kendo-ui/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/Content/kendo-ui/js/telerikReportViewer-12.0.18.227.min.js"></script>
+    <script src="~/Content/kendo-ui/js/cultures/kendo.culture.en-IN.min.js"></script>
+    <script src="~/Content/kendo-ui/js/messages/kendo.messages.en-US.min.js"></script>
+    <script src="~/Content/kendo-ui/js/jszip.min.js"></script>
+
+    <script src="~/Scripts/Common.js"></script>
+
+    <script src="~/Scripts/pnotify.custom.min.js"></script>
+</head>
+<body class="navbar-top">
+
+    @Html.Partial("_Header")
+    <div class="page-content">
+
+        <!-- Main sidebar -->
+        <div class="sidebar sidebar-light sidebar-main sidebar-expand-md">
+            @Html.Partial("_Sidebar")
+        </div>
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+
+
+
+    <div id="divPopupTimeOut" style="display:none; text-align: left; margin-top:15px; width:280px !important; position:fixed; top:40px; right:0px; z-index:9999; height:165px;" class="alert alert-warning">
+        <div class="row" style="margin-top:10px; margin-left:10px;">
+            Your session is about to expire!
+            <br />
+            <span id="CountDownHolder"></span>
+            <br />
+            Click OK to continue your session.
+        </div>
+        <div class="row">
+            <div class="text-center button-block" style="text-align:center; margin-top:22px;">
+                <button type="button" class="btn btn-default btn-sm" onclick="SessionTimeout.sendKeepAlive();">OK</button>
+                <button type="button" class="btn btn-default btn-sm" onclick="SessionTimeout.hidePopup();">cancel</button>
+            </div>
+        </div>
+    </div>
+
+    @functions {
+        public int PopupShowDelay
+        {
+            get
+            {
+                return 1000 * (Convert.ToInt32(FormsAuthentication.Timeout.TotalSeconds) - 130);
+            }
+        }
+    }
+
+    <script type="text/javascript">
+     var pathArray = '@WebHelper.SiteRootPathUrl' + '/';
+
+    var controllerName = '@ViewContext.RouteData.Values["Controller"].ToString()';
+
+    $(document).ready(function () {
+        kendo.culture('en-IN');
+        setActiveMenulink();
+
+         var errormessage = '@TempData[Enums.NotifyType.Error.GetDescription()]';
+            var successmessage = '@TempData[Enums.NotifyType.Success.GetDescription()]';
+            if (errormessage !== "") {
+                ShowErrorMessage(errormessage);
+            }
+
+            if (successmessage !== "") {
+                SucessMessage(successmessage);
+        }
+
+        SessionTimeout.schedulePopup();
+    });
+
+        function ShowErrorMessage(msg) {
+            new PNotify({
+                text: msg,
+                type: 'error'
+            });
+        }
+
+
+        function SucessMessage(msg) {
+            new PNotify({
+                text: msg,
+                type: 'success'
+            });
+
+    }
+
+
+    var loginUrl='@Url.Action("Index", "Login")';
+    var extendMethodUrl='@Url.Action("ExtendSession","Home")';
+
+    window.SessionTimeout = (function() {
+            var _timeLeft, _popupTimer, _countDownTimer;
+            var stopTimers = function() {
+                window.clearTimeout(_popupTimer);
+                window.clearTimeout(_countDownTimer);
+            };
+            var updateCountDown = function() {
+                var min = Math.floor(_timeLeft / 60);
+                var sec = _timeLeft % 60;
+                if(sec < 10)
+                    sec = "0" + sec;
+
+                document.getElementById("CountDownHolder").innerHTML = min + ":" + sec;
+
+                if(_timeLeft > 0) {
+                    _timeLeft--;
+                    _countDownTimer = window.setTimeout(updateCountDown, 1000);
+                } else  {
+                    document.location = loginUrl;
+                }
+            };
+            var showPopup = function() {
+            $("#divPopupTimeOut").show();
+                _timeLeft = 300;
+                updateCountDown();
+            };
+            var schedulePopup = function() {
+            $("#divPopupTimeOut").hide();
+                stopTimers();
+                _popupTimer = window.setTimeout(showPopup, @PopupShowDelay);
+            };
+            var hidePopup=function(){
+            $("#divPopupTimeOut").hide();
+            };
+            var sendKeepAlive = function() {
+                stopTimers();
+                $("#divPopupTimeOut").hide();
+                $.ajax({
+                    type: "GET",
+                    url: extendMethodUrl,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function successFunc(response) {
+                        SessionTimeout.schedulePopup();
+                    },
+                    error:function(){
+                    }
+                });
+            };
+            return {
+                schedulePopup: schedulePopup,
+                sendKeepAlive: sendKeepAlive,
+                hidePopup:hidePopup,
+                stopTimers:stopTimers,
+            };
+
+        })();
+
+    </script>
+
+</body>
+
+</html>

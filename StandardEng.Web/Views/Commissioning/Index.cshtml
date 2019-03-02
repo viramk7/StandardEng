@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "Commissioning";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Commissioning</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Commissioning</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">Commissioning List</h5>
+                </div>
+                <div class="card-body">
+
+                    @(Html.Kendo().Grid<tblCommissioning>
+                                         ()
+                                         .Name("gridCommissioning")
+                                         .Columns(columns =>
+                                         {
+                                             if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                             {
+                                                 columns.Command(command =>
+                                                 {
+                                                     if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                     {
+                                                         command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                     }
+                                                     if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                     {
+                                                         command.Destroy().Text(" ");
+                                                     }
+                                                     if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                     {
+                                                         command.Custom("CreateAMCQ").Text("<span class='k-icon k-i-more-horizontal' title='Create AMC Quotation'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMCQ" }).Click("onCreateAMCQ");
+                                                     }
+                                                 }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                                 .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
+
+                                             }
+                                             columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName");
+                                             columns.ForeignKey(d => d.ContactPersonId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName");
+                                             columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
+                                             columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
+                                             columns.Bound(d => d.MachineSerialNo);
+                                             columns.Bound(d => d.CommissioningDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                             columns.Bound(d => d.WarrantyExpireDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                             columns.Bound(d => d.WarrantyPeriod).Format("{0:" + WebHelper.DateFormate + "}");
+                                             columns.Bound(d => d.IsReadyForAMC).Visible(false);
+                                             columns.Bound(d => d.IsConvertedToAMC).Visible(false);
+                                         })
+                                         //.ToolBar(toolbar =>
+                                         //{
+                                         //    if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                         //    {
+                                         //        toolbar.Template("<a class='k-button k-button-icontext' onclick='onAdd()' href='javascript:void(0)'><span class='k-icon k-i-plus' title='Add'></span>Add</a> ");
+                                         //    }
+                                         //})
+                                         .Pageable(x =>
+                                         {
+                                             x.Refresh(true);
+                                             x.PageSizes(WebHelper.PageSizes);
+                                         })
+                                          .Editable(editable =>
+                                          {
+                                              editable.DisplayDeleteConfirmation("Are you sure you want to delete these Commissioning?");
+                                          })
+                                         .Sortable(sortable => sortable.AllowUnsort(false))
+                                         .Filterable()
+                                         .Scrollable(e => e.Enabled(true))
+                                         .NoRecords()
+                                         .Events(e => e.DataBound("onDataBound"))
+                                         .DataSource(dataSource => dataSource
+                                         .Ajax()
+                                         .ServerOperation(true)
+                                         .PageSize(WebHelper.PageSize)
+                                         .Model(model => model.Id(d => d.CommissioningId))
+                                         .Events(events => events.Error("onError(\"gridCommissioning\")"))
+                                         .Read(read => read.Action("KendoRead", "Commissioning"))
+                                         .Destroy(update => update.Action("KendoDestroy", "Commissioning"))
+
+))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@(Html.Kendo().Window()
+          .Name("wAMCQuotation")
+          .Title("Generate AMC Quotation for Commissionning")
+          .Visible(false)
+          .Draggable(true)
+          .Modal(true)
+          .Width(680)
+          .Height(250))
+
+<script type="text/javascript">
+
+    function onEdit(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("Edit", "Commissioning")';
+        if (data != null)
+            window.location.href = urllink + "?id=" + data.CommissioningId;
+    }
+
+    function onDataBound(e) {
+        var grid = $("#gridCommissioning").data("kendoGrid");
+
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
+
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (!gridData[i].IsReadyForAMC || gridData[i].IsConvertedToAMC) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var editButton = $(currenRow).find("#btnAMCQ");
+                editButton.hide();
+            }
+        }
+    }
+
+
+    function onCreateAMCQ(e) {
+        var grid = $("#gridCommissioning").data("kendoGrid");
+        var tr = $(e.target).closest("tr");
+        var data = grid.dataItem(tr);
+
+        var urllink = '@Url.Action("ConvertToAMCQuotationPartial", "Commissioning")';
+        var window = $("#wAMCQuotation").data("kendoWindow");
+        window.refresh({
+            url: urllink,
+            data: { "CommissioningId": data.CommissioningId }
+        });
+        window.center();
+        window.open();
+    }
+</script>
+
+<script>
+    function CalculateTotalAmount() {
+        var gst = getKendComboboxText('GSTPercentage');
+        if (gst != 0) {
+            var quotationAmount = getkendoNumericTextBoxValue('QuotationAmount');
+            var gstAmount = (quotationAmount * gst) / 100;
+            setkendoNumericTextBoxValue('GSTAmount', gstAmount);
+            var totalAmount = quotationAmount + gstAmount;
+            setkendoNumericTextBoxValue('TotalAmount', totalAmount);
+        }
+        else {
+            setkendoNumericTextBoxValue('GSTAmount', 0);
+            setkendoNumericTextBoxValue('TotalAmount', 0);
+        }
+    }
+
+    function ClosePopupItems() {
+        closeKendoWindow("wAMCQuotation");
+    }
+
+    function GenerateAMCQuotation() {
+        //var validator = $("#statusItem").data("kendoValidator");
+        //if (validator.validate()) {
+            var dataModel = {
+                'CommissioningId': getInputValueById('CommissioningId'),
+                'QuotationAmount': getkendoNumericTextBoxValue('QuotationAmount'),
+                'GSTPercentage': getKendComboboxValue('GSTPercentage'),
+                'GSTAmount': getkendoNumericTextBoxValue('GSTAmount'),
+                'TotalAmount': getkendoNumericTextBoxValue('TotalAmount'),
+                'GSTPercentageText': getKendComboboxText('GSTPercentage')
+            };
+
+
+            var url = '@Url.Action("GenerateAMCQuotation", "Commissioning")';
+            callwebservice(url, { model: dataModel }, GenerateAMCQuotationCompleted, false, datatypeEnum.json, typeEnum.post);
+        //}
+    }
+
+    function GenerateAMCQuotationCompleted(returString) {
+        debugger;
+        if (returString != null) {
+            var id = returString.id;
+            var error = returString.error;
+            if (id !== "" && id != null) {
+                var quotationId = id;
+                closeKendoWindow("wAMCQuotation");
+                window.location.href = '@Url.Action("Edit", "AMCQuotation")?id=' + quotationId;
+            } else {
+                showMessageOnly(error, 'popup-error');
+            }
+        }
+    }
+</script>

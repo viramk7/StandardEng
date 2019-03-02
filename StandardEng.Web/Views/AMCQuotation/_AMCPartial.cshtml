@@ -1,0 +1,19 @@
+﻿@using StandardEng.Data.CustomModel
+@model AMCPartialModel
+
+<div class="k-edit-form-container" id="statusItem">
+    @Html.HiddenFor(m => m.AMCQuotationId)
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.Remarks)
+    </div>
+    <div class="k-edit-field">
+        @Html.TextAreaFor(m => m.Remarks, 5, 5, new { @tabindex = "1", @class = "k-textbox" })
+        @Html.ValidationMessageFor(m => m.Remarks)
+    </div>
+
+    <div class="k-edit-buttons k-state-default">
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="GenerateAMC()">Generate AMC</a>
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="ClosePopupItems() ">Cancel</a>
+    </div>
+</div>

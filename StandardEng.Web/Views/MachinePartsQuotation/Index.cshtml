@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Machine Parts Quotation";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Parts Quotation</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Parts Quotation</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">Parts Quotation List</h5>
+                </div>
+                <div class="card-body">
+
+                    @(Html.Kendo().Grid<tblMachinePartsQuotation>()
+                                                   .Name("gridPartsQ")
+                                                   .Columns(columns =>
+                                                   {
+                                                       if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                       {
+                                                           columns.Command(command =>
+                                                           {
+                                                               if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                               {
+                                                                   command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                               }
+                                                               if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                               {
+                                                                   command.Custom("Delete").Text("<span class='k-icon k-i-close' title='Delete'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onDelete");
+                                                               }
+                                                               if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                               {
+                                                                   command.Custom("Report").Text("<span class='k-icon k-i-file-txt' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                                               }
+                                                           }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                                              .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
+
+                                                       }
+                                                       columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName");
+                                                       columns.ForeignKey(d => d.CustomerContactPId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName");
+                                                       columns.Bound(d => d.QuotationNo);
+                                                       columns.Bound(d => d.QuotationDate).Format("{0:" + WebHelper.DateFormate + "}");
+
+                                                   })
+                                                   .ToolBar(toolbar =>
+                                                   {
+                                                       if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                       {
+                                                           toolbar.Template("<a class='k-button k-button-icontext' onclick='onAdd()' href='javascript:void(0)'><span class='k-icon k-i-plus' title='Add'></span>Add</a> ");
+                                                       }
+                                                   })
+                                                   .Pageable(x =>
+                                                   {
+                                                       x.Refresh(true);
+                                                       x.PageSizes(WebHelper.PageSizes);
+                                                   })
+                                                   .Sortable(sortable => sortable.AllowUnsort(false))
+                                                   .Filterable()
+                                                   .NoRecords()
+                                                   .DataSource(dataSource => dataSource
+                                                       .Ajax()
+                                                       .ServerOperation(true)
+                                                       .PageSize(WebHelper.PageSize)
+                                                       .Model(model => model.Id(d => d.MachinePartsQuotationId))
+                                                       .Events(events => events.Error("onError(\"gridPartsQ\")"))
+                                                       .Read(read => read.Action("KendoRead", "MachinePartsQuotation"))
+                                                   ))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@(Html.Kendo().Window()
+                  .Name("wReport")
+                  .Title("Parts Quotation Report")
+                  .Visible(false)
+                  .Draggable(true)
+                  .Modal(true)
+                  .Width(850)
+                  .Height(600))
+
+<script type="text/javascript">
+     function onAdd() {
+        window.location.href = '@Url.Action("Create", "MachinePartsQuotation")';
+    }
+
+    function onEdit(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("Edit", "MachinePartsQuotation")';
+        if (data != null)
+            window.location.href = urllink + "?id=" + data.MachinePartsQuotationId;
+    }
+
+
+    function onDelete(e) {
+        bootbox.confirm('Are you sure you want to delete this Parts Quotation?', function (result) {
+            if (result === true) {
+                e.preventDefault();
+                var grid = $("#gridPartsQ").data("kendoGrid");
+                var tr = $(e.target).closest("tr");
+                var data = grid.dataItem(tr);
+                var url = '@Url.Action("KendoDestroy", "MachinePartsQuotation")';
+                if (data != null)
+                    callwebservice(url, 'id=' + data.MachinePartsQuotationId, DeleteComplete, false, datatypeEnum.text, typeEnum.post);
+            }
+        }, 'popup-confirmation');
+    }
+
+    function DeleteComplete(returString) {
+        if (returString != null) {
+            if (returString !== "") {
+                showMessageOnly(returString, 'popup-error');
+            } else {
+                SucessMessage('Parts Quotation deleted succesfully.')
+                readKendoGrid('gridPartsQ');
+            }
+        }
+    }
+
+    function onReport(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("PartsQuotationReport", "MachinePartsQuotation")';
+        var window = $("#wReport").data("kendoWindow");
+        window.refresh({
+            url: urllink,
+            data: { "PartsQuotationId": data.MachinePartsQuotationId, "Reportname": "PartsQuotation_" + data.QuotationNo }
+        });
+        window.center();
+        window.open();
+    }
+
+</script>
+

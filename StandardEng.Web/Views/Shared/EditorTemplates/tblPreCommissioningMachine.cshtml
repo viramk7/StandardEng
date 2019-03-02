@@ -1,0 +1,78 @@
+﻿@model tblPreCommissioningMachine
+
+@Html.HiddenFor(m => m.PCMachined)
+
+<div class="editor-label">
+    @Html.LabelFor(m => m.MachineTypeId)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().ComboBoxFor(m => m.MachineTypeId)
+                          .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
+                          .Placeholder("--Select Machine Type --")
+                          .DataTextField("MachineTypeName")
+                          .DataValueField("MachineTypeId")
+                          .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 1 })
+                          .DataSource(source =>
+                          {
+                              source.Read(read =>
+                              {
+                                  read.Action("GetMachineTypeList", "Common");
+                              });
+                          })
+    )
+    @Html.ValidationMessageFor(m => m.MachineTypeId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.MachineModeld)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().ComboBoxFor(m => m.MachineModeld)
+                         .Value(Model.MachineModeld == 0 ? string.Empty : Model.MachineModeld.ToString())
+                         .Placeholder("--Select Machine --")
+                         .DataTextField("MachineName")
+                         .DataValueField("MachineModelId")
+                         .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 2 })
+                         .Enable(false)
+                         .AutoBind(false)
+                         .CascadeFrom("MachineTypeId")
+                         .DataSource(source =>
+                         {
+                             source.Read(read =>
+                             {
+                                 read.Action("GetMachineModelList", "Common").Data("filterMachineType");
+                             }).ServerFiltering(true);
+                         })
+    )
+    @Html.ValidationMessageFor(m => m.MachineModeld)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.MachineSerialNo)
+</div>
+<div class="editor-field">
+    @Html.Kendo().TextBoxFor(m => m.MachineSerialNo).HtmlAttributes(new { @class = "k-textbox", @tabindex = 3 })
+    @Html.ValidationMessageFor(m => m.MachineSerialNo)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(m => m.AHMNo)
+</div>
+<div class="editor-field">
+    @Html.Kendo().TextBoxFor(m => m.AHMNo).HtmlAttributes(new { @class = "k-textbox", @tabindex = 4 })
+    @Html.ValidationMessageFor(m => m.AHMNo)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.DispatchDate)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().DatePickerFor(m => m.DispatchDate)
+        .HtmlAttributes(new { @tabindex = 4 })
+        .Value(Model.DispatchDate == null ? DateTime.Now.Date : Model.DispatchDate))
+    @Html.ValidationMessageFor(m => m.DispatchDate)
+</div>
+
+
+
+
+
+
+

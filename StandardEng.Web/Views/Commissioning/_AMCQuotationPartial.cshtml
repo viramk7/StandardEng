@@ -1,0 +1,58 @@
+﻿@using StandardEng.Data.CustomModel
+@model AMCQuotationPartialModel
+
+<div class="k-edit-form-container" id="statusItem">
+    @Html.HiddenFor(m => m.CommissioningId)
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.QuotationAmount)
+    </div>
+    <div class="k-edit-field">
+        @Html.Kendo().NumericTextBoxFor(m => m.QuotationAmount).HtmlAttributes(new { @tabindex = 1 }).Spinners(false).Min(0).Events(e => e.Change("CalculateTotalAmount"))
+        @Html.ValidationMessageFor(m => m.QuotationAmount)
+    </div>
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.GSTPercentage)
+    </div>
+    <div class="k-edit-field">
+        @(Html.Kendo().ComboBoxFor(m => m.GSTPercentage)
+                      .Value(Model.GSTPercentage == 0 ? string.Empty : Model.GSTPercentage.ToString())
+                      .Placeholder("--Select GST Percentage --")
+                      .DataTextField("Percentage")
+                      .DataValueField("Id")
+                      .HtmlAttributes(new { @tabindex = 2, @data_value_primitive = true })
+                      .DataSource(source =>
+                      {
+                          source.Read(read =>
+                          {
+                              read.Action("GetGSTPercentageList", "Common");
+                          });
+                      })
+                      .Events(e => e.Change("CalculateTotalAmount"))
+        )
+        @Html.ValidationMessageFor(m => m.GSTPercentage)
+    </div>
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.GSTAmount)
+    </div>
+    <div class="k-edit-field">
+        @Html.Kendo().NumericTextBoxFor(m => m.GSTAmount).HtmlAttributes(new { @readonly = "readonly" }).Spinners(false).Min(0)
+        @Html.ValidationMessageFor(m => m.GSTAmount)
+    </div>
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.TotalAmount)
+    </div>
+    <div class="k-edit-field">
+        @Html.Kendo().NumericTextBoxFor(m => m.TotalAmount).HtmlAttributes(new { @readonly = "readonly" }).Spinners(false).Min(0)
+        @Html.ValidationMessageFor(m => m.TotalAmount)
+    </div>
+
+    <div class="k-edit-buttons k-state-default">
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="GenerateAMCQuotation()">Save</a>
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="ClosePopupItems() ">Cancel</a>
+    </div>
+</div>
+

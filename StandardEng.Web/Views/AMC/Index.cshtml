@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "AMC";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - AMC</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">AMC</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">AMC List</h5>
+                </div>
+                <div class="card-body">
+
+                    @(Html.Kendo().Grid<tblAMC>()
+                                     .Name("gridAMC")
+                                     .Columns(columns =>
+                                     {
+                                         if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                         {
+                                             columns.Command(command =>
+                                             {
+                                                 if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                 {
+                                                     command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                 }
+                                                 if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                 {
+                                                     command.Destroy().Text(" ");
+                                                 }
+                                             }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                             .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
+                                         }
+                                         columns.Bound(d => d.AMCQuotationNo).Width(120);
+                                         columns.Bound(d => d.AMCStartDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                         columns.Bound(d => d.AMCEndDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                         columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName").Title("Customer");
+                                         columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName").Title("Machine Type");
+                                         columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName").Title("Machine Model");
+                                         columns.Bound(d => d.MachineSerialNo);
+                                         columns.Bound(d => d.ActualAmount);
+                                         columns.Bound(d => d.GSTPercentage);
+                                         columns.Bound(d => d.TotalAmount);
+
+                                     })
+                                     .Pageable(x =>
+                                     {
+                                         x.Refresh(true);
+                                         x.PageSizes(WebHelper.PageSizes);
+                                     })
+                                      .Editable(editable =>
+                                      {
+                                          editable.DisplayDeleteConfirmation("Are you sure you want to delete these AMC?");
+                                      })
+                                     .Sortable(sortable => sortable.AllowUnsort(false))
+                                     .Filterable()
+                                     .Scrollable(e => e.Enabled(true))
+                                     .NoRecords()
+                                     .Events(e => e.DataBound("onDataBound"))
+                                     .DataSource(dataSource => dataSource
+                                     .Ajax()
+                                     .ServerOperation(true)
+                                     .PageSize(WebHelper.PageSize)
+                                     .Model(model => model.Id(d => d.AMCId))
+                                     .Events(events => events.Error("onError(\"gridAMC\")"))
+                                     .Read(read => read.Action("KendoRead", "AMC"))
+                                     .Destroy(update => update.Action("KendoDestroy", "AMC"))
+
+                                ))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function onEdit(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("Edit", "AMC")';
+        if (data != null)
+            window.location.href = urllink + "?id=" + data.AMCId;
+    }
+
+    function onDataBound(e) {
+        var grid = $("#gridAMC").data("kendoGrid");
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
+    }
+
+</script>
+
+

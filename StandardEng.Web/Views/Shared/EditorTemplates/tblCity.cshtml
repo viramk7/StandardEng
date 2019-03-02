@@ -1,0 +1,65 @@
+﻿@model tblCity
+
+@Html.HiddenFor(m => m.CityId)
+<div class="editor-label">
+    @Html.LabelFor(m => m.CityName)
+</div>
+<div class="editor-field">
+    @Html.Kendo().TextBoxFor(m => m.CityName).HtmlAttributes(new { @class = "k-textbox", @tabindex = 1 })
+    @Html.ValidationMessageFor(m => m.CityName)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(m => m.CountryId)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().ComboBoxFor(m => m.CountryId)
+                          .Value(Model.CountryId == 0 ? string.Empty : Model.CountryId.ToString())
+                          .Placeholder("--Select Country --")
+                          .DataTextField("CountryName")
+                          .DataValueField("CountryId")
+                          .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 2 })
+                          .DataSource(source =>
+                          {
+                              source.Read(read =>
+                              {
+                                  read.Action("GetCountryList", "Common");
+                              });
+                          })
+    )
+    @Html.ValidationMessageFor(m => m.CountryId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.StateId)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().ComboBoxFor(m => m.StateId)
+                          .Value(Model.StateId == 0 ? string.Empty : Model.StateId.ToString())
+                          .Placeholder("--Select State --")
+                          .DataTextField("StateName")
+                          .DataValueField("StateId")
+                          .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 3 })
+                          .Enable(false)
+                          .AutoBind(false)
+                          .CascadeFrom("CountryId")
+                          .DataSource(source =>
+                          {
+                              source.Read(read =>
+                              {
+                                  read.Action("GetStateList", "Common").Data("filterState");
+                              }).ServerFiltering(true);
+                          })
+    )
+    @Html.ValidationMessageFor(m => m.StateId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(x => x.IsActive)
+</div>
+<div class="editor-field">
+    @Html.CheckBoxFor(m => m.IsActive)
+</div>
+
+
+
+
+

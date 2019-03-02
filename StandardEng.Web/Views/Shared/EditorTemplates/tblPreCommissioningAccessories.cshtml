@@ -1,0 +1,68 @@
+﻿@model tblPreCommissioningAccessories
+
+@Html.HiddenFor(m => m.PCAccessoriesId)
+
+<div class="editor-label">
+    @Html.LabelFor(m => m.AccessoriesTypeId)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().ComboBoxFor(m => m.AccessoriesTypeId)
+                                                  .Value(Model.AccessoriesTypeId == 0 ? string.Empty : Model.AccessoriesTypeId.ToString())
+                                                  .Placeholder("--Select Accessories Type --")
+                                                  .DataTextField("AccessoriesTypeName")
+                                                  .DataValueField("AccessoriesTypeId")
+                                                  .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 1 })
+                                                  .DataSource(source =>
+                                                  {
+                                                      source.Read(read =>
+                                                      {
+                                                          read.Action("GetAccessoriesTypeList", "Common");
+                                                      });
+                                                  })
+    )
+    @Html.ValidationMessageFor(m => m.AccessoriesTypeId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.MachineAccessoriesId)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().ComboBoxFor(m => m.MachineAccessoriesId)
+                                                  .Value(Model.MachineAccessoriesId == 0 ? string.Empty : Model.MachineAccessoriesId.ToString())
+                                                  .Placeholder("--Select Machine Accessories --")
+                                                  .DataTextField("AccessoriesName")
+                                                  .DataValueField("MachineAccessoriesId")
+                                                  .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 2 })
+                                                  .Enable(false)
+                                                  .AutoBind(false)
+                                                  .CascadeFrom("AccessoriesTypeId")
+                                                  .DataSource(source =>
+                                                  {
+                                                      source.Read(read =>
+                                                      {
+                                                          read.Action("GetMachineAccessoriesList", "Common").Data("filterAccessoriesType");
+                                                      }).ServerFiltering(true);
+                                                  })
+    )
+    @Html.ValidationMessageFor(m => m.MachineAccessoriesId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.AccessoriesSerialNo)
+</div>
+<div class="editor-field">
+    @Html.Kendo().TextBoxFor(m => m.AccessoriesSerialNo).HtmlAttributes(new { @class = "k-textbox", @tabindex = 3 })
+    @Html.ValidationMessageFor(m => m.AccessoriesSerialNo)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.DispatchDate)
+</div>
+<div class="editor-field">
+    @(Html.Kendo().DatePickerFor(m => m.DispatchDate)
+        .HtmlAttributes(new { @tabindex = 4 })
+        .Value(Model.DispatchDate == null ? DateTime.Now.Date : Model.DispatchDate))
+    @Html.ValidationMessageFor(m => m.DispatchDate)
+</div>
+
+
+
+
+

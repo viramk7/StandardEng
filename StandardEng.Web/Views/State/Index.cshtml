@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "State";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Masters</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Masters - State</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">State List</h5>
+                </div>
+                <div class="card-body">
+
+                    @(Html.Kendo().Grid<tblState>()
+                                  .Name("gridState")
+                                  .Columns(columns =>
+                                  {
+                                      if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                      {
+                                          columns.Command(command =>
+                                          {
+                                              if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                              {
+                                                  command.Edit().Text(" ");
+                                              }
+                                              if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                              {
+                                                  command.Destroy().Text(" ");
+                                              }
+                                          }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                             .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+
+                                      }
+                                      columns.Bound(d => d.StateName);
+                                      columns.ForeignKey(d => d.CountryId, (IEnumerable)ViewBag.CountryList, "CountryId", "CountryName");
+                                      if (AuthorizationHelper.CanChangeStatus(ViewContext.RouteData.Values["Controller"].ToString()))
+                                      {
+                                          columns.Bound(d => d.IsActive).Filterable(false)
+                                                         .ClientTemplate(Html.SetStatusClientTemplate("IsActive", "State", "ChangeStatus",
+                                                         "id=#= StateId #", "#= StateId #", "gridState", "State")).HtmlAttributes(WebHelper.StatusColumnStyle)
+                                                         .HeaderHtmlAttributes(WebHelper.StatusColumnStyle);
+                                      }
+                                  })
+                                  .ToolBar(toolbar =>
+                                  {
+                                      if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                      {
+                                          toolbar.Create().Text("Add");
+                                      }
+                                  })
+                                  .Editable(editable =>
+                                  {
+                                      editable.Mode(GridEditMode.PopUp);
+                                      editable.DisplayDeleteConfirmation("Are you sure you want to delete this State?");
+                                      editable.Window(x => x.Title("Manage State"));
+                                  })
+                                  .Pageable(x =>
+                                  {
+                                      x.Refresh(true);
+                                      x.PageSizes(WebHelper.PageSizes);
+                                  })
+                                  .Sortable(sortable => sortable.AllowUnsort(false))
+                                  .Filterable()
+                                  .NoRecords()
+                                  .Events(grid => grid.Edit("edit"))
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .ServerOperation(true)
+                                      .PageSize(WebHelper.PageSize)
+                                      .Model(model => model.Id(d => d.StateId))
+                                      .Events(events => events.Error("onError(\"gridState\")"))
+                                      .Create(update => update.Action("KendoSave", "State"))
+                                      .Read(read => read.Action("KendoRead", "State"))
+                                      .Update(update => update.Action("KendoSave", "State"))
+                                      .Destroy(update => update.Action("KendoDestroy", "State"))
+                                  ))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function edit(e) {
+        if (e.model.isNew()) {
+            e.model.set("IsActive", true);
+            e.model.set("CountryId", "");
+        }
+        e.container.data('kendoWindow').bind('activate', function () {
+            setFocusById('StateName');
+        });
+    }
+
+</script>

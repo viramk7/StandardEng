@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Error";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - Standard Engineering</title>
+
+    <link rel="icon" type="image/png" href="~/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/favicon-16x16.png" sizes="16x16" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/Content/css/styles.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap_limitless.min.css" rel="stylesheet" />
+    <link href="~/Content/css/layout.min.css" rel="stylesheet" />
+    <link href="~/Content/css/components.min.css" rel="stylesheet" />
+    <link href="~/Content/css/colors.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- Page content --> 
+    <div class="page-content">
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content d-flex justify-content-center align-items-center">
+
+                <!-- Container -->
+                <div class="flex-fill">
+
+                    <!-- Error title -->
+                    <div class="text-center mb-3">
+                        <h5 class="error-title">Server Error</h5>
+                        @*<h5>Oops, an error has occurred. Internal server error!</h5>*@
+                        <h4 class="error-subheading">Looks like something went wrong!</h4>
+                        <h4>
+                            <small>We track these errors automatically, but if the problem persists feel free to contact administrator.</small>
+                        </h4>
+                    </div>
+                    <!-- /error title -->
+                    <!-- Error content -->
+                    <div class="row">
+                        <div class="col-xl-4 offset-xl-4 col-md-8 offset-md-2">
+                            <!-- Buttons -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a href="@Url.Action("Index","Login")" class="btn btn-primary btn-block"><i class="icon-home4 mr-2"></i> Return to Sign In</a>
+                                </div>
+                            </div>
+                            <!-- /buttons -->
+
+                        </div>
+                    </div>
+                    <!-- /error wrapper -->
+
+                </div>
+                <!-- /container -->
+
+            </div>
+            <!-- /content area -->
+            @*<div class="error">
+                <div class="error-body">
+                    <h1 class="error-heading">Server Error</h1>
+                    <h4 class="error-subheading">Looks like something went wrong!</h4>
+                    <p>
+                        <small>We track these errors automatically, but if the problem persists feel free to contact administrator.</small>
+                    </p>
+                    <p><a class="btn btn-primary btn-pill btn-thick" href="@Url.Action("Index","Login")">Return to LoginPage</a></p>
+                </div>
+                <div class="error-footer">
+
+                    <p>
+                        <small>© @DateTime.Now.Year Standard Engineering</small>
+                    </p>
+                </div>
+            </div>*@
+
+
+            <script src="~/Scripts/JS/jquery.min.js"></script>
+            <script src="~/Scripts/JS/bootstrap.bundle.min.js"></script>
+            <script src="~/Scripts/JS/app.js"></script>
+</body>
+</html>
