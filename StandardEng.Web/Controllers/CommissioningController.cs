@@ -228,6 +228,10 @@ namespace StandardEng.Web.Controllers
 
                 string result = _dbRepository.Insert(commissionobj);
 
+                if (!string.IsNullOrEmpty(result))
+                {
+                    return RedirectToAction("Edit", "PreCommissioning", new { id = id });
+                }
                 tblWarrantyexpires warrantyObj = new tblWarrantyexpires();
                 warrantyObj.CommissioningId = commissionobj.CommissioningId;
                 warrantyObj.CommissioningDate = precommisdetailobj.PreCommisoningDate;

@@ -120,7 +120,7 @@
             {
                 <div class="card">
                     <div class="card-header header-elements-inline">
-                        <h5 class="card-title">Pre Commissioning Machine List</h5>
+                        <h5 class="card-title">Dispatch Machine List</h5>
                     </div>
                     <div class="card-body">
 
@@ -179,7 +179,7 @@
 
                 <div class="card">
                     <div class="card-header header-elements-inline">
-                        <h5 class="card-title">Pre Commissioning Accessories List</h5>
+                        <h5 class="card-title">Dispatch Accessories List</h5>
                     </div>
                     <div class="card-body">
 
@@ -495,7 +495,7 @@
         var gridData = grid.dataSource.view();
         for (var i = 0; i < gridData.length; i++) {
             var currentUid = gridData[i].uid;
-            if (gridData[i].IsCommisioning) {
+            if (!gridData[i].IsLatest) {
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                 var editButton = $(currenRow).find("#btnFQ");
                 editButton.hide();

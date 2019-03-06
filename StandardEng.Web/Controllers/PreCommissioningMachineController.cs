@@ -87,14 +87,7 @@ namespace StandardEng.Web.Controllers
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
-
-        public ActionResult GetPCMachineList(int? PreCommissioningId = 0)
-        {
-            var result = _dbRepository.GetEntities().Where(m => m.PreCommissioningId == PreCommissioningId)
-                                .Select(m => new { m.PCMachined, m.MachineSerialNo })
-                                .OrderBy(m => new { m.MachineSerialNo }).ToList();
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        
         #endregion
     }
 }

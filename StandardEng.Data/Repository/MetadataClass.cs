@@ -849,7 +849,7 @@ namespace StandardEng.Data.DB
     }
 
     [MetadataType(typeof(Metadata))]
-    public partial class tblCommissioning : IValidatableObject
+    public partial class tblCommissioning 
     {
         public bool IsWarrantyPeriodChange { get; set; }
 
@@ -898,13 +898,13 @@ namespace StandardEng.Data.DB
             public string ReportServiceNo { get; set; }
         }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (CustomRepository.IsCommissioningReportServiceNoExists(CommissioningId, ReportServiceNo))
-            {
-                var fieldName = new[] { "ReportServiceNo" };
-                yield return new ValidationResult("Report Service No is already exists.", fieldName);
-            }
-        }
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    if (CustomRepository.IsCommissioningReportServiceNoExists(CommissioningId, ReportServiceNo))
+        //    {
+        //        var fieldName = new[] { "ReportServiceNo" };
+        //        yield return new ValidationResult("Report Service No is already exists.", fieldName);
+        //    }
+        //}
     }
 }

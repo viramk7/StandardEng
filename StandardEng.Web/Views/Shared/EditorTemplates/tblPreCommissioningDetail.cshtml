@@ -12,14 +12,14 @@
         @(Html.Kendo().MultiSelectFor(m => m.PCMachineIdList)
                               //.Value(Model.PCMachineIdList == 0 ? string.Empty : Model.PCMachineIdList.ToString())
                               .Placeholder("--Select --")
-                              .DataTextField("MachineSerialNo")
+                              .DataTextField("MachineName")
                               .DataValueField("PCMachined")
                               .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 1 })
                               .DataSource(source =>
                               {
                                   source.Read(read =>
                                   {
-                                      read.Action("GetPCMachineList", "PreCommissioningMachine").Data("filterDetailMachine");
+                                      read.Action("GetPCMachineListDD", "Common").Data("filterDetailMachine");
                                   });
                               })
         )
@@ -35,14 +35,14 @@
         @(Html.Kendo().MultiSelectFor(m => m.PCAccessoryIdList)
                               //.Value(Model.PCMachineIdList == 0 ? string.Empty : Model.PCMachineIdList.ToString())
                               .Placeholder("--Select --")
-                              .DataTextField("AccessoriesSerialNo")
+                              .DataTextField("AccessoriesName")
                               .DataValueField("PCAccessoriesId")
                               .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 1 })
                               .DataSource(source =>
                               {
                                   source.Read(read =>
                                   {
-                                      read.Action("GetPCAccessoryList", "PreCommissioningAccessories").Data("filterDetailMachine");
+                                      read.Action("GetPCAsseccoryListDD", "Common").Data("filterDetailMachine");
                                   });
                               })
         )
@@ -62,18 +62,18 @@
     </div>
     <div class="editor-field">
         @(Html.Kendo().ComboBoxFor(m => m.ServiceEngineerId)
-                                                                      .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
-                                                                      .Placeholder("--Select --")
-                                                                      .DataTextField("Name")
-                                                                      .DataValueField("UserId")
-                                                                      .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 4 })
-                                                                      .DataSource(source =>
-                                                                      {
-                                                                          source.Read(read =>
-                                                                          {
-                                                                              read.Action("GetServiceEngineerList", "Common");
-                                                                          });
-                                                                      })
+              .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
+              .Placeholder("--Select --")
+              .DataTextField("Name")
+              .DataValueField("UserId")
+              .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 4 })
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetServiceEngineerList", "Common");
+                  });
+              })
         )
         @Html.ValidationMessageFor(m => m.ServiceEngineerId)
     </div>

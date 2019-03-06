@@ -88,14 +88,6 @@ namespace StandardEng.Web.Controllers
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
 
-        public ActionResult GetPCAccessoryList(int? PreCommissioningId = 0)
-        {
-            var result = _dbRepository.GetEntities().Where(m => m.PreCommissioningId == PreCommissioningId)
-                                .Select(m => new { m.PCAccessoriesId, m.AccessoriesSerialNo })
-                                .OrderBy(m => new { m.AccessoriesSerialNo }).ToList();
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
         #endregion
     }
 }

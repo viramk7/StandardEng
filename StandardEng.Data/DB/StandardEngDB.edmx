@@ -321,6 +321,7 @@
           <Property Name="IsCommisioning" Type="bit" Nullable="false" />
           <Property Name="ServiceEngineerId" Type="int" Nullable="false" />
           <Property Name="PrecommisioningRemark" Type="varchar(max)" />
+          <Property Name="IsLatest" Type="bit" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
@@ -888,6 +889,12 @@
           <Parameter Name="RoleId" Type="int" Mode="In" />
           <Parameter Name="IsSuperAdmin" Type="bit" Mode="In" />
         </Function>
+        <Function Name="GetPCAsseccoryListDD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PreCommissioningId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPCMachineListDD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PreCommissioningId" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetWarrantyExpiryCustomerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="StandardEngModelStoreContainer">
           <EntitySet Name="tblAccessoriesType" EntityType="Self.tblAccessoriesType" Schema="dbo" store:Type="Tables" />
@@ -1268,6 +1275,12 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblPreCommissioningDetail" EntitySet="tblPreCommissioningDetail" />
           </AssociationSet>
+          <FunctionImport Name="GetPCAsseccoryListDD" ReturnType="Collection(StandardEngModel.GetPCAsseccoryListDD_Result)">
+          <Parameter Name="PreCommissioningId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPCMachineListDD" ReturnType="Collection(StandardEngModel.GetPCMachineListDD_Result)">
+          <Parameter Name="PreCommissioningId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
           <Property Type="Int32" Name="RoleMenuPK" Nullable="false" />
@@ -2051,6 +2064,7 @@
           <NavigationProperty Name="tblCommissioning" Relationship="StandardEngModel.FK_tblCommissioning_tblPreCommissioning" FromRole="tblPreCommissioningDetail" ToRole="tblCommissioning" />
           <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioningDetail_tblPreCommissioning" FromRole="tblPreCommissioningDetail" ToRole="tblPreCommissioning" />
           <NavigationProperty Name="tblUser" Relationship="StandardEngModel.FK_tblPreCommissioningDetail_tblUser" FromRole="tblPreCommissioningDetail" ToRole="tblUser" />
+          <Property Name="IsLatest" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblPreCommissioningMachine">
           <Key>
@@ -2265,6 +2279,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetPCAsseccoryListDD_Result">
+          <Property Type="Int32" Name="PCAccessoriesId" Nullable="false" />
+          <Property Type="String" Name="AccessoriesName" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetPCMachineListDD_Result">
+          <Property Type="Int32" Name="PCMachined" Nullable="false" />
+          <Property Type="String" Name="MachineName" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2719,6 +2741,7 @@
           <EntitySetMapping Name="tblPreCommissioningDetail">
             <EntityTypeMapping TypeName="StandardEngModel.tblPreCommissioningDetail">
               <MappingFragment StoreEntitySet="tblPreCommissioningDetail">
+                <ScalarProperty Name="IsLatest" ColumnName="IsLatest" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -2751,6 +2774,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPCAsseccoryListDD" FunctionName="StandardEngModel.Store.GetPCAsseccoryListDD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StandardEngModel.GetPCAsseccoryListDD_Result">
+                <ScalarProperty Name="PCAccessoriesId" ColumnName="PCAccessoriesId" />
+                <ScalarProperty Name="AccessoriesName" ColumnName="AccessoriesName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPCMachineListDD" FunctionName="StandardEngModel.Store.GetPCMachineListDD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StandardEngModel.GetPCMachineListDD_Result">
+                <ScalarProperty Name="PCMachined" ColumnName="PCMachined" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -20,6 +20,7 @@ namespace StandardEng.Web.Controllers
         private readonly GenericRepository<tblPreCommissioningDetail> _dbRepository;
 
         #endregion
+
         #region Constructor
         public PreCommissioningDetailController()
         {
@@ -83,8 +84,16 @@ namespace StandardEng.Web.Controllers
                 {
                     foreach(int id in model.PCAccessoryIdList)
                     {
+                        tblPreCommissioningDetail oldAccessory = _dbRepository.GetEntities().Where(m => m.PreCommissionId == model.PreCommissionId && m.PCAccesseriesId == id && m.IsLatest == true).FirstOrDefault();
+                        if (oldAccessory != null)
+                        {
+                            oldAccessory.IsLatest = false;
+                            _dbRepository.Update(oldAccessory);
+                        }
+
                         model.PCMachineId = null;
                         model.PCAccesseriesId = id;
+                        model.IsLatest = true;
                         message = _dbRepository.Insert(model);
                     }
                 }
@@ -93,8 +102,16 @@ namespace StandardEng.Web.Controllers
                 {
                     foreach (int id in model.PCMachineIdList)
                     {
+                        tblPreCommissioningDetail oldMachine = _dbRepository.GetEntities().Where(m => m.PreCommissionId == model.PreCommissionId && m.PCMachineId == id && m.IsLatest == true).FirstOrDefault();
+                        if (oldMachine != null)
+                        {
+                            oldMachine.IsLatest = false;
+                            _dbRepository.Update(oldMachine);
+                        }
+
                         model.PCAccesseriesId = null;
                         model.PCMachineId = id;
+                        model.IsLatest = true;
                         message = _dbRepository.Insert(model);
                     }
                 }

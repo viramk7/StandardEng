@@ -149,5 +149,23 @@ namespace StandardEng.Web.Controllers
                 }
             }
         }
+
+        public ActionResult GetPCMachineListDD(int PreCommissioningId)
+        {
+            using (var context = BaseContext.GetDbContext())
+            {
+                var list = context.GetPCMachineListDD(PreCommissioningId).Select(m => new { m.PCMachined, m.MachineName }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult GetPCAsseccoryListDD(int PreCommissioningId)
+        {
+            using (var context = BaseContext.GetDbContext())
+            {
+                var list = context.GetPCAsseccoryListDD(PreCommissioningId).Select(m => new { m.PCAccessoriesId, m.AccessoriesName }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

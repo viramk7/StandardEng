@@ -80,5 +80,23 @@ namespace StandardEng.Data.DB
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetWarrantyExpiryCustomerList_Result>("GetWarrantyExpiryCustomerList");
         }
+    
+        public virtual ObjectResult<GetPCAsseccoryListDD_Result> GetPCAsseccoryListDD(Nullable<int> preCommissioningId)
+        {
+            var preCommissioningIdParameter = preCommissioningId.HasValue ?
+                new ObjectParameter("PreCommissioningId", preCommissioningId) :
+                new ObjectParameter("PreCommissioningId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPCAsseccoryListDD_Result>("GetPCAsseccoryListDD", preCommissioningIdParameter);
+        }
+    
+        public virtual ObjectResult<GetPCMachineListDD_Result> GetPCMachineListDD(Nullable<int> preCommissioningId)
+        {
+            var preCommissioningIdParameter = preCommissioningId.HasValue ?
+                new ObjectParameter("PreCommissioningId", preCommissioningId) :
+                new ObjectParameter("PreCommissioningId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPCMachineListDD_Result>("GetPCMachineListDD", preCommissioningIdParameter);
+        }
     }
 }

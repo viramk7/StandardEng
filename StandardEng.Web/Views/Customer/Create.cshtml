@@ -32,9 +32,15 @@
                             {
                                 if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
                                 {
-                                    <input type="submit" class="btn btn-outline-primary legitRipple" value="Save" name="create" tabindex="15" />
+                                    if (Model.CustomerId > 0)
+                                    {
+                                        <input type="submit" class="btn btn-outline-primary legitRipple" value="Save" name="create" tabindex="15" />
+                                    }
                                     <input type="submit" class="btn btn-outline-primary legitRipple" value="Save & Continue" name="create" tabindex="15" />
-                                    <input type="submit" class="btn btn-outline-primary legitRipple" value="Save & New" name="create" tabindex="15" />
+                                    if (Model.CustomerId > 0)
+                                    {
+                                        <input type="submit" class="btn btn-outline-primary legitRipple" value="Save & New" name="create" tabindex="15" />
+                                    }
                                 }
                             }
                             <a href="@Url.Action("Index", "Customer")" class="btn btn-outline-primary legitRipple" tabindex="18">Back</a>
@@ -60,18 +66,18 @@
                                     @Html.LabelFor(m => m.CountryId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CountryId)
-                                                   .Value(Model.CountryId == 0 ? string.Empty : Model.CountryId.ToString())
-                                                   .Placeholder("--Select Country --")
-                                                   .DataTextField("CountryName")
-                                                   .DataValueField("CountryId")
-                                                   .HtmlAttributes(new { @tabindex = 3 })
-                                                   .DataSource(source =>
-                                                   {
-                                                       source.Read(read =>
-                                                       {
-                                                           read.Action("GetCountryList", "Common");
-                                                       });
-                                                   })
+                                                           .Value(Model.CountryId == 0 ? string.Empty : Model.CountryId.ToString())
+                                                           .Placeholder("--Select Country --")
+                                                           .DataTextField("CountryName")
+                                                           .DataValueField("CountryId")
+                                                           .HtmlAttributes(new { @tabindex = 3 })
+                                                           .DataSource(source =>
+                                                           {
+                                                               source.Read(read =>
+                                                               {
+                                                                   read.Action("GetCountryList", "Common");
+                                                               });
+                                                           })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CountryId)
@@ -82,21 +88,21 @@
                                     @Html.LabelFor(m => m.StateId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.StateId)
-                                                          .Value(Model.StateId == 0 ? string.Empty : Model.StateId.ToString())
-                                                          .Placeholder("--Select State --")
-                                                          .DataTextField("StateName")
-                                                          .DataValueField("StateId")
-                                                          .Enable(false)
-                                                          .AutoBind(false)
-                                                          .CascadeFrom("CountryId")
-                                                          .HtmlAttributes(new { @tabindex = 5 })
-                                                          .DataSource(source =>
-                                                          {
-                                                              source.Read(read =>
-                                                              {
-                                                                  read.Action("GetStateList", "Common").Data("filterState");
-                                                              }).ServerFiltering(true);
-                                                          })
+                                                                  .Value(Model.StateId == 0 ? string.Empty : Model.StateId.ToString())
+                                                                  .Placeholder("--Select State --")
+                                                                  .DataTextField("StateName")
+                                                                  .DataValueField("StateId")
+                                                                  .Enable(false)
+                                                                  .AutoBind(false)
+                                                                  .CascadeFrom("CountryId")
+                                                                  .HtmlAttributes(new { @tabindex = 5 })
+                                                                  .DataSource(source =>
+                                                                  {
+                                                                      source.Read(read =>
+                                                                      {
+                                                                          read.Action("GetStateList", "Common").Data("filterState");
+                                                                      }).ServerFiltering(true);
+                                                                  })
                                         )
                                         @Html.ValidationMessageFor(m => m.StateId)
                                     </div>
@@ -106,21 +112,21 @@
                                     @Html.LabelFor(m => m.CityId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CityId)
-                                                           .Value(Model.CityId == 0 ? string.Empty : Model.CityId.ToString())
-                                                           .Placeholder("--Select City --")
-                                                           .DataTextField("CityName")
-                                                           .DataValueField("CityId")
-                                                           .Enable(false)
-                                                           .AutoBind(false)
-                                                           .CascadeFrom("StateId")
-                                                           .HtmlAttributes(new { @tabindex = 7 })
-                                                           .DataSource(source =>
-                                                           {
-                                                               source.Read(read =>
-                                                               {
-                                                                   read.Action("GetCityList", "Common").Data("filterCity");
-                                                               }).ServerFiltering(true);
-                                                           })
+                                                                   .Value(Model.CityId == 0 ? string.Empty : Model.CityId.ToString())
+                                                                   .Placeholder("--Select City --")
+                                                                   .DataTextField("CityName")
+                                                                   .DataValueField("CityId")
+                                                                   .Enable(false)
+                                                                   .AutoBind(false)
+                                                                   .CascadeFrom("StateId")
+                                                                   .HtmlAttributes(new { @tabindex = 7 })
+                                                                   .DataSource(source =>
+                                                                   {
+                                                                       source.Read(read =>
+                                                                       {
+                                                                           read.Action("GetCityList", "Common").Data("filterCity");
+                                                                       }).ServerFiltering(true);
+                                                                   })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CityId)
@@ -139,6 +145,15 @@
                                     @Html.LabelFor(m => m.IsActive, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @Html.CheckBoxFor(m => m.IsActive)
+                                        @if (Model.IsActive)
+                                        {
+                                            @Html.Label("Active")
+                                        }
+                                        else
+                                        {
+                                            @Html.Label("In-Active")
+                                        }
+
                                     </div>
                                 </div>
 
@@ -174,7 +189,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.AlternativeContactNo, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    @Html.LabelFor(m => m.AlternativeContactNo, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @Html.Kendo().TextBoxFor(m => m.AlternativeContactNo).HtmlAttributes(new { @tabindex = 10 })
                                         @Html.ValidationMessageFor(m => m.AlternativeContactNo)
@@ -198,54 +213,54 @@
                     <div class="card-body">
 
                         @(Html.Kendo().Grid<tblCustomerContactPersons>()
-                                                    .Name("gridCCPerson")
-                                              .Columns(columns =>
-                                              {
-                                                  columns.Command(command =>
-                                                          {
-                                                              command.Edit().Text(" ");
-                                                              command.Destroy().Text(" ");
-                                                          }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
-                                                             .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                                            .Name("gridCCPerson")
+                                                      .Columns(columns =>
+                                                      {
+                                                          columns.Command(command =>
+                                                                  {
+                                                                      command.Edit().Text(" ");
+                                                                      command.Destroy().Text(" ");
+                                                                  }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                                     .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
 
-                                                  columns.Bound(d => d.ContactPersonName);
-                                                  columns.Bound(d => d.ContactPersonEmail);
-                                                  columns.Bound(d => d.ContactNo);
-                                                  columns.Bound(d => d.ContactPersonPosistion);
-                                              })
-                                              .ToolBar(toolbar =>
-                                              {
-                                                  if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                                  {
-                                                      toolbar.Create().Text("Add");
-                                                  }
-                                              })
-                                              .Editable(editable =>
-                                              {
-                                                  editable.Mode(GridEditMode.PopUp);
-                                                  editable.DisplayDeleteConfirmation("Are you sure you want to delete this Contact Person?");
-                                                  editable.Window(x => x.Title("Manage Contact Person"));
-                                              })
-                                              .Pageable(x =>
-                                              {
-                                                  x.Refresh(true);
-                                                  x.PageSizes(WebHelper.PageSizes);
-                                              })
-                                              .Sortable(sortable => sortable.AllowUnsort(false))
-                                              .Filterable()
-                                              .NoRecords()
-                                              .Events(grid => grid.Edit("onEdit").Save("onSave"))
-                                              .DataSource(dataSource => dataSource
-                                                  .Ajax()
-                                                  .ServerOperation(true)
-                                                  .PageSize(WebHelper.PageSize)
-                                                  .Model(model => model.Id(d => d.ContactPersonId))
-                                                  .Events(events => events.Error("onError(\"gridCCPerson\")"))
-                                                  .Create(update => update.Action("KendoSave", "ContactPerson"))
-                                                  .Read(read => read.Action("KendoRead", "ContactPerson").Data("additionalData"))
-                                                  .Update(update => update.Action("KendoSave", "ContactPerson"))
-                                                  .Destroy(update => update.Action("KendoDestroy", "ContactPerson"))
-                                              ))
+                                                          columns.Bound(d => d.ContactPersonName);
+                                                          columns.Bound(d => d.ContactPersonEmail);
+                                                          columns.Bound(d => d.ContactNo);
+                                                          columns.Bound(d => d.ContactPersonPosistion);
+                                                      })
+                                                      .ToolBar(toolbar =>
+                                                      {
+                                                          if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                          {
+                                                              toolbar.Create().Text("Add");
+                                                          }
+                                                      })
+                                                      .Editable(editable =>
+                                                      {
+                                                          editable.Mode(GridEditMode.PopUp);
+                                                          editable.DisplayDeleteConfirmation("Are you sure you want to delete this Contact Person?");
+                                                          editable.Window(x => x.Title("Manage Contact Person"));
+                                                      })
+                                                      .Pageable(x =>
+                                                      {
+                                                          x.Refresh(true);
+                                                          x.PageSizes(WebHelper.PageSizes);
+                                                      })
+                                                      .Sortable(sortable => sortable.AllowUnsort(false))
+                                                      .Filterable()
+                                                      .NoRecords()
+                                                      .Events(grid => grid.Edit("onEdit").Save("onSave"))
+                                                      .DataSource(dataSource => dataSource
+                                                          .Ajax()
+                                                          .ServerOperation(true)
+                                                          .PageSize(WebHelper.PageSize)
+                                                          .Model(model => model.Id(d => d.ContactPersonId))
+                                                          .Events(events => events.Error("onError(\"gridCCPerson\")"))
+                                                          .Create(update => update.Action("KendoSave", "ContactPerson"))
+                                                          .Read(read => read.Action("KendoRead", "ContactPerson").Data("additionalData"))
+                                                          .Update(update => update.Action("KendoSave", "ContactPerson"))
+                                                          .Destroy(update => update.Action("KendoDestroy", "ContactPerson"))
+                                                      ))
                     </div>
                 </div>
             }
