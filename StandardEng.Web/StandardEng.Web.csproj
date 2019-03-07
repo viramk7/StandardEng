@@ -449,6 +449,7 @@
     <Content Include="Views\MachinePartsQuotation\_PartsQuotationReport.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblPreCommissioningMachine.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblPreCommissioningDetail.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">
