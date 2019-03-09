@@ -328,7 +328,9 @@ namespace StandardEng.Web.Controllers
                 quotationObj.InquiryDate = DateTime.Now.Date;
                 quotationObj.PaymentDays = 0;
                 quotationObj.DeliveryWeeks = 0;
-                quotationObj.Freight = String.Empty;
+                quotationObj.FreightAmount = 0 ;
+                quotationObj.TotalFinalAmount = 0;
+                quotationObj.QuotationAmount = 0;
                 quotationObj.Insurance = String.Empty;
                 quotationObj.ValidityDays = 0;
                 quotationObj.CreatedBy = SessionHelper.UserId;

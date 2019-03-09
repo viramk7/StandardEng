@@ -495,7 +495,7 @@
         var gridData = grid.dataSource.view();
         for (var i = 0; i < gridData.length; i++) {
             var currentUid = gridData[i].uid;
-            if (!gridData[i].IsLatest) {
+            if (!gridData[i].IsLatest || gridData[i].IsCommisioning) {
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                 var editButton = $(currenRow).find("#btnFQ");
                 editButton.hide();

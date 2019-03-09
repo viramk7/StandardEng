@@ -128,7 +128,7 @@ namespace StandardEng.Web.Controllers
         {
             using (var context = BaseContext.GetDbContext())
             {
-                var list = context.tblGSTMaster.Select(m => new { m.Id, m.Percentage }).OrderBy(m => new { m.Id }).ToList();
+                var list = context.tblGSTMaster.Select(m => new { m.Id, Percentage= m.Percentage.ToString() }).OrderBy(m => new { m.Id }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
         }

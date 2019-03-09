@@ -33,10 +33,6 @@
         <AssociationConnector Association="StandardEngModel.FK_tblMachineParts_tblMachineType" />
         <EntityTypeShape EntityType="StandardEngModel.tblMachineModels" Width="1.5" PointX="3" PointY="14.375" />
         <AssociationConnector Association="StandardEngModel.FK_tblMachineModels_tblMachineType" />
-        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotationDetail" Width="1.5" PointX="5.25" PointY="11.375" />
-        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineModels" />
-        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineParts" />
-        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineType" />
         <EntityTypeShape EntityType="StandardEngModel.tblGSTMaster" Width="1.5" PointX="10.375" PointY="10.75" />
         <EntityTypeShape EntityType="StandardEngModel.tblAMCQuotation" Width="1.5" PointX="13.5" PointY="9.5" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblMachineModels" />
@@ -45,10 +41,6 @@
         <EntityTypeShape EntityType="StandardEngModel.tblAMCServices" Width="1.5" PointX="18" PointY="11" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMC_tblAMCQuotation" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMCServices_tblAMC" />
-        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotation" Width="1.5" PointX="12.25" PointY="16.5" />
-        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" />
-        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" />
-        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" />
         <EntityTypeShape EntityType="StandardEngModel.tblCommissioning" Width="1.5" PointX="7.5" PointY="18.375" />
         <EntityTypeShape EntityType="StandardEngModel.tblPreCommissioning" Width="1.5" PointX="3" PointY="37" />
         <EntityTypeShape EntityType="StandardEngModel.tblPreCommissioningAccessories" Width="1.5" PointX="15.25" PointY="18" />
@@ -70,6 +62,14 @@
         <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningDetail_tblPreCommissioning" />
         <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningMachine_tblPreCommissioning" />
         <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningDetail_tblUser" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotation" Width="1.5" PointX="3" PointY="41.875" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotationDetail" Width="1.5" PointX="5.25" PointY="9.75" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineModels" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineParts" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

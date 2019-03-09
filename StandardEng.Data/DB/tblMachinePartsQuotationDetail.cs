@@ -25,10 +25,14 @@ namespace StandardEng.Data.DB
         public string PartsHSNCode { get; set; }
         public int PartsQuantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal DiscountPercentage { get; set; }
+        public decimal TotalPrice { get; set; }
+        public Nullable<decimal> PAndFPercentage { get; set; }
+        public Nullable<decimal> ProfitMarginPercentage { get; set; }
+        public Nullable<decimal> DiscountPercentage { get; set; }
         public decimal TaxablePrice { get; set; }
-        public Nullable<decimal> GSTPercentage { get; set; }
-        public Nullable<decimal> GSTAmount { get; set; }
+        public decimal GSTPercentage { get; set; }
+        public decimal GSTAmount { get; set; }
+        public decimal FinalAmount { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
@@ -36,7 +40,7 @@ namespace StandardEng.Data.DB
     
         public virtual tblMachineModels tblMachineModels { get; set; }
         public virtual tblMachineParts tblMachineParts { get; set; }
-        public virtual tblMachineType tblMachineType { get; set; }
         public virtual tblMachinePartsQuotation tblMachinePartsQuotation { get; set; }
+        public virtual tblMachineType tblMachineType { get; set; }
     }
 }

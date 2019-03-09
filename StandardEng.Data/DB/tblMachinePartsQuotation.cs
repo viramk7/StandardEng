@@ -31,10 +31,12 @@ namespace StandardEng.Data.DB
         public Nullable<System.DateTime> InquiryDate { get; set; }
         public Nullable<int> PaymentDays { get; set; }
         public Nullable<int> DeliveryWeeks { get; set; }
-        public string Freight { get; set; }
         public string Insurance { get; set; }
         public Nullable<int> ValidityDays { get; set; }
         public string Email { get; set; }
+        public Nullable<decimal> TotalFinalAmount { get; set; }
+        public Nullable<decimal> FreightAmount { get; set; }
+        public Nullable<decimal> QuotationAmount { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }

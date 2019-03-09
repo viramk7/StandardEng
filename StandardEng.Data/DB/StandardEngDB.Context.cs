@@ -42,17 +42,17 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblWarrantyexpires> tblWarrantyexpires { get; set; }
         public virtual DbSet<tblMachineParts> tblMachineParts { get; set; }
         public virtual DbSet<tblMachineModels> tblMachineModels { get; set; }
-        public virtual DbSet<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
         public virtual DbSet<tblGSTMaster> tblGSTMaster { get; set; }
         public virtual DbSet<tblAMCQuotation> tblAMCQuotation { get; set; }
         public virtual DbSet<tblAMC> tblAMC { get; set; }
         public virtual DbSet<tblAMCServices> tblAMCServices { get; set; }
-        public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
         public virtual DbSet<tblCommissioning> tblCommissioning { get; set; }
         public virtual DbSet<tblPreCommissioning> tblPreCommissioning { get; set; }
         public virtual DbSet<tblPreCommissioningAccessories> tblPreCommissioningAccessories { get; set; }
         public virtual DbSet<tblPreCommissioningDetail> tblPreCommissioningDetail { get; set; }
         public virtual DbSet<tblPreCommissioningMachine> tblPreCommissioningMachine { get; set; }
+        public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
+        public virtual DbSet<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
     
         public virtual ObjectResult<AssignRoleList_Result> AssignRoleList(Nullable<int> roleId)
         {

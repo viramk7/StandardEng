@@ -17,10 +17,10 @@ namespace StandardEng.Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblMachineModels()
         {
-            this.tblMachinePartsQuotationDetail = new HashSet<tblMachinePartsQuotationDetail>();
             this.tblAMCQuotation = new HashSet<tblAMCQuotation>();
             this.tblCommissioning = new HashSet<tblCommissioning>();
             this.tblPreCommissioningMachine = new HashSet<tblPreCommissioningMachine>();
+            this.tblMachinePartsQuotationDetail = new HashSet<tblMachinePartsQuotationDetail>();
         }
     
         public int MachineModelId { get; set; }
@@ -35,12 +35,12 @@ namespace StandardEng.Data.DB
     
         public virtual tblMachineType tblMachineType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAMCQuotation> tblAMCQuotation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCommissioning> tblCommissioning { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPreCommissioningMachine> tblPreCommissioningMachine { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
     }
 }

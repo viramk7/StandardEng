@@ -437,7 +437,7 @@ namespace StandardEng.Data.DB
     }
 
     [MetadataType(typeof(Metadata))]
-    public partial class tblPreCommissioningMachine
+    public partial class tblPreCommissioningMachine : IValidatableObject
     {
         internal class Metadata
         {
@@ -478,6 +478,15 @@ namespace StandardEng.Data.DB
 
             [ScaffoldColumn(false)]
             public Nullable<System.DateTime> ModifiedDate { get; set; }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (CustomRepository.IsPCMachineSerialAlreadyExists(PreCommissioningId, MachineSerialNo, PCMachined))
+            {
+                var fieldName = new[] { "MachineSerialNo" };
+                yield return new ValidationResult("Machine Serial No is Already Exists.", fieldName);
+            }
         }
     }
 
@@ -609,8 +618,17 @@ namespace StandardEng.Data.DB
     }
 
     [MetadataType(typeof(Metadata))]
-    public partial class tblPreCommissioningAccessories
+    public partial class tblPreCommissioningAccessories : IValidatableObject
     {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (CustomRepository.IsPCAccessorySerialAlreadyExists(PreCommissioningId, AccessoriesSerialNo, PCAccessoriesId))
+            {
+                var fieldName = new[] { "AccessoriesSerialNo" };
+                yield return new ValidationResult("Accessories Serial No is already exists.", fieldName);
+            }
+        }
+
         internal class Metadata
         {
             [ScaffoldColumn(false)]
@@ -695,10 +713,6 @@ namespace StandardEng.Data.DB
             [Required(ErrorMessageResourceName = "DeliveryWeeksRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public int DeliveryWeeks { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "Freight")]
-            [StringLength(100, ErrorMessageResourceName = "FreightLength", ErrorMessageResourceType = typeof(CommonMessage))]
-            public string Freight { get; set; }
-
             [Display(ResourceType = typeof(CommonMessage), Name = "Insurance")]
             [StringLength(100, ErrorMessageResourceName = "InsuranceLength", ErrorMessageResourceType = typeof(CommonMessage))]
             public string Insurance { get; set; }
@@ -713,6 +727,13 @@ namespace StandardEng.Data.DB
 
             [Display(ResourceType = typeof(CommonMessage), Name = "ReportServiceNo")]
             public string ReportServiceNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Freight")]
+            public Nullable<decimal> FreightAmount { get; set; }
+
+            public Nullable<decimal> TotalFinalAmount { get; set; }
+            public Nullable<decimal> QuotationAmount { get; set; }
+
 
             [ScaffoldColumn(false)]
             public Nullable<int> SequenceNo { get; set; }

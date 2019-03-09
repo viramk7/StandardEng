@@ -334,7 +334,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.WarrantyExpireDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
                                     <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().DatePickerFor(m => m.WarrantyExpireDate).HtmlAttributes(new { @tabindex = 6, @readonly = "readonly" })
+                                        @Html.Kendo().DatePickerFor(m => m.WarrantyExpireDate).HtmlAttributes(new { @tabindex = 6 })
                                         @Html.ValidationMessageFor(m => m.WarrantyExpireDate)
                                     </div>
                                 </div>

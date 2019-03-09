@@ -21,6 +21,7 @@ namespace StandardEng.Web.Controllers
         private readonly GenericRepository<tblMachinePartsQuotation> _dbRepository;
 
         #endregion
+
         #region Constructor
         public MachinePartsQuotationController()
         {

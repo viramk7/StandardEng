@@ -153,5 +153,23 @@ namespace StandardEng.Data.Repository
                 return result;
             }
         }
+
+        public static bool IsPCMachineSerialAlreadyExists(int PreCommissioningId,string MachineSerialNo, int PCMachined)
+        {
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                bool result = context.tblPreCommissioningMachine.Any(m => m.MachineSerialNo.Trim().ToLower() == MachineSerialNo.Trim().ToLower() && m.PreCommissioningId == PreCommissioningId && m.PCMachined != PCMachined);
+                return result;
+            }
+        }
+
+        public static bool IsPCAccessorySerialAlreadyExists(int PreCommissioningId, string AccessoriesSerialNo, int PCAccessoriesId)
+        {
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                bool result = context.tblPreCommissioningAccessories.Any(m => m.AccessoriesSerialNo.Trim().ToLower() == AccessoriesSerialNo.Trim().ToLower() && m.PreCommissioningId == PreCommissioningId && m.PCAccessoriesId != PCAccessoriesId);
+                return result;
+            }
+        }
     }
 }
