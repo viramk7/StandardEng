@@ -23,6 +23,7 @@ namespace StandardEng.Data.DB
             this.tblCommissioning = new HashSet<tblCommissioning>();
             this.tblPreCommissioningMachine = new HashSet<tblPreCommissioningMachine>();
             this.tblMachinePartsQuotationDetail = new HashSet<tblMachinePartsQuotationDetail>();
+            this.tblPerformaInvoiceDetail = new HashSet<tblPerformaInvoiceDetail>();
         }
     
         public int MachineTypeId { get; set; }
@@ -45,5 +46,7 @@ namespace StandardEng.Data.DB
         public virtual ICollection<tblPreCommissioningMachine> tblPreCommissioningMachine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPerformaInvoiceDetail> tblPerformaInvoiceDetail { get; set; }
     }
 }

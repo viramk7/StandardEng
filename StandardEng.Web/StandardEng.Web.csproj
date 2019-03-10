@@ -195,6 +195,8 @@
     <Compile Include="Controllers\MachinePartController.cs" />
     <Compile Include="Controllers\MachinePartsQuotationController.cs" />
     <Compile Include="Controllers\MachinePartsQuotationDetailController.cs" />
+    <Compile Include="Controllers\PIController.cs" />
+    <Compile Include="Controllers\PIDetailController.cs" />
     <Compile Include="Controllers\PreCommissioningAccessoriesController.cs" />
     <Compile Include="Controllers\PreCommissioningController.cs" />
     <Compile Include="Controllers\PreCommissioningDetailController.cs" />
@@ -366,6 +368,7 @@
     <Folder Include="Views\Common\" />
     <Folder Include="Views\ContactPerson\" />
     <Folder Include="Views\MachinePartsQuotationDetail\" />
+    <Folder Include="Views\PIDetail\" />
     <Folder Include="Views\PreCommissioningAccessories\" />
     <Folder Include="Views\PreCommissioningDetail\" />
     <Folder Include="Views\PreCommissioningMachine\" />
@@ -450,6 +453,9 @@
     <Content Include="Views\Shared\EditorTemplates\tblPreCommissioningMachine.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblPreCommissioningDetail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\PI\Index.cshtml" />
+    <Content Include="Views\PI\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\tblPIDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">

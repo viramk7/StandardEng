@@ -18,6 +18,7 @@ namespace StandardEng.Data.DB
         public tblMachineParts()
         {
             this.tblMachinePartsQuotationDetail = new HashSet<tblMachinePartsQuotationDetail>();
+            this.tblPerformaInvoiceDetail = new HashSet<tblPerformaInvoiceDetail>();
         }
     
         public int MachinePartId { get; set; }
@@ -39,5 +40,7 @@ namespace StandardEng.Data.DB
         public virtual tblMachineType tblMachineType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPerformaInvoiceDetail> tblPerformaInvoiceDetail { get; set; }
     }
 }

@@ -525,4 +525,22 @@
   <data name="DispatchDateRequired" xml:space="preserve">
     <value>DispatchDate is Required</value>
   </data>
+  <data name="FinalAmount" xml:space="preserve">
+    <value>Final Amount</value>
+  </data>
+  <data name="FinalAmountRequired" xml:space="preserve">
+    <value>Final Amount is Required</value>
+  </data>
+  <data name="PAndFPercentage" xml:space="preserve">
+    <value>P&amp;F (%)</value>
+  </data>
+  <data name="ProfitMarginPercentage" xml:space="preserve">
+    <value>Profit-Margin (%)</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="TotalPriceRequired" xml:space="preserve">
+    <value>Total Price is Required</value>
+  </data>
 </root>

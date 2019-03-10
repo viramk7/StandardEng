@@ -19,13 +19,18 @@ namespace StandardEng.Web.Controllers
         #region private variables
 
         private readonly GenericRepository<tblMachinePartsQuotation> _dbRepository;
-
+        private readonly GenericRepository<tblMachinePartsQuotationDetail> _dbRepositoryDetail;
+        private readonly GenericRepository<tblPerformaInvoice> _dbRepositoryPI;
+        private readonly GenericRepository<tblPerformaInvoiceDetail> _dbRepositoryPIDetail;
         #endregion
 
         #region Constructor
         public MachinePartsQuotationController()
         {
             _dbRepository = new GenericRepository<tblMachinePartsQuotation>();
+            _dbRepositoryDetail = new GenericRepository<tblMachinePartsQuotationDetail>();
+            _dbRepositoryPI = new GenericRepository<tblPerformaInvoice>();
+            _dbRepositoryPIDetail = new GenericRepository<tblPerformaInvoiceDetail>();
         }
         #endregion
 
@@ -137,6 +142,87 @@ namespace StandardEng.Web.Controllers
             ViewBag.PartsQuotationId = PartsQuotationId;
             ViewBag.Reportname = Reportname;
             return PartialView("_PartsQuotationReport");
+        }
+
+        public ActionResult GeneratePIFromQuotation(int QuotationId , string SelectedIds)
+        {
+            if (!string.IsNullOrEmpty(SelectedIds) && QuotationId > 0)
+            {
+                tblMachinePartsQuotation quotationObj = _dbRepository.SelectById(QuotationId);
+                if(quotationObj != null)
+                {
+                    List<tblMachinePartsQuotationDetail> detailObj = new List<tblMachinePartsQuotationDetail>();
+                    List<int> selectedIDs = SelectedIds.Split(',').Select(int.Parse).ToList();
+                    foreach(int id in selectedIDs)
+                    {
+                        tblMachinePartsQuotationDetail obj = _dbRepositoryDetail.SelectById(id);
+                        detailObj.Add(obj);
+                    }
+                    if(detailObj.Count > 0)
+                    {
+                        tblPerformaInvoice invoiceObj = new tblPerformaInvoice();
+                        invoiceObj.MPQuotationId = quotationObj.MachinePartsQuotationId;
+                        invoiceObj.QuotationNo = quotationObj.QuotationNo;
+                        invoiceObj.QuotationDate = quotationObj.QuotationDate;
+                        invoiceObj.CustomerId = quotationObj.CustomerId;
+                        invoiceObj.CustomerContactPId = quotationObj.CustomerContactPId;
+                        invoiceObj.CustomerContactPContactNo = quotationObj.CustomerContactPContactNo;
+                        invoiceObj.ReportServiceNo = quotationObj.ReportServiceNo;
+                        invoiceObj.InquiryNo = quotationObj.InquiryNo;
+                        invoiceObj.InquiryDate = quotationObj.InquiryDate;
+                        invoiceObj.PaymentDays = quotationObj.PaymentDays;
+                        invoiceObj.DeliveryWeeks = quotationObj.DeliveryWeeks;
+                        invoiceObj.Insurance = quotationObj.Insurance;
+                        invoiceObj.ValidityDays = quotationObj.ValidityDays;
+                        invoiceObj.Email = quotationObj.Email;
+                        invoiceObj.TotalFinalAmount = quotationObj.TotalFinalAmount;
+                        invoiceObj.FreightAmount = quotationObj.FreightAmount;
+                        invoiceObj.QuotationAmount = quotationObj.QuotationAmount;
+                        invoiceObj.SequenceNo = quotationObj.SequenceNo;
+                        invoiceObj.CreatedBy = SessionHelper.UserId;
+                        invoiceObj.CreatedDate = DateTime.Now;
+                        string result = _dbRepositoryPI.Insert(invoiceObj);
+                        if (string.IsNullOrEmpty(result))
+                        {
+                            foreach(tblMachinePartsQuotationDetail obj in detailObj)
+                            {
+                                tblPerformaInvoiceDetail piDetailObj = new tblPerformaInvoiceDetail();
+                                piDetailObj.PerformaInvoiceId = invoiceObj.PerformaInvoiceId;
+                                piDetailObj.MPQDetailId = obj.MPQDetailId;
+                                piDetailObj.MachineTypeId = obj.MachineTypeId;
+                                piDetailObj.MachineModelId = obj.MachineModelId;
+                                piDetailObj.MachineModelSerialNo = obj.MachineModelSerialNo;
+                                piDetailObj.MachinePartsId = obj.MachinePartsId;
+                                piDetailObj.MachinePartsNo = obj.MachinePartsNo;
+                                piDetailObj.MachinePartDescription = obj.MachinePartDescription;
+                                piDetailObj.PartsHSNCode = obj.PartsHSNCode;
+                                piDetailObj.PartsQuantity = obj.PartsQuantity;
+                                piDetailObj.UnitPrice = obj.UnitPrice;
+                                piDetailObj.TotalPrice = obj.TotalPrice;
+                                piDetailObj.PAndFPercentage = obj.PAndFPercentage;
+                                piDetailObj.ProfitMarginPercentage = obj.ProfitMarginPercentage;
+                                piDetailObj.DiscountPercentage = obj.DiscountPercentage;
+                                piDetailObj.TaxablePrice = obj.TaxablePrice;
+                                piDetailObj.GSTPercentage = obj.GSTPercentage;
+                                piDetailObj.GSTAmount = obj.GSTAmount;
+                                piDetailObj.FinalAmount = obj.FinalAmount;
+                                piDetailObj.CreatedBy = SessionHelper.UserId;
+                                piDetailObj.CreatedDate = DateTime.Now;
+
+                                _dbRepositoryPIDetail.Insert(piDetailObj);
+
+                            }
+
+                            quotationObj.IsPIGenerated = true;
+                            _dbRepository.Update(quotationObj);
+
+                            return RedirectToAction("Edit", "PI", new { id = invoiceObj.PerformaInvoiceId });
+                        }
+                    }
+                }
+            }
+            TempData["Error"] = "Something Went Wrong. Please try again later!"; 
+            return View("Index");
         }
         #endregion
     }

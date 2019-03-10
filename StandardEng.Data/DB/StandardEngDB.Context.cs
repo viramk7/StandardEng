@@ -53,6 +53,8 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblPreCommissioningMachine> tblPreCommissioningMachine { get; set; }
         public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
         public virtual DbSet<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
+        public virtual DbSet<tblPerformaInvoice> tblPerformaInvoice { get; set; }
+        public virtual DbSet<tblPerformaInvoiceDetail> tblPerformaInvoiceDetail { get; set; }
     
         public virtual ObjectResult<AssignRoleList_Result> AssignRoleList(Nullable<int> roleId)
         {

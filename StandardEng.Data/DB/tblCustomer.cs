@@ -20,6 +20,7 @@ namespace StandardEng.Data.DB
             this.tblCustomerContactPersons = new HashSet<tblCustomerContactPersons>();
             this.tblPreCommissioning = new HashSet<tblPreCommissioning>();
             this.tblMachinePartsQuotation = new HashSet<tblMachinePartsQuotation>();
+            this.tblPerformaInvoice = new HashSet<tblPerformaInvoice>();
         }
     
         public int CustomerId { get; set; }
@@ -44,5 +45,7 @@ namespace StandardEng.Data.DB
         public virtual ICollection<tblPreCommissioning> tblPreCommissioning { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPerformaInvoice> tblPerformaInvoice { get; set; }
     }
 }

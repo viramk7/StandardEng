@@ -448,6 +448,24 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Final Amount.
+        /// </summary>
+        public static string FinalAmount {
+            get {
+                return ResourceManager.GetString("FinalAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Final Amount is Required.
+        /// </summary>
+        public static string FinalAmountRequired {
+            get {
+                return ResourceManager.GetString("FinalAmountRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Freight.
         /// </summary>
         public static string Freight {
@@ -826,6 +844,15 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to P&amp;F (%).
+        /// </summary>
+        public static string PAndFPercentage {
+            get {
+                return ResourceManager.GetString("PAndFPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Part HSNCode.
         /// </summary>
         public static string PartsHSNCode {
@@ -988,6 +1015,15 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profit-Margin (%).
+        /// </summary>
+        public static string ProfitMarginPercentage {
+            get {
+                return ResourceManager.GetString("ProfitMarginPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quotation Date.
         /// </summary>
         public static string QuotationDate {
@@ -1146,6 +1182,24 @@ namespace StandardEng.Common {
         public static string TotalAmount {
             get {
                 return ResourceManager.GetString("TotalAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Price.
+        /// </summary>
+        public static string TotalPrice {
+            get {
+                return ResourceManager.GetString("TotalPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Price is Required.
+        /// </summary>
+        public static string TotalPriceRequired {
+            get {
+                return ResourceManager.GetString("TotalPriceRequired", resourceCulture);
             }
         }
         

@@ -753,8 +753,35 @@ namespace StandardEng.Data.DB
     }
 
     [MetadataType(typeof(Metadata))]
-    public partial class tblMachinePartsQuotationDetail
+    public partial class tblMachinePartsQuotationDetail : IValidatableObject
     {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (MachinePartsId == 0)
+            {
+                var fieldName = new[] { "MachinePartsId" };
+                yield return new ValidationResult("Machine Parts is required.", fieldName);
+            }
+
+            if (FinalAmount == 0)
+            {
+                var fieldName = new[] { "FinalAmount" };
+                yield return new ValidationResult("Final Amount is required.", fieldName);
+            }
+
+            if (PartsQuantity == 0)
+            {
+                var fieldName = new[] { "PartsQuantity" };
+                yield return new ValidationResult("Parts Quantity is required.", fieldName);
+            }
+
+            if (UnitPrice == 0)
+            {
+                var fieldName = new[] { "UnitPrice" };
+                yield return new ValidationResult("Unit Price is required.", fieldName);
+            }
+        }
+
         internal class Metadata
         {
             [ScaffoldColumn(false)]
@@ -792,6 +819,20 @@ namespace StandardEng.Data.DB
             [Display(ResourceType = typeof(CommonMessage), Name = "UnitPrice")]
             [Required(ErrorMessageResourceName = "UnitPriceRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public decimal UnitPrice { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PAndFPercentage")]
+            public Nullable<decimal> PAndFPercentage { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ProfitMarginPercentage")]
+            public Nullable<decimal> ProfitMarginPercentage { get; set; }
+
+            [Required(ErrorMessageResourceName = "TotalPriceRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            [Display(ResourceType = typeof(CommonMessage), Name = "TotalPrice")]
+            public decimal TotalPrice { get; set; }
+
+            [Required(ErrorMessageResourceName = "FinalAmountRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            [Display(ResourceType = typeof(CommonMessage), Name = "FinalAmount")]
+            public decimal FinalAmount { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "DiscountPercentage")]
             public decimal DiscountPercentage { get; set; }
@@ -927,5 +968,202 @@ namespace StandardEng.Data.DB
         //        yield return new ValidationResult("Report Service No is already exists.", fieldName);
         //    }
         //}
+    }
+
+    [MetadataType(typeof(Metadata))]
+    public partial class tblPerformaInvoice
+    {
+        internal class Metadata
+        {
+            [ScaffoldColumn(false)]
+            public int PerformaInvoiceId { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<int> MPQuotationId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "QuotationNo")]
+            public string QuotationNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "QuotationDate")]
+            [Required(ErrorMessageResourceName = "QuotationDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public System.DateTime QuotationDate { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "CustomerName")]
+            [Required(ErrorMessageResourceName = "CustomerRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int CustomerId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ContactPersonName")]
+            [Required(ErrorMessageResourceName = "ContactPersonRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int CustomerContactPId { get; set; }
+
+            [Display(Name = "Contact Person Contact Number")]
+            public string CustomerContactPContactNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "InquiryNo")]
+            //[Required(ErrorMessageResourceName = "InquiryNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            [StringLength(50, ErrorMessageResourceName = "InquiryNoLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string InquiryNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "InquiryDate")]
+            [Required(ErrorMessageResourceName = "InquiryDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public Nullable<System.DateTime> InquiryDate { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PaymentDays")]
+            [Required(ErrorMessageResourceName = "PaymentDaysRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int PaymentDays { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "DeliveryWeeks")]
+            [Required(ErrorMessageResourceName = "DeliveryWeeksRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int DeliveryWeeks { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Insurance")]
+            [StringLength(100, ErrorMessageResourceName = "InsuranceLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string Insurance { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ValidityDays")]
+            [Required(ErrorMessageResourceName = "ValidityDaysRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int ValidityDays { get; set; }
+
+            [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
+            [Display(ResourceType = typeof(CommonMessage), Name = "Email")]
+            public string Email { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ReportServiceNo")]
+            public string ReportServiceNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Freight")]
+            public Nullable<decimal> FreightAmount { get; set; }
+
+            public Nullable<decimal> TotalFinalAmount { get; set; }
+            public Nullable<decimal> QuotationAmount { get; set; }
+
+
+            [ScaffoldColumn(false)]
+            public Nullable<int> SequenceNo { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<int> CreatedBy { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<System.DateTime> CreatedDate { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<int> ModifiedBy { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<System.DateTime> ModifiedDate { get; set; }
+        }
+    }
+
+    [MetadataType(typeof(Metadata))]
+    public partial class tblPerformaInvoiceDetail : IValidatableObject
+    {
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if(MachinePartsId == 0)
+            {
+                var fieldName = new[] { "MachinePartsId" };
+                yield return new ValidationResult("Machine Parts is required.", fieldName);
+            }
+
+            if (FinalAmount == 0)
+            {
+                var fieldName = new[] { "FinalAmount" };
+                yield return new ValidationResult("Final Amount is required.", fieldName);
+            }
+
+            if (PartsQuantity == 0)
+            {
+                var fieldName = new[] { "PartsQuantity" };
+                yield return new ValidationResult("Parts Quantity is required.", fieldName);
+            }
+
+            if (UnitPrice == 0)
+            {
+                var fieldName = new[] { "UnitPrice" };
+                yield return new ValidationResult("Unit Price is required.", fieldName);
+            }
+        }
+
+        internal class Metadata
+        {
+            [ScaffoldColumn(false)]
+            public int PIDetailId { get; set; }
+
+            public int PerformaInvoiceId { get; set; }
+            public int MPQDetailId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
+            [Required(ErrorMessageResourceName = "MachineTypeRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int MachineTypeId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineModel")]
+            [Required(ErrorMessageResourceName = "MachineModelRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int MachineModelId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineSerialNo")]
+            [Required(ErrorMessageResourceName = "MachineSerialNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string MachineModelSerialNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineParts")]
+            [Required(ErrorMessageResourceName = "MachinePartsRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int MachinePartsId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachinePartsNo")]
+            public string MachinePartsNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachinePartDescription")]
+            public string MachinePartDescription { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PartsHSNCode")]
+            public string PartsHSNCode { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PartsQuantity")]
+            [Required(ErrorMessageResourceName = "PartsQuantityRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int PartsQuantity { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "UnitPrice")]
+            [Required(ErrorMessageResourceName = "UnitPriceRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public decimal UnitPrice { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PAndFPercentage")]
+            public Nullable<decimal> PAndFPercentage { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ProfitMarginPercentage")]
+            public Nullable<decimal> ProfitMarginPercentage { get; set; }
+
+            [Required(ErrorMessageResourceName = "TotalPriceRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            [Display(ResourceType = typeof(CommonMessage), Name = "TotalPrice")]
+            public decimal TotalPrice { get; set; }
+
+            [Required(ErrorMessageResourceName = "FinalAmountRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            [Display(ResourceType = typeof(CommonMessage), Name = "FinalAmount")]
+            public decimal FinalAmount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "DiscountPercentage")]
+            public decimal DiscountPercentage { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "TaxablePrice")]
+            public decimal TaxablePrice { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "GSTPercentage")]
+            [Required(ErrorMessageResourceName = "GSTPercentageRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public Nullable<decimal> GSTPercentage { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
+            public Nullable<decimal> GSTAmount { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<int> CreatedBy { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<System.DateTime> CreatedDate { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<int> ModifiedBy { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<System.DateTime> ModifiedDate { get; set; }
+        }
     }
 }

@@ -135,6 +135,12 @@
     <Compile Include="DB\tblMenu.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\tblPerformaInvoice.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblPerformaInvoiceDetail.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\tblPreCommissioning.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>

@@ -233,6 +233,7 @@
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="SequenceNo" Type="int" />
+          <Property Name="IsPIGenerated" Type="bit" />
         </EntityType>
         <EntityType Name="tblMachinePartsQuotationDetail">
           <Key>
@@ -286,6 +287,63 @@
           <Property Name="Action" Type="varchar" MaxLength="100" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="DisplayOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPerformaInvoice">
+          <Key>
+            <PropertyRef Name="PerformaInvoiceId" />
+          </Key>
+          <Property Name="PerformaInvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MPQuotationId" Type="int" />
+          <Property Name="QuotationNo" Type="varchar" MaxLength="50" />
+          <Property Name="QuotationDate" Type="datetime" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="int" Nullable="false" />
+          <Property Name="CustomerContactPContactNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReportServiceNo" Type="varchar" MaxLength="50" />
+          <Property Name="InquiryNo" Type="varchar" MaxLength="50" />
+          <Property Name="InquiryDate" Type="datetime" />
+          <Property Name="PaymentDays" Type="int" />
+          <Property Name="DeliveryWeeks" Type="int" />
+          <Property Name="Insurance" Type="varchar" MaxLength="100" />
+          <Property Name="ValidityDays" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="TotalFinalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FreightAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="QuotationAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="SequenceNo" Type="int" />
+        </EntityType>
+        <EntityType Name="tblPerformaInvoiceDetail">
+          <Key>
+            <PropertyRef Name="PIDetailId" />
+          </Key>
+          <Property Name="PIDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PerformaInvoiceId" Type="int" Nullable="false" />
+          <Property Name="MPQDetailId" Type="int" Nullable="false" />
+          <Property Name="MachineTypeId" Type="int" Nullable="false" />
+          <Property Name="MachineModelId" Type="int" Nullable="false" />
+          <Property Name="MachineModelSerialNo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MachinePartsId" Type="int" Nullable="false" />
+          <Property Name="MachinePartsNo" Type="varchar" MaxLength="100" />
+          <Property Name="MachinePartDescription" Type="varchar(max)" />
+          <Property Name="PartsHSNCode" Type="varchar" MaxLength="15" />
+          <Property Name="PartsQuantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PAndFPercentage" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="ProfitMarginPercentage" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="DiscountPercentage" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="TaxablePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GSTPercentage" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tblPreCommissioning">
           <Key>
@@ -704,6 +762,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblPerformaInvoice_tblCustomer">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
+          <End Role="tblPerformaInvoice" Type="Self.tblPerformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoice">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoice_tblCustomerContactPersons">
+          <End Role="tblCustomerContactPersons" Type="Self.tblCustomerContactPersons" Multiplicity="1" />
+          <End Role="tblPerformaInvoice" Type="Self.tblPerformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerContactPersons">
+              <PropertyRef Name="ContactPersonId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoice">
+              <PropertyRef Name="CustomerContactPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblMachineModels">
+          <End Role="tblMachineModels" Type="Self.tblMachineModels" Multiplicity="1" />
+          <End Role="tblPerformaInvoiceDetail" Type="Self.tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineModels">
+              <PropertyRef Name="MachineModelId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
+              <PropertyRef Name="MachineModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblMachineParts">
+          <End Role="tblMachineParts" Type="Self.tblMachineParts" Multiplicity="1" />
+          <End Role="tblPerformaInvoiceDetail" Type="Self.tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineParts">
+              <PropertyRef Name="MachinePartId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
+              <PropertyRef Name="MachinePartsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblMachineType">
+          <End Role="tblMachineType" Type="Self.tblMachineType" Multiplicity="1" />
+          <End Role="tblPerformaInvoiceDetail" Type="Self.tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineType">
+              <PropertyRef Name="MachineTypeId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
+              <PropertyRef Name="MachineTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblPreCommissioning_tblCustomer">
           <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
           <End Role="tblPreCommissioning" Type="Self.tblPreCommissioning" Multiplicity="*" />
@@ -920,6 +1038,8 @@
           <EntitySet Name="tblMachinePartsQuotationDetail" EntityType="Self.tblMachinePartsQuotationDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMachineType" EntityType="Self.tblMachineType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMenu" EntityType="Self.tblMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPerformaInvoice" EntityType="Self.tblPerformaInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPerformaInvoiceDetail" EntityType="Self.tblPerformaInvoiceDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPreCommissioning" EntityType="Self.tblPreCommissioning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPreCommissioningAccessories" EntityType="Self.tblPreCommissioningAccessories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPreCommissioningDetail" EntityType="Self.tblPreCommissioningDetail" Schema="dbo" store:Type="Tables" />
@@ -1024,6 +1144,26 @@
           <AssociationSet Name="FK_tblMachinePartsQuotationDetail_tblMachineType" Association="Self.FK_tblMachinePartsQuotationDetail_tblMachineType">
             <End Role="tblMachineType" EntitySet="tblMachineType" />
             <End Role="tblMachinePartsQuotationDetail" EntitySet="tblMachinePartsQuotationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoice_tblCustomer" Association="Self.FK_tblPerformaInvoice_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblPerformaInvoice" EntitySet="tblPerformaInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoice_tblCustomerContactPersons" Association="Self.FK_tblPerformaInvoice_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblPerformaInvoice" EntitySet="tblPerformaInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblMachineModels" Association="Self.FK_tblPerformaInvoiceDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblMachineParts" Association="Self.FK_tblPerformaInvoiceDetail_tblMachineParts">
+            <End Role="tblMachineParts" EntitySet="tblMachineParts" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblMachineType" Association="Self.FK_tblPerformaInvoiceDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_tblPreCommissioning_tblCustomer" Association="Self.FK_tblPreCommissioning_tblCustomer">
             <End Role="tblCustomer" EntitySet="tblCustomer" />
@@ -1287,6 +1427,28 @@
             <End Role="tblMachineType" EntitySet="tblMachineType" />
             <End Role="tblMachinePartsQuotationDetail" EntitySet="tblMachinePartsQuotationDetail" />
           </AssociationSet>
+          <EntitySet Name="tblPerformaInvoice" EntityType="StandardEngModel.tblPerformaInvoice" />
+          <EntitySet Name="tblPerformaInvoiceDetail" EntityType="StandardEngModel.tblPerformaInvoiceDetail" />
+          <AssociationSet Name="FK_tblPerformaInvoice_tblCustomer" Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblPerformaInvoice" EntitySet="tblPerformaInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoice_tblCustomerContactPersons" Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblPerformaInvoice" EntitySet="tblPerformaInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblMachineModels" Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblMachineParts" Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineParts">
+            <End Role="tblMachineParts" EntitySet="tblMachineParts" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblMachineType" Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
           <Property Type="Int32" Name="RoleMenuPK" Nullable="false" />
@@ -1369,6 +1531,7 @@
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomer" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioning_tblCustomer" FromRole="tblCustomer" ToRole="tblPreCommissioning" />
           <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblMachinePartsQuotation" />
+          <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblCustomer" ToRole="tblPerformaInvoice" />
         </EntityType>
         <EntityType Name="tblCustomerContactPersons">
           <Key>
@@ -1383,6 +1546,7 @@
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomerContactPersons" ToRole="tblCustomer" />
           <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioning_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblPreCommissioning" />
           <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblMachinePartsQuotation" />
+          <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblPerformaInvoice" />
         </EntityType>
         <EntityType Name="tblMachineAccessories">
           <Key>
@@ -1416,6 +1580,7 @@
           <NavigationProperty Name="tblCommissioning" Relationship="StandardEngModel.FK_tblCommissioning_tblMachineType" FromRole="tblMachineType" ToRole="tblCommissioning" />
           <NavigationProperty Name="tblPreCommissioningMachine" Relationship="StandardEngModel.FK_tblPreCommissioningMachine_tblMachineType" FromRole="tblMachineType" ToRole="tblPreCommissioningMachine" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblMachinePartsQuotationDetail" />
+          <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblPerformaInvoiceDetail" />
         </EntityType>
         <EntityType Name="tblMenu">
           <Key>
@@ -1662,6 +1827,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblMachineType" Relationship="StandardEngModel.FK_tblMachineParts_tblMachineType" FromRole="tblMachineParts" ToRole="tblMachineType" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineParts" FromRole="tblMachineParts" ToRole="tblMachinePartsQuotationDetail" />
+          <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineParts" FromRole="tblMachineParts" ToRole="tblPerformaInvoiceDetail" />
         </EntityType>
         <Association Name="FK_tblMachineParts_tblMachineType">
           <End Type="StandardEngModel.tblMachineType" Role="tblMachineType" Multiplicity="0..1" />
@@ -1693,6 +1859,7 @@
           <NavigationProperty Name="tblCommissioning" Relationship="StandardEngModel.FK_tblCommissioning_tblMachine" FromRole="tblMachineModels" ToRole="tblCommissioning" />
           <NavigationProperty Name="tblPreCommissioningMachine" Relationship="StandardEngModel.FK_tblPreCommissioningMachine_tblMachineModels" FromRole="tblMachineModels" ToRole="tblPreCommissioningMachine" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblMachinePartsQuotationDetail" />
+          <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblPerformaInvoiceDetail" />
         </EntityType>
         <Association Name="FK_tblMachineModels_tblMachineType">
           <End Type="StandardEngModel.tblMachineType" Role="tblMachineType" Multiplicity="1" />
@@ -2192,6 +2359,7 @@
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblMachinePartsQuotation" ToRole="tblCustomer" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblMachinePartsQuotation" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" FromRole="tblMachinePartsQuotation" ToRole="tblMachinePartsQuotationDetail" />
+          <Property Name="IsPIGenerated" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblMachinePartsQuotationDetail">
           <Key>
@@ -2295,6 +2463,128 @@
               <PropertyRef Name="MachineTypeId" />
             </Principal>
             <Dependent Role="tblMachinePartsQuotationDetail">
+              <PropertyRef Name="MachineTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblPerformaInvoice">
+          <Key>
+            <PropertyRef Name="PerformaInvoiceId" />
+          </Key>
+          <Property Name="PerformaInvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MPQuotationId" Type="Int32" />
+          <Property Name="QuotationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContactPContactNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReportServiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InquiryNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InquiryDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentDays" Type="Int32" />
+          <Property Name="DeliveryWeeks" Type="Int32" />
+          <Property Name="Insurance" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ValidityDays" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalFinalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FreightAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="QuotationAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="SequenceNo" Type="Int32" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblPerformaInvoice" ToRole="tblCustomer" />
+          <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" FromRole="tblPerformaInvoice" ToRole="tblCustomerContactPersons" />
+        </EntityType>
+        <EntityType Name="tblPerformaInvoiceDetail">
+          <Key>
+            <PropertyRef Name="PIDetailId" />
+          </Key>
+          <Property Name="PIDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PerformaInvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="MPQDetailId" Type="Int32" Nullable="false" />
+          <Property Name="MachineTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MachineModelId" Type="Int32" Nullable="false" />
+          <Property Name="MachineModelSerialNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MachinePartsId" Type="Int32" Nullable="false" />
+          <Property Name="MachinePartsNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MachinePartDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PartsHSNCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PartsQuantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PAndFPercentage" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="ProfitMarginPercentage" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="DiscountPercentage" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TaxablePrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GSTPercentage" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="GSTAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblMachineModels" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineModels" FromRole="tblPerformaInvoiceDetail" ToRole="tblMachineModels" />
+          <NavigationProperty Name="tblMachineParts" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineParts" FromRole="tblPerformaInvoiceDetail" ToRole="tblMachineParts" />
+          <NavigationProperty Name="tblMachineType" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType" FromRole="tblPerformaInvoiceDetail" ToRole="tblMachineType" />
+        </EntityType>
+        <Association Name="FK_tblPerformaInvoice_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblPerformaInvoice" Role="tblPerformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoice">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoice_tblCustomerContactPersons">
+          <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
+          <End Type="StandardEngModel.tblPerformaInvoice" Role="tblPerformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerContactPersons">
+              <PropertyRef Name="ContactPersonId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoice">
+              <PropertyRef Name="CustomerContactPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblMachineModels">
+          <End Type="StandardEngModel.tblMachineModels" Role="tblMachineModels" Multiplicity="1" />
+          <End Type="StandardEngModel.tblPerformaInvoiceDetail" Role="tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineModels">
+              <PropertyRef Name="MachineModelId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
+              <PropertyRef Name="MachineModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblMachineParts">
+          <End Type="StandardEngModel.tblMachineParts" Role="tblMachineParts" Multiplicity="1" />
+          <End Type="StandardEngModel.tblPerformaInvoiceDetail" Role="tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineParts">
+              <PropertyRef Name="MachinePartId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
+              <PropertyRef Name="MachinePartsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblMachineType">
+          <End Type="StandardEngModel.tblMachineType" Role="tblMachineType" Multiplicity="1" />
+          <End Type="StandardEngModel.tblPerformaInvoiceDetail" Role="tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineType">
+              <PropertyRef Name="MachineTypeId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
               <PropertyRef Name="MachineTypeId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2754,6 +3044,7 @@
           <EntitySetMapping Name="tblMachinePartsQuotation">
             <EntityTypeMapping TypeName="StandardEngModel.tblMachinePartsQuotation">
               <MappingFragment StoreEntitySet="tblMachinePartsQuotation">
+                <ScalarProperty Name="IsPIGenerated" ColumnName="IsPIGenerated" />
                 <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -2805,6 +3096,65 @@
                 <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
                 <ScalarProperty Name="MachinePartsQuotationId" ColumnName="MachinePartsQuotationId" />
                 <ScalarProperty Name="MPQDetailId" ColumnName="MPQDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPerformaInvoice">
+            <EntityTypeMapping TypeName="StandardEngModel.tblPerformaInvoice">
+              <MappingFragment StoreEntitySet="tblPerformaInvoice">
+                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="QuotationAmount" ColumnName="QuotationAmount" />
+                <ScalarProperty Name="FreightAmount" ColumnName="FreightAmount" />
+                <ScalarProperty Name="TotalFinalAmount" ColumnName="TotalFinalAmount" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ValidityDays" ColumnName="ValidityDays" />
+                <ScalarProperty Name="Insurance" ColumnName="Insurance" />
+                <ScalarProperty Name="DeliveryWeeks" ColumnName="DeliveryWeeks" />
+                <ScalarProperty Name="PaymentDays" ColumnName="PaymentDays" />
+                <ScalarProperty Name="InquiryDate" ColumnName="InquiryDate" />
+                <ScalarProperty Name="InquiryNo" ColumnName="InquiryNo" />
+                <ScalarProperty Name="ReportServiceNo" ColumnName="ReportServiceNo" />
+                <ScalarProperty Name="CustomerContactPContactNo" ColumnName="CustomerContactPContactNo" />
+                <ScalarProperty Name="CustomerContactPId" ColumnName="CustomerContactPId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="QuotationDate" ColumnName="QuotationDate" />
+                <ScalarProperty Name="QuotationNo" ColumnName="QuotationNo" />
+                <ScalarProperty Name="MPQuotationId" ColumnName="MPQuotationId" />
+                <ScalarProperty Name="PerformaInvoiceId" ColumnName="PerformaInvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPerformaInvoiceDetail">
+            <EntityTypeMapping TypeName="StandardEngModel.tblPerformaInvoiceDetail">
+              <MappingFragment StoreEntitySet="tblPerformaInvoiceDetail">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentage" ColumnName="GSTPercentage" />
+                <ScalarProperty Name="TaxablePrice" ColumnName="TaxablePrice" />
+                <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+                <ScalarProperty Name="ProfitMarginPercentage" ColumnName="ProfitMarginPercentage" />
+                <ScalarProperty Name="PAndFPercentage" ColumnName="PAndFPercentage" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="PartsQuantity" ColumnName="PartsQuantity" />
+                <ScalarProperty Name="PartsHSNCode" ColumnName="PartsHSNCode" />
+                <ScalarProperty Name="MachinePartDescription" ColumnName="MachinePartDescription" />
+                <ScalarProperty Name="MachinePartsNo" ColumnName="MachinePartsNo" />
+                <ScalarProperty Name="MachinePartsId" ColumnName="MachinePartsId" />
+                <ScalarProperty Name="MachineModelSerialNo" ColumnName="MachineModelSerialNo" />
+                <ScalarProperty Name="MachineModelId" ColumnName="MachineModelId" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="MPQDetailId" ColumnName="MPQDetailId" />
+                <ScalarProperty Name="PerformaInvoiceId" ColumnName="PerformaInvoiceId" />
+                <ScalarProperty Name="PIDetailId" ColumnName="PIDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

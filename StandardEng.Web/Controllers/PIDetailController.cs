@@ -13,17 +13,16 @@ using System.Web.Mvc;
 
 namespace StandardEng.Web.Controllers
 {
-    public class MachinePartsQuotationDetailController : BaseController
+    public class PIDetailController : BaseController
     {
         #region private variables
-
-        private readonly GenericRepository<tblMachinePartsQuotationDetail> _dbRepository;
-
+        private readonly GenericRepository<tblPerformaInvoiceDetail> _dbRepository;
         #endregion
+
         #region Constructor
-        public MachinePartsQuotationDetailController()
+        public PIDetailController()
         {
-            _dbRepository = new GenericRepository<tblMachinePartsQuotationDetail>();
+            _dbRepository = new GenericRepository<tblPerformaInvoiceDetail>();
         }
         #endregion
 
@@ -34,17 +33,17 @@ namespace StandardEng.Web.Controllers
             return View();
         }
 
-        public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request, int MachinePartsQuotationId)
+        public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request, int PerformaInvoiceId)
         {
             if (!request.Sorts.Any())
             {
-                request.Sorts.Add(new SortDescriptor("MPQDetailId", ListSortDirection.Ascending));
+                request.Sorts.Add(new SortDescriptor("PerformaInvoiceId", ListSortDirection.Ascending));
             }
 
-            return Json(_dbRepository.GetEntities().Where(m => m.MachinePartsQuotationId == MachinePartsQuotationId).ToDataSourceResult(request));
+            return Json(_dbRepository.GetEntities().Where(m => m.PerformaInvoiceId == PerformaInvoiceId).ToDataSourceResult(request));
         }
 
-        public ActionResult KendoSave([DataSourceRequest] DataSourceRequest request, tblMachinePartsQuotationDetail model)
+        public ActionResult KendoSave([DataSourceRequest] DataSourceRequest request, tblPerformaInvoiceDetail model)
         {
             if (model == null || !ModelState.IsValid)
             {
@@ -53,7 +52,7 @@ namespace StandardEng.Web.Controllers
 
             string message = string.Empty;
 
-            if (model.MPQDetailId > 0)
+            if (model.PIDetailId > 0)
             {
                 model.ModifiedBy = SessionHelper.UserId;
                 model.ModifiedDate = DateTime.Now;
@@ -75,9 +74,9 @@ namespace StandardEng.Web.Controllers
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
 
-        public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, tblMachinePartsQuotationDetail model)
+        public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, tblPerformaInvoiceDetail model)
         {
-            string deleteMessage = _dbRepository.Delete(model.MPQDetailId);
+            string deleteMessage = _dbRepository.Delete(model.PIDetailId);
 
             ModelState.Clear();
             if (!string.IsNullOrEmpty(deleteMessage))
@@ -87,7 +86,6 @@ namespace StandardEng.Web.Controllers
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
-
         #endregion
     }
 }

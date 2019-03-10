@@ -12,15 +12,10 @@ namespace StandardEng.Data.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class tblMachinePartsQuotation
+    public partial class tblPerformaInvoice
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblMachinePartsQuotation()
-        {
-            this.tblMachinePartsQuotationDetail = new HashSet<tblMachinePartsQuotationDetail>();
-        }
-    
-        public int MachinePartsQuotationId { get; set; }
+        public int PerformaInvoiceId { get; set; }
+        public Nullable<int> MPQuotationId { get; set; }
         public string QuotationNo { get; set; }
         public System.DateTime QuotationDate { get; set; }
         public int CustomerId { get; set; }
@@ -42,11 +37,8 @@ namespace StandardEng.Data.DB
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> SequenceNo { get; set; }
-        public Nullable<bool> IsPIGenerated { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
     }
 }
