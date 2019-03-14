@@ -335,6 +335,7 @@ namespace StandardEng.Web.Controllers
                 quotationObj.ValidityDays = 0;
                 quotationObj.CreatedBy = SessionHelper.UserId;
                 quotationObj.CreatedDate = DateTime.Now.Date;
+                quotationObj.IsPIGenerated = false;
                 string result = _dbRepositoryPartsQ.Insert(quotationObj);
                 if (string.IsNullOrEmpty(result))
                 {
