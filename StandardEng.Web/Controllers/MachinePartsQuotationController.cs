@@ -59,7 +59,7 @@ namespace StandardEng.Web.Controllers
             ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
             ViewBag.MachinePartList = SelectionList.MachinePartsList().Select(m => new { m.MachinePartId, m.ProductValue });
             ViewBag.GSTPercentageList = SelectionList.GSTPercentageList().Select(m => new { m.Id, Percentage = m.Percentage + " %" });
-            return View(new tblMachinePartsQuotation { QuotationDate = DateTime.Now.Date , InquiryDate = DateTime.Now.Date });
+            return View(new tblMachinePartsQuotation { QuotationDate = DateTime.Now.Date , InquiryDate = DateTime.Now.Date, IsPIGenerated = false });
         }
 
         public ActionResult Edit(int id)
