@@ -33,43 +33,53 @@ namespace StandardEng.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
-            ViewBag.ContactPersonsList = SelectionList.ContactPersonsList().Select(m => new { m.ContactPersonId, m.ContactPersonName });
+            //ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
+            //ViewBag.ContactPersonsList = SelectionList.ContactPersonsList().Select(m => new { m.ContactPersonId, m.ContactPersonName });
             
             return View();
         }
 
         public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request)
         {
-            if (!request.Sorts.Any())
-            {
-                request.Sorts.Add(new SortDescriptor("PreCommissioningId", ListSortDirection.Ascending));
-            }
+            //if (!request.Sorts.Any())
+            //{
+            //    request.Sorts.Add(new SortDescriptor("PreCommissioningId", ListSortDirection.Ascending));
+            //}
 
-            return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
+            return Json(CustomRepository.GetPreCommissiningList().ToDataSourceResult(request));
+        }
+
+        public ActionResult KendoReadDetailById([DataSourceRequest] DataSourceRequest request,int preCommisioningId)
+        {
+            //if (!request.Sorts.Any())
+            //{
+            //    request.Sorts.Add(new SortDescriptor("PreCommissioningId", ListSortDirection.Ascending));
+            //}
+
+            return Json(CustomRepository.GetPreCommisioningListDetail(preCommisioningId).ToDataSourceResult(request));
         }
 
         public ActionResult Create()
         {
-            ViewBag.ServicEngineerList = SelectionList.ServiceEngineerList().Select(m => new { m.UserId, m.Name });
+            //ViewBag.ServicEngineerList = SelectionList.ServiceEngineerList().Select(m => new { m.UserId, m.Name });
             ViewBag.AccessoriesTypeList = SelectionList.AccessoriesTypeList().Select(m => new { m.AccessoriesTypeId, m.AccessoriesTypeName });
             ViewBag.MachineAccessoriesList = SelectionList.MachineAccessoriesList().Select(m => new { m.MachineAccessoriesId, m.AccessoriesName });
             ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
             ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
-            ViewBag.PreCommissioningAccessoriesList = SelectionList.PreCommissioningAccessoriesList().Select(m => new { m.PCAccessoriesId, m.AccessoriesSerialNo });
-            ViewBag.PreCommissioningMachineList = SelectionList.PreCommissioningMachineList().Select(m => new { m.PCMachined, m.MachineSerialNo });
+            //ViewBag.PreCommissioningAccessoriesList = SelectionList.PreCommissioningAccessoriesList().Select(m => new { m.PCAccessoriesId, m.AccessoriesSerialNo });
+            //ViewBag.PreCommissioningMachineList = SelectionList.PreCommissioningMachineList().Select(m => new { m.PCMachined, m.MachineSerialNo });
             return View(new tblPreCommissioning());
         }
 
         public ActionResult Edit(int id)
         {
-            ViewBag.ServicEngineerList = SelectionList.ServiceEngineerList().Select(m => new { m.UserId, m.Name });
+            //ViewBag.ServicEngineerList = SelectionList.ServiceEngineerList().Select(m => new { m.UserId, m.Name });
             ViewBag.AccessoriesTypeList = SelectionList.AccessoriesTypeList().Select(m => new { m.AccessoriesTypeId, m.AccessoriesTypeName });
             ViewBag.MachineAccessoriesList = SelectionList.MachineAccessoriesList().Select(m => new { m.MachineAccessoriesId, m.AccessoriesName });
             ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
             ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
-            ViewBag.PreCommissioningAccessoriesList = SelectionList.PreCommissioningAccessoriesList(id).Select(m => new { m.PCAccessoriesId, m.AccessoriesSerialNo });
-            ViewBag.PreCommissioningMachineList = SelectionList.PreCommissioningMachineList(id).Select(m => new { m.PCMachined, m.MachineSerialNo });
+            //ViewBag.PreCommissioningAccessoriesList = SelectionList.PreCommissioningAccessoriesList(id).Select(m => new { m.PCAccessoriesId, m.AccessoriesSerialNo });
+            //ViewBag.PreCommissioningMachineList = SelectionList.PreCommissioningMachineList(id).Select(m => new { m.PCMachined, m.MachineSerialNo });
             return View("Create", _dbRepository.SelectById(id));
         }
 

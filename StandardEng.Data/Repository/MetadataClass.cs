@@ -198,12 +198,12 @@ namespace StandardEng.Data.DB
 
             [Display(ResourceType = typeof(CommonMessage), Name = "Country")]
             [Required(ErrorMessageResourceName = "CountryRequired", ErrorMessageResourceType = typeof(CommonMessage))]
-           // [UIHint("GridForeignKey")]
+            // [UIHint("GridForeignKey")]
             public int CountryId { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "State")]
             [Required(ErrorMessageResourceName = "StateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
-           // [UIHint("GridForeignKey")]
+            // [UIHint("GridForeignKey")]
             public int StateId { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "Status")]
@@ -253,8 +253,8 @@ namespace StandardEng.Data.DB
             public string Addressline2 { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "GSTNo")]
-            [StringLength(10, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
-            [MinLength(10, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [StringLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [MinLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
             public string GST { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
@@ -274,6 +274,18 @@ namespace StandardEng.Data.DB
 
             [Display(ResourceType = typeof(CommonMessage), Name = "Status")]
             public bool IsActive { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Region")]
+            [Required(ErrorMessageResourceName = "RegionNameRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public Nullable<int> RegionId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PinCode")]
+            [StringLength(6, ErrorMessageResourceName = "PinCodeLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [MinLength(6, ErrorMessageResourceName = "PinCodeLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string PinCode { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Region")]
+            public Nullable<decimal> DefaultDiscount { get; set; }
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -317,7 +329,7 @@ namespace StandardEng.Data.DB
             [Display(ResourceType = typeof(CommonMessage), Name = "ContactPersonPosistion", Order = 4)]
             public string ContactPersonPosistion { get; set; }
 
-            
+
         }
     }
 
@@ -459,6 +471,7 @@ namespace StandardEng.Data.DB
             [Required(ErrorMessageResourceName = "MachineSerialNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public string MachineSerialNo { get; set; }
 
+            [DataType(DataType.Date)]
             [Required(ErrorMessageResourceName = "DispatchDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             [Display(ResourceType = typeof(CommonMessage), Name = "DispatchDate")]
             public System.DateTime DispatchDate { get; set; }
@@ -510,7 +523,7 @@ namespace StandardEng.Data.DB
             public Nullable<int> PCMachineId { get; set; }
             public Nullable<int> PCAccesseriesId { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "PreCommisoningDate" ,Order = 1)]
+            [Display(ResourceType = typeof(CommonMessage), Name = "PreCommisoningDate", Order = 1)]
             [Required(ErrorMessageResourceName = "PreCommisoningDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             //[UIHint("Date")]
             public System.DateTime PreCommisoningDate { get; set; }
@@ -705,9 +718,9 @@ namespace StandardEng.Data.DB
             [Required(ErrorMessageResourceName = "InquiryDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public Nullable<System.DateTime> InquiryDate { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "PaymentDays")]
-            [Required(ErrorMessageResourceName = "PaymentDaysRequired", ErrorMessageResourceType = typeof(CommonMessage))]
-            public int PaymentDays { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "PaymentTerms")]
+            [Required(ErrorMessageResourceName = "PaymentTermsRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string PaymentTerms { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "DeliveryWeeks")]
             [Required(ErrorMessageResourceName = "DeliveryWeeksRequired", ErrorMessageResourceType = typeof(CommonMessage))]
@@ -734,6 +747,9 @@ namespace StandardEng.Data.DB
             public Nullable<decimal> TotalFinalAmount { get; set; }
             public Nullable<decimal> QuotationAmount { get; set; }
 
+            public Nullable<decimal> FreightPercentage { get; set; }
+            public Nullable<decimal> TotalFreightAmount { get; set; }
+            public string Remarks { get; set; }
 
             [ScaffoldColumn(false)]
             public Nullable<int> SequenceNo { get; set; }
@@ -911,7 +927,7 @@ namespace StandardEng.Data.DB
     }
 
     [MetadataType(typeof(Metadata))]
-    public partial class tblCommissioning 
+    public partial class tblCommissioning
     {
         public bool IsWarrantyPeriodChange { get; set; }
 
@@ -1008,9 +1024,9 @@ namespace StandardEng.Data.DB
             [Required(ErrorMessageResourceName = "InquiryDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public Nullable<System.DateTime> InquiryDate { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "PaymentDays")]
-            [Required(ErrorMessageResourceName = "PaymentDaysRequired", ErrorMessageResourceType = typeof(CommonMessage))]
-            public int PaymentDays { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "PaymentTerms")]
+            [Required(ErrorMessageResourceName = "PaymentTermsRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string PaymentTerms { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "DeliveryWeeks")]
             [Required(ErrorMessageResourceName = "DeliveryWeeksRequired", ErrorMessageResourceType = typeof(CommonMessage))]
@@ -1060,7 +1076,7 @@ namespace StandardEng.Data.DB
     {
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(MachinePartsId == 0)
+            if (MachinePartsId == 0)
             {
                 var fieldName = new[] { "MachinePartsId" };
                 yield return new ValidationResult("Machine Parts is required.", fieldName);
@@ -1164,6 +1180,75 @@ namespace StandardEng.Data.DB
 
             [ScaffoldColumn(false)]
             public Nullable<System.DateTime> ModifiedDate { get; set; }
+        }
+    }
+
+    [MetadataType(typeof(Metadata))]
+    public partial class tblRegion : IValidatableObject
+    {
+        internal class Metadata
+        {
+            [ScaffoldColumn(false)]
+            public int Id { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Region", Order = 1)]
+            [Required(ErrorMessageResourceName = "RegionNameRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            [StringLength(50, ErrorMessageResourceName = "RegionNameLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string Name { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Status", Order = 2)]
+            public bool IsActive { get; set; }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (CustomRepository.IsRegionNameExists(Name, Id))
+            {
+                var fieldName = new[] { "Name" };
+                yield return new ValidationResult("Region is Already Exists.", fieldName);
+            }
+        }
+
+    }
+
+    [MetadataType(typeof(Metadata))]
+    public partial class GetPreCommisioningDetailData_Result
+    {
+        [Display(Name = "Machine List")]
+        public List<int> PCMachineIdList { get; set; }
+
+        [Display(Name = "Accessories List")]
+        public List<int> PCAccessoryIdList { get; set; }
+
+        internal class Metadata
+        {
+
+            public int PCDetailId { get; set; }
+            public int PreCommissionId { get; set; }
+            public string MachineSerialNo { get; set; }
+            public string MachineTypeName { get; set; }
+            public string MachineName { get; set; }
+            public string AccessoriesSerialNo { get; set; }
+            public string AccessoriesTypeName { get; set; }
+            public string AccessoriesName { get; set; }
+            public Nullable<bool> IsLatest { get; set; }
+            public bool IsCommisioning { get; set; }
+
+            [DataType(DataType.Date)]
+            [Display(ResourceType = typeof(CommonMessage), Name = "PreCommisoningDate", Order = 1)]
+            [Required(ErrorMessageResourceName = "PreCommisoningDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public System.DateTime PreCommisoningDate { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PrecommisioningRemark", Order = 3)]
+            public string PrecommisioningRemark { get; set; }
+            
+            public string ServiceEngineer { get; set; }
+            public Nullable<int> PCAccesseriesId { get; set; }
+            public Nullable<int> PCMachineId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ServiceEngineer", Order = 2)]
+            [Required(ErrorMessageResourceName = "ServiceEngineerRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int ServiceEngineerId { get; set; }
         }
     }
 }

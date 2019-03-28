@@ -59,7 +59,7 @@ namespace StandardEng.Web.Controllers
             ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
             ViewBag.MachinePartList = SelectionList.MachinePartsList().Select(m => new { m.MachinePartId, m.ProductValue });
             ViewBag.GSTPercentageList = SelectionList.GSTPercentageList().Select(m => new { m.Id, Percentage = m.Percentage + " %" });
-            return View(new tblMachinePartsQuotation { QuotationDate = DateTime.Now.Date , InquiryDate = DateTime.Now.Date, IsPIGenerated = false });
+            return View(new tblMachinePartsQuotation { QuotationDate = DateTime.Now.Date , InquiryDate = DateTime.Now.Date , IsPIGenerated = false });
         }
 
         public ActionResult Edit(int id)
@@ -170,7 +170,7 @@ namespace StandardEng.Web.Controllers
                         invoiceObj.ReportServiceNo = quotationObj.ReportServiceNo;
                         invoiceObj.InquiryNo = quotationObj.InquiryNo;
                         invoiceObj.InquiryDate = quotationObj.InquiryDate;
-                        invoiceObj.PaymentDays = quotationObj.PaymentDays;
+                        invoiceObj.PaymentTerms = quotationObj.PaymentTerms;
                         invoiceObj.DeliveryWeeks = quotationObj.DeliveryWeeks;
                         invoiceObj.Insurance = quotationObj.Insurance;
                         invoiceObj.ValidityDays = quotationObj.ValidityDays;

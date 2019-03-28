@@ -19,8 +19,8 @@ namespace StandardEng.Data.DB
         {
             this.tblCustomerContactPersons = new HashSet<tblCustomerContactPersons>();
             this.tblPreCommissioning = new HashSet<tblPreCommissioning>();
-            this.tblMachinePartsQuotation = new HashSet<tblMachinePartsQuotation>();
             this.tblPerformaInvoice = new HashSet<tblPerformaInvoice>();
+            this.tblMachinePartsQuotation = new HashSet<tblMachinePartsQuotation>();
         }
     
         public int CustomerId { get; set; }
@@ -35,6 +35,9 @@ namespace StandardEng.Data.DB
         public string AlternativeContactNo { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
+        public Nullable<int> RegionId { get; set; }
+        public string PinCode { get; set; }
+        public Nullable<decimal> DefaultDiscount { get; set; }
     
         public virtual tblCity tblCity { get; set; }
         public virtual tblCountry tblCountry { get; set; }
@@ -43,9 +46,10 @@ namespace StandardEng.Data.DB
         public virtual ICollection<tblCustomerContactPersons> tblCustomerContactPersons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPreCommissioning> tblPreCommissioning { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
+        public virtual tblRegion tblRegion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPerformaInvoice> tblPerformaInvoice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
     }
 }

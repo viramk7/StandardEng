@@ -24,6 +24,7 @@
         <div class="col-md-12">
             @using (Html.BeginForm("SaveModelData", "AMC", FormMethod.Post, new { @class = "form form-horizontal", @id = "validation-form", @enctype = "multipart/form-data" }))
             {
+                @Html.ValidationSummary(true)
                 <div class="card">
                     <div class="card-header header-elements-inline">
                         <h5 class="card-title">
@@ -54,18 +55,18 @@
                                     @Html.LabelFor(m => m.MachineTypeId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.MachineTypeId)
-                                                                                              .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
-                                                                                              .Placeholder("--Select Machine Type --")
-                                                                                              .DataTextField("MachineTypeName")
-                                                                                              .DataValueField("MachineTypeId")
-                                                                                              .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
-                                                                                              .DataSource(source =>
-                                                                                              {
-                                                                                                  source.Read(read =>
-                                                                                                  {
-                                                                                                      read.Action("GetMachineTypeList", "Common");
-                                                                                                  });
-                                                                                              })
+                                                                                                      .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
+                                                                                                      .Placeholder("--Select Machine Type --")
+                                                                                                      .DataTextField("MachineTypeName")
+                                                                                                      .DataValueField("MachineTypeId")
+                                                                                                      .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
+                                                                                                      .DataSource(source =>
+                                                                                                      {
+                                                                                                          source.Read(read =>
+                                                                                                          {
+                                                                                                              read.Action("GetMachineTypeList", "Common");
+                                                                                                          });
+                                                                                                      })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.MachineTypeId)
@@ -76,21 +77,21 @@
                                     @Html.LabelFor(m => m.MachineModelId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.MachineModelId)
-                                                                                              .Value(Model.MachineModelId == 0 ? string.Empty : Model.MachineModelId.ToString())
-                                                                                              .Placeholder("--Select Machine --")
-                                                                                              .DataTextField("MachineName")
-                                                                                              .DataValueField("MachineModelId")
-                                                                                              .Enable(false)
-                                                                                              .AutoBind(false)
-                                                                                              .CascadeFrom("MachineTypeId")
-                                                                                              .HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
-                                                                                              .DataSource(source =>
-                                                                                              {
-                                                                                                  source.Read(read =>
-                                                                                                  {
-                                                                                                      read.Action("GetMachineModelList", "Common").Data("filterMachine");
-                                                                                                  }).ServerFiltering(true);
-                                                                                              })
+                                                                                                      .Value(Model.MachineModelId == 0 ? string.Empty : Model.MachineModelId.ToString())
+                                                                                                      .Placeholder("--Select Machine --")
+                                                                                                      .DataTextField("MachineName")
+                                                                                                      .DataValueField("MachineModelId")
+                                                                                                      .Enable(false)
+                                                                                                      .AutoBind(false)
+                                                                                                      .CascadeFrom("MachineTypeId")
+                                                                                                      .HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
+                                                                                                      .DataSource(source =>
+                                                                                                      {
+                                                                                                          source.Read(read =>
+                                                                                                          {
+                                                                                                              read.Action("GetMachineModelList", "Common").Data("filterMachine");
+                                                                                                          }).ServerFiltering(true);
+                                                                                                      })
                                         )
                                         @Html.ValidationMessageFor(m => m.MachineModelId)
                                     </div>
@@ -102,18 +103,18 @@
                                     @Html.LabelFor(m => m.GSTPercentage, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.GSTPercentage)
-                                                                                                      .Value(Model.GSTPercentage == 0 ? string.Empty : Model.GSTPercentage.ToString())
-                                                                                                      .Placeholder("--Select GST Percentage --")
-                                                                                                      .DataTextField("Percentage")
-                                                                                                      .DataValueField("Id")
-                                                                                                      .HtmlAttributes(new { @tabindex = 2, @data_value_primitive = true })
-                                                                                                      .DataSource(source =>
-                                                                                                      {
-                                                                                                          source.Read(read =>
-                                                                                                          {
-                                                                                                              read.Action("GetGSTPercentageList", "Common");
-                                                                                                          });
-                                                                                                      })
+                                                                                                              .Value(Model.GSTPercentage == 0 ? string.Empty : Model.GSTPercentage.ToString())
+                                                                                                              .Placeholder("--Select GST Percentage --")
+                                                                                                              .DataTextField("Percentage")
+                                                                                                              .DataValueField("Id")
+                                                                                                              .HtmlAttributes(new { @tabindex = 2, @data_value_primitive = true })
+                                                                                                              .DataSource(source =>
+                                                                                                              {
+                                                                                                                  source.Read(read =>
+                                                                                                                  {
+                                                                                                                      read.Action("GetGSTPercentageList", "Common");
+                                                                                                                  });
+                                                                                                              })
                                         )
                                         @Html.ValidationMessageFor(m => m.GSTPercentage)
                                     </div>
@@ -159,18 +160,18 @@
                                     @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
-                                                                                              .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
-                                                                                              .Placeholder("--Select Customer --")
-                                                                                              .DataTextField("CustomerName")
-                                                                                              .DataValueField("CustomerId")
-                                                                                              .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
-                                                                                              .DataSource(source =>
-                                                                                              {
-                                                                                                  source.Read(read =>
-                                                                                                  {
-                                                                                                      read.Action("GetCustomerList", "Common");
-                                                                                                  });
-                                                                                              })
+                                                                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                                                                      .Placeholder("--Select Customer --")
+                                                                                                      .DataTextField("CustomerName")
+                                                                                                      .DataValueField("CustomerId")
+                                                                                                      .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
+                                                                                                      .DataSource(source =>
+                                                                                                      {
+                                                                                                          source.Read(read =>
+                                                                                                          {
+                                                                                                              read.Action("GetCustomerList", "Common");
+                                                                                                          });
+                                                                                                      })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CustomerId)
@@ -217,38 +218,38 @@
                     <div class="card-body">
 
                         @(Html.Kendo().Grid<tblAMCServices>()
-                                                         .Name("gridAMCService")
-                                                         .Columns(columns =>
-                                                         {
-                                                             columns.Command(command =>
-                                                             {
+                                                                 .Name("gridAMCService")
+                                                                 .Columns(columns =>
+                                                                 {
+                                                                     columns.Command(command =>
+                                                                     {
 
-                                                                 command.Custom("ChangeAMCServiceStatus").Text("<span class='k-icon k-i-more-horizontal' title='Change AMC Service Status'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMCService" }).Click("onChangeAMCServiceStatus");
+                                                                         command.Custom("ChangeAMCServiceStatus").Text("<span class='k-icon k-i-more-horizontal' title='Change AMC Service Status'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMCService" }).Click("onChangeAMCServiceStatus");
 
-                                                             }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
-                                                                    .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
-                                                             columns.Bound(d => d.AMCId).Visible(false);
-                                                             columns.Bound(d => d.ServiceDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                                             columns.Bound(d => d.IsServiceDone).Width(120);
-                                                             columns.Bound(d => d.Remarks);
-                                                         })
-                                                         .Pageable(x =>
-                                                         {
-                                                             x.Refresh(true);
-                                                             x.PageSizes(WebHelper.PageSizes);
-                                                         })
-                                                         .Sortable(sortable => sortable.AllowUnsort(false))
-                                                         .NoRecords()
-                                                         .Events(e => e.DataBound("onDataBound"))
-                                                         //.Scrollable(e => e.Enabled(true))
-                                                         .DataSource(dataSource => dataSource
-                                                         .Ajax()
-                                                         .ServerOperation(true)
-                                                         .PageSize(WebHelper.PageSize)
-                                                         .Model(model => model.Id(d => d.AMCServiceId))
-                                                         .Events(events => events.Error("onError(\"gridAMCService\")"))
-                                                         .Read(read => read.Action("KendoReadAMCSeriveList", "AMC").Data("additionalData"))
-                                       ))
+                                                                     }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                                                            .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
+                                                                     columns.Bound(d => d.AMCId).Visible(false);
+                                                                     columns.Bound(d => d.ServiceDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                                     columns.Bound(d => d.IsServiceDone).Width(120);
+                                                                     columns.Bound(d => d.Remarks);
+                                                                 })
+                                                                 .Pageable(x =>
+                                                                 {
+                                                                     x.Refresh(true);
+                                                                     x.PageSizes(WebHelper.PageSizes);
+                                                                 })
+                                                                 .Sortable(sortable => sortable.AllowUnsort(false))
+                                                                 .NoRecords()
+                                                                 .Events(e => e.DataBound("onDataBound"))
+                                                                 //.Scrollable(e => e.Enabled(true))
+                                                                 .DataSource(dataSource => dataSource
+                                                                 .Ajax()
+                                                                 .ServerOperation(true)
+                                                                 .PageSize(WebHelper.PageSize)
+                                                                 .Model(model => model.Id(d => d.AMCServiceId))
+                                                                 .Events(events => events.Error("onError(\"gridAMCService\")"))
+                                                                 .Read(read => read.Action("KendoReadAMCSeriveList", "AMC").Data("additionalData"))
+                        )
                     </div>
                 </div>
             }

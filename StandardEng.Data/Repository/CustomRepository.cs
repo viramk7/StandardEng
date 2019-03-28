@@ -120,6 +120,15 @@ namespace StandardEng.Data.Repository
             }
         }
 
+        public static bool IsRegionNameExists(string Name, int Id)
+        {
+            using (StandardEngEntities dbContext = BaseContext.GetDbContext())
+            {
+                bool result = dbContext.tblRegion.Any(m => m.Name == Name && m.Id != Id);
+                return result;
+            }
+        }
+
         public static List<GetWarrantyExpiryCustomerList_Result> GetWarrantyExpiryCustomerList(int? roleId = null, bool isSuperAdmin = false)
         {
             List<GetWarrantyExpiryCustomerList_Result> dataList;
@@ -170,6 +179,42 @@ namespace StandardEng.Data.Repository
                 bool result = context.tblPreCommissioningAccessories.Any(m => m.AccessoriesSerialNo.Trim().ToLower() == AccessoriesSerialNo.Trim().ToLower() && m.PreCommissioningId == PreCommissioningId && m.PCAccessoriesId != PCAccessoriesId);
                 return result;
             }
+        }
+
+        public static List<GetPreCommisioningDetailData_Result> GetPreCommisioningDetailData(int PreCommissionId)
+        {
+            List<GetPreCommisioningDetailData_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetPreCommisioningDetailData(PreCommissionId).ToList();
+            }
+
+            return dataList.OrderByDescending(m => m.PreCommisoningDate).ToList();
+        }
+
+        public static List<GetPreCommissiningList_Result> GetPreCommissiningList()
+        {
+            List<GetPreCommissiningList_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetPreCommissiningList().ToList();
+            }
+
+            return dataList.OrderByDescending(m => m.PreCommissioningId).ToList();
+        }
+
+        public static List<GetPreCommisioningListDetail_Result> GetPreCommisioningListDetail(int PreCommissionId)
+        {
+            List<GetPreCommisioningListDetail_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetPreCommisioningListDetail(PreCommissionId).ToList();
+            }
+
+            return dataList.OrderByDescending(m => m.PCDetailId).ToList();
         }
     }
 }

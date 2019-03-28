@@ -326,7 +326,7 @@ namespace StandardEng.Web.Controllers
                 quotationObj.ReportServiceNo = commissioningObj.ReportServiceNo;
                 quotationObj.InquiryNo = String.Empty;
                 quotationObj.InquiryDate = DateTime.Now.Date;
-                quotationObj.PaymentDays = 0;
+                quotationObj.PaymentTerms = String.Empty;
                 quotationObj.DeliveryWeeks = 0;
                 quotationObj.FreightAmount = 0 ;
                 quotationObj.TotalFinalAmount = 0;

@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
 
-                    @(Html.Kendo().Grid<tblPreCommissioning>()
+                    @(Html.Kendo().Grid<GetPreCommissiningList_Result>()
                                    .Name("gridPCommissioning")
                                    .Columns(columns =>
                                    {
@@ -48,10 +48,16 @@
                                            }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
                                               .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
                                        }
-                                       columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName");
-                                       columns.ForeignKey(d => d.ContactPersonId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName");
-                                       //columns.Bound(d => d.DispatchDate).Format("{0:"+ WebHelper.DateFormate +"}");
-                                      
+                                       columns.Bound(d => d.CustomerName);
+                                       columns.Bound(d => d.CustomerContactNo);
+                                       columns.Bound(d => d.ContactPersonName);
+                                       columns.Bound(d => d.ContactNo);
+                                       columns.Bound(d => d.ContactPersonEmail);
+                                       columns.Bound(d => d.CustomerAddress);
+                                       columns.Bound(d => d.CountryName);
+                                       columns.Bound(d => d.StateName);
+                                       columns.Bound(d => d.CityName);
+                                       columns.Bound(d => d.IsCompleted);
                                    })
                                    .ToolBar(toolbar =>
                                    {
@@ -70,6 +76,8 @@
                                    .Scrollable(e => e.Enabled(true))
                                    .NoRecords()
                                    .Events(e => e.DataBound("onDataBound"))
+                                   .HtmlAttributes(new { @style="height:500px" })
+                                   .ClientDetailTemplateId("templateDetail")
                                    .DataSource(dataSource => dataSource
                                        .Ajax()
                                        .ServerOperation(true)
@@ -83,6 +91,31 @@
         </div>
     </div>
 </div>
+
+<script id="templateDetail" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<GetPreCommisioningListDetail_Result>()
+                              .Name("grid_#=PreCommissioningId#")
+                              .Columns(columns =>
+                              {
+                                  columns.Bound(d => d.PreCommisoningDate).Format("{0:" + WebHelper.DateFormate + "}"); ;
+                                  columns.Bound(d => d.MachineTypeName);
+                                  columns.Bound(d => d.MachineName);
+                                  columns.Bound(d => d.MachineSerialNo);
+                                  columns.Bound(d => d.AccessoriesTypeName);
+                                  columns.Bound(d => d.AccessoriesName);
+                                  columns.Bound(d => d.AccessoriesSerialNo);
+                                  columns.Bound(d => d.IsCommisioning);
+                                  columns.Bound(d => d.PrecommisioningRemark);
+                              })
+                              .NoRecords()
+                              .DataSource(dataSource => dataSource
+                              .Ajax()
+                              .ServerOperation(true)
+                              .Model(model => model.Id(d => d.PCDetailId))
+                              .Events(events => events.Error("onError(\"grid_#=PreCommissioningId#\")"))
+                              .Read(read => read.Action("KendoReadDetailById", "PreCommissioning", new { preCommisioningId = "#=PreCommissioningId#" })))
+                              .ToClientTemplate())
+</script>
 
 <script type="text/javascript">
      function onAdd() {

@@ -63,6 +63,15 @@
     <Compile Include="DB\GetPCMachineListDD_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\GetPreCommisioningDetailData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetPreCommisioningListDetail_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetPreCommissiningList_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\GetWarrantyExpiryCustomerList_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
@@ -151,6 +160,9 @@
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblPreCommissioningMachine.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblRegion.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblRole.cs">

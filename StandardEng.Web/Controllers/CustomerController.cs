@@ -21,6 +21,7 @@ namespace StandardEng.Web.Controllers
         private readonly GenericRepository<tblCustomer> _dbRepository;
 
         #endregion
+
         #region Constructor
         public CustomerController()
         {
@@ -60,7 +61,7 @@ namespace StandardEng.Web.Controllers
 
         public ActionResult SaveModelData(tblCustomer model, string create = null)
         {
-            if (!ModelState.IsValid)
+             if (!ModelState.IsValid)
             {
                 return View("Create", model);
             }

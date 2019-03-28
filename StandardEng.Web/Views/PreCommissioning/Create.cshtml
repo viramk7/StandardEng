@@ -24,6 +24,7 @@
         <div class="col-md-12">
             @using (Html.BeginForm("SaveModelData", "PreCommissioning", FormMethod.Post, new { @class = "form form-horizontal", @id = "validation-form" }))
             {
+                @Html.ValidationSummary(true)
                 <div class="card">
                     <div class="card-header header-elements-inline">
                         <h5 class="card-title"></h5>
@@ -32,9 +33,9 @@
                             {
                                 <input type="submit" class="btn btn-outline-primary legitRipple" value="Save" name="create" tabindex="15" />
                                 @*if (Model.IsCommissioningDone == false)
-                                {
-                                    <input type="button" class="btn btn-outline-primary legitRipple" value="Finalize Commissioning" onclick="onFinalizeC()" />
-                                }*@
+                            {
+                                <input type="button" class="btn btn-outline-primary legitRipple" value="Finalize Commissioning" onclick="onFinalizeC()" />
+                            }*@
                             }
                             else
                             {
@@ -57,18 +58,18 @@
                                     @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
-                                              .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
-                                              .Placeholder("--Select Customer --")
-                                              .DataTextField("CustomerName")
-                                              .DataValueField("CustomerId")
-                                              .HtmlAttributes(new { @tabindex = 1 })
-                                              .DataSource(source =>
-                                              {
-                                                  source.Read(read =>
-                                                  {
-                                                      read.Action("GetCustomerList", "Common");
-                                                  });
-                                              })
+                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                      .Placeholder("--Select Customer --")
+                                                      .DataTextField("CustomerName")
+                                                      .DataValueField("CustomerId")
+                                                      .HtmlAttributes(new { @tabindex = 1 })
+                                                      .DataSource(source =>
+                                                      {
+                                                          source.Read(read =>
+                                                          {
+                                                              read.Action("GetCustomerList", "Common");
+                                                          });
+                                                      })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CustomerId)
@@ -81,33 +82,33 @@
                                     @Html.LabelFor(m => m.ContactPersonId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.ContactPersonId)
-                                                      .Value(Model.ContactPersonId == 0 ? string.Empty : Model.ContactPersonId.ToString())
-                                                      .Placeholder("--Select Contact Person --")
-                                                      .DataTextField("ContactPersonName")
-                                                      .DataValueField("ContactPersonId")
-                                                      .Enable(false)
-                                                      .AutoBind(false)
-                                                      .CascadeFrom("CustomerId")
-                                                      .HtmlAttributes(new { @tabindex = 3 })
-                                                      .DataSource(source =>
-                                                      {
-                                                          source.Read(read =>
-                                                          {
-                                                              read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
-                                                          }).ServerFiltering(true);
-                                                      })
+                                                              .Value(Model.ContactPersonId == 0 ? string.Empty : Model.ContactPersonId.ToString())
+                                                              .Placeholder("--Select Contact Person --")
+                                                              .DataTextField("ContactPersonName")
+                                                              .DataValueField("ContactPersonId")
+                                                              .Enable(false)
+                                                              .AutoBind(false)
+                                                              .CascadeFrom("CustomerId")
+                                                              .HtmlAttributes(new { @tabindex = 3 })
+                                                              .DataSource(source =>
+                                                              {
+                                                                  source.Read(read =>
+                                                                  {
+                                                                      read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
+                                                                  }).ServerFiltering(true);
+                                                              })
                                         )
                                         @Html.ValidationMessageFor(m => m.ContactPersonId)
                                     </div>
                                 </div>
-                                
+
                                 @*<div class="form-group">
-                                    @Html.LabelFor(m => m.DispatchDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                    <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().DatePickerFor(m => m.DispatchDate).HtmlAttributes(new { @tabindex = 7 })
-                                        @Html.ValidationMessageFor(m => m.DispatchDate)
-                                    </div>
-                                </div>*@
+                                @Html.LabelFor(m => m.DispatchDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                <div class="col-sm-6 col-lg-9">
+                                    @Html.Kendo().DatePickerFor(m => m.DispatchDate).HtmlAttributes(new { @tabindex = 7 })
+                                    @Html.ValidationMessageFor(m => m.DispatchDate)
+                                </div>
+                            </div>*@
                             </div>
                         </div>
                     </div>
@@ -125,55 +126,55 @@
                     <div class="card-body">
 
                         @(Html.Kendo().Grid<tblPreCommissioningMachine>()
-                              .Name("gridPCMachine")
-                              .Columns(columns =>
-                              {
-                                  columns.Command(command =>
-                                  {
-                                      command.Edit().Text(" ");
-                                      command.Destroy().Text(" ");
-                                  }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
-                                             .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                      .Name("gridPCMachine")
+                                      .Columns(columns =>
+                                      {
+                                          columns.Command(command =>
+                                          {
+                                              command.Edit().Text(" ");
+                                              command.Destroy().Text(" ");
+                                          }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                     .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
 
-                                  columns.Bound(d => d.DispatchDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                  columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
-                                  columns.ForeignKey(d => d.MachineModeld, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
-                                  columns.Bound(d => d.MachineSerialNo);
-                                  columns.Bound(d => d.AHMNo);
-                              })
-                              .ToolBar(toolbar =>
-                              {
-                                  if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                  {
-                                      toolbar.Create().Text("Add");
-                                  }
-                              })
-                              .Editable(editable =>
-                              {
-                                  editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningMachine");
-                                  editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Machine?");
-                                  editable.Window(x => x.Title("Manage Pre Commissioning Machine"));
-                              })
-                              .Pageable(x =>
-                              {
-                                  x.Refresh(true);
-                                  x.PageSizes(WebHelper.PageSizes);
-                              })
-                              .Sortable(sortable => sortable.AllowUnsort(false))
-                              .Filterable()
-                              .NoRecords()
-                              .Events(grid => grid.Edit("onEditMachine").Save("onSaveMachine"))
-                              .DataSource(dataSource => dataSource
-                                  .Ajax()
-                                  .ServerOperation(true)
-                                  .PageSize(WebHelper.PageSize)
-                                  .Model(model => model.Id(d => d.PCMachined))
-                                  .Events(events => events.Error("onError(\"gridPCMachine\")"))
-                                  .Create(update => update.Action("KendoSave", "PreCommissioningMachine"))
-                                  .Read(read => read.Action("KendoRead", "PreCommissioningMachine").Data("additionalDataMachine"))
-                                  .Update(update => update.Action("KendoSave", "PreCommissioningMachine"))
-                                  .Destroy(update => update.Action("KendoDestroy", "PreCommissioningMachine"))
-                              ))
+                                          columns.Bound(d => d.DispatchDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                          columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
+                                          columns.ForeignKey(d => d.MachineModeld, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
+                                          columns.Bound(d => d.MachineSerialNo);
+                                          columns.Bound(d => d.AHMNo);
+                                      })
+                                      .ToolBar(toolbar =>
+                                      {
+                                          if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                          {
+                                              toolbar.Create().Text("Add");
+                                          }
+                                      })
+                                      .Editable(editable =>
+                                      {
+                                          editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningMachine");
+                                          editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Machine?");
+                                          editable.Window(x => x.Title("Manage Pre Commissioning Machine"));
+                                      })
+                                      .Pageable(x =>
+                                      {
+                                          x.Refresh(true);
+                                          x.PageSizes(WebHelper.PageSizes);
+                                      })
+                                      .Sortable(sortable => sortable.AllowUnsort(false))
+                                      .Filterable()
+                                      .NoRecords()
+                                      .Events(grid => grid.Edit("onEditMachine").Save("onSaveMachine"))
+                                      .DataSource(dataSource => dataSource
+                                          .Ajax()
+                                          .ServerOperation(true)
+                                          .PageSize(WebHelper.PageSize)
+                                          .Model(model => model.Id(d => d.PCMachined))
+                                          .Events(events => events.Error("onError(\"gridPCMachine\")"))
+                                          .Create(update => update.Action("KendoSave", "PreCommissioningMachine"))
+                                          .Read(read => read.Action("KendoRead", "PreCommissioningMachine").Data("additionalDataMachine"))
+                                          .Update(update => update.Action("KendoSave", "PreCommissioningMachine"))
+                                          .Destroy(update => update.Action("KendoDestroy", "PreCommissioningMachine"))
+                                      ))
                     </div>
                 </div>
 
@@ -184,54 +185,54 @@
                     <div class="card-body">
 
                         @(Html.Kendo().Grid<tblPreCommissioningAccessories>()
-                                                    .Name("gridPCAccessories")
-                                                    .Columns(columns =>
-                                                    {
-                                                        columns.Command(command =>
-                                                        {
-                                                            command.Edit().Text(" ");
-                                                            command.Destroy().Text(" ");
-                                                        }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
-                                                                   .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                                            .Name("gridPCAccessories")
+                                                            .Columns(columns =>
+                                                            {
+                                                                columns.Command(command =>
+                                                                {
+                                                                    command.Edit().Text(" ");
+                                                                    command.Destroy().Text(" ");
+                                                                }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                                           .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
 
-                                                        columns.Bound(d => d.DispatchDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                                        columns.ForeignKey(d => d.AccessoriesTypeId, (IEnumerable)ViewBag.AccessoriesTypeList, "AccessoriesTypeId", "AccessoriesTypeName");
-                                                        columns.ForeignKey(d => d.MachineAccessoriesId, (IEnumerable)ViewBag.MachineAccessoriesList, "MachineAccessoriesId", "AccessoriesName");
-                                                        columns.Bound(d => d.AccessoriesSerialNo);
-                                                    })
-                                                    .ToolBar(toolbar =>
-                                                    {
-                                                        if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                                        {
-                                                            toolbar.Create().Text("Add");
-                                                        }
-                                                    })
-                                                    .Editable(editable =>
-                                                    {
-                                                        editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningAccessories");
-                                                        editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Accessories?");
-                                                        editable.Window(x => x.Title("Manage Pre Commissioning Accessories"));
-                                                    })
-                                                    .Pageable(x =>
-                                                    {
-                                                        x.Refresh(true);
-                                                        x.PageSizes(WebHelper.PageSizes);
-                                                    })
-                                                    .Sortable(sortable => sortable.AllowUnsort(false))
-                                                    .Filterable()
-                                                    .NoRecords()
-                                                    .Events(grid => grid.Edit("onEditAccessory").Save("onSaveAccessory"))
-                                                    .DataSource(dataSource => dataSource
-                                                        .Ajax()
-                                                        .ServerOperation(true)
-                                                        .PageSize(WebHelper.PageSize)
-                                                        .Model(model => model.Id(d => d.PCAccessoriesId))
-                                                        .Events(events => events.Error("onError(\"gridPCAccessories\")"))
-                                                        .Create(update => update.Action("KendoSave", "PreCommissioningAccessories"))
-                                                        .Read(read => read.Action("KendoRead", "PreCommissioningAccessories").Data("additionalDataAccessori"))
-                                                        .Update(update => update.Action("KendoSave", "PreCommissioningAccessories"))
-                                                        .Destroy(update => update.Action("KendoDestroy", "PreCommissioningAccessories"))
-                                                    ))
+                                                                columns.Bound(d => d.DispatchDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                                columns.ForeignKey(d => d.AccessoriesTypeId, (IEnumerable)ViewBag.AccessoriesTypeList, "AccessoriesTypeId", "AccessoriesTypeName");
+                                                                columns.ForeignKey(d => d.MachineAccessoriesId, (IEnumerable)ViewBag.MachineAccessoriesList, "MachineAccessoriesId", "AccessoriesName");
+                                                                columns.Bound(d => d.AccessoriesSerialNo);
+                                                            })
+                                                            .ToolBar(toolbar =>
+                                                            {
+                                                                if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                {
+                                                                    toolbar.Create().Text("Add");
+                                                                }
+                                                            })
+                                                            .Editable(editable =>
+                                                            {
+                                                                editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningAccessories");
+                                                                editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Accessories?");
+                                                                editable.Window(x => x.Title("Manage Pre Commissioning Accessories"));
+                                                            })
+                                                            .Pageable(x =>
+                                                            {
+                                                                x.Refresh(true);
+                                                                x.PageSizes(WebHelper.PageSizes);
+                                                            })
+                                                            .Sortable(sortable => sortable.AllowUnsort(false))
+                                                            .Filterable()
+                                                            .NoRecords()
+                                                            .Events(grid => grid.Edit("onEditAccessory").Save("onSaveAccessory"))
+                                                            .DataSource(dataSource => dataSource
+                                                                .Ajax()
+                                                                .ServerOperation(true)
+                                                                .PageSize(WebHelper.PageSize)
+                                                                .Model(model => model.Id(d => d.PCAccessoriesId))
+                                                                .Events(events => events.Error("onError(\"gridPCAccessories\")"))
+                                                                .Create(update => update.Action("KendoSave", "PreCommissioningAccessories"))
+                                                                .Read(read => read.Action("KendoRead", "PreCommissioningAccessories").Data("additionalDataAccessori"))
+                                                                .Update(update => update.Action("KendoSave", "PreCommissioningAccessories"))
+                                                                .Destroy(update => update.Action("KendoDestroy", "PreCommissioningAccessories"))
+                                                            ))
                     </div>
                 </div>
 
@@ -241,60 +242,63 @@
                     </div>
                     <div class="card-body">
 
-                        @(Html.Kendo().Grid<tblPreCommissioningDetail>()
-                                  .Name("gridPCDetail")
-                                  .Columns(columns =>
-                                  {
-                                      columns.Command(command =>
-                                      {
-                                          command.Edit().Text(" ");
-                                          command.Destroy().Text(" ");
-                                          command.Custom("FinalizeCommissining").Text("<span class='k-icon k-i-more-horizontal' title='Finalize Commissining'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnFQ" }).Click("onFinalizeC");
-                                      }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
-                                                 .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
+                        @(Html.Kendo().Grid<GetPreCommisioningDetailData_Result>()
+                                          .Name("gridPCDetail")
+                                          .Columns(columns =>
+                                          {
+                                              columns.Command(command =>
+                                              {
+                                                  command.Edit().Text(" ");
+                                                  command.Destroy().Text(" ");
+                                                  command.Custom("FinalizeCommissining").Text("<span class='k-icon k-i-more-horizontal' title='Finalize Commissining'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnFQ" }).Click("onFinalizeC");
+                                              }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                                         .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
 
 
-                                      columns.Bound(d => d.PreCommisoningDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                      columns.ForeignKey(d => d.PCMachineId, (IEnumerable)ViewBag.PreCommissioningMachineList, "PCMachined", "MachineSerialNo");
-                                      columns.ForeignKey(d => d.PCAccesseriesId, (IEnumerable)ViewBag.PreCommissioningAccessoriesList, "PCAccessoriesId", "AccessoriesSerialNo");
-                                      columns.ForeignKey(d => d.ServiceEngineerId, (IEnumerable)ViewBag.ServicEngineerList, "UserId", "Name");
-                                      columns.Bound(d => d.IsCommisioning).Visible(true);
-                                      columns.Bound(d => d.PrecommisioningRemark);
-                                  })
-                                  .ToolBar(toolbar =>
-                                  {
-                                      if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                      {
-                                          toolbar.Create().Text("Add");
-                                      }
-                                  })
-                                  .Editable(editable =>
-                                  {
-                                      editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningDetail");
-                                      editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Detail?");
-                                      editable.Window(x => x.Title("Manage Pre Commissioning Detail"));
-                                  })
-                                  .Pageable(x =>
-                                  {
-                                      x.Refresh(true);
-                                      x.PageSizes(WebHelper.PageSizes);
-                                  })
-                                  .Sortable(sortable => sortable.AllowUnsort(false))
-                                  .Filterable(e=>e.Enabled(false))
-                                  .NoRecords()
-                                  .Events(grid => grid.Edit("onEdit").Save("onSave").DataBound("onDataBound"))
-                                  .DataSource(dataSource => dataSource
-                                      .Ajax()
-                                      .ServerOperation(true)
-                                      .PageSize(WebHelper.PageSize)
-                                      .Events(e=>e.RequestEnd("onDetailRequetEnd"))
-                                      .Model(model => model.Id(d => d.PCDetailId))
-                                      .Events(events => events.Error("onError(\"gridPCDetail\")"))
-                                      .Create(update => update.Action("KendoSave", "PreCommissioningDetail"))
-                                      .Read(read => read.Action("KendoRead", "PreCommissioningDetail").Data("additionalData"))
-                                      .Update(update => update.Action("KendoSave", "PreCommissioningDetail"))
-                                      .Destroy(update => update.Action("KendoDestroy", "PreCommissioningDetail"))
-                                  ))
+                                              columns.Bound(d => d.PreCommisoningDate).Format("{0:" + WebHelper.DateFormate + "}").Title("Date");
+                                              columns.Bound(d => d.MachineName);
+                                              columns.Bound(d => d.MachineSerialNo);
+                                              columns.Bound(d => d.AccessoriesName);
+                                              columns.Bound(d => d.AccessoriesSerialNo);
+                                              columns.Bound(d => d.ServiceEngineer);
+                                              columns.Bound(d => d.PrecommisioningRemark).Title("Remark");
+                                              columns.Bound(d => d.IsCommisioning).Visible(true);
+
+                                          })
+                                          .ToolBar(toolbar =>
+                                          {
+                                              if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                              {
+                                                  toolbar.Create().Text("Add");
+                                              }
+                                          })
+                                          .Editable(editable =>
+                                          {
+                                              editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningDetail");
+                                              editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Detail?");
+                                              editable.Window(x => x.Title("Manage Pre Commissioning Detail"));
+                                          })
+                                          .Pageable(x =>
+                                          {
+                                              x.Refresh(true);
+                                              x.PageSizes(WebHelper.PageSizes);
+                                          })
+                                          .Sortable(sortable => sortable.AllowUnsort(false))
+                                          .Filterable(e => e.Enabled(false))
+                                          .NoRecords()
+                                          .Events(grid => grid.Edit("onEdit").Save("onSave").DataBound("onDataBound"))
+                                          .DataSource(dataSource => dataSource
+                                              .Ajax()
+                                              .ServerOperation(true)
+                                              .PageSize(WebHelper.PageSize)
+                                              .Events(e => e.RequestEnd("onDetailRequetEnd"))
+                                              .Model(model => model.Id(d => d.PCDetailId))
+                                              .Events(events => events.Error("onError(\"gridPCDetail\")"))
+                                              .Create(update => update.Action("KendoSave", "PreCommissioningDetail"))
+                                              .Read(read => read.Action("KendoRead", "PreCommissioningDetail").Data("additionalData"))
+                                              .Update(update => update.Action("KendoSave", "PreCommissioningDetail"))
+                                              .Destroy(update => update.Action("KendoDestroy", "PreCommissioningDetail"))
+                                          ))
                     </div>
                 </div>
             }
@@ -491,6 +495,10 @@
 
     function onDataBound(e) {
         var grid = $("#gridPCDetail").data("kendoGrid");
+
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
 
         var gridData = grid.dataSource.view();
         for (var i = 0; i < gridData.length; i++) {

@@ -167,5 +167,14 @@ namespace StandardEng.Web.Controllers
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetRegionList()
+        {
+            using (var context = BaseContext.GetDbContext())
+            {
+                var list = context.tblRegion.Select(m => new { m.Id, m.Name}).OrderBy(m => new { m.Id }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

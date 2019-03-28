@@ -160,7 +160,7 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AHM No.
+        ///   Looks up a localized string similar to IR Order No.
         /// </summary>
         public static string AHMNo {
             get {
@@ -358,6 +358,15 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default Discount.
+        /// </summary>
+        public static string DefaultDiscount {
+            get {
+                return ResourceManager.GetString("DefaultDiscount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IsDelete.
         /// </summary>
         public static string Delete {
@@ -493,7 +502,7 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GST Number must be equal to 10 characters.
+        ///   Looks up a localized string similar to GST Number must be equal to 15 characters.
         /// </summary>
         public static string GSTLength {
             get {
@@ -907,20 +916,20 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Payment (in No of Days).
+        ///   Looks up a localized string similar to Payment Terms.
         /// </summary>
-        public static string PaymentDays {
+        public static string PaymentTerms {
             get {
-                return ResourceManager.GetString("PaymentDays", resourceCulture);
+                return ResourceManager.GetString("PaymentTerms", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Payment Day is Required.
+        ///   Looks up a localized string similar to Payment Terms is Required.
         /// </summary>
-        public static string PaymentDaysRequired {
+        public static string PaymentTermsRequired {
             get {
-                return ResourceManager.GetString("PaymentDaysRequired", resourceCulture);
+                return ResourceManager.GetString("PaymentTermsRequired", resourceCulture);
             }
         }
         
@@ -930,6 +939,24 @@ namespace StandardEng.Common {
         public static string PhoneLength {
             get {
                 return ResourceManager.GetString("PhoneLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin Code.
+        /// </summary>
+        public static string PinCode {
+            get {
+                return ResourceManager.GetString("PinCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin Code must be equal to 6 characters.
+        /// </summary>
+        public static string PinCodeLength {
+            get {
+                return ResourceManager.GetString("PinCodeLength", resourceCulture);
             }
         }
         
@@ -1047,6 +1074,33 @@ namespace StandardEng.Common {
         public static string QuotationNo {
             get {
                 return ResourceManager.GetString("QuotationNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region.
+        /// </summary>
+        public static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region Name must be less than or equal to 50 characters.
+        /// </summary>
+        public static string RegionNameLength {
+            get {
+                return ResourceManager.GetString("RegionNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region Name is Required.
+        /// </summary>
+        public static string RegionNameRequired {
+            get {
+                return ResourceManager.GetString("RegionNameRequired", resourceCulture);
             }
         }
         

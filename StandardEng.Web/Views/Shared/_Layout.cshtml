@@ -27,16 +27,20 @@
     <link href="~/Content/css/pnotify.custom.min.css" rel="stylesheet" />
 
     <script src="~/Scripts/JS/jquery.min.js"></script>
+    @*<script src="~/Scripts/JS/jquery-3.3.1.min.js"></script>*@
+    <script src="~/Content/kendo-ui/js/kendo.all.min.js"></script>
+    <script src="~/Content/kendo-ui/js/kendo.aspnetmvc.min.js"></script>
+    @*<script src="~/Scripts/JS/jquery-3.3.1.min.js"></script>*@
+    <script src="~/Scripts/JS/jquery.validate.min.js"></script>
+        <script src="~/Scripts/JS/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/JS/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootbox.js"></script>
-    @*<script src="~/Scripts/JS/uniform.min.js"></script>*@
+    @*<script src="~/Scripts/JS/validate.min.js"></script>*@
+    @*<script src="~/Scripts/JS/additional_methods.min.js"></script>*@
     <script src="~/Scripts/JS/app.js"></script>
-    @*<script src="~/Scripts/JS/dashboard.js"></script>*@
-    @*<script src="~/Scripts/JS/form_layouts.js"></script>*@
 
-    <script src="~/Content/kendo-ui/js/kendo.all.min.js"></script>
-    <script src="~/Content/kendo-ui/js/kendo.aspnetmvc.min.js"></script>
+
     <script src="~/Content/kendo-ui/js/telerikReportViewer-12.0.18.227.min.js"></script>
     <script src="~/Content/kendo-ui/js/cultures/kendo.culture.en-IN.min.js"></script>
     <script src="~/Content/kendo-ui/js/messages/kendo.messages.en-US.min.js"></script>
@@ -96,6 +100,27 @@
     $(document).ready(function () {
         kendo.culture('en-IN');
         setActiveMenulink();
+
+        jQuery.validator.addMethod(
+            'date',
+            function (value, element, params) {
+                if (this.optional(element)) {
+                    return true;
+                };
+                var result = false;
+                try {
+                    var date = kendo.parseDate(value, "dd/MM/yyyy");
+                    result = true;
+                    if (!date) {
+                        result = false;
+                    }
+                } catch (err) {
+                    result = false;
+                }
+                return result;
+            },
+            ''
+        );
 
          var errormessage = '@TempData[Enums.NotifyType.Error.GetDescription()]';
             var successmessage = '@TempData[Enums.NotifyType.Success.GetDescription()]';

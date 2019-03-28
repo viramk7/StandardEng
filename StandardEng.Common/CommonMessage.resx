@@ -184,7 +184,7 @@
     <value>Email is Required</value>
   </data>
   <data name="GSTLength" xml:space="preserve">
-    <value>GST Number must be equal to 10 characters</value>
+    <value>GST Number must be equal to 15 characters</value>
   </data>
   <data name="GSTNo" xml:space="preserve">
     <value>GST Number</value>
@@ -310,7 +310,7 @@
     <value>Warranty Period is Required</value>
   </data>
   <data name="AHMNo" xml:space="preserve">
-    <value>AHM No</value>
+    <value>IR Order No</value>
   </data>
   <data name="ContactPersonRequired" xml:space="preserve">
     <value>Contact Person is Required</value>
@@ -435,11 +435,11 @@
   <data name="InsuranceLength" xml:space="preserve">
     <value>Insurance value must be less than or equal to 100 characters</value>
   </data>
-  <data name="PaymentDays" xml:space="preserve">
-    <value>Payment (in No of Days)</value>
+  <data name="PaymentTerms" xml:space="preserve">
+    <value>Payment Terms</value>
   </data>
-  <data name="PaymentDaysRequired" xml:space="preserve">
-    <value>Payment Day is Required</value>
+  <data name="PaymentTermsRequired" xml:space="preserve">
+    <value>Payment Terms is Required</value>
   </data>
   <data name="QuotationDate" xml:space="preserve">
     <value>Quotation Date</value>
@@ -542,5 +542,23 @@
   </data>
   <data name="TotalPriceRequired" xml:space="preserve">
     <value>Total Price is Required</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="RegionNameLength" xml:space="preserve">
+    <value>Region Name must be less than or equal to 50 characters</value>
+  </data>
+  <data name="RegionNameRequired" xml:space="preserve">
+    <value>Region Name is Required</value>
+  </data>
+  <data name="DefaultDiscount" xml:space="preserve">
+    <value>Default Discount</value>
+  </data>
+  <data name="PinCode" xml:space="preserve">
+    <value>Pin Code</value>
+  </data>
+  <data name="PinCodeLength" xml:space="preserve">
+    <value>Pin Code must be equal to 6 characters</value>
   </data>
 </root>

@@ -51,10 +51,11 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblPreCommissioningAccessories> tblPreCommissioningAccessories { get; set; }
         public virtual DbSet<tblPreCommissioningDetail> tblPreCommissioningDetail { get; set; }
         public virtual DbSet<tblPreCommissioningMachine> tblPreCommissioningMachine { get; set; }
-        public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
         public virtual DbSet<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
-        public virtual DbSet<tblPerformaInvoice> tblPerformaInvoice { get; set; }
         public virtual DbSet<tblPerformaInvoiceDetail> tblPerformaInvoiceDetail { get; set; }
+        public virtual DbSet<tblRegion> tblRegion { get; set; }
+        public virtual DbSet<tblPerformaInvoice> tblPerformaInvoice { get; set; }
+        public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
     
         public virtual ObjectResult<AssignRoleList_Result> AssignRoleList(Nullable<int> roleId)
         {
@@ -99,6 +100,29 @@ namespace StandardEng.Data.DB
                 new ObjectParameter("PreCommissioningId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPCMachineListDD_Result>("GetPCMachineListDD", preCommissioningIdParameter);
+        }
+    
+        public virtual ObjectResult<GetPreCommisioningDetailData_Result> GetPreCommisioningDetailData(Nullable<int> preCommissioningId)
+        {
+            var preCommissioningIdParameter = preCommissioningId.HasValue ?
+                new ObjectParameter("PreCommissioningId", preCommissioningId) :
+                new ObjectParameter("PreCommissioningId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPreCommisioningDetailData_Result>("GetPreCommisioningDetailData", preCommissioningIdParameter);
+        }
+    
+        public virtual ObjectResult<GetPreCommissiningList_Result> GetPreCommissiningList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPreCommissiningList_Result>("GetPreCommissiningList");
+        }
+    
+        public virtual ObjectResult<GetPreCommisioningListDetail_Result> GetPreCommisioningListDetail(Nullable<int> preCommissioningId)
+        {
+            var preCommissioningIdParameter = preCommissioningId.HasValue ?
+                new ObjectParameter("PreCommissioningId", preCommissioningId) :
+                new ObjectParameter("PreCommissioningId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPreCommisioningListDetail_Result>("GetPreCommisioningListDetail", preCommissioningIdParameter);
         }
     }
 }

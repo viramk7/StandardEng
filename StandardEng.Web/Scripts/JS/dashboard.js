@@ -58,7 +58,8 @@ var Dashboard = function () {
                 applyClass: 'btn-sm bg-slate-600 btn-block',
                 cancelClass: 'btn-sm btn-light btn-block',
                 locale: {
-                    format: 'MM/DD/YYYY',
+                    //format: 'MM/DD/YYYY',
+                    format: 'dd/MM/yyyy',
                     direction: $('html').attr('dir') == 'rtl' ? 'rtl' : 'ltr'
                 }
             },

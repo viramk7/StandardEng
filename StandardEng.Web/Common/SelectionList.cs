@@ -126,40 +126,40 @@ namespace StandardEng.Web.Common
             }
         }
 
-        public static List<tblPreCommissioningAccessories> PreCommissioningAccessoriesList(int? id = 0)
-        {
-            using (StandardEngEntities dbContext = BaseContext.GetDbContext())
-            {
-                if(id > 0)
-                {
-                    List<tblPreCommissioningAccessories> result = dbContext.tblPreCommissioningAccessories.Where(m => m.PreCommissioningId == id).ToList();
-                    return result;
-                }
-                else
-                {
-                    List<tblPreCommissioningAccessories> result = dbContext.tblPreCommissioningAccessories.ToList();
-                    return result;
-                }
+        //public static List<tblPreCommissioningAccessories> PreCommissioningAccessoriesList(int? id = 0)
+        //{
+        //    using (StandardEngEntities dbContext = BaseContext.GetDbContext())
+        //    {
+        //        if(id > 0)
+        //        {
+        //            List<tblPreCommissioningAccessories> result = dbContext.tblPreCommissioningAccessories.Where(m => m.PreCommissioningId == id).ToList();
+        //            return result;
+        //        }
+        //        else
+        //        {
+        //            List<tblPreCommissioningAccessories> result = dbContext.tblPreCommissioningAccessories.ToList();
+        //            return result;
+        //        }
                 
-            }
-        }
+        //    }
+        //}
 
-        public static List<tblPreCommissioningMachine> PreCommissioningMachineList(int? id = 0)
-        {
-            using (StandardEngEntities dbContext = BaseContext.GetDbContext())
-            {
-                if (id > 0)
-                {
-                    List<tblPreCommissioningMachine> result = dbContext.tblPreCommissioningMachine.Where(m => m.PreCommissioningId == id).ToList();
-                    return result;
-                }
-                else
-                {
-                    List<tblPreCommissioningMachine> result = dbContext.tblPreCommissioningMachine.ToList();
-                    return result;
-                }
+        //public static List<tblPreCommissioningMachine> PreCommissioningMachineList(int? id = 0)
+        //{
+        //    using (StandardEngEntities dbContext = BaseContext.GetDbContext())
+        //    {
+        //        if (id > 0)
+        //        {
+        //            List<tblPreCommissioningMachine> result = dbContext.tblPreCommissioningMachine.Where(m => m.PreCommissioningId == id).ToList();
+        //            return result;
+        //        }
+        //        else
+        //        {
+        //            List<tblPreCommissioningMachine> result = dbContext.tblPreCommissioningMachine.ToList();
+        //            return result;
+        //        }
 
-            }
-        }
+        //    }
+        //}
     }
 }

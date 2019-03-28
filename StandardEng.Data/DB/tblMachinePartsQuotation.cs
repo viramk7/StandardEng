@@ -29,13 +29,15 @@ namespace StandardEng.Data.DB
         public string ReportServiceNo { get; set; }
         public string InquiryNo { get; set; }
         public Nullable<System.DateTime> InquiryDate { get; set; }
-        public Nullable<int> PaymentDays { get; set; }
+        public string PaymentTerms { get; set; }
         public Nullable<int> DeliveryWeeks { get; set; }
         public string Insurance { get; set; }
         public Nullable<int> ValidityDays { get; set; }
         public string Email { get; set; }
         public Nullable<decimal> TotalFinalAmount { get; set; }
         public Nullable<decimal> FreightAmount { get; set; }
+        public Nullable<decimal> FreightPercentage { get; set; }
+        public Nullable<decimal> TotalFreightAmount { get; set; }
         public Nullable<decimal> QuotationAmount { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
@@ -43,6 +45,7 @@ namespace StandardEng.Data.DB
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> SequenceNo { get; set; }
         public Nullable<bool> IsPIGenerated { get; set; }
+        public string Remarks { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }

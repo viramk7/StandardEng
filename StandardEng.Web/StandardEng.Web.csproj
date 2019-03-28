@@ -201,6 +201,7 @@
     <Compile Include="Controllers\PreCommissioningController.cs" />
     <Compile Include="Controllers\PreCommissioningDetailController.cs" />
     <Compile Include="Controllers\PreCommissioningMachineController.cs" />
+    <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\ReportsApiController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\StateController.cs" />
@@ -330,15 +331,21 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\JS\additional_methods.min.js" />
     <Content Include="Scripts\JS\app.js" />
     <Content Include="Scripts\JS\bootstrap.bundle.min.js" />
     <Content Include="Scripts\JS\custom.js" />
     <Content Include="Scripts\JS\dashboard.js" />
     <Content Include="Scripts\JS\form_layouts.js" />
+    <Content Include="Scripts\JS\jquery-3.3.1.min.js" />
     <Content Include="Scripts\JS\jquery.min.js" />
+    <Content Include="Scripts\JS\jquery.validate.min.js" />
+    <Content Include="Scripts\JS\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JS\login.js" />
     <Content Include="Scripts\JS\login_validation.js" />
+    <Content Include="Scripts\JS\messages_es.js" />
     <Content Include="Scripts\JS\uniform.min.js" />
+    <Content Include="Scripts\JS\validate.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\pnotify.custom.min.js" />
     <Content Include="Scripts\respond.js" />
@@ -456,6 +463,7 @@
     <Content Include="Views\PI\Index.cshtml" />
     <Content Include="Views\PI\Create.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblPIDetail.cshtml" />
+    <Content Include="Views\Region\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">

@@ -42,32 +42,44 @@ namespace StandardEng.Web.Controllers
                 request.Sorts.Add(new SortDescriptor("PreCommisoningDate", ListSortDirection.Descending));
             }
 
-            DataSourceResult result = _dbRepository.GetEntities().Where(m => m.PreCommissionId == PreCommissionId).ToDataSourceResult(request);
-            List<tblPreCommissioningDetail> list = result.Data as List<tblPreCommissioningDetail>;
-            foreach(tblPreCommissioningDetail obj in list)
+            DataSourceResult result = CustomRepository.GetPreCommisioningDetailData(PreCommissionId).ToDataSourceResult(request);
+            //DataSourceResult result = _dbRepository.GetEntities().Where(m => m.PreCommissionId == PreCommissionId).ToDataSourceResult(request);
+            List<GetPreCommisioningDetailData_Result> list = result.Data as List<GetPreCommisioningDetailData_Result>;
+            foreach (GetPreCommisioningDetailData_Result obj in list)
             {
-                if(obj.PCAccesseriesId > 0)
+                if (obj.PCAccesseriesId > 0)
                 {
                     obj.PCAccessoryIdList = new List<int>();
                     obj.PCAccessoryIdList.Add(obj.PCAccesseriesId.Value);
                 }
-                if(obj.PCMachineId > 0)
+                if (obj.PCMachineId > 0)
                 {
                     obj.PCMachineIdList = new List<int>();
                     obj.PCMachineIdList.Add(obj.PCMachineId.Value);
                 }
             }
-            return Json(result);
+            return Json(list.ToDataSourceResult(request));
         }
 
-        public ActionResult KendoSave([DataSourceRequest] DataSourceRequest request, tblPreCommissioningDetail model)
+        public ActionResult KendoSave([DataSourceRequest] DataSourceRequest request, GetPreCommisioningDetailData_Result obj)
         {
-            if (model == null || !ModelState.IsValid)
+            if (obj == null || !ModelState.IsValid)
             {
-                return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+                return Json(new[] { obj }.ToDataSourceResult(request, ModelState));
             }
 
             string message = string.Empty;
+
+            tblPreCommissioningDetail model = new tblPreCommissioningDetail();
+            model.PCDetailId = obj.PCDetailId;
+            model.PCMachineId = obj.PCMachineId;
+            model.PCAccesseriesId = obj.PCAccesseriesId;
+            model.PCMachineIdList = obj.PCMachineIdList;
+            model.PCAccessoryIdList = obj.PCAccessoryIdList;
+            model.PreCommisoningDate = obj.PreCommisoningDate;
+            model.ServiceEngineerId = obj.ServiceEngineerId;
+            model.PrecommisioningRemark = obj.PrecommisioningRemark;
+            model.PreCommissionId = obj.PreCommissionId;
 
             if (model.PCDetailId > 0)
             {
@@ -126,7 +138,7 @@ namespace StandardEng.Web.Controllers
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
 
-        public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, tblPreCommissioningDetail model)
+        public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, GetPreCommisioningDetailData_Result model)
         {
             string deleteMessage = _dbRepository.Delete(model.PCDetailId);
 
