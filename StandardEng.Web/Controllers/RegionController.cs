@@ -3,6 +3,7 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using StandardEng.Data.DB;
 using StandardEng.Data.Repository;
+using StandardEng.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,7 @@ namespace StandardEng.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.CityList = SelectionList.CityList().Select(m => new { m.CityId, m.CityName });
             return View();
         }
 

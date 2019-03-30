@@ -73,6 +73,7 @@
                                      .Filterable()
                                      .Scrollable(e => e.Enabled(true))
                                      .NoRecords()
+                                     .HtmlAttributes(new { @style = "height:500px" })
                                      .Events(e => e.DataBound("onDataBound"))
                                      .DataSource(dataSource => dataSource
                                      .Ajax()

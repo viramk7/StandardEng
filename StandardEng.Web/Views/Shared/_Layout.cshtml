@@ -32,7 +32,12 @@
     <script src="~/Content/kendo-ui/js/kendo.aspnetmvc.min.js"></script>
     @*<script src="~/Scripts/JS/jquery-3.3.1.min.js"></script>*@
     <script src="~/Scripts/JS/jquery.validate.min.js"></script>
-        <script src="~/Scripts/JS/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/JS/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $.validator.setDefaults({
+            ignore: ""
+        });
+    </script>
     <script src="~/Scripts/JS/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootbox.js"></script>
@@ -109,7 +114,7 @@
                 };
                 var result = false;
                 try {
-                    var date = kendo.parseDate(value, "dd/MM/yyyy");
+                    var date = kendo.parseDate(value, "dd-MM-yyyy");
                     result = true;
                     if (!date) {
                         result = false;
@@ -121,6 +126,12 @@
             },
             ''
         );
+
+        //$.validator.setDefaults({
+        //    ignore: ":hidden:not(:visible.k-widget .kendo-force-validation)"
+        //});
+
+         
 
          var errormessage = '@TempData[Enums.NotifyType.Error.GetDescription()]';
             var successmessage = '@TempData[Enums.NotifyType.Success.GetDescription()]';

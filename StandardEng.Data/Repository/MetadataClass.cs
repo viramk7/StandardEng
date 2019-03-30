@@ -284,7 +284,7 @@ namespace StandardEng.Data.DB
             [MinLength(6, ErrorMessageResourceName = "PinCodeLength", ErrorMessageResourceType = typeof(CommonMessage))]
             public string PinCode { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "Region")]
+            [Display(ResourceType = typeof(CommonMessage), Name = "DefaultDiscount")]
             public Nullable<decimal> DefaultDiscount { get; set; }
         }
 
@@ -719,7 +719,7 @@ namespace StandardEng.Data.DB
             public Nullable<System.DateTime> InquiryDate { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "PaymentTerms")]
-            [Required(ErrorMessageResourceName = "PaymentTermsRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[Required(ErrorMessageResourceName = "PaymentTermsRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public string PaymentTerms { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "DeliveryWeeks")]
@@ -750,6 +750,9 @@ namespace StandardEng.Data.DB
             public Nullable<decimal> FreightPercentage { get; set; }
             public Nullable<decimal> TotalFreightAmount { get; set; }
             public string Remarks { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ServiceEngineer")]
+            public Nullable<int> ServiceEngineerId { get; set; }
 
             [ScaffoldColumn(false)]
             public Nullable<int> SequenceNo { get; set; }
@@ -862,6 +865,9 @@ namespace StandardEng.Data.DB
 
             [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
             public Nullable<decimal> GSTAmount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "SellingPrice")]
+            public Nullable<decimal> SellingPrice { get; set; }
 
             [ScaffoldColumn(false)]
             public Nullable<int> CreatedBy { get; set; }
@@ -1053,6 +1059,13 @@ namespace StandardEng.Data.DB
             public Nullable<decimal> TotalFinalAmount { get; set; }
             public Nullable<decimal> QuotationAmount { get; set; }
 
+            public string Remarks { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ServiceEngineer")]
+            public Nullable<int> ServiceEngineerId { get; set; }
+
+            public Nullable<decimal> FreightPercentage { get; set; }
+            public Nullable<decimal> TotalFreightAmount { get; set; }
 
             [ScaffoldColumn(false)]
             public Nullable<int> SequenceNo { get; set; }
@@ -1169,6 +1182,9 @@ namespace StandardEng.Data.DB
             [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
             public Nullable<decimal> GSTAmount { get; set; }
 
+            [Display(ResourceType = typeof(CommonMessage), Name = "SellingPrice")]
+            public Nullable<decimal> SellingPrice { get; set; }
+
             [ScaffoldColumn(false)]
             public Nullable<int> CreatedBy { get; set; }
 
@@ -1196,13 +1212,18 @@ namespace StandardEng.Data.DB
             [StringLength(50, ErrorMessageResourceName = "RegionNameLength", ErrorMessageResourceType = typeof(CommonMessage))]
             public string Name { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "Status", Order = 2)]
+            [UIHint("GridForeignKey")]
+            [Display(ResourceType = typeof(CommonMessage), Name = "City", Order = 2)]
+            [Required(ErrorMessageResourceName = "CityRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int CityId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Status", Order = 3)]
             public bool IsActive { get; set; }
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (CustomRepository.IsRegionNameExists(Name, Id))
+            if (CustomRepository.IsRegionNameExists(Name, Id,CityId))
             {
                 var fieldName = new[] { "Name" };
                 yield return new ValidationResult("Region is Already Exists.", fieldName);

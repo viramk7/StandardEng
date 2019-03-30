@@ -72,12 +72,13 @@
         <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType" />
         <EntityTypeShape EntityType="StandardEngModel.tblRegion" Width="1.5" PointX="5.375" PointY="0.875" />
         <AssociationConnector Association="StandardEngModel.FK_tblCustomer_tblRegion" />
-        <EntityTypeShape EntityType="StandardEngModel.tblPerformaInvoice" Width="1.5" PointX="5.25" PointY="16.75" />
-        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" />
-        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" />
-        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotation" Width="1.5" PointX="14.25" PointY="1.375" />
+        <AssociationConnector Association="StandardEngModel.FK_tblRegion_tblCity" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotation" Width="1.5" PointX="14.25" PointY="1.25" />
+        <EntityTypeShape EntityType="StandardEngModel.tblPerformaInvoice" Width="1.5" PointX="5.25" PointY="17.375" />
         <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" />
         <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" />
         <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" />
       </Diagram>
     </edmx:Diagrams>

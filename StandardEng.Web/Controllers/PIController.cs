@@ -32,19 +32,20 @@ namespace StandardEng.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
-            ViewBag.ContactPersonsList = SelectionList.ContactPersonsList().Select(m => new { m.ContactPersonId, m.ContactPersonName });
+            //ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
+            //ViewBag.ContactPersonsList = SelectionList.ContactPersonsList().Select(m => new { m.ContactPersonId, m.ContactPersonName });
             return View();
         }
 
         public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request)
         {
-            if (!request.Sorts.Any())
-            {
-                request.Sorts.Add(new SortDescriptor("PerformaInvoiceId", ListSortDirection.Ascending));
-            }
+            //if (!request.Sorts.Any())
+            //{
+            //    request.Sorts.Add(new SortDescriptor("PerformaInvoiceId", ListSortDirection.Ascending));
+            //}
 
-            return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
+            //return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
+            return Json(CustomRepository.GetPerformaInvoieList().ToDataSourceResult(request));
         }
 
         //public ActionResult Create()

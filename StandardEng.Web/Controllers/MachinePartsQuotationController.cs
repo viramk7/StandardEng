@@ -38,19 +38,19 @@ namespace StandardEng.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
-            ViewBag.ContactPersonsList = SelectionList.ContactPersonsList().Select(m => new { m.ContactPersonId, m.ContactPersonName });
+            //ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
+            //ViewBag.ContactPersonsList = SelectionList.ContactPersonsList().Select(m => new { m.ContactPersonId, m.ContactPersonName });
             return View();
         }
 
         public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request)
         {
-            if (!request.Sorts.Any())
-            {
-                request.Sorts.Add(new SortDescriptor("MachinePartsQuotationId", ListSortDirection.Ascending));
-            }
+            //if (!request.Sorts.Any())
+            //{
+            //    request.Sorts.Add(new SortDescriptor("MachinePartsQuotationId", ListSortDirection.Ascending));
+            //}
 
-            return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
+            return Json(CustomRepository.GetPartsQuoatationList().ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -178,6 +178,9 @@ namespace StandardEng.Web.Controllers
                         invoiceObj.TotalFinalAmount = quotationObj.TotalFinalAmount;
                         invoiceObj.FreightAmount = quotationObj.FreightAmount;
                         invoiceObj.QuotationAmount = quotationObj.QuotationAmount;
+                        invoiceObj.TotalFreightAmount = quotationObj.TotalFreightAmount;
+                        invoiceObj.ServiceEngineerId = quotationObj.ServiceEngineerId;
+                        invoiceObj.FreightPercentage = quotationObj.FreightPercentage;
                         invoiceObj.SequenceNo = quotationObj.SequenceNo;
                         invoiceObj.CreatedBy = SessionHelper.UserId;
                         invoiceObj.CreatedDate = DateTime.Now;

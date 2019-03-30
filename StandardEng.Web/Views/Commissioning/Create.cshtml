@@ -200,7 +200,7 @@
                                                                                           .Placeholder("--Select Accessories Type --")
                                                                                           .DataTextField("AccessoriesTypeName")
                                                                                           .DataValueField("AccessoriesTypeId")
-                                                                                          .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 5 })
+                                                                                          .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 5,@readonly="readonly" })
                                                                                           .DataSource(source =>
                                                                                           {
                                                                                               source.Read(read =>
@@ -216,7 +216,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.AccessoriesSerialNo, new { @class = "col-sm-6 col-lg-6 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
-                                        @Html.Kendo().TextBoxFor(m => m.AccessoriesSerialNo).HtmlAttributes(new { @tabindx = 7 })
+                                        @Html.Kendo().TextBoxFor(m => m.AccessoriesSerialNo).HtmlAttributes(new { @tabindx = 7, @readonly = "readonly" })
                                         @Html.ValidationMessageFor(m => m.AccessoriesSerialNo)
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@
                                                                                          .Placeholder("--Select Machine Accessories --")
                                                                                          .DataTextField("AccessoriesName")
                                                                                          .DataValueField("MachineAccessoriesId")
-                                                                                         .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 6 })
+                                                                                         .HtmlAttributes(new { @data_value_primitive = true, @tabindex = 6, @readonly = "readonly" })
                                                                                          .Enable(false)
                                                                                          .AutoBind(false)
                                                                                          .CascadeFrom("AccessoriesTypeId")

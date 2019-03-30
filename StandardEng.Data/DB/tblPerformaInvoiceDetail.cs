@@ -38,6 +38,7 @@ namespace StandardEng.Data.DB
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<decimal> SellingPrice { get; set; }
     
         public virtual tblMachineModels tblMachineModels { get; set; }
         public virtual tblMachineParts tblMachineParts { get; set; }

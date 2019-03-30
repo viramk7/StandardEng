@@ -29,8 +29,7 @@
                 </div>
                 <div class="card-body">
 
-                    @(Html.Kendo().Grid<tblCommissioning>
-                                         ()
+                    @(Html.Kendo().Grid<GetCommissioningList_Result>()
                                          .Name("gridCommissioning")
                                          .Columns(columns =>
                                          {
@@ -54,16 +53,27 @@
                                                  .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
 
                                              }
-                                             columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName");
-                                             columns.ForeignKey(d => d.ContactPersonId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName");
-                                             columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
-                                             columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
-                                             columns.Bound(d => d.MachineSerialNo);
                                              columns.Bound(d => d.CommissioningDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                             columns.Bound(d => d.CustomerName);
+                                             columns.Bound(d => d.ContactPersonName);
+                                             columns.Bound(d => d.MachineTypeName);
+                                             columns.Bound(d => d.MachineName);
+                                             columns.Bound(d => d.MachineSerialNo);
+                                             columns.Bound(d => d.AccessoriesTypeName);
+                                             columns.Bound(d => d.AccessoriesName);
+                                             columns.Bound(d => d.AccessoriesSerialNo);
                                              columns.Bound(d => d.WarrantyExpireDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                             columns.Bound(d => d.WarrantyPeriod).Format("{0:" + WebHelper.DateFormate + "}");
-                                             columns.Bound(d => d.IsReadyForAMC).Visible(false);
-                                             columns.Bound(d => d.IsConvertedToAMC).Visible(false);
+                                             columns.Bound(d => d.RemainingDays);
+                                             columns.Bound(d => d.IsReadyForAMC);
+                                             columns.Bound(d => d.IsConvertedToAMC);
+                                             columns.Bound(d => d.ContactNo);
+                                             columns.Bound(d => d.ContactPersonEmail);
+                                             columns.Bound(d => d.CountryName);
+                                             columns.Bound(d => d.StateName);
+                                             columns.Bound(d => d.CityName);
+                                             columns.Bound(d => d.Area);
+                                             columns.Bound(d => d.Address);
+                                             columns.Bound(d => d.ServiceEnginnerName);
                                          })
                                          //.ToolBar(toolbar =>
                                          //{
@@ -85,6 +95,7 @@
                                          .Filterable()
                                          .Scrollable(e => e.Enabled(true))
                                          .NoRecords()
+                                         .HtmlAttributes(new { @style = "height:500px" })
                                          .Events(e => e.DataBound("onDataBound"))
                                          .DataSource(dataSource => dataSource
                                          .Ajax()

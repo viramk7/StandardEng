@@ -139,12 +139,12 @@ namespace StandardEng.Web.Controllers
             {
                 if(MachineTypeId > 0)
                 {
-                    var list = context.tblMachineParts.Where(m=>m.MachineTypeId == MachineTypeId).Select(m => new { m.MachinePartId, ProductValue = m.ProductValue + "-" + m.AlternateProductValue + "-" + m.AlternateProductValue1, m.Description, m.HSNCode }).OrderBy(m => new { m.MachinePartId }).ToList();
+                    var list = context.tblMachineParts.Where(m=>m.MachineTypeId == MachineTypeId).Select(m => new { m.MachinePartId, ProductValue = m.ProductValue + "-" + m.AlternateProductValue + "-" + m.AlternateProductValue1, m.Description, m.HSNCode ,m.IPL}).OrderBy(m => new { m.MachinePartId }).ToList();
                     return Json(list, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    var list = context.tblMachineParts.Select(m => new { m.MachinePartId, ProductValue = m.ProductValue + "-" + m.AlternateProductValue + "-" + m.AlternateProductValue1, m.Description, m.HSNCode }).OrderBy(m => new { m.MachinePartId }).ToList();
+                    var list = context.tblMachineParts.Select(m => new { m.MachinePartId, ProductValue = m.ProductValue + "-" + m.AlternateProductValue + "-" + m.AlternateProductValue1, m.Description, m.HSNCode, m.IPL }).OrderBy(m => new { m.MachinePartId }).ToList();
                     return Json(list, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -168,11 +168,11 @@ namespace StandardEng.Web.Controllers
             }
         }
 
-        public ActionResult GetRegionList()
+        public ActionResult GetRegionList(int CityId)
         {
             using (var context = BaseContext.GetDbContext())
             {
-                var list = context.tblRegion.Select(m => new { m.Id, m.Name}).OrderBy(m => new { m.Id }).ToList();
+                var list = context.tblRegion.Where(m=>m.CityId == CityId).Select(m => new { m.Id, m.Name}).OrderBy(m => new { m.Id }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
         }

@@ -120,11 +120,11 @@ namespace StandardEng.Data.Repository
             }
         }
 
-        public static bool IsRegionNameExists(string Name, int Id)
+        public static bool IsRegionNameExists(string Name, int Id,int CityId)
         {
             using (StandardEngEntities dbContext = BaseContext.GetDbContext())
             {
-                bool result = dbContext.tblRegion.Any(m => m.Name == Name && m.Id != Id);
+                bool result = dbContext.tblRegion.Any(m => m.Name == Name && m.CityId == CityId  && m.Id != Id);
                 return result;
             }
         }
@@ -215,6 +215,39 @@ namespace StandardEng.Data.Repository
             }
 
             return dataList.OrderByDescending(m => m.PCDetailId).ToList();
+        }
+
+        public static List<GetCommissioningList_Result> GetCommissioningList()
+        {
+            List<GetCommissioningList_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetCommissioningList().ToList();
+            }
+            return dataList.OrderByDescending(m => m.CommissioningDate).ToList();
+        }
+
+        public static List<GetPartsQuoatationList_Result> GetPartsQuoatationList()
+        {
+            List<GetPartsQuoatationList_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetPartsQuoatationList().ToList();
+            }
+            return dataList.OrderByDescending(m => m.QuotationDate).ToList();
+        }
+
+        public static List<GetPerformaInvoieList_Result> GetPerformaInvoieList()
+        {
+            List<GetPerformaInvoieList_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetPerformaInvoieList().ToList();
+            }
+            return dataList.OrderByDescending(m => m.QuotationDate).ToList();
         }
     }
 }

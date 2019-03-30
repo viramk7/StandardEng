@@ -18,6 +18,7 @@ namespace StandardEng.Data.DB
         public tblCity()
         {
             this.tblCustomer = new HashSet<tblCustomer>();
+            this.tblRegion = new HashSet<tblRegion>();
         }
     
         public int CityId { get; set; }
@@ -30,5 +31,7 @@ namespace StandardEng.Data.DB
         public virtual tblState tblState { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCustomer> tblCustomer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblRegion> tblRegion { get; set; }
     }
 }

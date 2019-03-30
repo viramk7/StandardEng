@@ -26,7 +26,7 @@ namespace StandardEng.Web
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-IN");
             CultureInfo info = new CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.ToString());
-            info.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            info.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             //info.DateTimeFormat.DateSeparator = "/";
             //info.DateTimeFormat.FullDateTimePattern = "dd/MM/yyyy hh:mm tt";
             System.Threading.Thread.CurrentThread.CurrentCulture = info;

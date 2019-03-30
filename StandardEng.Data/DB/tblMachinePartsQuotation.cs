@@ -46,6 +46,7 @@ namespace StandardEng.Data.DB
         public Nullable<int> SequenceNo { get; set; }
         public Nullable<bool> IsPIGenerated { get; set; }
         public string Remarks { get; set; }
+        public Nullable<int> ServiceEngineerId { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }

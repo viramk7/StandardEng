@@ -37,6 +37,10 @@ namespace StandardEng.Data.DB
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> SequenceNo { get; set; }
+        public string Remarks { get; set; }
+        public Nullable<int> ServiceEngineerId { get; set; }
+        public Nullable<decimal> FreightPercentage { get; set; }
+        public Nullable<decimal> TotalFreightAmount { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }

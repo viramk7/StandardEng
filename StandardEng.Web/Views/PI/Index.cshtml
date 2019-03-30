@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
 
-                    @(Html.Kendo().Grid<tblPerformaInvoice>()
+                    @(Html.Kendo().Grid<GetPerformaInvoieList_Result>()
                            .Name("gridPI")
                            .Columns(columns =>
                            {
@@ -49,10 +49,18 @@
                                       .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
 
                                }
-                               columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName");
-                               columns.ForeignKey(d => d.CustomerContactPId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName");
                                columns.Bound(d => d.QuotationNo);
                                columns.Bound(d => d.QuotationDate).Format("{0:" + WebHelper.DateFormate + "}");
+                               columns.Bound(d => d.CustomerName);
+                               columns.Bound(d => d.QuotationAmount);
+                               columns.Bound(d => d.ContactPersonName);
+                               columns.Bound(d => d.ContactNo);
+                               columns.Bound(d => d.ContactPersonEmail);
+                               columns.Bound(d => d.CountryName);
+                               columns.Bound(d => d.StateName);
+                               columns.Bound(d => d.CityName);
+                               columns.Bound(d => d.Area);
+                               columns.Bound(d => d.Address);
 
                            })
                            //.ToolBar(toolbar =>
@@ -70,6 +78,9 @@
                            .Sortable(sortable => sortable.AllowUnsort(false))
                            .Filterable()
                            .NoRecords()
+                           .HtmlAttributes(new { @style = "height:500px" })
+                           .Events(e => e.DataBound("onDataBound"))
+                           .Scrollable(e => e.Enabled(true))
                            .DataSource(dataSource => dataSource
                                .Ajax()
                                .ServerOperation(true)
@@ -124,6 +135,13 @@
         }
     }
 
+    function onDataBound(e) {
+        var grid = $("#gridPI").data("kendoGrid");
+
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
+    }
 </script>
 
 

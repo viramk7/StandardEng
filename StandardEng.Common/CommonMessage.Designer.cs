@@ -1078,7 +1078,7 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Region.
+        ///   Looks up a localized string similar to Area.
         /// </summary>
         public static string Region {
             get {
@@ -1087,7 +1087,7 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Region Name must be less than or equal to 50 characters.
+        ///   Looks up a localized string similar to Area Name must be less than or equal to 50 characters.
         /// </summary>
         public static string RegionNameLength {
             get {
@@ -1096,7 +1096,7 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Region Name is Required.
+        ///   Looks up a localized string similar to Area Name is Required.
         /// </summary>
         public static string RegionNameRequired {
             get {
@@ -1114,7 +1114,7 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report Service No.
+        ///   Looks up a localized string similar to Service Report No.
         /// </summary>
         public static string ReportServiceNo {
             get {
@@ -1146,6 +1146,15 @@ namespace StandardEng.Common {
         public static string RoleNameRequired {
             get {
                 return ResourceManager.GetString("RoleNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selling Price.
+        /// </summary>
+        public static string SellingPrice {
+            get {
+                return ResourceManager.GetString("SellingPrice", resourceCulture);
             }
         }
         

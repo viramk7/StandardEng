@@ -65,19 +65,19 @@
                                     @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
-                                                                              .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
-                                                                              .Placeholder("--Select Customer --")
-                                                                              .DataTextField("CustomerName")
-                                                                              .DataValueField("CustomerId")
-                                                                              .HtmlAttributes(new { @tabindex = 1 , @readonly = "readonly" })
-                                                                              .DataSource(source =>
-                                                                              {
-                                                                                  source.Read(read =>
-                                                                                  {
-                                                                                      read.Action("GetCustomerList", "Common");
-                                                                                  });
-                                                                              }))
-                                                                              @*.Events(e => e.Change("onChangeCustomer"))*@
+                                                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                                                      .Placeholder("--Select Customer --")
+                                                                                      .DataTextField("CustomerName")
+                                                                                      .DataValueField("CustomerId")
+                                                                                      .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
+                                                                                      .DataSource(source =>
+                                                                                      {
+                                                                                          source.Read(read =>
+                                                                                          {
+                                                                                              read.Action("GetCustomerList", "Common");
+                                                                                          });
+                                                                                      }))
+                                        @*.Events(e => e.Change("onChangeCustomer"))*@
 
                                         @Html.ValidationMessageFor(m => m.CustomerId)
                                     </div>
@@ -87,22 +87,22 @@
                                     @Html.LabelFor(m => m.CustomerContactPId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerContactPId)
-                                                                              .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
-                                                                              .Placeholder("--Select Contact Person --")
-                                                                              .DataTextField("ContactPersonName")
-                                                                              .DataValueField("ContactPersonId")
-                                                                              .Enable(false)
-                                                                              .AutoBind(false)
-                                                                              .CascadeFrom("CustomerId")
-                                                                              .HtmlAttributes(new { @tabindex = 3, @readonly = "readonly" })
-                                                                              .DataSource(source =>
-                                                                              {
-                                                                                  source.Read(read =>
-                                                                                  {
-                                                                                      read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
-                                                                                  }).ServerFiltering(true);
-                                                                              }))
-                                                                              @*.Events(e => e.Change("onChangeContactPerson"))*@
+                                                                                      .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
+                                                                                      .Placeholder("--Select Contact Person --")
+                                                                                      .DataTextField("ContactPersonName")
+                                                                                      .DataValueField("ContactPersonId")
+                                                                                      .Enable(false)
+                                                                                      .AutoBind(false)
+                                                                                      .CascadeFrom("CustomerId")
+                                                                                      .HtmlAttributes(new { @tabindex = 3, @readonly = "readonly" })
+                                                                                      .DataSource(source =>
+                                                                                      {
+                                                                                          source.Read(read =>
+                                                                                          {
+                                                                                              read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
+                                                                                          }).ServerFiltering(true);
+                                                                                      }))
+                                        @*.Events(e => e.Change("onChangeContactPerson"))*@
                                         @Html.ValidationMessageFor(m => m.CustomerContactPId)
                                     </div>
                                 </div>
@@ -136,6 +136,28 @@
                                     <div class="col-sm-6 col-lg-9">
                                         @Html.Kendo().IntegerTextBoxFor(m => m.ValidityDays).HtmlAttributes(new { @tabindex = 13 }).Spinners(false).Min(0)
                                         @Html.ValidationMessageFor(m => m.ValidityDays)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ServiceEngineerId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.ServiceEngineerId)
+                                                         .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
+                                                         .Placeholder("--Select --")
+                                                         .DataTextField("Name")
+                                                         .DataValueField("UserId")
+                                                         .HtmlAttributes(new { @tabindex = 1 })
+                                                         .DataSource(source =>
+                                                         {
+                                                             source.Read(read =>
+                                                             {
+                                                                 read.Action("GetServiceEngineerList", "Common");
+                                                             });
+                                                         })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.ServiceEngineerId)
                                     </div>
                                 </div>
 
@@ -226,10 +248,12 @@
                                          columns.ForeignKey(d => d.MachinePartsId, (IEnumerable)ViewBag.MachinePartList, "MachinePartId", "ProductValue");
                                          columns.Bound(d => d.MachinePartDescription).Width(150); ;
                                          columns.Bound(d => d.PartsHSNCode).Width(100).Title("HSN Code"); ;
-                                         columns.Bound(d => d.PartsQuantity).ClientFooterTemplate("Total Count: #=count#").Width(70);
-                                         columns.Bound(d => d.UnitPrice).Width(80);
+                                         columns.Bound(d => d.PartsQuantity).ClientFooterTemplate("Total Quantity: #=sum#").Width(70);
+                                         //columns.Bound(d => d.UnitPrice).Width(80);
+                                         columns.Bound(d => d.SellingPrice).Width(80).Title("Rate");
                                          columns.Bound(d => d.DiscountPercentage).Width(70);
-                                         columns.Bound(d => d.TaxablePrice).ClientFooterTemplate("<div> Total Taxable Price: #=sum# </div><div> Final Amount : #= calculateFianlA()#</div>").Width(70);
+                                         //columns.Bound(d => d.TaxablePrice).ClientFooterTemplate("<div> Total Taxable Price: #=sum# </div><div> Final Amount : #= calculateFianlA()#</div>").Width(70);
+                                         columns.Bound(d => d.TaxablePrice).ClientFooterTemplate("<div> Total Taxable Price: #=sum# </div>").Width(70);
                                          columns.ForeignKey(d => d.GSTPercentage, (IEnumerable)ViewBag.GSTPercentageList, "Id", "Percentage").Width(70);
                                          columns.Bound(d => d.GSTAmount).ClientFooterTemplate("Total GST Amount: #=sum#").Width(70);
                                          columns.Bound(d => d.FinalAmount).ClientFooterTemplate("Total Amount: #=sum#").Width(70);
@@ -262,7 +286,8 @@
                                          .Ajax()
                                          .Aggregates(aggregates =>
                                          {
-                                             aggregates.Add(p => p.PartsQuantity).Count();
+                                             //aggregates.Add(p => p.PartsQuantity).Count();
+                                             aggregates.Add(p => p.PartsQuantity).Sum();
                                              aggregates.Add(p => p.TaxablePrice).Sum();
                                              aggregates.Add(p => p.GSTAmount).Sum();
                                              aggregates.Add(p => p.FinalAmount).Sum();
@@ -287,7 +312,7 @@
                                         @Html.LabelFor(m => m.TotalFinalAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.TotalFinalAmount).Spinners(false)
-                                                                        .HtmlAttributes(new { @readonly = "readonly" }))
+                                                                                                .HtmlAttributes(new { @readonly = "readonly" }))
                                             @Html.ValidationMessageFor(m => m.TotalFinalAmount)
                                         </div>
                                     </div>
@@ -298,8 +323,30 @@
                                         @Html.LabelFor(m => m.FreightAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.FreightAmount).Spinners(false)
-                                                                        .HtmlAttributes(new { @tabindex = 11 }).Events(e => e.Change("UpdateQuotationAmount")))
+                                                                                                .HtmlAttributes(new { @tabindex = 11 }).Events(e => e.Change("UpdateQuotationAmount")))
                                             @Html.ValidationMessageFor(m => m.FreightAmount)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.FreightPercentage, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                        <div class="col-sm-6 col-lg-12">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.FreightPercentage).Spinners(false).Min(0)
+                                                                                                                                .HtmlAttributes(new { @tabindex = 12 }).Events(e => e.Change("UpdateQuotationAmount")))
+                                            @Html.ValidationMessageFor(m => m.FreightPercentage)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TotalFreightAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                        <div class="col-sm-6 col-lg-12">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.TotalFreightAmount).Spinners(false).Min(0)
+                                                                                  .HtmlAttributes(new { @tabindex = 11, @readonly = "readonly" }))
+                                            @Html.ValidationMessageFor(m => m.TotalFreightAmount)
                                         </div>
                                     </div>
                                 </div>
@@ -309,11 +356,22 @@
                                         @Html.LabelFor(m => m.QuotationAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.QuotationAmount).Spinners(false)
-                                                                          .HtmlAttributes(new { @readonly = "readonly" }))
+                                                                                                  .HtmlAttributes(new { @readonly = "readonly" }))
                                             @Html.ValidationMessageFor(m => m.QuotationAmount)
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Remarks, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                        <div class="col-sm-6 col-lg-12">
+                                            @(Html.TextAreaFor(m => m.Remarks, new { @tabindex = 13, @class = "k-textbox" }))
+                                            @Html.ValidationMessageFor(m => m.Remarks)
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -373,6 +431,8 @@
         e.model.set("GSTAmount", getkendoNumericTextBoxValue('GSTAmount'));
         e.model.set("MachinePartDescription", getInputValueById('MachinePartDescription'));
         e.model.set("PartsHSNCode", getInputValueById('PartsHSNCode'));
+        e.model.set("UnitPrice", getInputValueById('UnitPrice'));
+        e.model.set("SellingPrice", getInputValueById('SellingPrice'));
         e.model.set("TotalPrice", getInputValueById('TotalPrice'));
         e.model.set("FinalAmount", getInputValueById('FinalAmount'));
     }
@@ -393,7 +453,14 @@
         }
         setkendoNumericTextBoxValue('TotalFinalAmount', finalAmount);
         var freightAmount = getkendoNumericTextBoxValue('FreightAmount');
-        setkendoNumericTextBoxValue('QuotationAmount', finalAmount + freightAmount);
+        var freightPer = getkendoNumericTextBoxValue('FreightPercentage');
+        var freightAmount2 = 0;
+        if (freightPer > 0) {
+            freightAmount2 = (freightAmount * freightPer) / 100;
+        }
+        var totalFreightamount = freightAmount + freightAmount2;
+
+        setkendoNumericTextBoxValue('QuotationAmount', finalAmount + totalFreightamount);
     }
 
     function onRequestEnd(e) {
@@ -408,7 +475,14 @@
     function UpdateQuotationAmount(e) {
         var totalamount = getkendoNumericTextBoxValue('TotalFinalAmount');
         var freightAmount = getkendoNumericTextBoxValue('FreightAmount');
-        setkendoNumericTextBoxValue('QuotationAmount', totalamount + freightAmount);
+        var freightPer = getkendoNumericTextBoxValue('FreightPercentage');
+        var freightAmount2 = 0;
+        if (freightPer > 0) {
+            freightAmount2 = (freightAmount * freightPer) / 100;
+        }
+        var totalFreightamount = freightAmount + freightAmount2;
+        setkendoNumericTextBoxValue('TotalFreightAmount', totalFreightamount)
+        setkendoNumericTextBoxValue('QuotationAmount', totalamount + totalFreightamount);
     }
 
     function calculateFianlA() {
@@ -435,6 +509,8 @@
             if (dataItem != undefined) {
                 setInputValueById('MachinePartDescription', dataItem.Description);
                 setInputValueById('PartsHSNCode', dataItem.HSNCode);
+                setInputValueById('UnitPrice', dataItem.IPL);
+                $("#UnitPrice").data("kendoNumericTextBox").trigger("change");
             }
         }
     }
@@ -459,6 +535,7 @@
         var PAndFPerAmount = 0;
         var PMPerAmount = 0;
         var finalPrice;
+        var sellingPrice;
 
         if (totalPrice != 0) {
 
@@ -467,15 +544,17 @@
             }
 
             if (PMPer != 0) {
-                PMPerAmount = (totalPrice * PMPer) / 100;
+                PMPerAmount = ((totalPrice + PAndFPerAmount) * PMPer) / 100;
             }
 
             if (discountPer != 0) {
-                discountAmount = (totalPrice * discountPer) / 100;
+                discountAmount = ((totalPrice + PAndFPerAmount + PMPerAmount) * discountPer) / 100;
             }
 
+            sellingPrice = (totalPrice + PAndFPerAmount + PMPerAmount);
             finalPrice = (totalPrice + PAndFPerAmount + PMPerAmount) - discountAmount;
 
+            setkendoNumericTextBoxValue('SellingPrice', sellingPrice);
             setkendoNumericTextBoxValue('TaxablePrice', finalPrice)
             setKendComboboxValue('GSTPercentage', '');
             setkendoNumericTextBoxValue('GSTAmount', 0);

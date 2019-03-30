@@ -520,7 +520,7 @@
     <value>Warranty Expiry Date</value>
   </data>
   <data name="ReportServiceNo" xml:space="preserve">
-    <value>Report Service No</value>
+    <value>Service Report No</value>
   </data>
   <data name="DispatchDateRequired" xml:space="preserve">
     <value>DispatchDate is Required</value>
@@ -544,13 +544,13 @@
     <value>Total Price is Required</value>
   </data>
   <data name="Region" xml:space="preserve">
-    <value>Region</value>
+    <value>Area</value>
   </data>
   <data name="RegionNameLength" xml:space="preserve">
-    <value>Region Name must be less than or equal to 50 characters</value>
+    <value>Area Name must be less than or equal to 50 characters</value>
   </data>
   <data name="RegionNameRequired" xml:space="preserve">
-    <value>Region Name is Required</value>
+    <value>Area Name is Required</value>
   </data>
   <data name="DefaultDiscount" xml:space="preserve">
     <value>Default Discount</value>
@@ -560,5 +560,8 @@
   </data>
   <data name="PinCodeLength" xml:space="preserve">
     <value>Pin Code must be equal to 6 characters</value>
+  </data>
+  <data name="SellingPrice" xml:space="preserve">
+    <value>Selling Price</value>
   </data>
 </root>

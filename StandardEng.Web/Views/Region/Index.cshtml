@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Region";
+    ViewBag.Title = "Area";
 }
 
 <div class="page-header page-header-light">
@@ -14,7 +14,7 @@
         <div class="d-flex">
             <div class="breadcrumb">
                 <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                <span class="breadcrumb-item active">Master - Region</span>
+                <span class="breadcrumb-item active">Master - Area</span>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header header-elements-inline">
-                    <h5 class="card-title">Region List</h5>
+                    <h5 class="card-title">Area List</h5>
                 </div>
                 <div class="card-body">
 
@@ -49,7 +49,10 @@
                                                   .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
 
                                            }
+
                                            columns.Bound(d => d.Name);
+                                           columns.ForeignKey(d => d.CityId, (IEnumerable)ViewBag.CityList, "CityId", "CityName");
+
                                            if (AuthorizationHelper.CanChangeStatus(ViewContext.RouteData.Values["Controller"].ToString()))
                                            {
                                                columns.Bound(d => d.IsActive).Filterable(false)
@@ -68,8 +71,8 @@
                                        .Editable(editable =>
                                        {
                                            editable.Mode(GridEditMode.PopUp);
-                                           editable.DisplayDeleteConfirmation("Are you sure you want to delete this Region?");
-                                           editable.Window(x => x.Title("Manage Region"));
+                                           editable.DisplayDeleteConfirmation("Are you sure you want to delete this Area?");
+                                           editable.Window(x => x.Title("Manage Area"));
                                        })
                                        .Pageable(x =>
                                        {
@@ -101,6 +104,7 @@
         function edit(e) {
             if (e.model.isNew()) {
                 e.model.set("IsActive", true);
+                e.model.set("CityId", "");
             }
             e.container.data('kendoWindow').bind('activate', function () {
                 setFocusById('Name');
