@@ -181,6 +181,7 @@ namespace StandardEng.Web.Controllers
                         invoiceObj.TotalFreightAmount = quotationObj.TotalFreightAmount;
                         invoiceObj.ServiceEngineerId = quotationObj.ServiceEngineerId;
                         invoiceObj.FreightPercentage = quotationObj.FreightPercentage;
+                        invoiceObj.Remarks = quotationObj.Remarks;
                         invoiceObj.SequenceNo = quotationObj.SequenceNo;
                         invoiceObj.CreatedBy = SessionHelper.UserId;
                         invoiceObj.CreatedDate = DateTime.Now;
