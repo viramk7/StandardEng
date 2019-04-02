@@ -1031,7 +1031,7 @@ namespace StandardEng.Data.DB
             public Nullable<System.DateTime> InquiryDate { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "PaymentTerms")]
-            [Required(ErrorMessageResourceName = "PaymentTermsRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[Required(ErrorMessageResourceName = "PaymentTermsRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public string PaymentTerms { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "DeliveryWeeks")]
