@@ -47,7 +47,8 @@
                                                                }
                                                                if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
                                                                {
-                                                                   command.Custom("Report").Text("<span class='k-icon k-i-file-txt' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                                                   command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                                                   command.Custom("GeneratePI").Text("<span class='k-icon k-i-checkbox-checked' title='Generate PI'></span>").HtmlAttributes(new { @style = "margin:2px;" ,@id = "btnPI" }).Click("onGeneratePI");
                                                                }
                                                            }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
                                                               .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
@@ -168,6 +169,31 @@
         for (var i = 0; i < grid.columns.length; i++) {
             grid.autoFitColumn(i);
         }
+
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (gridData[i].IsPIGenerated) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var editButton = $(currenRow).find("#btnPI");
+                editButton.hide();
+            }
+        }
+    }
+
+    function onGeneratePI(e) {
+        bootbox.confirm('Are you sure you want to Generate Performa Invoice ?', function (result) {
+            if (result === true) {
+                e.preventDefault();
+                var grid = $("#gridPartsQ").data("kendoGrid");
+                var tr = $(e.target).closest("tr");
+                var data = grid.dataItem(tr);
+                if (data != null) {
+                    var url = '@Url.Action("GeneratePIFromQuotation", "MachinePartsQuotation")?QuotationId=' + data.MachinePartsQuotationId;
+                    window.location.href = url;
+                }
+            }
+        }, 'popup-confirmation');
     }
 </script>
 

@@ -144,15 +144,25 @@ namespace StandardEng.Web.Controllers
             return PartialView("_PartsQuotationReport");
         }
 
-        public ActionResult GeneratePIFromQuotation(int QuotationId , string SelectedIds)
+        public ActionResult GeneratePIFromQuotation(int QuotationId , string SelectedIds = null)
         {
-            if (!string.IsNullOrEmpty(SelectedIds) && QuotationId > 0)
+            if (QuotationId > 0)
             {
                 tblMachinePartsQuotation quotationObj = _dbRepository.SelectById(QuotationId);
                 if(quotationObj != null)
                 {
+                    List<int> selectedIDs = new List<int>();
                     List<tblMachinePartsQuotationDetail> detailObj = new List<tblMachinePartsQuotationDetail>();
-                    List<int> selectedIDs = SelectedIds.Split(',').Select(int.Parse).ToList();
+                    if (!string.IsNullOrEmpty(SelectedIds))
+                    {
+                        selectedIDs = SelectedIds.Split(',').Select(int.Parse).ToList();
+                    }
+                    else
+                    {
+                        selectedIDs = _dbRepositoryDetail.GetEntities().Where(m => m.MachinePartsQuotationId == QuotationId).Select(m => m.MPQDetailId).ToList();
+                    }
+                    
+                     
                     foreach(int id in selectedIDs)
                     {
                         tblMachinePartsQuotationDetail obj = _dbRepositoryDetail.SelectById(id);

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8140651708f34c48a69c5066a311291b" Name="Diagram1">
+        <EntityTypeShape EntityType="StandardEngModel.tblAccessoriesType" Width="1.5" PointX="1.75" PointY="57.75" />
+        <EntityTypeShape EntityType="StandardEngModel.tblAMC" Width="1.5" PointX="9.75" PointY="19.875" />
+        <EntityTypeShape EntityType="StandardEngModel.tblAMCQuotation" Width="1.5" PointX="7.5" PointY="25.375" />
+        <EntityTypeShape EntityType="StandardEngModel.tblAMCServices" Width="1.5" PointX="12" PointY="20.875" />
+        <EntityTypeShape EntityType="StandardEngModel.tblCity" Width="1.5" PointX="1.5" PointY="43.5" />
+        <EntityTypeShape EntityType="StandardEngModel.tblCommissioning" Width="1.5" PointX="5.25" PointY="25" />
+        <EntityTypeShape EntityType="StandardEngModel.tblCountry" Width="1.5" PointX="1.5" PointY="47.125" />
+        <EntityTypeShape EntityType="StandardEngModel.tblCustomer" Width="1.5" PointX="1.5" PointY="25.5" />
+        <EntityTypeShape EntityType="StandardEngModel.tblCustomerContactPersons" Width="1.5" PointX="1.5" PointY="4.5" />
+        <EntityTypeShape EntityType="StandardEngModel.tblGSTMaster" Width="1.5" PointX="6.75" PointY="9" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachineAccessories" Width="1.5" PointX="1.75" PointY="54.125" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachineModels" Width="1.5" PointX="3" PointY="32.25" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachineParts" Width="1.5" PointX="3" PointY="36.875" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotation" Width="1.5" PointX="6" PointY="40" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachinePartsQuotationDetail" Width="1.5" PointX="8.25" PointY="32.875" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMachineType" Width="1.5" PointX="0.75" PointY="20.625" />
+        <EntityTypeShape EntityType="StandardEngModel.tblMenu" Width="1.5" PointX="1.5" PointY="60.75" />
+        <EntityTypeShape EntityType="StandardEngModel.tblPerformaInvoice" Width="1.5" PointX="3.75" PointY="15.375" />
+        <EntityTypeShape EntityType="StandardEngModel.tblPerformaInvoiceDetail" Width="1.5" PointX="5.25" PointY="32.875" />
+        <EntityTypeShape EntityType="StandardEngModel.tblPreCommissioning" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="StandardEngModel.tblPreCommissioningAccessories" Width="1.5" PointX="4" PointY="5.125" />
+        <EntityTypeShape EntityType="StandardEngModel.tblPreCommissioningDetail" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="StandardEngModel.tblPreCommissioningMachine" Width="1.5" PointX="10.25" PointY="26.5" />
+        <EntityTypeShape EntityType="StandardEngModel.tblRole" Width="1.5" PointX="1.5" PointY="1.25" />
+        <EntityTypeShape EntityType="StandardEngModel.tblRoleMenuMap" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="StandardEngModel.tblSettings" Width="1.5" PointX="8.75" PointY="9" />
+        <EntityTypeShape EntityType="StandardEngModel.tblState" Width="1.5" PointX="1.5" PointY="50" />
+        <EntityTypeShape EntityType="StandardEngModel.tblUser" Width="1.5" PointX="0.75" PointY="15.125" />
+        <EntityTypeShape EntityType="StandardEngModel.tblWarrantyexpires" Width="1.5" PointX="7.5" PointY="20.75" />
+        <EntityTypeShape EntityType="StandardEngModel.AggregatedCounter" Width="1.5" PointX="5.75" PointY="12" />
+        <EntityTypeShape EntityType="StandardEngModel.Counter" Width="1.5" PointX="10.75" PointY="9" />
+        <EntityTypeShape EntityType="StandardEngModel.Hash" Width="1.5" PointX="7.75" PointY="12" />
+        <EntityTypeShape EntityType="StandardEngModel.Job" Width="1.5" PointX="6.75" PointY="3.5" />
+        <EntityTypeShape EntityType="StandardEngModel.JobParameter" Width="1.5" PointX="9" PointY="2.25" />
+        <EntityTypeShape EntityType="StandardEngModel.JobQueue" Width="1.5" PointX="9.75" PointY="12" />
+        <EntityTypeShape EntityType="StandardEngModel.List" Width="1.5" PointX="11.75" PointY="2" />
+        <EntityTypeShape EntityType="StandardEngModel.Schema" Width="1.5" PointX="11.75" PointY="5" />
+        <EntityTypeShape EntityType="StandardEngModel.Server" Width="1.5" PointX="11.75" PointY="12" />
+        <EntityTypeShape EntityType="StandardEngModel.Set" Width="1.5" PointX="12.75" PointY="7" />
+        <EntityTypeShape EntityType="StandardEngModel.State" Width="1.5" PointX="9" PointY="5" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachineAccessories_tblAccessoriesType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningAccessories_tblAccessoriesType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMC_tblAMCQuotation" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCServices_tblAMC" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblCommissioning" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblMachineModels" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblMachineType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCity_tblCountry" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCity_tblState" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCustomer_tblCity" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCommissioning_tblMachine" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCommissioning_tblMachineType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCommissioning_tblPreCommissioning" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCommissioning_tblUser" />
+        <AssociationConnector Association="StandardEngModel.FK_tblWarrantyexpires_tblCommissioning" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCustomer_tblCountry" />
+        <AssociationConnector Association="StandardEngModel.FK_tblState_tblCountry" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCustomer_tblState" />
+        <AssociationConnector Association="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioning_tblCustomer" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioning_tblCustomerContactPersons" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningAccessories_tblMachineAccessories" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachineModels_tblMachineType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineModels" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineModels" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningMachine_tblMachineModels" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachineParts_tblMachineType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineParts" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineParts" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" />
+        <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningMachine_tblMachineType" />
+        <AssociationConnector Association="StandardEngModel.FK_tblRoleMenuMap_tblMenu" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningAccessories_tblPreCommissioning" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningDetail_tblPreCommissioning" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningMachine_tblPreCommissioning" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPreCommissioningDetail_tblUser" />
+        <AssociationConnector Association="StandardEngModel.FK_tblRoleMenuMap_tblRole" />
+        <AssociationConnector Association="StandardEngModel.FK_tblUser_tblRole" />
+        <AssociationConnector Association="StandardEngModel.FK_HangFire_JobParameter_Job" />
+        <AssociationConnector Association="StandardEngModel.FK_HangFire_State_Job" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

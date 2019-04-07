@@ -7,16 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StandardEng.Data.DB
+namespace DataImport
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tblPerformaInvoiceDetail
+    public partial class tblMachinePartsQuotationDetail
     {
-        public int PIDetailId { get; set; }
-        public int PerformaInvoiceId { get; set; }
         public int MPQDetailId { get; set; }
+        public int MachinePartsQuotationId { get; set; }
         public int MachineTypeId { get; set; }
         public int MachineModelId { get; set; }
         public string MachineModelSerialNo { get; set; }
@@ -38,11 +37,10 @@ namespace StandardEng.Data.DB
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<decimal> SellingPrice { get; set; }
     
         public virtual tblMachineModels tblMachineModels { get; set; }
         public virtual tblMachineParts tblMachineParts { get; set; }
+        public virtual tblMachinePartsQuotation tblMachinePartsQuotation { get; set; }
         public virtual tblMachineType tblMachineType { get; set; }
-        public virtual tblPerformaInvoice tblPerformaInvoice { get; set; }
     }
 }

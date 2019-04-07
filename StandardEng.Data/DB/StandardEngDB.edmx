@@ -856,6 +856,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblPerformaInvoice">
+          <End Role="tblPerformaInvoice" Type="Self.tblPerformaInvoice" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblPerformaInvoiceDetail" Type="Self.tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPerformaInvoice">
+              <PropertyRef Name="PerformaInvoiceId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
+              <PropertyRef Name="PerformaInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblPreCommissioning_tblCustomer">
           <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
           <End Role="tblPreCommissioning" Type="Self.tblPreCommissioning" Multiplicity="*" />
@@ -1226,6 +1240,10 @@
             <End Role="tblMachineType" EntitySet="tblMachineType" />
             <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblPerformaInvoice" Association="Self.FK_tblPerformaInvoiceDetail_tblPerformaInvoice">
+            <End Role="tblPerformaInvoice" EntitySet="tblPerformaInvoice" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblPreCommissioning_tblCustomer" Association="Self.FK_tblPreCommissioning_tblCustomer">
             <End Role="tblCustomer" EntitySet="tblCustomer" />
             <End Role="tblPreCommissioning" EntitySet="tblPreCommissioning" />
@@ -1532,6 +1550,10 @@
           <AssociationSet Name="FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation">
             <End Role="tblMachinePartsQuotation" EntitySet="tblMachinePartsQuotation" />
             <End Role="tblMachinePartsQuotationDetail" EntitySet="tblMachinePartsQuotationDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPerformaInvoiceDetail_tblPerformaInvoice" Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblPerformaInvoice">
+            <End Role="tblPerformaInvoice" EntitySet="tblPerformaInvoice" />
+            <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
@@ -2520,6 +2542,7 @@
           <NavigationProperty Name="tblMachineParts" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineParts" FromRole="tblPerformaInvoiceDetail" ToRole="tblMachineParts" />
           <NavigationProperty Name="tblMachineType" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType" FromRole="tblPerformaInvoiceDetail" ToRole="tblMachineType" />
           <Property Name="SellingPrice" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblPerformaInvoice" FromRole="tblPerformaInvoiceDetail" ToRole="tblPerformaInvoice" />
         </EntityType>
         <Association Name="FK_tblPerformaInvoiceDetail_tblMachineModels">
           <End Type="StandardEngModel.tblMachineModels" Role="tblMachineModels" Multiplicity="1" />
@@ -2674,6 +2697,7 @@
           <Property Type="String" Name="CityName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Area" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="Boolean" Name="IsPIGenerated" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetPerformaInvoieList_Result">
           <Property Type="Int32" Name="PerformaInvoiceId" Nullable="false" />
@@ -2758,6 +2782,7 @@
           <Property Name="TotalFreightAmount" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblPerformaInvoice" ToRole="tblCustomer" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" FromRole="tblPerformaInvoice" ToRole="tblCustomerContactPersons" />
+          <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblPerformaInvoice" FromRole="tblPerformaInvoice" ToRole="tblPerformaInvoiceDetail" />
         </EntityType>
         <Association Name="FK_tblMachinePartsQuotation_tblCustomer">
           <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
@@ -2818,6 +2843,20 @@
             </Principal>
             <Dependent Role="tblMachinePartsQuotationDetail">
               <PropertyRef Name="MachinePartsQuotationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoiceDetail_tblPerformaInvoice">
+          <End Type="StandardEngModel.tblPerformaInvoice" Role="tblPerformaInvoice" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="StandardEngModel.tblPerformaInvoiceDetail" Role="tblPerformaInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPerformaInvoice">
+              <PropertyRef Name="PerformaInvoiceId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoiceDetail">
+              <PropertyRef Name="PerformaInvoiceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3447,6 +3486,7 @@
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
                 <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsPIGenerated" ColumnName="IsPIGenerated" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

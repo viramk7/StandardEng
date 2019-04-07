@@ -7,19 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StandardEng.Data.DB
+namespace DataImport
 {
     using System;
     using System.Collections.Generic;
     
     public partial class tblPerformaInvoice
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblPerformaInvoice()
-        {
-            this.tblPerformaInvoiceDetail = new HashSet<tblPerformaInvoiceDetail>();
-        }
-    
         public int PerformaInvoiceId { get; set; }
         public Nullable<int> MPQuotationId { get; set; }
         public string QuotationNo { get; set; }
@@ -30,7 +24,7 @@ namespace StandardEng.Data.DB
         public string ReportServiceNo { get; set; }
         public string InquiryNo { get; set; }
         public Nullable<System.DateTime> InquiryDate { get; set; }
-        public string PaymentTerms { get; set; }
+        public Nullable<int> PaymentDays { get; set; }
         public Nullable<int> DeliveryWeeks { get; set; }
         public string Insurance { get; set; }
         public Nullable<int> ValidityDays { get; set; }
@@ -43,14 +37,8 @@ namespace StandardEng.Data.DB
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> SequenceNo { get; set; }
-        public string Remarks { get; set; }
-        public Nullable<int> ServiceEngineerId { get; set; }
-        public Nullable<decimal> FreightPercentage { get; set; }
-        public Nullable<decimal> TotalFreightAmount { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPerformaInvoiceDetail> tblPerformaInvoiceDetail { get; set; }
     }
 }

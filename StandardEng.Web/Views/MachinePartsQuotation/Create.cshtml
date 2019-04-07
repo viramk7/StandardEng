@@ -455,6 +455,7 @@
 
             var totalRows = $("#gridMPQDetail").data("kendoGrid").dataSource.total();
             if (totalRows > 1) {
+                debugger;
 
                 var grid = $("#gridMPQDetail").data("kendoGrid").dataSource;
                 var machineTypeId = grid._data[1].MachineTypeId;
@@ -463,12 +464,15 @@
 
                 e.container.find("[name=MachineTypeId]").val(machineTypeId).trigger("change");
                 e.model.set("MachineTypeId", machineTypeId);
+                $(e.container).find('input[name=MachineTypeId]').attr("readonly", true);
 
                 e.container.find("[name=MachineModelId]").val(machineModelId).trigger("change");
                 e.model.set("MachineModelId", machineModelId);
+                e.container.find('input[name=MachineModelId]').attr("disabled", "disabled");
 
                 e.container.find("[name=MachineModelSerialNo]").val(machineModelSerialNo).trigger("change");
                 e.model.set("MachineModelSerialNo", machineModelSerialNo);
+                e.container.find('[name=MachineModelSerialNo]').attr("readonly", true);
 
                 e.container.find("td:eq(3) input").focus();
             }

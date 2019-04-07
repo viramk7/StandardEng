@@ -26,5 +26,6 @@ namespace StandardEng.Data.DB
         public string CityName { get; set; }
         public string Area { get; set; }
         public string Address { get; set; }
+        public Nullable<bool> IsPIGenerated { get; set; }
     }
 }

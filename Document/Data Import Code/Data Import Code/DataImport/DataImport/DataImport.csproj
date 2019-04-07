@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1C7F1C0E-970D-4B42-8FE9-061B787186F0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataImport</RootNamespace>
+    <AssemblyName>DataImport</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AggregatedCounter.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Counter.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelHelper.cs" />
+    <Compile Include="ExcelModel.cs" />
+    <Compile Include="Hash.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobParameter.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobQueue.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="List.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schema.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Server.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Set.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="State.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STDENGEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>STDENGEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STDENGEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STDENGEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>STDENGEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="tblAccessoriesType.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAMC.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAMCQuotation.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAMCServices.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCity.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommissioning.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCountry.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCustomer.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCustomerContactPersons.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblGSTMaster.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMachineAccessories.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMachineModels.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMachineParts.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMachinePartsQuotation.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMachinePartsQuotationDetail.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMachineType.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMenu.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPerformaInvoice.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPerformaInvoiceDetail.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPreCommissioning.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPreCommissioningAccessories.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPreCommissioningDetail.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPreCommissioningMachine.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRole.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRoleMenuMap.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSettings.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblState.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUser.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWarrantyexpires.cs">
+      <DependentUpon>STDENGEntity.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="STDENGEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>STDENGEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="STDENGEntity.edmx.diagram">
+      <DependentUpon>STDENGEntity.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="STDENGEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>STDENGEntity.edmx</DependentUpon>
+      <LastGenOutput>STDENGEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="STDENGEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>STDENGEntity.edmx</DependentUpon>
+      <LastGenOutput>STDENGEntity.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

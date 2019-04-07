@@ -118,9 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="DataSourceDetail.ParameterValues" xml:space="preserve">
-    <value>{"@QuotationId":"5"}</value>
+    <value>{"@QuotationId":"13"}</value>
   </metadata>
   <metadata name="DataSource.ParameterValues" xml:space="preserve">
-    <value>{"@QuotationId":"5"}</value>
+    <value>{"@QuotationId":"10"}</value>
+  </metadata>
+  <metadata name="$this.ShowSnapGrid" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=12.1.18.620, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
+    <value>0.1cm</value>
   </metadata>
 </root>

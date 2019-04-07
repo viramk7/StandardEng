@@ -80,6 +80,7 @@
         <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" />
         <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" />
         <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" />
+        <AssociationConnector Association="StandardEngModel.FK_tblPerformaInvoiceDetail_tblPerformaInvoice" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
