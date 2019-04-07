@@ -82,6 +82,11 @@ namespace StandardEng.Web.Controllers
 
             try
             {
+                if (model.QuotationAmount.HasValue)
+                {
+                    model.QuotationAmountInWords = CurrencyHelper.changeCurrencyToWords(model.QuotationAmount.Value);
+                }
+                
                 if (model.MachinePartsQuotationId > 0)
                 {
                     model.ModifiedBy = SessionHelper.UserId;
@@ -162,7 +167,10 @@ namespace StandardEng.Web.Controllers
                         selectedIDs = _dbRepositoryDetail.GetEntities().Where(m => m.MachinePartsQuotationId == QuotationId).Select(m => m.MPQDetailId).ToList();
                     }
                     
-                     
+                    if(selectedIDs.Count > 0)
+                    {
+
+                    
                     foreach(int id in selectedIDs)
                     {
                         tblMachinePartsQuotationDetail obj = _dbRepositoryDetail.SelectById(id);
@@ -232,6 +240,12 @@ namespace StandardEng.Web.Controllers
 
                             return RedirectToAction("Edit", "PI", new { id = invoiceObj.PerformaInvoiceId });
                         }
+                    }
+                    }
+                    else
+                    {
+                        TempData["Error"] = "There are no products to quoatation details. So please add products first.";
+                        return View("Index");
                     }
                 }
             }

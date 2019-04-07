@@ -241,6 +241,7 @@
           <Property Name="IsPIGenerated" Type="bit" />
           <Property Name="Remarks" Type="varchar(max)" />
           <Property Name="ServiceEngineerId" Type="int" />
+          <Property Name="QuotationAmountInWords" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tblMachinePartsQuotationDetail">
           <Key>
@@ -2748,6 +2749,7 @@
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblMachinePartsQuotation" ToRole="tblCustomer" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblMachinePartsQuotation" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" FromRole="tblMachinePartsQuotation" ToRole="tblMachinePartsQuotationDetail" />
+          <Property Name="QuotationAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblPerformaInvoice">
           <Key>
@@ -3512,6 +3514,7 @@
           <EntitySetMapping Name="tblMachinePartsQuotation">
             <EntityTypeMapping TypeName="StandardEngModel.tblMachinePartsQuotation">
               <MappingFragment StoreEntitySet="tblMachinePartsQuotation">
+                <ScalarProperty Name="QuotationAmountInWords" ColumnName="QuotationAmountInWords" />
                 <ScalarProperty Name="ServiceEngineerId" ColumnName="ServiceEngineerId" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="IsPIGenerated" ColumnName="IsPIGenerated" />

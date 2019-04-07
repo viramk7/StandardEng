@@ -47,6 +47,7 @@ namespace StandardEng.Data.DB
         public Nullable<bool> IsPIGenerated { get; set; }
         public string Remarks { get; set; }
         public Nullable<int> ServiceEngineerId { get; set; }
+        public string QuotationAmountInWords { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }

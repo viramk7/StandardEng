@@ -464,7 +464,7 @@
 
                 e.container.find("[name=MachineTypeId]").val(machineTypeId).trigger("change");
                 e.model.set("MachineTypeId", machineTypeId);
-                $(e.container).find('input[name=MachineTypeId]').attr("readonly", true);
+                e.container.find('input[name=MachineTypeId]').attr("readonly", true);
 
                 e.container.find("[name=MachineModelId]").val(machineModelId).trigger("change");
                 e.model.set("MachineModelId", machineModelId);
