@@ -257,20 +257,20 @@ namespace StandardEng.Data.DB
             [MinLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
             public string GST { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
-            [Required(ErrorMessageResourceName = "ContactNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
-            [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
-            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-            public string ContactNo { get; set; }
+            //[Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
+            //[Required(ErrorMessageResourceName = "ContactNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+            //public string ContactNo { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "AlternativeContactNo")]
-            [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
-            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-            public string AlternativeContactNo { get; set; }
-
-            [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
-            [Display(ResourceType = typeof(CommonMessage), Name = "Email")]
-            public string Email { get; set; }
+            //[Display(ResourceType = typeof(CommonMessage), Name = "AlternativeContactNo")]
+            //[StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+            //public string AlternativeContactNo { get; set; }
+            //
+            //[DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[Display(ResourceType = typeof(CommonMessage), Name = "Email")]
+            //public string Email { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "Status")]
             public bool IsActive { get; set; }

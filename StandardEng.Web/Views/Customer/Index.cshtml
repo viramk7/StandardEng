@@ -48,8 +48,8 @@
 
                                }
                                columns.Bound(d => d.CustomerName);
-                               columns.Bound(d => d.ContactNo);
-                               columns.Bound(d => d.Email);
+                               //columns.Bound(d => d.ContactNo);
+                               //columns.Bound(d => d.Email);
                                columns.Bound(d => d.Addressline1);
                                columns.ForeignKey(d => d.CityId, (IEnumerable)ViewBag.CityList, "CityId", "CityName");
                                columns.ForeignKey(d => d.StateId, (IEnumerable)ViewBag.StateList, "StateId", "StateName");
