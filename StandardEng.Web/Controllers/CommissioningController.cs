@@ -26,7 +26,7 @@ namespace StandardEng.Web.Controllers
         private readonly GenericRepository<tblPreCommissioning> _dbRepositoryPreC;
         private readonly GenericRepository<tblPreCommissioningDetail> _dbRepositoryPreCD;
         private readonly GenericRepository<tblWarrantyexpires> _dbRepositoryWarranty;
-        private readonly GenericRepository<tblAMCQuotation> _dbRepositoryAMCQ;
+    //    private readonly GenericRepository<tblAMCQuotation> _dbRepositoryAMCQ;
         private readonly GenericRepository<tblCustomerContactPersons> _dbRepositoryContact;
         private readonly GenericRepository<tblMachinePartsQuotation> _dbRepositoryPartsQ;
         private readonly GenericRepository<tblPreCommissioningAccessories> _dbPreAccessory;
@@ -42,7 +42,7 @@ namespace StandardEng.Web.Controllers
             _dbRepositoryPreC = new GenericRepository<tblPreCommissioning>();
             _dbRepositoryPreCD = new GenericRepository<tblPreCommissioningDetail>();
             _dbRepositoryWarranty = new GenericRepository<tblWarrantyexpires>();
-            _dbRepositoryAMCQ = new GenericRepository<tblAMCQuotation>();
+           // _dbRepositoryAMCQ = new GenericRepository<tblAMCQuotation>();
             _dbRepositoryContact = new GenericRepository<tblCustomerContactPersons>();
             _dbRepositoryPartsQ = new GenericRepository<tblMachinePartsQuotation>();
             _dbPreAccessory = new GenericRepository<tblPreCommissioningAccessories>();
@@ -210,7 +210,7 @@ namespace StandardEng.Web.Controllers
                     commissionobj.MachineAccessoriesId = precommiasseccory.MachineAccessoriesId;
                     commissionobj.AccessoriesSerialNo = precommiasseccory.AccessoriesSerialNo;
                     commissionobj.WarrantyPeriod = 6;
-                    commissionobj.WarrantyExpireDate = precommisdetailobj.PreCommisoningDate.AddMonths(6);
+                    commissionobj.WarrantyExpireDate = precommisdetailobj.PreCommisoningDate.AddMonths(precommiasseccory.tblMachineAccessories.WarrantyPeriod.Value);
                 }
 
                 tblCustomerContactPersons contactPerson = _dbRepositoryContact.GetEntities().FirstOrDefault(m => m.ContactPersonId == precommiobj.ContactPersonId);
@@ -266,48 +266,48 @@ namespace StandardEng.Web.Controllers
             return PartialView("_AMCQuotationPartial", obj);
         }
 
-        public ActionResult GenerateAMCQuotation(AMCQuotationPartialModel model)
-        {
-            if(model.CommissioningId != 0)
-            {
-                bool isExists = _dbRepositoryAMCQ.GetEntities().Any(m => m.CommissioningId == model.CommissioningId
-                                                                  && m.ActualAmount == model.QuotationAmount
-                                                                  && m.GSTPercentage == model.GSTPercentage);
+        //public ActionResult GenerateAMCQuotation(AMCQuotationPartialModel model)
+        //{
+        //    if(model.CommissioningId != 0)
+        //    {
+        //        bool isExists = _dbRepositoryAMCQ.GetEntities().Any(m => m.CommissioningId == model.CommissioningId
+        //                                                          && m.ActualAmount == model.QuotationAmount
+        //                                                          && m.GSTPercentage == model.GSTPercentage);
 
-                if (isExists)
-                {
-                    return Json( new { id=String.Empty , error = "Quotation with same amount & GST percentage already exists." },JsonRequestBehavior.AllowGet);
-                }
-                tblCommissioning commissioningObj = _dbRepository.SelectById(model.CommissioningId);
-                tblPreCommissioningDetail preCommissioningDetail = _dbRepositoryPreCD.GetEntities()
-                                                .Where(m => m.PCDetailId == commissioningObj.PreCommissioningDetailId)
-                                                .Include(m => m.tblPreCommissioning).FirstOrDefault();
+        //        if (isExists)
+        //        {
+        //            return Json( new { id=String.Empty , error = "Quotation with same amount & GST percentage already exists." },JsonRequestBehavior.AllowGet);
+        //        }
+        //        tblCommissioning commissioningObj = _dbRepository.SelectById(model.CommissioningId);
+        //        tblPreCommissioningDetail preCommissioningDetail = _dbRepositoryPreCD.GetEntities()
+        //                                        .Where(m => m.PCDetailId == commissioningObj.PreCommissioningDetailId)
+        //                                        .Include(m => m.tblPreCommissioning).FirstOrDefault();
 
-                tblAMCQuotation quotatationObj = new tblAMCQuotation();
-                quotatationObj.CommissioningId = commissioningObj.CommissioningId;
-                quotatationObj.MachineModelId = commissioningObj.MachineModelId.Value;
-                quotatationObj.MachineTypeId = commissioningObj.MachineTypeId.Value;
-                quotatationObj.MachineSerialNo = commissioningObj.MachineSerialNo;
-                quotatationObj.CustomerId = preCommissioningDetail.tblPreCommissioning.CustomerId;
-                quotatationObj.QuotationDate = DateTime.Now.Date;
-                quotatationObj.ActualAmount = model.QuotationAmount;
-                quotatationObj.GSTPercentage = model.GSTPercentage;
-                quotatationObj.GSTAmount = model.GSTAmount;
-                quotatationObj.CGSTPercentage = model.GSTPercentage / 2;
-                quotatationObj.CGSTAmount = model.GSTAmount / 2;
-                quotatationObj.TotalAmount = model.TotalAmount;
-                quotatationObj.TotalAmountInWords = CurrencyHelper.changeCurrencyToWords(model.TotalAmount);
-                quotatationObj.IsConvertedIntoAMC = false;
-                quotatationObj.CreatedBy = SessionHelper.UserId;
-                quotatationObj.CreatedDate = DateTime.Now.Date;
-                string result = _dbRepositoryAMCQ.Insert(quotatationObj);
-                if (string.IsNullOrEmpty(result))
-                {
-                    return Json(new { id = quotatationObj.Id.ToString() , error = String.Empty }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            return Json(new { id = String.Empty, error = "Something Went Wrong." }, JsonRequestBehavior.AllowGet);
-        }
+        //        tblAMCQuotation quotatationObj = new tblAMCQuotation();
+        //        //quotatationObj.CommissioningId = commissioningObj.CommissioningId;
+        //        //quotatationObj.MachineModelId = commissioningObj.MachineModelId.Value;
+        //        //quotatationObj.MachineTypeId = commissioningObj.MachineTypeId.Value;
+        //        //quotatationObj.MachineSerialNo = commissioningObj.MachineSerialNo;
+        //        //quotatationObj.CustomerId = preCommissioningDetail.tblPreCommissioning.CustomerId;
+        //        //quotatationObj.QuotationDate = DateTime.Now.Date;
+        //        //quotatationObj.ActualAmount = model.QuotationAmount;
+        //        //quotatationObj.GSTPercentage = model.GSTPercentage;
+        //        //quotatationObj.GSTAmount = model.GSTAmount;
+        //        //quotatationObj.CGSTPercentage = model.GSTPercentage / 2;
+        //        //quotatationObj.CGSTAmount = model.GSTAmount / 2;
+        //        //quotatationObj.TotalAmount = model.TotalAmount;
+        //        //quotatationObj.TotalAmountInWords = CurrencyHelper.changeCurrencyToWords(model.TotalAmount);
+        //        //quotatationObj.IsConvertedIntoAMC = false;
+        //        //quotatationObj.CreatedBy = SessionHelper.UserId;
+        //        //quotatationObj.CreatedDate = DateTime.Now.Date;
+        //        string result = _dbRepositoryAMCQ.Insert(quotatationObj);
+        //        if (string.IsNullOrEmpty(result))
+        //        {
+        //            return Json(new { id = quotatationObj.Id.ToString() , error = String.Empty }, JsonRequestBehavior.AllowGet);
+        //        }
+        //    }
+        //    return Json(new { id = String.Empty, error = "Something Went Wrong." }, JsonRequestBehavior.AllowGet);
+        //}
         #endregion
 
         #region Parts Quotation

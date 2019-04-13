@@ -17,7 +17,6 @@ namespace StandardEng.Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCommissioning()
         {
-            this.tblAMCQuotation = new HashSet<tblAMCQuotation>();
             this.tblWarrantyexpires = new HashSet<tblWarrantyexpires>();
         }
     
@@ -46,8 +45,6 @@ namespace StandardEng.Data.DB
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAMCQuotation> tblAMCQuotation { get; set; }
         public virtual tblMachineModels tblMachineModels { get; set; }
         public virtual tblMachineType tblMachineType { get; set; }
         public virtual tblPreCommissioningDetail tblPreCommissioningDetail { get; set; }

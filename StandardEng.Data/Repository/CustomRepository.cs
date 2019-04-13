@@ -141,17 +141,17 @@ namespace StandardEng.Data.Repository
             return dataList.OrderBy(m => m.CustomerName).ToList();
         }
 
-        public static bool IsAMCQuotationWithSameAmountExists(int MachineTypeId, int MachineModelId, string MachineSerialNo, int CustomerId, decimal ActualAmount, decimal GSTPercentage,int Id)
-        {
-            using (StandardEngEntities context = BaseContext.GetDbContext())
-            {
-                bool result = context.tblAMCQuotation.Any(m => m.MachineTypeId == MachineTypeId && m.MachineModelId == MachineModelId
-                                                           && m.MachineSerialNo.Trim() == MachineSerialNo.Trim()
-                                                           && m.CustomerId == CustomerId && m.ActualAmount == ActualAmount && m.GSTPercentage == GSTPercentage
-                                                           && m.Id != Id);
-                return result;
-            }
-        }
+        //public static bool IsAMCQuotationWithSameAmountExists(int MachineTypeId, int MachineModelId, string MachineSerialNo, int CustomerId, decimal ActualAmount, decimal GSTPercentage,int Id)
+        //{
+        //    using (StandardEngEntities context = BaseContext.GetDbContext())
+        //    {
+        //        bool result = context.tblAMCQuotation.Any(m => m.MachineTypeId == MachineTypeId && m.MachineModelId == MachineModelId
+        //                                                   && m.MachineSerialNo.Trim() == MachineSerialNo.Trim()
+        //                                                   && m.CustomerId == CustomerId && m.ActualAmount == ActualAmount && m.GSTPercentage == GSTPercentage
+        //                                                   && m.Id != Id);
+        //        return result;
+        //    }
+        //}
 
         public static bool IsCommissioningReportServiceNoExists(int CommissioningId, string ReportServiceNo)
         {

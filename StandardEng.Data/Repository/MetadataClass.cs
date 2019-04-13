@@ -252,25 +252,28 @@ namespace StandardEng.Data.DB
             [Display(ResourceType = typeof(CommonMessage), Name = "Addressline2")]
             public string Addressline2 { get; set; }
 
+            [Display(ResourceType = typeof(CommonMessage), Name = "Addressline3")]
+            public string Addressline3 { get; set; }
+
             [Display(ResourceType = typeof(CommonMessage), Name = "GSTNo")]
             [StringLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
             [MinLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
             public string GST { get; set; }
 
-            //[Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
+            [Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
             //[Required(ErrorMessageResourceName = "ContactNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
-            //[StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
-            //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-            //public string ContactNo { get; set; }
+            [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+            public string ContactNo { get; set; }
 
-            //[Display(ResourceType = typeof(CommonMessage), Name = "AlternativeContactNo")]
-            //[StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
-            //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-            //public string AlternativeContactNo { get; set; }
-            //
-            //[DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
-            //[Display(ResourceType = typeof(CommonMessage), Name = "Email")]
-            //public string Email { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "AlternativeContactNo")]
+            [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+            public string AlternativeContactNo { get; set; }
+            
+            [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
+            [Display(ResourceType = typeof(CommonMessage), Name = "Email")]
+            public string Email { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "Status")]
             public bool IsActive { get; set; }
@@ -627,6 +630,11 @@ namespace StandardEng.Data.DB
 
             [ScaffoldColumn(false)]
             public Nullable<System.DateTime> ModifiedDate { get; set; }
+
+            [UIHint("IntNumericTextBox")]
+            [Display(ResourceType = typeof(CommonMessage), Name = "WarrantyPeriod")]
+            [Required(ErrorMessageResourceName = "WarrantyPeriod", ErrorMessageResourceType = typeof(CommonMessage))]
+            public Nullable<int> WarrantyPeriod { get; set; }
         }
     }
 
@@ -753,6 +761,9 @@ namespace StandardEng.Data.DB
 
             [Display(ResourceType = typeof(CommonMessage), Name = "ServiceEngineer")]
             public Nullable<int> ServiceEngineerId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "QuatationBy")]
+            public Nullable<int> QuatationByUser { get; set; }
 
             [ScaffoldColumn(false)]
             public Nullable<int> SequenceNo { get; set; }
@@ -883,54 +894,54 @@ namespace StandardEng.Data.DB
         }
     }
 
-    [MetadataType(typeof(Metadata))]
-    public partial class tblAMCQuotation : IValidatableObject
-    {
-        internal class Metadata
-        {
-            [ScaffoldColumn(false)]
-            public int Id { get; set; }
+    //[MetadataType(typeof(Metadata))]
+    //public partial class tblAMCQuotation : IValidatableObject
+    //{
+    //    internal class Metadata
+    //    {
+    //        [ScaffoldColumn(false)]
+    //        public int Id { get; set; }
 
-            [ScaffoldColumn(false)]
-            public int CommissioningId { get; set; }
+    //        [ScaffoldColumn(false)]
+    //        public int CommissioningId { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
-            public int MachineTypeId { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
+    //        public int MachineTypeId { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "MachineModel")]
-            public int MachineModelId { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "MachineModel")]
+    //        public int MachineModelId { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "MachineSerialNo")]
-            public string MachineSerialNo { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "MachineSerialNo")]
+    //        public string MachineSerialNo { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "CustomerName")]
-            public int CustomerId { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "CustomerName")]
+    //        public int CustomerId { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "AMCQuotationDate")]
-            public System.DateTime QuotationDate { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "AMCQuotationDate")]
+    //        public System.DateTime QuotationDate { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "ActualAmount")]
-            public decimal ActualAmount { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "ActualAmount")]
+    //        public decimal ActualAmount { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "GSTPercentage")]
-            public decimal GSTPercentage { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "GSTPercentage")]
+    //        public decimal GSTPercentage { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
-            public decimal GSTAmount { get; set; }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
+    //        public decimal GSTAmount { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "TotalAmount")]
-            public decimal TotalAmount { get; set; }
-        }
+    //        [Display(ResourceType = typeof(CommonMessage), Name = "TotalAmount")]
+    //        public decimal TotalAmount { get; set; }
+    //    }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (CustomRepository.IsAMCQuotationWithSameAmountExists(MachineTypeId, MachineModelId, MachineSerialNo, CustomerId, ActualAmount, GSTPercentage, Id))
-            {
-                var fieldName = new[] { "ActualAmount" };
-                yield return new ValidationResult("AMC Quotation with same Amount & GST Percentage is already exists.", fieldName);
-            }
-        }
-    }
+    //    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    //    {
+    //        if (CustomRepository.IsAMCQuotationWithSameAmountExists(MachineTypeId, MachineModelId, MachineSerialNo, CustomerId, ActualAmount, GSTPercentage, Id))
+    //        {
+    //            var fieldName = new[] { "ActualAmount" };
+    //            yield return new ValidationResult("AMC Quotation with same Amount & GST Percentage is already exists.", fieldName);
+    //        }
+    //    }
+    //}
 
     [MetadataType(typeof(Metadata))]
     public partial class tblCommissioning

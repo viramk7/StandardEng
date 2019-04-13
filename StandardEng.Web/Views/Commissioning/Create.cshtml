@@ -374,12 +374,25 @@
     }
 
     function onChangeWarrantyPeriod(e) {
-        debugger;
         var expiryPeriod = getkendoNumericTextBoxValue('WarrantyPeriod');
-        var commissoningDate = getKendoDatePickerValue('CommissioningDate');
-        var newExpiryDate = commissoningDate.setMonth(commissoningDate.getMonth() + expiryPeriod);
-        setKendoDatePickerValue('WarrantyExpireDate', commissoningDate);
+        var currentDate = getKendoDatePickerValue('CommissioningDate');
+
+        var newDate = addMonths(currentDate, expiryPeriod);
+
+        setKendoDatePickerValue('WarrantyExpireDate', newDate);
         setInputValueById('IsWarrantyPeriodChange', true);
+    }
+
+    function addMonths(date, count) {
+        if (date && count) {
+            var m, d = (date = new Date(+date)).getDate()
+
+            date.setMonth(date.getMonth() + count, 1)
+            m = date.getMonth()
+            date.setDate(d)
+            if (date.getMonth() !== m) date.setDate(0)
+        }
+        return date
     }
 
     function filterAccessoriesType(e) {

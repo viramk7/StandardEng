@@ -17,7 +17,6 @@ namespace StandardEng.Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblMachineModels()
         {
-            this.tblAMCQuotation = new HashSet<tblAMCQuotation>();
             this.tblCommissioning = new HashSet<tblCommissioning>();
             this.tblPreCommissioningMachine = new HashSet<tblPreCommissioningMachine>();
             this.tblMachinePartsQuotationDetail = new HashSet<tblMachinePartsQuotationDetail>();
@@ -35,8 +34,6 @@ namespace StandardEng.Data.DB
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual tblMachineType tblMachineType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAMCQuotation> tblAMCQuotation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCommissioning> tblCommissioning { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

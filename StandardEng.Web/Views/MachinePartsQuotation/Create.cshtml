@@ -221,6 +221,28 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.QuatationByUser, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.QuatationByUser)
+                                                                 .Value(Model.QuatationByUser == 0 ? string.Empty : Model.QuatationByUser.ToString())
+                                                                 .Placeholder("--Select --")
+                                                                 .DataTextField("Name")
+                                                                 .DataValueField("UserId")
+                                                                 .HtmlAttributes(new { @tabindex = 14 })
+                                                                 .DataSource(source =>
+                                                                 {
+                                                                     source.Read(read =>
+                                                                     {
+                                                                         read.Action("GetServiceEngineerList", "Common");
+                                                                     });
+                                                                 })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.QuatationByUser)
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

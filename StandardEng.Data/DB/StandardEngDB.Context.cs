@@ -30,7 +30,6 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblAccessoriesType> tblAccessoriesType { get; set; }
         public virtual DbSet<tblCity> tblCity { get; set; }
         public virtual DbSet<tblCountry> tblCountry { get; set; }
-        public virtual DbSet<tblCustomer> tblCustomer { get; set; }
         public virtual DbSet<tblCustomerContactPersons> tblCustomerContactPersons { get; set; }
         public virtual DbSet<tblMachineAccessories> tblMachineAccessories { get; set; }
         public virtual DbSet<tblMachineType> tblMachineType { get; set; }
@@ -43,9 +42,6 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblMachineParts> tblMachineParts { get; set; }
         public virtual DbSet<tblMachineModels> tblMachineModels { get; set; }
         public virtual DbSet<tblGSTMaster> tblGSTMaster { get; set; }
-        public virtual DbSet<tblAMCQuotation> tblAMCQuotation { get; set; }
-        public virtual DbSet<tblAMC> tblAMC { get; set; }
-        public virtual DbSet<tblAMCServices> tblAMCServices { get; set; }
         public virtual DbSet<tblCommissioning> tblCommissioning { get; set; }
         public virtual DbSet<tblPreCommissioning> tblPreCommissioning { get; set; }
         public virtual DbSet<tblPreCommissioningAccessories> tblPreCommissioningAccessories { get; set; }
@@ -54,8 +50,9 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
         public virtual DbSet<tblPerformaInvoiceDetail> tblPerformaInvoiceDetail { get; set; }
         public virtual DbSet<tblRegion> tblRegion { get; set; }
-        public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
         public virtual DbSet<tblPerformaInvoice> tblPerformaInvoice { get; set; }
+        public virtual DbSet<tblCustomer> tblCustomer { get; set; }
+        public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
     
         public virtual ObjectResult<AssignRoleList_Result> AssignRoleList(Nullable<int> roleId)
         {

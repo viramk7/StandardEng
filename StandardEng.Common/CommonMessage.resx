@@ -564,4 +564,10 @@
   <data name="SellingPrice" xml:space="preserve">
     <value>Selling Price</value>
   </data>
+  <data name="Addressline3" xml:space="preserve">
+    <value>Address line3</value>
+  </data>
+  <data name="QuatationBy" xml:space="preserve">
+    <value>Quatation By</value>
+  </data>
 </root>

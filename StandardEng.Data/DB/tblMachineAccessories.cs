@@ -28,6 +28,7 @@ namespace StandardEng.Data.DB
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<int> WarrantyPeriod { get; set; }
     
         public virtual tblAccessoriesType tblAccessoriesType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

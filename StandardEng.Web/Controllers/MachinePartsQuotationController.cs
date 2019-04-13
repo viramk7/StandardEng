@@ -84,11 +84,14 @@ namespace StandardEng.Web.Controllers
             {
                 if (model.QuotationAmount.HasValue)
                 {
+                    model.QuotationAmount = Math.Round(model.QuotationAmount.Value);
                     model.QuotationAmountInWords = CurrencyHelper.changeCurrencyToWords(model.QuotationAmount.Value);
                 }
                 
                 if (model.MachinePartsQuotationId > 0)
                 {
+                    model.TotalFreightAmount = model.TotalFreightAmount.HasValue ? Math.Round(model.TotalFreightAmount.Value) : model.TotalFreightAmount;
+                    model.TotalFinalAmount = model.TotalFinalAmount.HasValue ? Math.Round(model.TotalFinalAmount.Value) : model.TotalFinalAmount;
                     model.ModifiedBy = SessionHelper.UserId;
                     model.ModifiedDate = DateTime.Now;
                     message = _dbRepository.Update(model);

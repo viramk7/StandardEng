@@ -19,7 +19,6 @@ namespace StandardEng.Data.DB
         {
             this.tblMachineParts = new HashSet<tblMachineParts>();
             this.tblMachineModels = new HashSet<tblMachineModels>();
-            this.tblAMCQuotation = new HashSet<tblAMCQuotation>();
             this.tblCommissioning = new HashSet<tblCommissioning>();
             this.tblPreCommissioningMachine = new HashSet<tblPreCommissioningMachine>();
             this.tblMachinePartsQuotationDetail = new HashSet<tblMachinePartsQuotationDetail>();
@@ -38,8 +37,6 @@ namespace StandardEng.Data.DB
         public virtual ICollection<tblMachineParts> tblMachineParts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMachineModels> tblMachineModels { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAMCQuotation> tblAMCQuotation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCommissioning> tblCommissioning { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

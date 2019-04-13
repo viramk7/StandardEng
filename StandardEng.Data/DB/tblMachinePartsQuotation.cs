@@ -48,6 +48,7 @@ namespace StandardEng.Data.DB
         public string Remarks { get; set; }
         public Nullable<int> ServiceEngineerId { get; set; }
         public string QuotationAmountInWords { get; set; }
+        public Nullable<int> QuatationByUser { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }

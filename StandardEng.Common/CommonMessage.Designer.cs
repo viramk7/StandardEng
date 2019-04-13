@@ -160,6 +160,15 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address line3.
+        /// </summary>
+        public static string Addressline3 {
+            get {
+                return ResourceManager.GetString("Addressline3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IR Order No.
         /// </summary>
         public static string AHMNo {
@@ -1047,6 +1056,15 @@ namespace StandardEng.Common {
         public static string ProfitMarginPercentage {
             get {
                 return ResourceManager.GetString("ProfitMarginPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quatation By.
+        /// </summary>
+        public static string QuatationBy {
+            get {
+                return ResourceManager.GetString("QuatationBy", resourceCulture);
             }
         }
         
