@@ -249,5 +249,14 @@ namespace StandardEng.Data.Repository
             }
             return dataList.OrderByDescending(m => m.QuotationDate).ToList();
         }
+
+        public static bool IsAMCQMachineSerialNoExists(int AMCQDetailId, string MachineSerialNo, int MachineModelId)
+        {
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                bool result = context.tblAMCQDetail.Any(m => m.MachineSerialNo.Trim().ToLower() == MachineSerialNo.Trim().ToLower() && m.AMCQDetailId != AMCQDetailId && m.MachineModelId == MachineModelId);
+                return result;
+            }
+        }
     }
 }

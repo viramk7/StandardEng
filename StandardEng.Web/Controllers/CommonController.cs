@@ -53,6 +53,15 @@ namespace StandardEng.Web.Controllers
             }
         }
 
+        public ActionResult GetCustomerListWithAllDetails()
+        {
+            using (var context = BaseContext.GetDbContext())
+            {
+                var list = context.tblCustomer.OrderBy(m => new { m.CustomerName }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult GetCustomerContactPersonList(int? CustomerId = 0)
         {
             using (var context = BaseContext.GetDbContext())

@@ -894,54 +894,171 @@ namespace StandardEng.Data.DB
         }
     }
 
-    //[MetadataType(typeof(Metadata))]
-    //public partial class tblAMCQuotation : IValidatableObject
-    //{
-    //    internal class Metadata
-    //    {
-    //        [ScaffoldColumn(false)]
-    //        public int Id { get; set; }
+    [MetadataType(typeof(Metadata))]
+    public partial class tblAMCQuotation
+    {
+        internal class Metadata
+        {
+            [ScaffoldColumn(false)]
+            public Nullable<int> CommissioningId { get; set; }
 
-    //        [ScaffoldColumn(false)]
-    //        public int CommissioningId { get; set; }
+            [ScaffoldColumn(false)]
+            public int AMCQId { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
-    //        public int MachineTypeId { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "AMCQuotationDate")]
+            [Required(ErrorMessageResourceName = "QuotationDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public System.DateTime QuotationDate { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "MachineModel")]
-    //        public int MachineModelId { get; set; }
+            public string AMCQuotationNo { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "MachineSerialNo")]
-    //        public string MachineSerialNo { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "CustomerName")]
+            [Required(ErrorMessageResourceName = "CustomerRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int CustomerId { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "CustomerName")]
-    //        public int CustomerId { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "ContactPersonName")]
+            [Required(ErrorMessageResourceName = "ContactPersonRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int CustomerContactPId { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "AMCQuotationDate")]
-    //        public System.DateTime QuotationDate { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "Country")]
+            [Required(ErrorMessageResourceName = "CountryRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int CountryId { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "ActualAmount")]
-    //        public decimal ActualAmount { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "State")]
+            [Required(ErrorMessageResourceName = "StateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int StateId { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "GSTPercentage")]
-    //        public decimal GSTPercentage { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
-    //        public decimal GSTAmount { get; set; }
+            [Display(ResourceType = typeof(CommonMessage), Name = "City")]
+            [Required(ErrorMessageResourceName = "CityRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int CityId { get; set; }
 
-    //        [Display(ResourceType = typeof(CommonMessage), Name = "TotalAmount")]
-    //        public decimal TotalAmount { get; set; }
-    //    }
+            [Display(ResourceType = typeof(CommonMessage), Name = "Addressline1")]
+            public string Addressline1 { get; set; }
 
-    //    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-    //    {
-    //        if (CustomRepository.IsAMCQuotationWithSameAmountExists(MachineTypeId, MachineModelId, MachineSerialNo, CustomerId, ActualAmount, GSTPercentage, Id))
-    //        {
-    //            var fieldName = new[] { "ActualAmount" };
-    //            yield return new ValidationResult("AMC Quotation with same Amount & GST Percentage is already exists.", fieldName);
-    //        }
-    //    }
-    //}
+            [Display(ResourceType = typeof(CommonMessage), Name = "Addressline2")]
+            public string Addressline2 { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Addressline3")]
+            public string Addressline3 { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Region")]
+            [Required(ErrorMessageResourceName = "RegionNameRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int RegionId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "PinCode")]
+            [StringLength(6, ErrorMessageResourceName = "PinCodeLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [MinLength(6, ErrorMessageResourceName = "PinCodeLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string PinCode { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "DefaultDiscount")]
+            public Nullable<decimal> DefaultDiscount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
+            [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+            public string ContactNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "AlternativeContactNo")]
+            [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+            public string AlternativeContactNo { get; set; }
+
+            [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
+            [Display(ResourceType = typeof(CommonMessage), Name = "Email")]
+            public string Email { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "GSTNo")]
+            [StringLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [MinLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string CustomerGST { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "AMCQBy")]
+            public Nullable<int> AMCBy { get; set; }
+
+            public string Remarks { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "TotalDetailAmount")]
+            public Nullable<decimal> TotalDetailAmount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "GSTPercentage")]
+            public Nullable<int> GSTPercentageId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
+            public Nullable<decimal> GSTAmount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "FinalAmount")]
+            public Nullable<decimal> FinalAmount { get; set; }
+
+            public string FinalAmountInWords { get; set; }
+            public bool IsConvertedIntoAMC { get; set; }
+            public Nullable<int> SequenceNo { get; set; }
+            public int CreatedBy { get; set; }
+            public System.DateTime CreatedDate { get; set; }
+            public Nullable<int> ModifiedBy { get; set; }
+            public Nullable<System.DateTime> ModifiedDate { get; set; }
+        }
+    }
+
+    [MetadataType(typeof(Metadata))]
+    public partial class tblAMCQDetail : IValidatableObject
+    {
+        internal class Metadata
+        {
+            [ScaffoldColumn(false)]
+            public int AMCQDetailId { get; set; }
+
+            [ScaffoldColumn(false)]
+            public int AMCQId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
+            [Required(ErrorMessageResourceName = "MachineTypeRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int MachineTypeId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineModel")]
+            [Required(ErrorMessageResourceName = "MachineModelRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int MachineModelId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineSerialNo")]
+            [Required(ErrorMessageResourceName = "MachineSerialNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string MachineSerialNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineQuantity")]
+            [Required(ErrorMessageResourceName = "MachineQuantityRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int Quantity { get; set; }
+
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "UnitPrice")]
+            [Required(ErrorMessageResourceName = "UnitPriceRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public decimal Amount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "TotalAmount")]
+            public decimal TotalAmount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Description")]
+            public string Description { get; set; }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (CustomRepository.IsAMCQMachineSerialNoExists(AMCQDetailId, MachineSerialNo, MachineModelId))
+            {
+                var fieldName = new[] { "MachineSerialNo" };
+                yield return new ValidationResult("Machine Serial No is Already Exists.", fieldName);
+            }
+
+            if(Quantity == 0)
+            {
+                var fieldName = new[] { "Quantity" };
+                yield return new ValidationResult("Quantity must be greater than 0", fieldName);
+            }
+
+            if (Amount == 0)
+            {
+                var fieldName = new[] { "Amount" };
+                yield return new ValidationResult("Unit Price must be greater than 0", fieldName);
+            }
+        }
+    }
 
     [MetadataType(typeof(Metadata))]
     public partial class tblCommissioning

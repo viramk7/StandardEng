@@ -570,4 +570,16 @@
   <data name="QuatationBy" xml:space="preserve">
     <value>Quatation By</value>
   </data>
+  <data name="AMCQBy" xml:space="preserve">
+    <value>AMC Quotation By</value>
+  </data>
+  <data name="MachineQuantity" xml:space="preserve">
+    <value>Machine Quantity</value>
+  </data>
+  <data name="MachineQuantityRequired" xml:space="preserve">
+    <value>Machine Quantity is Required. </value>
+  </data>
+  <data name="TotalDetailAmount" xml:space="preserve">
+    <value>Total Detail Amount</value>
+  </data>
 </root>

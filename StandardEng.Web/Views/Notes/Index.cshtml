@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Master</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Master - Notes</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">Notes List</h5>
+                </div>
+                <div class="card-body">
+                    @(Html.Kendo().Grid<tblNote>()
+                             .Name("gridNote")
+                             .Columns(columns =>
+                             {
+                                 columns.Bound(p => p.NoteText);
+                                 columns.Command(command =>
+                                 {
+                                     command.Edit();
+                                     command.Destroy();
+                                 }).Width(250);
+                             })
+                             .ToolBar(toolbar => toolbar.Create())
+                             .Editable(editable =>
+                             {
+                                 editable.Mode(GridEditMode.InLine);
+                                 editable.DisplayDeleteConfirmation("Are you sure you want to delete this Note?");
+                             })
+                             .Pageable(x =>
+                             {
+                                 x.Refresh(true);
+                                 x.PageSizes(WebHelper.PageSizes);
+                             })
+                             .Sortable(sortable => sortable.AllowUnsort(false))
+                             .Filterable()
+                             .NoRecords()
+                             .DataSource(dataSource => dataSource
+                                 .Ajax()
+                                 .ServerOperation(true)
+                                 .PageSize(WebHelper.PageSize)  
+                                 .Events(events => events.Error("onError(\"gridNote\")"))
+                                 .Model(model => model.Id(p => p.NoteId))
+                                 .Create(update => update.Action("KendoSave", "Notes"))
+                                 .Read(read => read.Action("KendoRead", "Notes"))
+                                 .Update(update => update.Action("KendoSave", "Notes"))
+                                 .Destroy(update => update.Action("KendoDestroy", "Notes"))
+                             )
+                    )
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

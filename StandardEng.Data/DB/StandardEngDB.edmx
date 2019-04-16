@@ -13,6 +13,65 @@
           <Property Name="AccessoriesTypeName" Type="varchar(max)" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="tblAMCQDetail">
+          <Key>
+            <PropertyRef Name="AMCQDetailId" />
+          </Key>
+          <Property Name="AMCQDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AMCQId" Type="int" Nullable="false" />
+          <Property Name="MachineTypeId" Type="int" Nullable="false" />
+          <Property Name="MachineModelId" Type="int" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblAMCQNote">
+          <Key>
+            <PropertyRef Name="AMCQNoteId" />
+          </Key>
+          <Property Name="AMCQNoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AMCQId" Type="int" Nullable="false" />
+          <Property Name="NoteText" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblAMCQuotation">
+          <Key>
+            <PropertyRef Name="AMCQId" />
+          </Key>
+          <Property Name="AMCQId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommissioningId" Type="int" />
+          <Property Name="AMCQuotationNo" Type="varchar" MaxLength="50" />
+          <Property Name="QuotationDate" Type="date" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+          <Property Name="Addressline1" Type="varchar(max)" />
+          <Property Name="Addressline2" Type="varchar(max)" />
+          <Property Name="Addressline3" Type="varchar(max)" />
+          <Property Name="PinCode" Type="varchar" MaxLength="10" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="AlternativeContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="DefaultDiscount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CustomerGST" Type="varchar" MaxLength="20" />
+          <Property Name="AMCBy" Type="int" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="TotalDetailAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GSTPercentageId" Type="int" />
+          <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmountInWords" Type="varchar(max)" />
+          <Property Name="SequenceNo" Type="int" />
+          <Property Name="IsConvertedIntoAMC" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tblCity">
           <Key>
             <PropertyRef Name="CityId" />
@@ -236,6 +295,13 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="DisplayOrder" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblNote">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoteText" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblPerformaInvoice">
           <Key>
             <PropertyRef Name="PerformaInvoiceId" />
@@ -432,6 +498,66 @@
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <Association Name="FK_tblAMCQDetail_tblAMCQuotation">
+          <End Role="tblAMCQuotation" Type="Self.tblAMCQuotation" Multiplicity="1" />
+          <End Role="tblAMCQDetail" Type="Self.tblAMCQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAMCQuotation">
+              <PropertyRef Name="AMCQId" />
+            </Principal>
+            <Dependent Role="tblAMCQDetail">
+              <PropertyRef Name="AMCQId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQDetail_tblMachineModels">
+          <End Role="tblMachineModels" Type="Self.tblMachineModels" Multiplicity="1" />
+          <End Role="tblAMCQDetail" Type="Self.tblAMCQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineModels">
+              <PropertyRef Name="MachineModelId" />
+            </Principal>
+            <Dependent Role="tblAMCQDetail">
+              <PropertyRef Name="MachineModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQDetail_tblMachineType">
+          <End Role="tblMachineType" Type="Self.tblMachineType" Multiplicity="1" />
+          <End Role="tblAMCQDetail" Type="Self.tblAMCQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineType">
+              <PropertyRef Name="MachineTypeId" />
+            </Principal>
+            <Dependent Role="tblAMCQDetail">
+              <PropertyRef Name="MachineTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQuotation_tblCustomer">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
+          <End Role="tblAMCQuotation" Type="Self.tblAMCQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblAMCQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQuotation_tblCustomerContactPersons">
+          <End Role="tblCustomerContactPersons" Type="Self.tblCustomerContactPersons" Multiplicity="1" />
+          <End Role="tblAMCQuotation" Type="Self.tblAMCQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerContactPersons">
+              <PropertyRef Name="ContactPersonId" />
+            </Principal>
+            <Dependent Role="tblAMCQuotation">
+              <PropertyRef Name="CustomerContactPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblCity_tblCountry">
           <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
           <End Role="tblCity" Type="Self.tblCity" Multiplicity="*" />
@@ -972,6 +1098,9 @@
         <Function Name="GetWarrantyExpiryCustomerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="StandardEngModelStoreContainer">
           <EntitySet Name="tblAccessoriesType" EntityType="Self.tblAccessoriesType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAMCQDetail" EntityType="Self.tblAMCQDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAMCQNote" EntityType="Self.tblAMCQNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAMCQuotation" EntityType="Self.tblAMCQuotation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommissioning" EntityType="Self.tblCommissioning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
@@ -985,6 +1114,7 @@
           <EntitySet Name="tblMachinePartsQuotationDetail" EntityType="Self.tblMachinePartsQuotationDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMachineType" EntityType="Self.tblMachineType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMenu" EntityType="Self.tblMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNote" EntityType="Self.tblNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPerformaInvoice" EntityType="Self.tblPerformaInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPerformaInvoiceDetail" EntityType="Self.tblPerformaInvoiceDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPreCommissioning" EntityType="Self.tblPreCommissioning" Schema="dbo" store:Type="Tables" />
@@ -997,6 +1127,26 @@
           <EntitySet Name="tblState" EntityType="Self.tblState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWarrantyexpires" EntityType="Self.tblWarrantyexpires" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblAMCQDetail_tblAMCQuotation" Association="Self.FK_tblAMCQDetail_tblAMCQuotation">
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQDetail_tblMachineModels" Association="Self.FK_tblAMCQDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQDetail_tblMachineType" Association="Self.FK_tblAMCQDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQuotation_tblCustomer" Association="Self.FK_tblAMCQuotation_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQuotation_tblCustomerContactPersons" Association="Self.FK_tblAMCQuotation_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblCity_tblCountry" Association="Self.FK_tblCity_tblCountry">
             <End Role="tblCountry" EntitySet="tblCountry" />
             <End Role="tblCity" EntitySet="tblCity" />
@@ -1389,6 +1539,30 @@
             <End Role="tblMachinePartsQuotation" EntitySet="tblMachinePartsQuotation" />
             <End Role="tblMachinePartsQuotationDetail" EntitySet="tblMachinePartsQuotationDetail" />
           </AssociationSet>
+          <EntitySet Name="tblAMCQDetail" EntityType="StandardEngModel.tblAMCQDetail" />
+          <EntitySet Name="tblAMCQNote" EntityType="StandardEngModel.tblAMCQNote" />
+          <EntitySet Name="tblAMCQuotation" EntityType="StandardEngModel.tblAMCQuotation" />
+          <EntitySet Name="tblNote" EntityType="StandardEngModel.tblNote" />
+          <AssociationSet Name="FK_tblAMCQDetail_tblAMCQuotation" Association="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation">
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQDetail_tblMachineModels" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQDetail_tblMachineType" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQuotation_tblCustomer" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
           <Property Type="Int32" Name="RoleMenuPK" Nullable="false" />
@@ -1464,6 +1638,7 @@
           <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblPerformaInvoice" />
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomerContactPersons" ToRole="tblCustomer" />
           <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblMachinePartsQuotation" />
+          <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblAMCQuotation" />
         </EntityType>
         <EntityType Name="tblMachineAccessories">
           <Key>
@@ -1498,6 +1673,7 @@
           <NavigationProperty Name="tblPreCommissioningMachine" Relationship="StandardEngModel.FK_tblPreCommissioningMachine_tblMachineType" FromRole="tblMachineType" ToRole="tblPreCommissioningMachine" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblMachinePartsQuotationDetail" />
           <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblPerformaInvoiceDetail" />
+          <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblAMCQDetail" />
         </EntityType>
         <EntityType Name="tblMenu">
           <Key>
@@ -1727,6 +1903,7 @@
           <NavigationProperty Name="tblPreCommissioningMachine" Relationship="StandardEngModel.FK_tblPreCommissioningMachine_tblMachineModels" FromRole="tblMachineModels" ToRole="tblPreCommissioningMachine" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblMachinePartsQuotationDetail" />
           <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblPerformaInvoiceDetail" />
+          <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblAMCQDetail" />
         </EntityType>
         <Association Name="FK_tblMachineModels_tblMachineType">
           <End Type="StandardEngModel.tblMachineType" Role="tblMachineType" Multiplicity="1" />
@@ -2402,6 +2579,7 @@
           <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblMachinePartsQuotation" />
           <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblCustomer" ToRole="tblPerformaInvoice" />
           <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioning_tblCustomer" FromRole="tblCustomer" ToRole="tblPreCommissioning" />
+          <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblAMCQuotation" />
         </EntityType>
         <EntityType Name="tblMachinePartsQuotation">
           <Key>
@@ -2561,6 +2739,138 @@
             </Principal>
             <Dependent Role="tblMachinePartsQuotationDetail">
               <PropertyRef Name="MachinePartsQuotationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblAMCQDetail">
+          <Key>
+            <PropertyRef Name="AMCQDetailId" />
+          </Key>
+          <Property Name="AMCQDetailId" Type="Int32" Nullable="false" />
+          <Property Name="AMCQId" Type="Int32" Nullable="false" />
+          <Property Name="MachineTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MachineModelId" Type="Int32" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" FromRole="tblAMCQDetail" ToRole="tblAMCQuotation" />
+          <NavigationProperty Name="tblMachineModels" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineModels" FromRole="tblAMCQDetail" ToRole="tblMachineModels" />
+          <NavigationProperty Name="tblMachineType" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineType" FromRole="tblAMCQDetail" ToRole="tblMachineType" />
+        </EntityType>
+        <EntityType Name="tblAMCQNote">
+          <Key>
+            <PropertyRef Name="AMCQNoteId" />
+          </Key>
+          <Property Name="AMCQNoteId" Type="Int32" Nullable="false" />
+          <Property Name="AMCQId" Type="Int32" Nullable="false" />
+          <Property Name="NoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblAMCQuotation">
+          <Key>
+            <PropertyRef Name="AMCQId" />
+          </Key>
+          <Property Name="AMCQId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlternativeContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultDiscount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AMCBy" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GSTPercentageId" Type="Int32" />
+          <Property Name="GSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" FromRole="tblAMCQuotation" ToRole="tblAMCQDetail" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblAMCQuotation" ToRole="tblCustomer" />
+          <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" FromRole="tblAMCQuotation" ToRole="tblCustomerContactPersons" />
+          <Property Name="AMCQuotationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SequenceNo" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CommissioningId" Type="Int32" />
+          <Property Name="IsConvertedIntoAMC" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerGST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TotalDetailAmount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblNote">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="Int32" Nullable="false" />
+          <Property Name="NoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tblAMCQDetail_tblAMCQuotation">
+          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQDetail" Role="tblAMCQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAMCQuotation">
+              <PropertyRef Name="AMCQId" />
+            </Principal>
+            <Dependent Role="tblAMCQDetail">
+              <PropertyRef Name="AMCQId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQDetail_tblMachineModels">
+          <End Type="StandardEngModel.tblMachineModels" Role="tblMachineModels" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQDetail" Role="tblAMCQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineModels">
+              <PropertyRef Name="MachineModelId" />
+            </Principal>
+            <Dependent Role="tblAMCQDetail">
+              <PropertyRef Name="MachineModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQDetail_tblMachineType">
+          <End Type="StandardEngModel.tblMachineType" Role="tblMachineType" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQDetail" Role="tblAMCQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineType">
+              <PropertyRef Name="MachineTypeId" />
+            </Principal>
+            <Dependent Role="tblAMCQDetail">
+              <PropertyRef Name="MachineTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQuotation_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblAMCQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQuotation_tblCustomerContactPersons">
+          <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerContactPersons">
+              <PropertyRef Name="ContactPersonId" />
+            </Principal>
+            <Dependent Role="tblAMCQuotation">
+              <PropertyRef Name="CustomerContactPId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3213,6 +3523,76 @@
                 <ScalarProperty Name="QuotationDate" ColumnName="QuotationDate" />
                 <ScalarProperty Name="QuotationNo" ColumnName="QuotationNo" />
                 <ScalarProperty Name="MachinePartsQuotationId" ColumnName="MachinePartsQuotationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAMCQDetail">
+            <EntityTypeMapping TypeName="StandardEngModel.tblAMCQDetail">
+              <MappingFragment StoreEntitySet="tblAMCQDetail">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MachineSerialNo" ColumnName="MachineSerialNo" />
+                <ScalarProperty Name="MachineModelId" ColumnName="MachineModelId" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="AMCQId" ColumnName="AMCQId" />
+                <ScalarProperty Name="AMCQDetailId" ColumnName="AMCQDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAMCQNote">
+            <EntityTypeMapping TypeName="StandardEngModel.tblAMCQNote">
+              <MappingFragment StoreEntitySet="tblAMCQNote">
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="AMCQId" ColumnName="AMCQId" />
+                <ScalarProperty Name="AMCQNoteId" ColumnName="AMCQNoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAMCQuotation">
+            <EntityTypeMapping TypeName="StandardEngModel.tblAMCQuotation">
+              <MappingFragment StoreEntitySet="tblAMCQuotation">
+                <ScalarProperty Name="TotalDetailAmount" ColumnName="TotalDetailAmount" />
+                <ScalarProperty Name="CustomerGST" ColumnName="CustomerGST" />
+                <ScalarProperty Name="IsConvertedIntoAMC" ColumnName="IsConvertedIntoAMC" />
+                <ScalarProperty Name="CommissioningId" ColumnName="CommissioningId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+                <ScalarProperty Name="QuotationDate" ColumnName="QuotationDate" />
+                <ScalarProperty Name="AMCQuotationNo" ColumnName="AMCQuotationNo" />
+                <ScalarProperty Name="FinalAmountInWords" ColumnName="FinalAmountInWords" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentageId" ColumnName="GSTPercentageId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="AMCBy" ColumnName="AMCBy" />
+                <ScalarProperty Name="DefaultDiscount" ColumnName="DefaultDiscount" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AlternativeContactNo" ColumnName="AlternativeContactNo" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CustomerContactPId" ColumnName="CustomerContactPId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="AMCQId" ColumnName="AMCQId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNote">
+            <EntityTypeMapping TypeName="StandardEngModel.tblNote">
+              <MappingFragment StoreEntitySet="tblNote">
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

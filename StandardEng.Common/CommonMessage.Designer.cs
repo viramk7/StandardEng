@@ -196,6 +196,15 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AMC Quotation By.
+        /// </summary>
+        public static string AMCQBy {
+            get {
+                return ResourceManager.GetString("AMCQBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AMC Quotation Date.
         /// </summary>
         public static string AMCQuotationDate {
@@ -790,6 +799,24 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Machine Quantity.
+        /// </summary>
+        public static string MachineQuantity {
+            get {
+                return ResourceManager.GetString("MachineQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Machine Quantity is Required. .
+        /// </summary>
+        public static string MachineQuantityRequired {
+            get {
+                return ResourceManager.GetString("MachineQuantityRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Machine Serial No.
         /// </summary>
         public static string MachineSerialNo {
@@ -1263,6 +1290,15 @@ namespace StandardEng.Common {
         public static string TotalAmount {
             get {
                 return ResourceManager.GetString("TotalAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Detail Amount.
+        /// </summary>
+        public static string TotalDetailAmount {
+            get {
+                return ResourceManager.GetString("TotalDetailAmount", resourceCulture);
             }
         }
         

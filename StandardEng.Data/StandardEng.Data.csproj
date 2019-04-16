@@ -105,6 +105,15 @@
     <Compile Include="DB\tblAccessoriesType.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\tblAMCQDetail.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblAMCQNote.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblAMCQuotation.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\tblCity.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
@@ -142,6 +151,9 @@
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblMenu.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblNote.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblPerformaInvoice.cs">

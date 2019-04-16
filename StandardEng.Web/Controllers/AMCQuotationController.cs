@@ -17,42 +17,41 @@ namespace StandardEng.Web.Controllers
 {
     public class AMCQuotationController : BaseController
     {
-        //#region private variables
-        //private readonly GenericRepository<tblAMCQuotation> _dbRepository;
-        //private readonly GenericRepository<tblCommissioning> _dbRepositoryCommissioning;
-        //private readonly GenericRepository<tblAMC> _dbRepositoryAMC;
-        //private readonly GenericRepository<tblAMCServices> _dbRepositoryAMCService;
-        //#endregion
+        #region private variables
+        private readonly GenericRepository<tblAMCQuotation> _dbRepository;
+        private readonly GenericRepository<tblAMCQDetail> _dbRepositoryQDetail;
+        private readonly GenericRepository<tblAMCQNote> _dbRepositoryQNote;
+        private readonly GenericRepository<tblNote> _dBNote;
+        #endregion
 
-        //#region Constructor
-        //public AMCQuotationController()
-        //{
-        //    _dbRepository = new GenericRepository<tblAMCQuotation>();
-        //    _dbRepositoryAMC = new GenericRepository<tblAMC>();
-        //    _dbRepositoryAMCService = new GenericRepository<tblAMCServices>();
-        //    _dbRepositoryCommissioning = new GenericRepository<tblCommissioning>();
-        //}
-        //#endregion
+        #region Constructor
+        public AMCQuotationController()
+        {
+            _dbRepository = new GenericRepository<tblAMCQuotation>();
+            _dbRepositoryQDetail = new GenericRepository<tblAMCQDetail>();
+            _dbRepositoryQNote = new GenericRepository<tblAMCQNote>();
+            _dBNote = new GenericRepository<tblNote>();
+        }
+        #endregion
 
-        //#region Public Methods
-        //[HttpGet]
-        //public ActionResult Index()
-        //{
-        //    ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
-        //    ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
-        //    ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
-        //    return View();
-        //}
+        #region Public Methods
+        [HttpGet]
+        public ActionResult Index()
+        {
+            ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
+            ViewBag.ContactPersonsList = SelectionList.ContactPersonsList().Select(m => new { m.ContactPersonId, m.ContactPersonName });
+            return View();
+        }
 
-        //public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request)
-        //{
-        //    if (!request.Sorts.Any())
-        //    {
-        //        request.Sorts.Add(new SortDescriptor("Id", ListSortDirection.Descending));
-        //    }
+        public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request)
+        {
+            if (!request.Sorts.Any())
+            {
+                request.Sorts.Add(new SortDescriptor("AMCQId", ListSortDirection.Descending));
+            }
 
-        //    return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
-        //}
+            return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
+        }
 
         //public ActionResult KendoReadQuotationHistory([DataSourceRequest] DataSourceRequest request , int Id , int CustomerId , int MachineModelId)
         //{
@@ -64,74 +63,83 @@ namespace StandardEng.Web.Controllers
         //    return Json(_dbRepository.GetEntities().Where(m=>m.CustomerId == CustomerId && m.MachineModelId == MachineModelId && m.Id != Id).ToDataSourceResult(request));
         //}
 
-        //public ActionResult Create()
-        //{
-        //    ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
-        //    ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
-        //    ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
-        //    return View(new tblAMCQuotation { QuotationDate = DateTime.Now.Date });
-        //}
+        public ActionResult Create()
+        {
+            ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
+            ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
+            return View(new tblAMCQuotation { QuotationDate = DateTime.Now.Date });
+        }
 
-        //public ActionResult Edit(int id)
-        //{
-        //    ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
-        //    ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
-        //    ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
-        //    return View("Edit", _dbRepository.SelectById(id));
-        //}
+        public ActionResult Edit(int id)
+        {
+            ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
+            ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
+            return View("Create", _dbRepository.SelectById(id));
+        }
 
-        //public ActionResult SaveModelData(tblAMCQuotation model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
+        public ActionResult SaveModelData(tblAMCQuotation model,string create = null)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
+                ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
+                return View("Create", model);
+            }
 
-        //        ViewBag.CustomerList = SelectionList.CustomerList().Select(m => new { m.CustomerId, m.CustomerName });
-        //        ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
-        //        ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
-        //        return View("Create", model);
-        //    }
+            string message = string.Empty;
 
-        //    string message = string.Empty;
+            try
+            {
+                
+                if (model.AMCQId > 0)
+                {
+                    if(model.FinalAmount.HasValue)
+                    {
+                        model.FinalAmountInWords = CurrencyHelper.changeCurrencyToWords(model.FinalAmount.Value);
+                    }
+                    model.ModifiedBy = SessionHelper.UserId;
+                    model.ModifiedDate = DateTime.Now;
+                    message = _dbRepository.Update(model);
+                }
+                else
+                {
+                    model.CreatedBy = SessionHelper.UserId;
+                    model.CreatedDate = DateTime.Now;
+                    message = _dbRepository.Insert(model);
+                    if (string.IsNullOrEmpty(message))
+                    {
+                        bool result = InsertAllNotes(model.AMCQId);
+                    }
+                }
 
-        //    try
-        //    {
+                if (model.AMCQId > 0)
+                {
+                    if (create == "Save & Continue")
+                    {
+                        return RedirectToAction("Edit", new { id = model.AMCQId });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                message = CommonHelper.GetErrorMessage(ex);
+            }
 
-        //        model.CGSTPercentage = model.GSTPercentage / 2;
-        //        model.CGSTAmount = model.GSTAmount / 2;
-        //        model.TotalAmountInWords = CurrencyHelper.changeCurrencyToWords(model.TotalAmount);
-        //        if (model.Id > 0)
-        //        {
-        //            model.ModifiedBy = SessionHelper.UserId;
-        //            model.ModifiedDate = DateTime.Now;
-        //            message = _dbRepository.Update(model);
-        //        }
-        //        else
-        //        {
-        //            model.CreatedBy = SessionHelper.UserId;
-        //            model.CreatedDate = DateTime.Now;
-        //            message = _dbRepository.Insert(model);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        message = CommonHelper.GetErrorMessage(ex);
-        //    }
-           
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
-        //public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, tblAMCQuotation model)
-        //{
-        //    string deleteMessage = _dbRepository.Delete(model.Id);
+        public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, tblAMCQuotation model)
+        {
+            string deleteMessage = _dbRepository.Delete(model.AMCQId);
 
-        //    ModelState.Clear();
-        //    if (!string.IsNullOrEmpty(deleteMessage))
-        //    {
-        //        ModelState.AddModelError(deleteMessage, deleteMessage);
-        //    }
+            ModelState.Clear();
+            if (!string.IsNullOrEmpty(deleteMessage))
+            {
+                ModelState.AddModelError(deleteMessage, deleteMessage);
+            }
 
-        //    return Json(new[] { model }.ToDataSourceResult(request, ModelState));
-        //}
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
 
         //public ActionResult GenerateAMCPartial(int AMCQuotationId)
         //{
@@ -193,14 +201,14 @@ namespace StandardEng.Web.Controllers
         //                        _dbRepository.Update(obj);
         //                    }
         //                }
-                        
+
         //                if(quotation.CommissioningId != null && quotation.CommissioningId != 0)
         //                {
         //                    tblCommissioning commsioningObj = _dbRepositoryCommissioning.SelectById(quotation.CommissioningId);
         //                    commsioningObj.IsConvertedToAMC = true;
         //                    _dbRepositoryCommissioning.Update(commsioningObj);
         //                }
-                        
+
 
         //                tblAMCServices amcServie1 = new tblAMCServices();
         //                amcServie1.AMCId = amcObj.AMCId;
@@ -236,7 +244,7 @@ namespace StandardEng.Web.Controllers
 
         //                return amcObj.AMCId.ToString();
         //            }
-                   
+
         //        }
         //    }
         //    return String.Empty;
@@ -248,8 +256,75 @@ namespace StandardEng.Web.Controllers
         //    ViewBag.Reportname = Reportname;
         //    return PartialView("_AMCQuotationReport");
         //}
-        //#endregion
+        #endregion
 
+        #region AMC Quotation Notes 
+        public ActionResult KendoReadAMCNotes([DataSourceRequest] DataSourceRequest request,int AMCQId)
+        {
+            if (!request.Sorts.Any())
+            {
+                request.Sorts.Add(new SortDescriptor("AMCQId", ListSortDirection.Ascending));
+            }
 
+            return Json(_dbRepositoryQNote.GetEntities().Where(m=>m.AMCQId == AMCQId).ToDataSourceResult(request));
+        }
+
+        public ActionResult KendoSaveAMCNotes([DataSourceRequest] DataSourceRequest request, tblAMCQNote model)
+        {
+            if (model == null || !ModelState.IsValid)
+            {
+                return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+            }
+
+            string message = string.Empty;
+
+            message = model.AMCQNoteId > 0 ? _dbRepositoryQNote.Update(model) : _dbRepositoryQNote.Insert(model);
+
+            ModelState.Clear();
+            if (!string.IsNullOrEmpty(message))
+            {
+                ModelState.AddModelError("NoteId", message);
+            }
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+
+        public ActionResult KendoDestroyAMCNotes([DataSourceRequest] DataSourceRequest request, tblAMCQNote model)
+        {
+            string deleteMessage = _dbRepositoryQNote.Delete(model.AMCQNoteId);
+
+            ModelState.Clear();
+            if (!string.IsNullOrEmpty(deleteMessage))
+            {
+                ModelState.AddModelError(deleteMessage, deleteMessage);
+            }
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+        #endregion
+
+        #region Private Methods
+        private bool InsertAllNotes(int AMCQId)
+        {
+            bool result = false;
+            string message = string.Empty;
+            List<tblNote> notelist = _dBNote.GetEntities().ToList();
+            if(notelist.Count > 0)
+            {
+                foreach(tblNote obj in notelist)
+                {
+                    tblAMCQNote amcnoteobj = new tblAMCQNote();
+                    amcnoteobj.NoteText = obj.NoteText;
+                    amcnoteobj.AMCQId = AMCQId;
+                    message = _dbRepositoryQNote.Insert(amcnoteobj);
+                }
+                if (string.IsNullOrEmpty(message))
+                {
+                    return true;
+                }
+            }
+            return result;
+        }
+        #endregion
     }
 }

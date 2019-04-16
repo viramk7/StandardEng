@@ -181,6 +181,7 @@
     <Compile Include="Common\WebHelper.cs" />
     <Compile Include="Controllers\AMCController.cs" />
     <Compile Include="Controllers\AMCQuotationController.cs" />
+    <Compile Include="Controllers\AMCQuoteDetailController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CommissioningController.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Controllers\MachinePartController.cs" />
     <Compile Include="Controllers\MachinePartsQuotationController.cs" />
     <Compile Include="Controllers\MachinePartsQuotationDetailController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PIController.cs" />
     <Compile Include="Controllers\PIDetailController.cs" />
     <Compile Include="Controllers\PreCommissioningAccessoriesController.cs" />
@@ -371,6 +373,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\AMCQuoteDetail\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\ContactPerson\" />
@@ -464,6 +467,8 @@
     <Content Include="Views\PI\Create.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblPIDetail.cshtml" />
     <Content Include="Views\Region\Index.cshtml" />
+    <Content Include="Views\Notes\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\tblAMCQuotationDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">
