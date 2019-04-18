@@ -404,6 +404,7 @@
           <Property Name="IsCommisioning" Type="bit" Nullable="false" />
           <Property Name="ServiceEngineerId" Type="int" Nullable="false" />
           <Property Name="PrecommisioningRemark" Type="varchar(max)" />
+          <Property Name="PreCommisioningFileName" Type="varchar(max)" />
           <Property Name="IsLatest" Type="bit" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -499,7 +500,9 @@
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_tblAMCQDetail_tblAMCQuotation">
-          <End Role="tblAMCQuotation" Type="Self.tblAMCQuotation" Multiplicity="1" />
+          <End Role="tblAMCQuotation" Type="Self.tblAMCQuotation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tblAMCQDetail" Type="Self.tblAMCQDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblAMCQuotation">
@@ -2019,7 +2022,7 @@
           <Property Name="PreCommissionId" Type="Int32" Nullable="false" />
           <Property Name="PCMachineId" Type="Int32" />
           <Property Name="PCAccesseriesId" Type="Int32" />
-          <Property Name="PreCommisoningDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PreCommisoningDate" Type="DateTime" Nullable="false" Precision="0" annotation:StoreGeneratedPattern="None" />
           <Property Name="IsCommisioning" Type="Boolean" Nullable="false" />
           <Property Name="ServiceEngineerId" Type="Int32" Nullable="false" />
           <Property Name="PrecommisioningRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -2031,6 +2034,7 @@
           <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioningDetail_tblPreCommissioning" FromRole="tblPreCommissioningDetail" ToRole="tblPreCommissioning" />
           <NavigationProperty Name="tblUser" Relationship="StandardEngModel.FK_tblPreCommissioningDetail_tblUser" FromRole="tblPreCommissioningDetail" ToRole="tblUser" />
           <Property Name="IsLatest" Type="Boolean" />
+          <Property Name="PreCommisioningFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblPreCommissioningMachine">
           <Key>
@@ -2396,6 +2400,9 @@
           <Property Type="Int32" Name="PCAccesseriesId" Nullable="true" />
           <Property Type="Int32" Name="PCMachineId" Nullable="true" />
           <Property Type="Int32" Name="ServiceEngineerId" Nullable="false" />
+          <Property Type="String" Name="PreCommisioningFileName" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
         </ComplexType>
         <ComplexType Name="GetPreCommissiningList_Result">
           <Property Type="Int32" Name="PreCommissioningId" Nullable="false" />
@@ -3193,6 +3200,7 @@
           <EntitySetMapping Name="tblPreCommissioningDetail">
             <EntityTypeMapping TypeName="StandardEngModel.tblPreCommissioningDetail">
               <MappingFragment StoreEntitySet="tblPreCommissioningDetail">
+                <ScalarProperty Name="PreCommisioningFileName" ColumnName="PreCommisioningFileName" />
                 <ScalarProperty Name="IsLatest" ColumnName="IsLatest" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -3332,6 +3340,9 @@
                 <ScalarProperty Name="PCAccesseriesId" ColumnName="PCAccesseriesId" />
                 <ScalarProperty Name="PCMachineId" ColumnName="PCMachineId" />
                 <ScalarProperty Name="ServiceEngineerId" ColumnName="ServiceEngineerId" />
+                <ScalarProperty Name="PreCommisioningFileName" ColumnName="PreCommisioningFileName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

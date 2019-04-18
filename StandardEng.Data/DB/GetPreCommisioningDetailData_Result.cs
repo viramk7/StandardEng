@@ -29,5 +29,8 @@ namespace StandardEng.Data.DB
         public Nullable<int> PCAccesseriesId { get; set; }
         public Nullable<int> PCMachineId { get; set; }
         public int ServiceEngineerId { get; set; }
+        public string PreCommisioningFileName { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
     }
 }

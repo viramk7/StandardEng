@@ -52,6 +52,7 @@
                         @Html.HiddenFor(m => m.CreatedBy)
                         @Html.HiddenFor(m => m.CreatedDate)
                         @Html.HiddenFor(m => m.IsCommissioningDone)
+                        
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -242,64 +243,72 @@
                     </div>
                     <div class="card-body">
 
-                        @(Html.Kendo().Grid<GetPreCommisioningDetailData_Result>()
-                                          .Name("gridPCDetail")
-                                          .Columns(columns =>
-                                          {
-                                              columns.Command(command =>
-                                              {
-                                                  command.Edit().Text(" ");
-                                                  command.Destroy().Text(" ");
-                                                  command.Custom("FinalizeCommissining").Text("<span class='k-icon k-i-more-horizontal' title='Finalize Commissining'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnFQ" }).Click("onFinalizeC");
-                                              }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
-                                                         .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
+                        @(Html.Kendo().Grid<GetPreCommisioningDetailData_Result>
+    ()
+    .Name("gridPCDetail")
+    .Columns(columns =>
+    {
+        columns.Command(command =>
+        {
+            command.Edit().Text(" ");
+            command.Destroy().Text(" ");
+            command.Custom("FinalizeCommissining").Text("<span class='k-icon k-i-more-horizontal' title='Finalize Commissining'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnFQ" }).Click("onFinalizeC");
+        }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+        .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
 
 
-                                              columns.Bound(d => d.PreCommisoningDate).Format("{0:" + WebHelper.DateFormate + "}").Title("Date");
-                                              columns.Bound(d => d.MachineName);
-                                              columns.Bound(d => d.MachineSerialNo);
-                                              columns.Bound(d => d.AccessoriesName);
-                                              columns.Bound(d => d.AccessoriesSerialNo);
-                                              columns.Bound(d => d.ServiceEngineer);
-                                              columns.Bound(d => d.PrecommisioningRemark).Title("Remark");
-                                              columns.Bound(d => d.IsCommisioning).Visible(true);
+        columns.Bound(d => d.PreCommisoningDate).Format("{0:" + WebHelper.DateFormate + "}").Title("Date");
+        columns.Bound(d => d.MachineName);
+        columns.Bound(d => d.MachineSerialNo);
+        columns.Bound(d => d.AccessoriesName);
+        columns.Bound(d => d.AccessoriesSerialNo);
+        columns.Bound(d => d.ServiceEngineer);
 
-                                          })
-                                          .ToolBar(toolbar =>
-                                          {
-                                              if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                              {
-                                                  toolbar.Create().Text("Add");
-                                              }
-                                          })
-                                          .Editable(editable =>
-                                          {
-                                              editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningDetail");
-                                              editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Detail?");
-                                              editable.Window(x => x.Title("Manage Pre Commissioning Detail"));
-                                          })
-                                          .Pageable(x =>
-                                          {
-                                              x.Refresh(true);
-                                              x.PageSizes(WebHelper.PageSizes);
-                                          })
-                                          .Sortable(sortable => sortable.AllowUnsort(false))
-                                          .Filterable(e => e.Enabled(false))
-                                          .NoRecords()
-                                          .Events(grid => grid.Edit("onEdit").Save("onSave").DataBound("onDataBound"))
-                                          .DataSource(dataSource => dataSource
-                                              .Ajax()
-                                              .ServerOperation(true)
-                                              .PageSize(WebHelper.PageSize)
-                                              .Events(e => e.RequestEnd("onDetailRequetEnd"))
-                                              .Model(model => model.Id(d => d.PCDetailId))
-                                              .Events(events => events.Error("onError(\"gridPCDetail\")"))
-                                              .Create(update => update.Action("KendoSave", "PreCommissioningDetail"))
-                                              .Read(read => read.Action("KendoRead", "PreCommissioningDetail").Data("additionalData"))
-                                              .Update(update => update.Action("KendoSave", "PreCommissioningDetail"))
-                                              .Destroy(update => update.Action("KendoDestroy", "PreCommissioningDetail"))
-                                          ))
-                    </div>
+        columns.Bound(d => d.PreCommisioningFileName).Title("File")
+        //.ClientTemplate("<a href='" + Url.Action("DownloadFile", "PreCommissioningDetail", new { file = "#=PreCommisioningFileName#" }) +"'><i class='icon-download'></i></a> ");
+        .ClientTemplate("#if (PreCommisioningFileName != null) " +
+        "{# <a href='" + Url.Action("DownloadFile", "PreCommissioningDetail", new { file = "#=PreCommisioningFileName#" }) + "'><i class='icon-download'></i></a> #} " +
+        "else {# <a> No Files Uploaded</a> #}#");
+        columns.Bound(d => d.PrecommisioningRemark).Title("Remark");
+        columns.Bound(d => d.IsCommisioning).Visible(true);
+
+    })
+    .ToolBar(toolbar =>
+    {
+        if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+        {
+            toolbar.Create().Text("Add");
+        }
+    })
+    .Editable(editable =>
+    {
+        editable.Mode(GridEditMode.PopUp).TemplateName("tblPreCommissioningDetail");
+        editable.DisplayDeleteConfirmation("Are you sure you want to delete this Pre Commissioning Detail?");
+        editable.Window(x => x.Title("Manage Pre Commissioning Detail"));
+    })
+    .Pageable(x =>
+    {
+        x.Refresh(true);
+        x.PageSizes(WebHelper.PageSizes);
+    })
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .Filterable(e => e.Enabled(false))
+    .NoRecords()
+    .Scrollable(e=>e.Enabled(true))
+    .Events(grid => grid.Edit("onEdit").Save("onSave").DataBound("onDataBound"))
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .ServerOperation(true)
+    .PageSize(WebHelper.PageSize)
+    .Events(e => e.RequestEnd("onDetailRequetEnd"))
+    .Model(model => model.Id(d => d.PCDetailId))
+    .Events(events => events.Error("onError(\"gridPCDetail\")"))
+    .Create(update => update.Action("KendoSave", "PreCommissioningDetail"))
+    .Read(read => read.Action("KendoRead", "PreCommissioningDetail").Data("additionalData"))
+    .Update(update => update.Action("KendoSave", "PreCommissioningDetail"))
+    .Destroy(update => update.Action("KendoDestroy", "PreCommissioningDetail"))
+    ))
+</div>
                 </div>
             }
         </div>
@@ -509,5 +518,10 @@
                 editButton.hide();
             }
         }
+    }
+
+    function success(e) {
+        var filePath = e.response.FileName;
+        $("#PreCommisioningFileName").val(filePath).trigger("change");
     }
 </script>

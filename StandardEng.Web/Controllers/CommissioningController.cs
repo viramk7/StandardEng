@@ -209,7 +209,7 @@ namespace StandardEng.Web.Controllers
                     commissionobj.AccessoriesTypeId = precommiasseccory.AccessoriesTypeId;
                     commissionobj.MachineAccessoriesId = precommiasseccory.MachineAccessoriesId;
                     commissionobj.AccessoriesSerialNo = precommiasseccory.AccessoriesSerialNo;
-                    commissionobj.WarrantyPeriod = 6;
+                    commissionobj.WarrantyPeriod = precommiasseccory.tblMachineAccessories.WarrantyPeriod.Value;
                     commissionobj.WarrantyExpireDate = precommisdetailobj.PreCommisoningDate.AddMonths(precommiasseccory.tblMachineAccessories.WarrantyPeriod.Value);
                 }
 
@@ -223,6 +223,7 @@ namespace StandardEng.Web.Controllers
                 commissionobj.CommissioningDate = precommisdetailobj.PreCommisoningDate;
                 commissionobj.IsConvertedToAMC = false;
                 commissionobj.IsReadyForAMC = false;
+                commissionobj.CommissioningFileName = precommisdetailobj.PreCommisioningFileName;
                 commissionobj.CreatedBy = SessionHelper.UserId;
                 commissionobj.CreatedDate = DateTime.Now;
 

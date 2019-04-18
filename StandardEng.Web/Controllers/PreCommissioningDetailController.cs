@@ -7,6 +7,7 @@ using StandardEng.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -80,6 +81,10 @@ namespace StandardEng.Web.Controllers
             model.ServiceEngineerId = obj.ServiceEngineerId;
             model.PrecommisioningRemark = obj.PrecommisioningRemark;
             model.PreCommissionId = obj.PreCommissionId;
+            model.PreCommisioningFileName = obj.PreCommisioningFileName;
+            model.CreatedBy = obj.CreatedBy;
+            model.CreatedDate = obj.CreatedDate;
+            model.IsLatest = obj.IsLatest;
 
             if (model.PCDetailId > 0)
             {
@@ -92,6 +97,7 @@ namespace StandardEng.Web.Controllers
             {
                 model.CreatedBy = SessionHelper.UserId;
                 model.CreatedDate = DateTime.Now;
+                
                 if (model.PCAccessoryIdList != null && model.PCAccessoryIdList.Count > 0)
                 {
                     foreach(int id in model.PCAccessoryIdList)
@@ -149,6 +155,39 @@ namespace StandardEng.Web.Controllers
             }
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+
+        public ActionResult SaveUploadFile(HttpPostedFileBase fileImport)
+        {
+            string extension = Path.GetExtension(fileImport.FileName);
+            string fileName = Guid.NewGuid() + Path.GetFileName(fileImport.FileName);
+            string physicalPath = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+            fileImport.SaveAs(physicalPath);
+            return Json(new { FileName = fileName }, "text/plain");
+        }
+
+        public FileResult DownloadFile(string file)
+        {
+            if(!string.IsNullOrEmpty(file) && file != "null")
+            {
+                string fileExtension = Path.GetExtension(file);
+                string filePath = Path.Combine(Server.MapPath("~/Uploads"), file);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+                if (fileExtension == ".pdf")
+                {
+                    var response = new FileContentResult(fileBytes, "application/octet-stream");
+                    response.FileDownloadName = "PreCommissioningUploadFile.pdf";
+                    return response;
+                }
+                else
+                {
+                    var response = new FileContentResult(fileBytes, "image/jpeg");
+                    response.FileDownloadName = "PreCommissioningUploadFile.jpeg";
+                    return response;
+                }
+            }
+            return null;
+
         }
         #endregion
     }
