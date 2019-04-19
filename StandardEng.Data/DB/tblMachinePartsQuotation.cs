@@ -49,6 +49,11 @@ namespace StandardEng.Data.DB
         public Nullable<int> ServiceEngineerId { get; set; }
         public string QuotationAmountInWords { get; set; }
         public Nullable<int> QuatationByUser { get; set; }
+        public Nullable<bool> IsDifferentShipAddress { get; set; }
+        public string Addressline1 { get; set; }
+        public string Addressline2 { get; set; }
+        public string Addressline3 { get; set; }
+        public string GSTNo { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }

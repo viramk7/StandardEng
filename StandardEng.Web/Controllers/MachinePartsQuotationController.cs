@@ -206,6 +206,11 @@ namespace StandardEng.Web.Controllers
                         invoiceObj.SequenceNo = quotationObj.SequenceNo;
                         invoiceObj.CreatedBy = SessionHelper.UserId;
                         invoiceObj.CreatedDate = DateTime.Now;
+                        invoiceObj.IsDifferentShipAddress = quotationObj.IsDifferentShipAddress;
+                        invoiceObj.Addressline1 = quotationObj.Addressline1;
+                        invoiceObj.Addressline2 = quotationObj.Addressline2;
+                        invoiceObj.Addressline3 = quotationObj.Addressline3;
+                        invoiceObj.GSTNo = quotationObj.GSTNo;
                         string result = _dbRepositoryPI.Insert(invoiceObj);
                         if (string.IsNullOrEmpty(result))
                         {

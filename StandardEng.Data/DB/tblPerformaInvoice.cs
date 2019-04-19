@@ -47,6 +47,11 @@ namespace StandardEng.Data.DB
         public Nullable<int> ServiceEngineerId { get; set; }
         public Nullable<decimal> FreightPercentage { get; set; }
         public Nullable<decimal> TotalFreightAmount { get; set; }
+        public Nullable<bool> IsDifferentShipAddress { get; set; }
+        public string Addressline1 { get; set; }
+        public string Addressline2 { get; set; }
+        public string Addressline3 { get; set; }
+        public string GSTNo { get; set; }
     
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

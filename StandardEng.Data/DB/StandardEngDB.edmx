@@ -67,6 +67,11 @@
           <Property Name="FinalAmountInWords" Type="varchar(max)" />
           <Property Name="SequenceNo" Type="int" />
           <Property Name="IsConvertedIntoAMC" Type="bit" Nullable="false" />
+          <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="ShipAddressline1" Type="varchar(max)" />
+          <Property Name="ShipAddressline2" Type="varchar(max)" />
+          <Property Name="ShipAddressline3" Type="varchar(max)" />
+          <Property Name="ShipGSTNo" Type="varchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
@@ -240,6 +245,11 @@
           <Property Name="ServiceEngineerId" Type="int" />
           <Property Name="QuotationAmountInWords" Type="varchar(max)" />
           <Property Name="QuatationByUser" Type="int" />
+          <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="Addressline1" Type="varchar(max)" />
+          <Property Name="Addressline2" Type="varchar(max)" />
+          <Property Name="Addressline3" Type="varchar(max)" />
+          <Property Name="GSTNo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblMachinePartsQuotationDetail">
           <Key>
@@ -333,6 +343,11 @@
           <Property Name="ServiceEngineerId" Type="int" />
           <Property Name="FreightPercentage" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalFreightAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="Addressline1" Type="varchar(max)" />
+          <Property Name="Addressline2" Type="varchar(max)" />
+          <Property Name="Addressline3" Type="varchar(max)" />
+          <Property Name="GSTNo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblPerformaInvoiceDetail">
           <Key>
@@ -928,7 +943,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblPreCommissioningAccessories_tblPreCommissioning">
-          <End Role="tblPreCommissioning" Type="Self.tblPreCommissioning" Multiplicity="1" />
+          <End Role="tblPreCommissioning" Type="Self.tblPreCommissioning" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tblPreCommissioningAccessories" Type="Self.tblPreCommissioningAccessories" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblPreCommissioning">
@@ -990,7 +1007,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblPreCommissioningMachine_tblPreCommissioning">
-          <End Role="tblPreCommissioning" Type="Self.tblPreCommissioning" Multiplicity="1" />
+          <End Role="tblPreCommissioning" Type="Self.tblPreCommissioning" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tblPreCommissioningMachine" Type="Self.tblPreCommissioningMachine" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblPreCommissioning">
@@ -1064,7 +1083,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblWarrantyexpires_tblCommissioning">
-          <End Role="tblCommissioning" Type="Self.tblCommissioning" Multiplicity="1" />
+          <End Role="tblCommissioning" Type="Self.tblCommissioning" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tblWarrantyexpires" Type="Self.tblWarrantyexpires" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCommissioning">
@@ -2531,6 +2552,11 @@
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" FromRole="tblPerformaInvoice" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblPerformaInvoice" FromRole="tblPerformaInvoice" ToRole="tblPerformaInvoiceDetail" />
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblPerformaInvoice" ToRole="tblCustomer" />
+          <Property Name="IsDifferentShipAddress" Type="Boolean" />
+          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tblPerformaInvoice_tblCustomerContactPersons">
           <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
@@ -2624,6 +2650,11 @@
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblMachinePartsQuotation" ToRole="tblCustomer" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblMachinePartsQuotation" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" FromRole="tblMachinePartsQuotation" ToRole="tblMachinePartsQuotationDetail" />
+          <Property Name="IsDifferentShipAddress" Type="Boolean" />
+          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tblCustomer_tblCity">
           <End Type="StandardEngModel.tblCity" Role="tblCity" Multiplicity="1" />
@@ -2813,6 +2844,11 @@
           <Property Name="IsConvertedIntoAMC" Type="Boolean" Nullable="false" />
           <Property Name="CustomerGST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TotalDetailAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsDifferentShipAddress" Type="Boolean" />
+          <Property Name="ShipAddressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipGSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblNote">
           <Key>
@@ -3450,6 +3486,11 @@
           <EntitySetMapping Name="tblPerformaInvoice">
             <EntityTypeMapping TypeName="StandardEngModel.tblPerformaInvoice">
               <MappingFragment StoreEntitySet="tblPerformaInvoice">
+                <ScalarProperty Name="GSTNo" ColumnName="GSTNo" />
+                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
                 <ScalarProperty Name="TotalFreightAmount" ColumnName="TotalFreightAmount" />
                 <ScalarProperty Name="FreightPercentage" ColumnName="FreightPercentage" />
                 <ScalarProperty Name="ServiceEngineerId" ColumnName="ServiceEngineerId" />
@@ -3505,6 +3546,11 @@
           <EntitySetMapping Name="tblMachinePartsQuotation">
             <EntityTypeMapping TypeName="StandardEngModel.tblMachinePartsQuotation">
               <MappingFragment StoreEntitySet="tblMachinePartsQuotation">
+                <ScalarProperty Name="GSTNo" ColumnName="GSTNo" />
+                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
                 <ScalarProperty Name="QuatationByUser" ColumnName="QuatationByUser" />
                 <ScalarProperty Name="QuotationAmountInWords" ColumnName="QuotationAmountInWords" />
                 <ScalarProperty Name="ServiceEngineerId" ColumnName="ServiceEngineerId" />
@@ -3564,6 +3610,11 @@
           <EntitySetMapping Name="tblAMCQuotation">
             <EntityTypeMapping TypeName="StandardEngModel.tblAMCQuotation">
               <MappingFragment StoreEntitySet="tblAMCQuotation">
+                <ScalarProperty Name="ShipGSTNo" ColumnName="ShipGSTNo" />
+                <ScalarProperty Name="ShipAddressline3" ColumnName="ShipAddressline3" />
+                <ScalarProperty Name="ShipAddressline2" ColumnName="ShipAddressline2" />
+                <ScalarProperty Name="ShipAddressline1" ColumnName="ShipAddressline1" />
+                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
                 <ScalarProperty Name="TotalDetailAmount" ColumnName="TotalDetailAmount" />
                 <ScalarProperty Name="CustomerGST" ColumnName="CustomerGST" />
                 <ScalarProperty Name="IsConvertedIntoAMC" ColumnName="IsConvertedIntoAMC" />

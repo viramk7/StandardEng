@@ -779,6 +779,23 @@ namespace StandardEng.Data.DB
 
             [ScaffoldColumn(false)]
             public Nullable<System.DateTime> ModifiedDate { get; set; }
+
+            public Nullable<bool> IsDifferentShipAddress { get; set; }
+
+            [Display(Name = "Ship-Addressline1")]
+            public string Addressline1 { get; set; }
+
+            [Display(Name = "Ship-Addressline2")]
+            public string Addressline2 { get; set; }
+
+            [Display(Name = "Ship-Addressline3")]
+            public string Addressline3 { get; set; }
+
+            [Display(Name = "GST No")]
+            [StringLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [MinLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string GSTNo { get; set; }
+
         }
     }
 
@@ -996,6 +1013,24 @@ namespace StandardEng.Data.DB
             public System.DateTime CreatedDate { get; set; }
             public Nullable<int> ModifiedBy { get; set; }
             public Nullable<System.DateTime> ModifiedDate { get; set; }
+
+
+            public Nullable<bool> IsDifferentShipAddress { get; set; }
+
+            [Display(Name = "Ship-Addressline1")]
+            public string ShipAddressline1 { get; set; }
+
+            [Display(Name = "Ship-Addressline2")]
+            public string ShipAddressline2 { get; set; }
+
+            [Display(Name = "Ship-Addressline3")]
+            public string ShipAddressline3 { get; set; }
+
+            [Display(Name = "Ship GST No")]
+            [StringLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [MinLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string ShipGSTNo { get; set; }
+
         }
     }
 
@@ -1209,6 +1244,23 @@ namespace StandardEng.Data.DB
 
             [ScaffoldColumn(false)]
             public Nullable<System.DateTime> ModifiedDate { get; set; }
+
+            public Nullable<bool> IsDifferentShipAddress { get; set; }
+
+            [Display(Name = "Ship-Addressline1")]
+            public string Addressline1 { get; set; }
+
+            [Display(Name = "Ship-Addressline2")]
+            public string Addressline2 { get; set; }
+
+            [Display(Name = "Ship-Addressline3")]
+            public string Addressline3 { get; set; }
+
+            [Display(Name = "GST No")]
+            [StringLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            [MinLength(15, ErrorMessageResourceName = "GSTLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string GSTNo { get; set; }
+
         }
     }
 

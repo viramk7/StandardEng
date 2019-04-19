@@ -52,6 +52,11 @@ namespace StandardEng.Data.DB
         public bool IsConvertedIntoAMC { get; set; }
         public string CustomerGST { get; set; }
         public Nullable<decimal> TotalDetailAmount { get; set; }
+        public Nullable<bool> IsDifferentShipAddress { get; set; }
+        public string ShipAddressline1 { get; set; }
+        public string ShipAddressline2 { get; set; }
+        public string ShipAddressline3 { get; set; }
+        public string ShipGSTNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAMCQDetail> tblAMCQDetail { get; set; }
