@@ -74,19 +74,19 @@
                                     @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
-                                                                                                                 .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
-                                                                                                                 .Placeholder("--Select Customer --")
-                                                                                                                 .DataTextField("CustomerName")
-                                                                                                                 .DataValueField("CustomerId")
-                                                                                                                 .HtmlAttributes(new { @tabindex = "2" })
-                                                                                                                 .DataSource(source =>
-                                                                                                                 {
-                                                                                                                     source.Read(read =>
-                                                                                                                     {
-                                                                                                                         read.Action("GetCustomerListWithAllDetails", "Common");
-                                                                                                                     });
-                                                                                                                 })
-                                                                                                                 .Events(e => e.Change("onChangeCustomer"))
+                                                                                                                         .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                                                                                         .Placeholder("--Select Customer --")
+                                                                                                                         .DataTextField("CustomerName")
+                                                                                                                         .DataValueField("CustomerId")
+                                                                                                                         .HtmlAttributes(new { @tabindex = "2" })
+                                                                                                                         .DataSource(source =>
+                                                                                                                         {
+                                                                                                                             source.Read(read =>
+                                                                                                                             {
+                                                                                                                                 read.Action("GetCustomerListWithAllDetails", "Common");
+                                                                                                                             });
+                                                                                                                         })
+                                                                                                                         .Events(e => e.Change("onChangeCustomer"))
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CustomerId)
@@ -97,21 +97,21 @@
                                     @Html.LabelFor(m => m.CustomerContactPId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerContactPId)
-                                                                                      .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
-                                                                                      .Placeholder("--Select Contact Person --")
-                                                                                      .DataTextField("ContactPersonName")
-                                                                                      .DataValueField("ContactPersonId")
-                                                                                      .Enable(false)
-                                                                                      .AutoBind(false)
-                                                                                      .CascadeFrom("CustomerId")
-                                                                                      .HtmlAttributes(new { @tabindex = 3 })
-                                                                                      .DataSource(source =>
-                                                                                      {
-                                                                                          source.Read(read =>
-                                                                                          {
-                                                                                              read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
-                                                                                          }).ServerFiltering(true);
-                                                                                      })
+                                                                                              .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
+                                                                                              .Placeholder("--Select Contact Person --")
+                                                                                              .DataTextField("ContactPersonName")
+                                                                                              .DataValueField("ContactPersonId")
+                                                                                              .Enable(false)
+                                                                                              .AutoBind(false)
+                                                                                              .CascadeFrom("CustomerId")
+                                                                                              .HtmlAttributes(new { @tabindex = 3 })
+                                                                                              .DataSource(source =>
+                                                                                              {
+                                                                                                  source.Read(read =>
+                                                                                                  {
+                                                                                                      read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
+                                                                                                  }).ServerFiltering(true);
+                                                                                              })
                                         )
                                         @Html.ValidationMessageFor(m => m.CustomerContactPId)
                                     </div>
@@ -121,18 +121,18 @@
                                     @Html.LabelFor(m => m.CountryId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CountryId)
-                                                                                                                    .Value(Model.CountryId == 0 ? string.Empty : Model.CountryId.ToString())
-                                                                                                                    .Placeholder("--Select Country --")
-                                                                                                                    .DataTextField("CountryName")
-                                                                                                                    .DataValueField("CountryId")
-                                                                                                                    .HtmlAttributes(new { @tabindex = 4 })
-                                                                                                                    .DataSource(source =>
-                                                                                                                    {
-                                                                                                                        source.Read(read =>
-                                                                                                                        {
-                                                                                                                            read.Action("GetCountryList", "Common");
-                                                                                                                        });
-                                                                                                                    })
+                                                                                                                            .Value(Model.CountryId == 0 ? string.Empty : Model.CountryId.ToString())
+                                                                                                                            .Placeholder("--Select Country --")
+                                                                                                                            .DataTextField("CountryName")
+                                                                                                                            .DataValueField("CountryId")
+                                                                                                                            .HtmlAttributes(new { @tabindex = 4 })
+                                                                                                                            .DataSource(source =>
+                                                                                                                            {
+                                                                                                                                source.Read(read =>
+                                                                                                                                {
+                                                                                                                                    read.Action("GetCountryList", "Common");
+                                                                                                                                });
+                                                                                                                            })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CountryId)
@@ -143,21 +143,21 @@
                                     @Html.LabelFor(m => m.StateId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.StateId)
-                                                                                                                      .Value(Model.StateId == 0 ? string.Empty : Model.StateId.ToString())
-                                                                                                                      .Placeholder("--Select State --")
-                                                                                                                      .DataTextField("StateName")
-                                                                                                                      .DataValueField("StateId")
-                                                                                                                      .Enable(false)
-                                                                                                                      .AutoBind(false)
-                                                                                                                      .CascadeFrom("CountryId")
-                                                                                                                      .HtmlAttributes(new { @tabindex = 5 })
-                                                                                                                      .DataSource(source =>
-                                                                                                                      {
-                                                                                                                          source.Read(read =>
-                                                                                                                          {
-                                                                                                                              read.Action("GetStateList", "Common").Data("filterState");
-                                                                                                                          }).ServerFiltering(true);
-                                                                                                                      })
+                                                                                                                              .Value(Model.StateId == 0 ? string.Empty : Model.StateId.ToString())
+                                                                                                                              .Placeholder("--Select State --")
+                                                                                                                              .DataTextField("StateName")
+                                                                                                                              .DataValueField("StateId")
+                                                                                                                              .Enable(false)
+                                                                                                                              .AutoBind(false)
+                                                                                                                              .CascadeFrom("CountryId")
+                                                                                                                              .HtmlAttributes(new { @tabindex = 5 })
+                                                                                                                              .DataSource(source =>
+                                                                                                                              {
+                                                                                                                                  source.Read(read =>
+                                                                                                                                  {
+                                                                                                                                      read.Action("GetStateList", "Common").Data("filterState");
+                                                                                                                                  }).ServerFiltering(true);
+                                                                                                                              })
                                         )
                                         @Html.ValidationMessageFor(m => m.StateId)
                                     </div>
@@ -167,21 +167,21 @@
                                     @Html.LabelFor(m => m.CityId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CityId)
-                                                                                                                         .Value(Model.CityId == 0 ? string.Empty : Model.CityId.ToString())
-                                                                                                                         .Placeholder("--Select City --")
-                                                                                                                         .DataTextField("CityName")
-                                                                                                                         .DataValueField("CityId")
-                                                                                                                         .Enable(false)
-                                                                                                                         .AutoBind(false)
-                                                                                                                         .CascadeFrom("StateId")
-                                                                                                                         .HtmlAttributes(new { @tabindex = 6 })
-                                                                                                                         .DataSource(source =>
-                                                                                                                         {
-                                                                                                                             source.Read(read =>
-                                                                                                                             {
-                                                                                                                                 read.Action("GetCityList", "Common").Data("filterCity");
-                                                                                                                             }).ServerFiltering(true);
-                                                                                                                         })
+                                                                                                                                 .Value(Model.CityId == 0 ? string.Empty : Model.CityId.ToString())
+                                                                                                                                 .Placeholder("--Select City --")
+                                                                                                                                 .DataTextField("CityName")
+                                                                                                                                 .DataValueField("CityId")
+                                                                                                                                 .Enable(false)
+                                                                                                                                 .AutoBind(false)
+                                                                                                                                 .CascadeFrom("StateId")
+                                                                                                                                 .HtmlAttributes(new { @tabindex = 6 })
+                                                                                                                                 .DataSource(source =>
+                                                                                                                                 {
+                                                                                                                                     source.Read(read =>
+                                                                                                                                     {
+                                                                                                                                         read.Action("GetCityList", "Common").Data("filterCity");
+                                                                                                                                     }).ServerFiltering(true);
+                                                                                                                                 })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CityId)
@@ -192,21 +192,21 @@
                                     @Html.LabelFor(m => m.RegionId, new { @class = "col-sm-6 col-lg-3 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.RegionId)
-                                                                                                                      .Value(Model.RegionId == 0 ? string.Empty : Model.RegionId.ToString())
-                                                                                                                      .Placeholder("--Select Region --")
-                                                                                                                      .DataTextField("Name")
-                                                                                                                      .DataValueField("Id")
-                                                                                                                      .Enable(false)
-                                                                                                                      .AutoBind(false)
-                                                                                                                      .CascadeFrom("CityId")
-                                                                                                                      .HtmlAttributes(new { @tabindex = 7 })
-                                                                                                                      .DataSource(source =>
-                                                                                                                      {
-                                                                                                                          source.Read(read =>
-                                                                                                                          {
-                                                                                                                              read.Action("GetRegionList", "Common").Data("filterRegion");
-                                                                                                                          }).ServerFiltering(true);
-                                                                                                                      })
+                                                                                                                              .Value(Model.RegionId == 0 ? string.Empty : Model.RegionId.ToString())
+                                                                                                                              .Placeholder("--Select Region --")
+                                                                                                                              .DataTextField("Name")
+                                                                                                                              .DataValueField("Id")
+                                                                                                                              .Enable(false)
+                                                                                                                              .AutoBind(false)
+                                                                                                                              .CascadeFrom("CityId")
+                                                                                                                              .HtmlAttributes(new { @tabindex = 7 })
+                                                                                                                              .DataSource(source =>
+                                                                                                                              {
+                                                                                                                                  source.Read(read =>
+                                                                                                                                  {
+                                                                                                                                      read.Action("GetRegionList", "Common").Data("filterRegion");
+                                                                                                                                  }).ServerFiltering(true);
+                                                                                                                              })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.RegionId)
@@ -225,47 +225,21 @@
                                     @Html.LabelFor(m => m.AMCBy, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.AMCBy)
-                                                                                      .Value(Model.AMCBy == 0 ? string.Empty : Model.AMCBy.ToString())
-                                                                                      .Placeholder("--Select --")
-                                                                                      .DataTextField("Name")
-                                                                                      .DataValueField("UserId")
-                                                                                      .HtmlAttributes(new { @tabindex = 9 })
-                                                                                      .DataSource(source =>
-                                                                                      {
-                                                                                          source.Read(read =>
-                                                                                          {
-                                                                                              read.Action("GetServiceEngineerList", "Common");
-                                                                                          });
-                                                                                      })
+                                                                                              .Value(Model.AMCBy == 0 ? string.Empty : Model.AMCBy.ToString())
+                                                                                              .Placeholder("--Select --")
+                                                                                              .DataTextField("Name")
+                                                                                              .DataValueField("UserId")
+                                                                                              .HtmlAttributes(new { @tabindex = 9 })
+                                                                                              .DataSource(source =>
+                                                                                              {
+                                                                                                  source.Read(read =>
+                                                                                                  {
+                                                                                                      read.Action("GetServiceEngineerList", "Common");
+                                                                                                  });
+                                                                                              })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.AMCBy)
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.Label("Is Different Ship-Address", new { @class = "col-sm-6 col-lg-6 col-form-label" })
-                                    <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().CheckBoxFor(m => m.IsDifferentShipAddress).HtmlAttributes(new { @tabindex = 14, @onclick = "isDiffrentShipChk()" })
-                                        @Html.ValidationMessageFor(m => m.IsDifferentShipAddress)
-                                    </div>
-                                </div>
-
-                                <div id="shipAddress1">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.ShipAddressline2, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                        <div class="col-sm-6 col-lg-9">
-                                            @Html.Kendo().TextBoxFor(m => m.ShipAddressline2).HtmlAttributes(new { @tabindex = 16 })
-                                            @Html.ValidationMessageFor(m => m.ShipAddressline2)
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.ShipGSTNo, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                        <div class="col-sm-6 col-lg-9">
-                                            @Html.Kendo().TextBoxFor(m => m.ShipGSTNo).HtmlAttributes(new { @tabindex = 16 })
-                                            @Html.ValidationMessageFor(m => m.ShipGSTNo)
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -343,6 +317,22 @@
                                         @Html.ValidationMessageFor(m => m.Remarks)
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.Label("Is Different Ship-Address", new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().CheckBoxFor(m => m.IsDifferentShipAddress).HtmlAttributes(new { @tabindex = 14, @onclick = "isDiffrentShipChk()" })
+                                        @Html.ValidationMessageFor(m => m.IsDifferentShipAddress)
+                                    </div>
+                                </div>
 
                                 <div id="shipAddress2">
                                     <div class="form-group">
@@ -362,6 +352,26 @@
                                     </div>
                                 </div>
 
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="shipAddress1" style="margin-top: 63px;">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShipAddressline2, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.ShipAddressline2).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.ShipAddressline2)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShipGSTNo, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.ShipGSTNo).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.ShipGSTNo)
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,66 +386,66 @@
                         <div class="card-body">
 
                             @(Html.Kendo().Grid<tblAMCQDetail>()
-                                                      .Name("gridAMCQDetail")
-                                                      .Columns(columns =>
-                                                      {
-                                                          if (!Model.IsConvertedIntoAMC)
-                                                          {
-                                                              columns.Select().Width(50);
-
-                                                              columns.Command(command =>
+                                                              .Name("gridAMCQDetail")
+                                                              .Columns(columns =>
                                                               {
-                                                                  command.Edit().Text(" ");
-                                                                  command.Destroy().Text(" ");
-                                                              }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
-                                                                         .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
-                                                          }
-                                                          columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
-                                                          columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
-                                                          columns.Bound(d => d.MachineSerialNo);
-                                                          columns.Bound(d => d.Quantity).ClientFooterTemplate("Total Quantity: #=sum#");
-                                                          columns.Bound(d => d.Amount).Width(80).Title("Rate");
-                                                          columns.Bound(d => d.TotalAmount).ClientFooterTemplate("Total Amount: #=sum#");
-                                                          columns.Bound(d => d.Description);
-                                                      })
-                                                      .ToolBar(toolbar =>
-                                                      {
-                                                          if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                                          {
-                                                              toolbar.Create().Text("Add");
-                                                          }
-                                                      })
-                                                      .Editable(editable =>
-                                                      {
-                                                          editable.Mode(GridEditMode.PopUp).TemplateName("tblAMCQuotationDetail");
-                                                          editable.DisplayDeleteConfirmation("Are you sure you want to delete this AMC Quotation Detail?");
-                                                          editable.Window(x => x.Title("Manage AMC Quotation Detail"));
-                                                      })
-                                                      .Sortable(sortable => sortable.AllowUnsort(false))
-                                                      .PersistSelection()
-                                                      .NoRecords()
-                                                      .Scrollable(e => e.Enabled(true))
-                                                      .Events(grid =>
-                                                      {
-                                                          grid.Save("onDetailSave");
-                                                          grid.DataBound("onDataBound");
-                                                          grid.Change("onChange");
-                                                      })
-                                                      .DataSource(dataSource => dataSource
-                                                          .Ajax()
-                                                          .Aggregates(aggregates =>
-                                                          {
-                                                              aggregates.Add(p => p.Quantity).Sum();
-                                                              aggregates.Add(p => p.TotalAmount).Sum();
-                                                          })
-                                                          .ServerOperation(true)
-                                                          .Model(model => model.Id(d => d.AMCQDetailId))
-                                                          .Events(events => events.Error("onError(\"gridAMCQDetail\")").RequestEnd("onRequestEnd"))
-                                                          .Create(update => update.Action("KendoSave", "AMCQuoteDetail"))
-                                                          .Read(read => read.Action("KendoRead", "AMCQuoteDetail").Data("additionalData"))
-                                                          .Update(update => update.Action("KendoSave", "AMCQuoteDetail"))
-                                                          .Destroy(update => update.Action("KendoDestroy", "AMCQuoteDetail"))
-                                                      ))
+                                                                  if (!Model.IsConvertedIntoAMC)
+                                                                  {
+                                                                      columns.Select().Width(50);
+
+                                                                      columns.Command(command =>
+                                                                      {
+                                                                          command.Edit().Text(" ");
+                                                                          command.Destroy().Text(" ");
+                                                                      }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                                                 .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                                                  }
+                                                                  columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
+                                                                  columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
+                                                                  columns.Bound(d => d.MachineSerialNo);
+                                                                  columns.Bound(d => d.Quantity).ClientFooterTemplate("Total Quantity: #=sum#");
+                                                                  columns.Bound(d => d.Amount).Width(80).Title("Rate");
+                                                                  columns.Bound(d => d.TotalAmount).ClientFooterTemplate("Total Amount: #=sum#");
+                                                                  columns.Bound(d => d.Description);
+                                                              })
+                                                              .ToolBar(toolbar =>
+                                                              {
+                                                                  if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                  {
+                                                                      toolbar.Create().Text("Add");
+                                                                  }
+                                                              })
+                                                              .Editable(editable =>
+                                                              {
+                                                                  editable.Mode(GridEditMode.PopUp).TemplateName("tblAMCQuotationDetail");
+                                                                  editable.DisplayDeleteConfirmation("Are you sure you want to delete this AMC Quotation Detail?");
+                                                                  editable.Window(x => x.Title("Manage AMC Quotation Detail"));
+                                                              })
+                                                              .Sortable(sortable => sortable.AllowUnsort(false))
+                                                              .PersistSelection()
+                                                              .NoRecords()
+                                                              .Scrollable(e => e.Enabled(true))
+                                                              .Events(grid =>
+                                                              {
+                                                                  grid.Save("onDetailSave");
+                                                                  grid.DataBound("onDataBound");
+                                                                  grid.Change("onChange");
+                                                              })
+                                                              .DataSource(dataSource => dataSource
+                                                                  .Ajax()
+                                                                  .Aggregates(aggregates =>
+                                                                  {
+                                                                      aggregates.Add(p => p.Quantity).Sum();
+                                                                      aggregates.Add(p => p.TotalAmount).Sum();
+                                                                  })
+                                                                  .ServerOperation(true)
+                                                                  .Model(model => model.Id(d => d.AMCQDetailId))
+                                                                  .Events(events => events.Error("onError(\"gridAMCQDetail\")").RequestEnd("onRequestEnd"))
+                                                                  .Create(update => update.Action("KendoSave", "AMCQuoteDetail"))
+                                                                  .Read(read => read.Action("KendoRead", "AMCQuoteDetail").Data("additionalData"))
+                                                                  .Update(update => update.Action("KendoSave", "AMCQuoteDetail"))
+                                                                  .Destroy(update => update.Action("KendoDestroy", "AMCQuoteDetail"))
+                                                              ))
                         </div>
                     </div>
 
@@ -447,7 +457,7 @@
                                         @Html.LabelFor(m => m.TotalDetailAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.TotalDetailAmount).Spinners(false)
-                                                                                  .HtmlAttributes(new { @readonly = "readonly" }))
+                                                                                          .HtmlAttributes(new { @readonly = "readonly" }))
                                             @Html.ValidationMessageFor(m => m.TotalDetailAmount)
                                         </div>
                                     </div>
@@ -455,7 +465,7 @@
                                         @Html.LabelFor(m => m.GSTAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.GSTAmount).Spinners(false).Min(0)
-                                                                                                  .HtmlAttributes(new { @readonly = "readonly" }))
+                                                                                                          .HtmlAttributes(new { @readonly = "readonly" }))
                                             @Html.ValidationMessageFor(m => m.GSTAmount)
                                         </div>
                                     </div>
@@ -468,19 +478,19 @@
                                         @Html.LabelFor(m => m.GSTPercentageId, new { @class = "col-sm-6 col-lg-4 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().ComboBoxFor(m => m.GSTPercentageId)
-                                                                                  //.Value(Model.GSTPercentage == 0 ? string.Empty : Model.GSTPercentage.ToString())
-                                                                                  .Placeholder("--Select GST Percentage --")
-                                                                                  .DataTextField("Percentage")
-                                                                                  .DataValueField("Id")
-                                                                                  .HtmlAttributes(new { @tabindex = 20 })
-                                                                                  .DataSource(source =>
-                                                                                  {
-                                                                                      source.Read(read =>
-                                                                                      {
-                                                                                          read.Action("GetGSTPercentageList", "Common");
-                                                                                      });
-                                                                                  })
-                                                                                  .Events(e => e.Change("onChangeGST"))
+                                                                                          //.Value(Model.GSTPercentage == 0 ? string.Empty : Model.GSTPercentage.ToString())
+                                                                                          .Placeholder("--Select GST Percentage --")
+                                                                                          .DataTextField("Percentage")
+                                                                                          .DataValueField("Id")
+                                                                                          .HtmlAttributes(new { @tabindex = 20 })
+                                                                                          .DataSource(source =>
+                                                                                          {
+                                                                                              source.Read(read =>
+                                                                                              {
+                                                                                                  read.Action("GetGSTPercentageList", "Common");
+                                                                                              });
+                                                                                          })
+                                                                                          .Events(e => e.Change("onChangeGST"))
                                             )
                                             @Html.ValidationMessageFor(m => m.GSTPercentageId)
                                         </div>
@@ -506,45 +516,45 @@
                         </div>
                         <div class="card-body">
                             @(Html.Kendo().Grid<tblAMCQNote>()
-                                 .Name("gridAMCQNote")
-                                 .Columns(columns =>
-                                 {
-                                     columns.Bound(p => p.NoteText);
-                                     columns.Command(command =>
-                                     {
-                                         command.Edit();
-                                         command.Destroy();
-                                     }).Width(250);
-                                 })
-                                 .ToolBar(toolbar => toolbar.Create())
-                                 .Editable(editable =>
-                                 {
-                                     editable.Mode(GridEditMode.InLine);
-                                     editable.DisplayDeleteConfirmation("Are you sure you want to delete this Note?");
-                                 })
-                                 .Pageable(x =>
-                                 {
-                                     x.Refresh(true);
-                                     x.PageSizes(WebHelper.PageSizes);
-                                 })
-                                 .Sortable(sortable => sortable.AllowUnsort(false))
-                                 .Filterable()
-                                 .NoRecords()
-                                 .DataSource(dataSource => dataSource
-                                     .Ajax()
-                                     .ServerOperation(true)
-                                     .PageSize(WebHelper.PageSize)
-                                     .Events(events => events.Error("onError(\"gridAMCQNote\")"))
-                                     .Model(model =>
-                                     {
-                                         model.Id(p => p.AMCQNoteId);
-                                         model.Field(p => p.AMCQId).DefaultValue(Model.AMCQId);
-                                     })
-                                         .Create(update => update.Action("KendoSaveAMCNotes", "AMCQuotation"))
-                                         .Read(read => read.Action("KendoReadAMCNotes", "AMCQuotation").Data("additionalData"))
-                                         .Update(update => update.Action("KendoSaveAMCNotes", "AMCQuotation"))
-                                         .Destroy(update => update.Action("KendoDestroyAMCNotes", "AMCQuotation"))
-                                     ))
+                                         .Name("gridAMCQNote")
+                                         .Columns(columns =>
+                                         {
+                                             columns.Bound(p => p.NoteText);
+                                             columns.Command(command =>
+                                             {
+                                                 command.Edit();
+                                                 command.Destroy();
+                                             }).Width(250);
+                                         })
+                                         .ToolBar(toolbar => toolbar.Create())
+                                         .Editable(editable =>
+                                         {
+                                             editable.Mode(GridEditMode.InLine);
+                                             editable.DisplayDeleteConfirmation("Are you sure you want to delete this Note?");
+                                         })
+                                         .Pageable(x =>
+                                         {
+                                             x.Refresh(true);
+                                             x.PageSizes(WebHelper.PageSizes);
+                                         })
+                                         .Sortable(sortable => sortable.AllowUnsort(false))
+                                         .Filterable()
+                                         .NoRecords()
+                                         .DataSource(dataSource => dataSource
+                                             .Ajax()
+                                             .ServerOperation(true)
+                                             .PageSize(WebHelper.PageSize)
+                                             .Events(events => events.Error("onError(\"gridAMCQNote\")"))
+                                             .Model(model =>
+                                             {
+                                                 model.Id(p => p.AMCQNoteId);
+                                                 model.Field(p => p.AMCQId).DefaultValue(Model.AMCQId);
+                                             })
+                                                 .Create(update => update.Action("KendoSaveAMCNotes", "AMCQuotation"))
+                                                 .Read(read => read.Action("KendoReadAMCNotes", "AMCQuotation").Data("additionalData"))
+                                                 .Update(update => update.Action("KendoSaveAMCNotes", "AMCQuotation"))
+                                                 .Destroy(update => update.Action("KendoDestroyAMCNotes", "AMCQuotation"))
+                                             ))
 
                         </div>
                     </div>
