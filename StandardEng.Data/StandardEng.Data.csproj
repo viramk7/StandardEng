@@ -57,6 +57,9 @@
     <Compile Include="DB\AssignRoleList_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\GetAMCList_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\GetCommissioningList_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
@@ -105,6 +108,9 @@
     <Compile Include="DB\tblAccessoriesType.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\tblAMC.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\tblAMCQDetail.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
@@ -112,6 +118,9 @@
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblAMCQuotation.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblAMCServices.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblCity.cs">

@@ -22,6 +22,9 @@ namespace StandardEng.Web.Controllers
         private readonly GenericRepository<tblAMCQDetail> _dbRepositoryQDetail;
         private readonly GenericRepository<tblAMCQNote> _dbRepositoryQNote;
         private readonly GenericRepository<tblNote> _dBNote;
+        private readonly GenericRepository<tblAMC> _dBAMC;
+        private readonly GenericRepository<tblAMCServices> _dBAMCServices;
+        private readonly GenericRepository<tblGSTMaster> _dBGST;
         #endregion
 
         #region Constructor
@@ -31,6 +34,9 @@ namespace StandardEng.Web.Controllers
             _dbRepositoryQDetail = new GenericRepository<tblAMCQDetail>();
             _dbRepositoryQNote = new GenericRepository<tblAMCQNote>();
             _dBNote = new GenericRepository<tblNote>();
+            _dBAMC = new GenericRepository<tblAMC>();
+            _dBAMCServices = new GenericRepository<tblAMCServices>();
+            _dBGST = new GenericRepository<tblGSTMaster>();
         }
         #endregion
 
@@ -77,7 +83,7 @@ namespace StandardEng.Web.Controllers
             return View("Create", _dbRepository.SelectById(id));
         }
 
-        public ActionResult SaveModelData(tblAMCQuotation model,string create = null)
+        public ActionResult SaveModelData(tblAMCQuotation model, string create = null)
         {
             if (!ModelState.IsValid)
             {
@@ -90,10 +96,10 @@ namespace StandardEng.Web.Controllers
 
             try
             {
-                
+
                 if (model.AMCQId > 0)
                 {
-                    if(model.FinalAmount.HasValue)
+                    if (model.FinalAmount.HasValue)
                     {
                         model.FinalAmountInWords = CurrencyHelper.changeCurrencyToWords(model.FinalAmount.Value);
                     }
@@ -141,114 +147,125 @@ namespace StandardEng.Web.Controllers
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
 
-        //public ActionResult GenerateAMCPartial(int AMCQuotationId)
-        //{
-        //    AMCPartialModel obj = new AMCPartialModel();
-        //    obj.AMCQuotationId = AMCQuotationId;
-        //    return PartialView("_AMCPartial", obj);
-        //}
+        public ActionResult GenerateAMC(int QuotationId, string SelectedIds = null)
+        {
+            try
+            {
+                if (QuotationId > 0)
+                {
+                    tblAMCQuotation quotationObj = _dbRepository.SelectById(QuotationId);
 
-        //public string GenerateAMC(AMCPartialModel model)
-        //{
-        //    if(model.AMCQuotationId != 0)
-        //    {
-        //        tblAMCQuotation quotation = _dbRepository.SelectById(model.AMCQuotationId);
-        //        if(quotation != null)
-        //        {
-        //            tblAMC amcObj = new tblAMC();
-        //            amcObj.AMCQuotationId = quotation.Id;
-        //            amcObj.CustomerId = quotation.CustomerId;
-        //            amcObj.MachineModelId = quotation.MachineModelId;
-        //            amcObj.MachineTypeId = quotation.MachineTypeId;
-        //            amcObj.MachineSerialNo = quotation.MachineSerialNo;
-        //            amcObj.AMCQuotationNo = quotation.AMCQuotationNo;
-        //            amcObj.ActualAmount = quotation.ActualAmount;
-        //            amcObj.GSTPercentage = quotation.GSTPercentage;
-        //            amcObj.GSTAmount = quotation.GSTAmount;
-        //            amcObj.TotalAmount = quotation.TotalAmount;
-        //            amcObj.Remarks = model.Remarks;
-        //            amcObj.AMCStartDate = DateTime.Now.Date;
-        //            amcObj.AMCEndDate = DateTime.Now.Date.AddYears(1);
-        //            amcObj.IsAMCExpired = false;
-        //            amcObj.CreatedBy = SessionHelper.UserId;
-        //            amcObj.CreatedDate = DateTime.Now.Date;
-        //            string result = _dbRepositoryAMC.Insert(amcObj);
+                    if (quotationObj != null)
+                    {
+                        List<int> selectedIDs = new List<int>();
+                        List<tblAMCQDetail> detailObj = new List<tblAMCQDetail>();
+                        if (!string.IsNullOrEmpty(SelectedIds))
+                        {
+                            selectedIDs = SelectedIds.Split(',').Select(int.Parse).ToList();
+                        }
+                        else
+                        {
+                            selectedIDs = _dbRepositoryQDetail.GetEntities().Where(m => m.AMCQId == QuotationId).Select(m => m.AMCQDetailId).ToList();
+                        }
+                        if (selectedIDs.Count > 0)
+                        {
+                            foreach (int id in selectedIDs)
+                            {
+                                tblAMCQDetail obj = _dbRepositoryQDetail.SelectById(id);
+                                detailObj.Add(obj);
+                            }
+                            if (detailObj.Count > 0)
+                            {
+                                string result = string.Empty;
 
-        //            if (string.IsNullOrEmpty(result))
-        //            {
-        //                quotation.IsApproved = true;
-        //                //quotation.IsConvertedIntoAMC = true;
-        //                _dbRepository.Update(quotation);
+                                foreach (tblAMCQDetail singleAMC in detailObj)
+                                {
+                                    tblAMC amcObj = new tblAMC();
+                                    amcObj.AMCQuotationId = quotationObj.AMCQId;
+                                    amcObj.AMCQDetailId = singleAMC.AMCQDetailId;
+                                    amcObj.AMCStartDate = DateTime.Now.Date;
+                                    amcObj.AMCEndDate = DateTime.Now.Date.AddYears(1);
+                                    amcObj.QuotationNo = quotationObj.AMCQuotationNo;
+                                    amcObj.CustomerId = quotationObj.CustomerId;
+                                    amcObj.CustomerContactPId = quotationObj.CustomerContactPId;
+                                    amcObj.ContactNo = quotationObj.ContactNo;
+                                    amcObj.EmailAddress = quotationObj.Email;
+                                    amcObj.Remarks = quotationObj.Remarks;
+                                    amcObj.MachineTypeId = singleAMC.MachineTypeId;
+                                    amcObj.MachineModelId = singleAMC.MachineModelId;
+                                    amcObj.MachineSerialNo = singleAMC.MachineSerialNo;
+                                    amcObj.Amount = singleAMC.Amount;
+                                    amcObj.CreatedDate = DateTime.Now;
+                                    amcObj.CreatedBy = SessionHelper.UserId;
 
-        //                List<tblAMCQuotation> quotationList = new List<tblAMCQuotation>();
-        //                if(quotation.CommissioningId != 0)
-        //                {
-        //                    quotationList = _dbRepository.GetEntities().Where(m => m.CommissioningId == quotation.CommissioningId).ToList();
-        //                    foreach (tblAMCQuotation obj in quotationList)
-        //                    {
-        //                        obj.IsConvertedIntoAMC = true;
-        //                        _dbRepository.Update(obj);
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    quotationList = _dbRepository.GetEntities().Where(m => m.CustomerId == quotation.CustomerId && m.MachineTypeId == quotation.MachineTypeId
-        //                                                                             && m.MachineModelId == quotation.MachineModelId
-        //                                                                             && m.MachineSerialNo == quotation.MachineSerialNo).ToList();
-        //                    foreach (tblAMCQuotation obj in quotationList)
-        //                    {
-        //                        obj.IsConvertedIntoAMC = true;
-        //                        _dbRepository.Update(obj);
-        //                    }
-        //                }
+                                    decimal finalAmount = singleAMC.Amount;
+                                    if (quotationObj.GSTPercentageId.HasValue)
+                                    {
+                                        amcObj.GSTPercentageId = quotationObj.GSTPercentageId.Value;
+                                        decimal gstPercentage = _dBGST.SelectById(quotationObj.GSTPercentageId.Value).Percentage;
 
-        //                if(quotation.CommissioningId != null && quotation.CommissioningId != 0)
-        //                {
-        //                    tblCommissioning commsioningObj = _dbRepositoryCommissioning.SelectById(quotation.CommissioningId);
-        //                    commsioningObj.IsConvertedToAMC = true;
-        //                    _dbRepositoryCommissioning.Update(commsioningObj);
-        //                }
+                                        decimal amount = (singleAMC.Amount * gstPercentage) / 100;
 
+                                        amcObj.GSTAmount = amount;
+                                        finalAmount = finalAmount + amount;
+                                    }
+                                    //if (quotationObj.GSTAmount.HasValue)
+                                    //{
+                                    //    finalAmount = quotationObj.GSTAmount.Value;
+                                    //}
+                                    amcObj.FinalAmount = finalAmount;
 
-        //                tblAMCServices amcServie1 = new tblAMCServices();
-        //                amcServie1.AMCId = amcObj.AMCId;
-        //                amcServie1.ServiceDate = DateTime.Now.Date.AddMonths(3);
-        //                amcServie1.IsServiceDone = false;
-        //                amcServie1.CreatedBy = SessionHelper.UserId;
-        //                amcServie1.CreatedDate = DateTime.Now.Date;
-        //                _dbRepositoryAMCService.Insert(amcServie1);
+                                    result = _dBAMC.Insert(amcObj);
 
-        //                tblAMCServices amcServie2 = new tblAMCServices();
-        //                amcServie2.AMCId = amcObj.AMCId;
-        //                amcServie2.ServiceDate = DateTime.Now.Date.AddMonths(6);
-        //                amcServie2.IsServiceDone = false;
-        //                amcServie2.CreatedBy = SessionHelper.UserId;
-        //                amcServie2.CreatedDate = DateTime.Now.Date;
-        //                _dbRepositoryAMCService.Insert(amcServie2);
+                                    if (string.IsNullOrEmpty(result))
+                                    {
+                                        tblAMCServices amcServie1 = new tblAMCServices();
+                                        amcServie1.AMCId = amcObj.AMCId;
+                                        amcServie1.ServviceDate = DateTime.Now.Date.AddMonths(3);
+                                        amcServie1.IsCompleted = false;
+                                        amcServie1.IsSystemGenerated = true;
+                                        result = _dBAMCServices.Insert(amcServie1);
 
-        //                tblAMCServices amcServie3 = new tblAMCServices();
-        //                amcServie3.AMCId = amcObj.AMCId;
-        //                amcServie3.ServiceDate = DateTime.Now.Date.AddMonths(9);
-        //                amcServie3.IsServiceDone = false;
-        //                amcServie3.CreatedBy = SessionHelper.UserId;
-        //                amcServie3.CreatedDate = DateTime.Now.Date;
-        //                _dbRepositoryAMCService.Insert(amcServie3);
+                                        tblAMCServices amcServie2 = new tblAMCServices();
+                                        amcServie2.AMCId = amcObj.AMCId;
+                                        amcServie2.ServviceDate = DateTime.Now.Date.AddMonths(6);
+                                        amcServie2.IsCompleted = false;
+                                        amcServie2.IsSystemGenerated = true;
+                                        result = _dBAMCServices.Insert(amcServie2);
 
-        //                tblAMCServices amcServie4 = new tblAMCServices();
-        //                amcServie4.AMCId = amcObj.AMCId;
-        //                amcServie4.ServiceDate = DateTime.Now.Date.AddDays(1);
-        //                amcServie4.IsServiceDone = false;
-        //                amcServie4.CreatedBy = SessionHelper.UserId;
-        //                amcServie4.CreatedDate = DateTime.Now.Date;
-        //                _dbRepositoryAMCService.Insert(amcServie4);
+                                        tblAMCServices amcServie3 = new tblAMCServices();
+                                        amcServie3.AMCId = amcObj.AMCId;
+                                        amcServie3.ServviceDate = DateTime.Now.Date.AddMonths(9);
+                                        amcServie3.IsCompleted = false;
+                                        amcServie3.IsSystemGenerated = true;
+                                        result = _dBAMCServices.Insert(amcServie3);
 
-        //                return amcObj.AMCId.ToString();
-        //            }
+                                        tblAMCServices amcServie4 = new tblAMCServices();
+                                        amcServie4.AMCId = amcObj.AMCId;
+                                        amcServie4.ServviceDate = DateTime.Now.Date.AddMonths(12);
+                                        amcServie4.IsCompleted = false;
+                                        amcServie4.IsSystemGenerated = true;
+                                        result = _dBAMCServices.Insert(amcServie4);
+                                    }
+                                }
 
-        //        }
-        //    }
-        //    return String.Empty;
-        //}
+                                if (string.IsNullOrEmpty(result))
+                                {
+                                    quotationObj.IsConvertedIntoAMC = true;
+                                    _dbRepository.Update(quotationObj);
+                                    return RedirectToAction("Index", "AMC");
+                                }
+                            }
+                        }
+                    }
+                }
+                return RedirectToAction("Edit", "AMCQuotation", new { id = QuotationId });
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Edit", "AMCQuotation", new { id = QuotationId });
+            }
+        }
 
         //public ActionResult AMCQuotationReport(int AMCQuotationId , string Reportname)
         //{
@@ -259,14 +276,14 @@ namespace StandardEng.Web.Controllers
         #endregion
 
         #region AMC Quotation Notes 
-        public ActionResult KendoReadAMCNotes([DataSourceRequest] DataSourceRequest request,int AMCQId)
+        public ActionResult KendoReadAMCNotes([DataSourceRequest] DataSourceRequest request, int AMCQId)
         {
             if (!request.Sorts.Any())
             {
                 request.Sorts.Add(new SortDescriptor("AMCQId", ListSortDirection.Ascending));
             }
 
-            return Json(_dbRepositoryQNote.GetEntities().Where(m=>m.AMCQId == AMCQId).ToDataSourceResult(request));
+            return Json(_dbRepositoryQNote.GetEntities().Where(m => m.AMCQId == AMCQId).ToDataSourceResult(request));
         }
 
         public ActionResult KendoSaveAMCNotes([DataSourceRequest] DataSourceRequest request, tblAMCQNote model)
@@ -309,9 +326,9 @@ namespace StandardEng.Web.Controllers
             bool result = false;
             string message = string.Empty;
             List<tblNote> notelist = _dBNote.GetEntities().ToList();
-            if(notelist.Count > 0)
+            if (notelist.Count > 0)
             {
-                foreach(tblNote obj in notelist)
+                foreach (tblNote obj in notelist)
                 {
                     tblAMCQNote amcnoteobj = new tblAMCQNote();
                     amcnoteobj.NoteText = obj.NoteText;

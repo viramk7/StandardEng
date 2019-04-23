@@ -31,7 +31,7 @@
                             @if (Model.AMCId > 0)
                             {
                                 @Html.Label("AMC Quotation Number :  ")
-                                @Html.DisplayFor(m => m.AMCQuotationNo)
+                                @Html.DisplayFor(m => m.QuotationNo)
                             }
                         </h5>
                         <div class="col-lg-7 text-right">
@@ -45,114 +45,19 @@
                     <div class="card-body">
                         @Html.HiddenFor(m => m.AMCId)
                         @Html.HiddenFor(m => m.AMCQuotationId)
+                        @Html.HiddenFor(m => m.AMCQDetailId)
                         @Html.HiddenFor(m => m.CreatedBy)
                         @Html.HiddenFor(m => m.CreatedDate)
-                        @Html.HiddenFor(m => m.AMCQuotationNo)
+                        @Html.HiddenFor(m => m.QuotationNo)
+
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.MachineTypeId, new { @class = "col-sm-6 col-lg-4 control-label" })
-                                    <div class="col-sm-6 col-lg-9 controls">
-                                        @(Html.Kendo().ComboBoxFor(m => m.MachineTypeId)
-                                                                                                      .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
-                                                                                                      .Placeholder("--Select Machine Type --")
-                                                                                                      .DataTextField("MachineTypeName")
-                                                                                                      .DataValueField("MachineTypeId")
-                                                                                                      .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
-                                                                                                      .DataSource(source =>
-                                                                                                      {
-                                                                                                          source.Read(read =>
-                                                                                                          {
-                                                                                                              read.Action("GetMachineTypeList", "Common");
-                                                                                                          });
-                                                                                                      })
-                                        )
-
-                                        @Html.ValidationMessageFor(m => m.MachineTypeId)
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.MachineModelId, new { @class = "col-sm-6 col-lg-3 control-label" })
-                                    <div class="col-sm-6 col-lg-9 controls">
-                                        @(Html.Kendo().ComboBoxFor(m => m.MachineModelId)
-                                                                                                      .Value(Model.MachineModelId == 0 ? string.Empty : Model.MachineModelId.ToString())
-                                                                                                      .Placeholder("--Select Machine --")
-                                                                                                      .DataTextField("MachineName")
-                                                                                                      .DataValueField("MachineModelId")
-                                                                                                      .Enable(false)
-                                                                                                      .AutoBind(false)
-                                                                                                      .CascadeFrom("MachineTypeId")
-                                                                                                      .HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
-                                                                                                      .DataSource(source =>
-                                                                                                      {
-                                                                                                          source.Read(read =>
-                                                                                                          {
-                                                                                                              read.Action("GetMachineModelList", "Common").Data("filterMachine");
-                                                                                                          }).ServerFiltering(true);
-                                                                                                      })
-                                        )
-                                        @Html.ValidationMessageFor(m => m.MachineModelId)
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.GSTPercentage, new { @class = "col-sm-6 col-lg-3 control-label" })
-                                    <div class="col-sm-6 col-lg-9 controls">
-                                        @(Html.Kendo().ComboBoxFor(m => m.GSTPercentage)
-                                                                                                              .Value(Model.GSTPercentage == 0 ? string.Empty : Model.GSTPercentage.ToString())
-                                                                                                              .Placeholder("--Select GST Percentage --")
-                                                                                                              .DataTextField("Percentage")
-                                                                                                              .DataValueField("Id")
-                                                                                                              .HtmlAttributes(new { @tabindex = 2, @data_value_primitive = true })
-                                                                                                              .DataSource(source =>
-                                                                                                              {
-                                                                                                                  source.Read(read =>
-                                                                                                                  {
-                                                                                                                      read.Action("GetGSTPercentageList", "Common");
-                                                                                                                  });
-                                                                                                              })
-                                        )
-                                        @Html.ValidationMessageFor(m => m.GSTPercentage)
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.TotalAmount, new { @class = "col-sm-6 col-lg-3 control-label" })
-                                    <div class="col-sm-6 col-lg-9 controls">
-                                        @Html.Kendo().NumericTextBoxFor(m => m.TotalAmount).HtmlAttributes(new { @readonly = "readonly" }).Spinners(false).Min(0)
-                                        @Html.ValidationMessageFor(m => m.TotalAmount)
-                                    </div>
-                                </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.AMCStartDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
                                     <div class="col-sm-6 col-lg-9">
                                         @Html.Kendo().DatePickerFor(m => m.AMCStartDate).HtmlAttributes(new { @tabindex = 5, @readonly = "readonly" })
                                         @Html.ValidationMessageFor(m => m.AMCStartDate)
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Remarks, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                    <div class="col-sm-6 col-lg-9">
-                                        @Html.TextAreaFor(m => m.Remarks, 5, 5, new { @class = "k-textbox" })
-                                        @Html.ValidationMessageFor(m => m.Remarks)
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.MachineSerialNo, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                    <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().TextBoxFor(m => m.MachineSerialNo).HtmlAttributes(new { @tabindex = 2, @readonly = "readonly" })
-                                        @Html.ValidationMessageFor(m => m.MachineSerialNo)
                                     </div>
                                 </div>
 
@@ -179,20 +84,33 @@
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ActualAmount, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                    <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().NumericTextBoxFor(m => m.ActualAmount).HtmlAttributes(new { @tabindex = 1 }).Spinners(false).Min(0)
-                                        @Html.ValidationMessageFor(m => m.ActualAmount)
+                                    @Html.LabelFor(m => m.CustomerContactPId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CustomerContactPId)
+                                                                                      .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
+                                                                                      .Placeholder("--Select Contact Person --")
+                                                                                      .DataTextField("ContactPersonName")
+                                                                                      .DataValueField("ContactPersonId")
+                                                                                      .Enable(false)
+                                                                                      .AutoBind(false)
+                                                                                      .CascadeFrom("CustomerId")
+                                                                                      .HtmlAttributes(new { @tabindex = 3, @readonly = "readonly" })
+                                                                                      .DataSource(source =>
+                                                                                      {
+                                                                                          source.Read(read =>
+                                                                                          {
+                                                                                              read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
+                                                                                          }).ServerFiltering(true);
+                                                                                      })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.CustomerContactPId)
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.GSTAmount, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                    <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().NumericTextBoxFor(m => m.GSTAmount).HtmlAttributes(new { @readonly = "readonly" }).Spinners(false).Min(0)
-                                        @Html.ValidationMessageFor(m => m.GSTAmount)
-                                    </div>
-                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
 
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.AMCEndDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
@@ -202,10 +120,145 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ContactNo, new { @class = "col-sm-6 col-lg-6 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.ContactNo).HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.ContactNo)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.EmailAddress, new { @class = "col-sm-6 col-lg-6 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.EmailAddress).HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.EmailAddress)
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MachineTypeId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.MachineTypeId)
+                                                                              .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
+                                                                              .Placeholder("--Select Machine Type --")
+                                                                              .DataTextField("MachineTypeName")
+                                                                              .DataValueField("MachineTypeId")
+                                                                              .HtmlAttributes(new { @readonly = "readonly" })
+                                                                              .DataSource(source =>
+                                                                              {
+                                                                                  source.Read(read =>
+                                                                                  {
+                                                                                      read.Action("GetMachineTypeList", "Common");
+                                                                                  });
+                                                                              })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.MachineTypeId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MachineSerialNo, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().TextBoxFor(m => m.MachineSerialNo).HtmlAttributes(new { @tabindex = 2, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.MachineSerialNo)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Amount, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().NumericTextBoxFor(m => m.Amount).HtmlAttributes(new { @tabindex = 9 }).Spinners(false).Min(0).Events(e => e.Change("changeFinalAmount"))
+                                        @Html.ValidationMessageFor(m => m.Amount)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.GSTAmount, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().NumericTextBoxFor(m => m.GSTAmount).HtmlAttributes(new { @tabindex = 10 , @readonly="readonly"}).Spinners(false).Min(0)
+                                        @Html.ValidationMessageFor(m => m.GSTAmount)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.MachineModelId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.MachineModelId)
+                                                                                      .Value(Model.MachineModelId == 0 ? string.Empty : Model.MachineModelId.ToString())
+                                                                                      .Placeholder("--Select Machine --")
+                                                                                      .DataTextField("MachineName")
+                                                                                      .DataValueField("MachineModelId")
+                                                                                      .Enable(false)
+                                                                                      .AutoBind(false)
+                                                                                      .CascadeFrom("MachineTypeId")
+                                                                                      .HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
+                                                                                      .DataSource(source =>
+                                                                                      {
+                                                                                          source.Read(read =>
+                                                                                          {
+                                                                                              read.Action("GetMachineModelList", "Common").Data("filterMachine");
+                                                                                          }).ServerFiltering(true);
+                                                                                      })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.MachineModelId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Remarks, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.TextAreaFor(m => m.Remarks, 2, 5, new { @class = "k-textbox" })
+                                        @Html.ValidationMessageFor(m => m.Remarks)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.GSTPercentageId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.GSTPercentageId)
+                                              .Value(Model.GSTPercentageId == 0 ? string.Empty : Model.GSTPercentageId.ToString())
+                                              .Placeholder("--Select GST Percentage --")
+                                              .DataTextField("Percentage")
+                                              .DataValueField("Id")
+                                              .HtmlAttributes(new { @tabindex = 2, @data_value_primitive = true })
+                                              .DataSource(source =>
+                                              {
+                                                  source.Read(read =>
+                                                  {
+                                                      read.Action("GetGSTPercentageList", "Common");
+                                                  });
+                                              })
+                                              .Events(e=>e.Change("changeFinalAmount"))
+                                        )
+                                        @Html.ValidationMessageFor(m => m.GSTPercentageId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FinalAmount, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().NumericTextBoxFor(m => m.FinalAmount).HtmlAttributes(new { @readonly = "readonly" }).Spinners(false).Min(0)
+                                        @Html.ValidationMessageFor(m => m.FinalAmount)
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             }
 
@@ -218,38 +271,58 @@
                     <div class="card-body">
 
                         @(Html.Kendo().Grid<tblAMCServices>()
-                                                                 .Name("gridAMCService")
-                                                                 .Columns(columns =>
-                                                                 {
-                                                                     columns.Command(command =>
-                                                                     {
+                                    .Name("gridAMCService")
+                                    .Columns(columns =>
+                                    {
+                                        columns.Command(command =>
+                                        {
+                                            command.Custom("CompleteAMCService").Text("<span class='k-icon k-i-more-horizontal' title='Complete AMC Service'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMCServiceComplete" }).Click("onCompleteAMCService");
+                                            command.Custom("OverWriteAMCService").Text("<span class='k-icon k-i-more-horizontal' title='Change AMC Service Date'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMCServiceOverWrite" }).Click("onOvweWriteAMCService");
+                                            command.Destroy().Text(" ");
 
-                                                                         command.Custom("ChangeAMCServiceStatus").Text("<span class='k-icon k-i-more-horizontal' title='Change AMC Service Status'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMCService" }).Click("onChangeAMCServiceStatus");
+                                        }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                    .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
 
-                                                                     }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
-                                                                            .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
-                                                                     columns.Bound(d => d.AMCId).Visible(false);
-                                                                     columns.Bound(d => d.ServiceDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                                                     columns.Bound(d => d.IsServiceDone).Width(120);
-                                                                     columns.Bound(d => d.Remarks);
-                                                                 })
-                                                                 .Pageable(x =>
-                                                                 {
-                                                                     x.Refresh(true);
-                                                                     x.PageSizes(WebHelper.PageSizes);
-                                                                 })
-                                                                 .Sortable(sortable => sortable.AllowUnsort(false))
-                                                                 .NoRecords()
-                                                                 .Events(e => e.DataBound("onDataBound"))
-                                                                 //.Scrollable(e => e.Enabled(true))
-                                                                 .DataSource(dataSource => dataSource
-                                                                 .Ajax()
-                                                                 .ServerOperation(true)
-                                                                 .PageSize(WebHelper.PageSize)
-                                                                 .Model(model => model.Id(d => d.AMCServiceId))
-                                                                 .Events(events => events.Error("onError(\"gridAMCService\")"))
-                                                                 .Read(read => read.Action("KendoReadAMCSeriveList", "AMC").Data("additionalData"))
-                        )
+                                        columns.Bound(d => d.AMCId).Visible(false);
+                                        columns.Bound(d => d.ServviceDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                        columns.Bound(d => d.ServiceRemarks).Visible(true);
+                                        columns.Bound(d => d.ServiceOverrideDate).Format("{0:" + WebHelper.DateFormate + "}").Visible(true);
+                                        columns.Bound(d => d.OverrideReason).Visible(true); 
+                                        columns.Bound(d => d.IsCompleted).Visible(true); 
+
+                                    })
+                                    .ToolBar(toolbar =>
+                                    {
+                                        toolbar.Create().Text("Add");
+                                    })
+                                    .Editable(editable =>
+                                    {
+                                        editable.Mode(GridEditMode.PopUp);
+                                        editable.DisplayDeleteConfirmation("Are you sure you want to delete this AMC Service?");
+                                        editable.Window(x => x.Title("Manage AMC Service"));
+                                    })
+                                    .Pageable(x =>
+                                    {
+                                        x.Refresh(true);
+                                        x.PageSizes(WebHelper.PageSizes);
+                                    })
+                                    .Sortable(sortable => sortable.AllowUnsort(false))
+                                    .NoRecords()
+                                    .Events(e => e.DataBound("onDataBound"))
+                                    //.Scrollable(e => e.Enabled(true))
+                                    .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(WebHelper.PageSize)
+                                    .Model(model => {
+                                        model.Id(d => d.AMCServiceId);
+                                        model.Field(d => d.AMCId).DefaultValue(Model.AMCId);
+                                    })
+                                    .Events(events => events.Error("onError(\"gridAMCService\")"))
+                                    .Read(read => read.Action("KendoReadAMCSeriveList", "AMC").Data("additionalData"))
+                                    .Destroy(update => update.Action("KendoDestroyService", "AMC"))
+                                    .Create(update => update.Action("KendoSaveService", "AMC"))
+                                ))
                     </div>
                 </div>
             }
@@ -273,18 +346,24 @@
         };
     }
 
+    function filterContactPerson(e) {
+        return {
+            CustomerId: getKendComboboxValue('CustomerId')
+        };
+    }
+
     function additionalData(e) {
         return {
             'AMCId': getInputValueById('AMCId')
         }
     }
 
-    function onChangeAMCServiceStatus(e) {
+    function onCompleteAMCService(e) {
         var grid = $("#gridAMCService").data("kendoGrid");
         var tr = $(e.target).closest("tr");
         var data = grid.dataItem(tr);
 
-        var urllink = '@Url.Action("ChangeAMCServiceStatus", "AMC")';
+        var urllink = '@Url.Action("CompleteAMCServiceStatus", "AMC")';
         var window = $("#wAMCService").data("kendoWindow");
         window.refresh({
             url: urllink,
@@ -298,39 +377,95 @@
         closeKendoWindow("wAMCService");
     }
 
-    function ChangeAMCServiceStatus() {
+    function ComplteAMCService() {
             var dataModel = {
                 'AMCServiceId': getInputValueById('AMCServiceId'),
-                'Remarks': getInputValueById('Remarks'),
-                'IsServiceDone': getInputValueById('IsServiceDone')
+                'ServiceRemarks': getInputValueById('ServiceRemarks')
             };
 
-            var url = '@Url.Action("SaveAMCServiceStatus", "AMC")';
-            callwebservice(url, { model: dataModel }, ChangeAMCServiceStatusCompleted, false, datatypeEnum.text, typeEnum.post);
+            var url = '@Url.Action("SaveCompletedAMCService", "AMC")';
+        callwebservice(url, { model: dataModel }, ComplteAMCServiceCompleted, false, datatypeEnum.text, typeEnum.post);
     }
 
-    function ChangeAMCServiceStatusCompleted(returString) {
+    function ComplteAMCServiceCompleted(returString) {
         if (returString != null) {
             if (returString !== "") {
                 closeKendoWindow("wAMCService");
-                window.location.reload();
+                readKendoGrid('gridAMCService');
             } else {
                 showMessageOnly('Something Went Wrong.', 'popup-error');
             }
         }
     }
 
+    function onOvweWriteAMCService(e) {
+        var grid = $("#gridAMCService").data("kendoGrid");
+        var tr = $(e.target).closest("tr");
+        var data = grid.dataItem(tr);
+
+        var urllink = '@Url.Action("OverWriteAMCService", "AMC")';
+        var window = $("#wAMCService").data("kendoWindow");
+        window.refresh({
+            url: urllink,
+            data: { "AMCServiceId": data.AMCServiceId }
+        });
+        window.center();
+        window.open();
+    }
+
+    function OverWriteAMCService() {
+            var dataModel = {
+                'AMCServiceId': getInputValueById('AMCServiceId'),
+                'OverrideReason': getInputValueById('OverrideReason'),
+                'ServiceOverrideDate': getInputValueById('ServiceOverrideDate')
+            };
+
+            var url = '@Url.Action("SaveOverWriteAMCService", "AMC")';
+        callwebservice(url, { model: dataModel }, OverWriteAMCServiceCompleted, false, datatypeEnum.text, typeEnum.post);
+    }
+
+    function OverWriteAMCServiceCompleted(returString) {
+        if (returString != null) {
+            if (returString !== "") {
+                closeKendoWindow("wAMCService");
+                readKendoGrid('gridAMCService');
+            } else {
+                showMessageOnly('Something Went Wrong.', 'popup-error');
+            }
+        }
+    }
+    
     function onDataBound(e) {
         var grid = $("#gridAMCService").data("kendoGrid");
 
         var gridData = grid.dataSource.view();
         for (var i = 0; i < gridData.length; i++) {
             var currentUid = gridData[i].uid;
-            if (gridData[i].IsServiceDone) {
+            if (gridData[i].IsCompleted) {
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
-                var editButton = $(currenRow).find("#btnAMCService");
+                var editButton = $(currenRow).find("#btnAMCServiceComplete");
+                var editButton2 = $(currenRow).find("#btnAMCServiceOverWrite");
+                editButton.hide();
+                editButton2.hide();
+            }
+            if (gridData[i].IsSystemGenerated) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var editButton = $(currenRow).find(".k-grid-delete");
                 editButton.hide();
             }
         }
+    }
+
+    function changeFinalAmount() {
+        var amount = getkendoNumericTextBoxValue('Amount');
+        var gstPer = getKendComboboxText('GSTPercentageId');
+        var gstAmount = 0;
+        if (gstPer > 0) {
+            gstAmount = (amount * gstPer) / 100;
+        }
+        var finalAmount = amount + gstAmount;
+        setkendoNumericTextBoxValue('GSTAmount', gstAmount);
+        setkendoNumericTextBoxValue('FinalAmount', finalAmount);
+
     }
 </script>

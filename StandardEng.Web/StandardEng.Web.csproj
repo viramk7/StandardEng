@@ -456,7 +456,7 @@
     <Content Include="Views\AMCQuotation\_AMCPartial.cshtml" />
     <Content Include="Views\AMC\Index.cshtml" />
     <Content Include="Views\AMC\Create.cshtml" />
-    <Content Include="Views\AMC\_AMCServiceStatusPartial.cshtml" />
+    <Content Include="Views\AMC\_AMCServiceCompletePartial.cshtml" />
     <Content Include="Views\AMCQuotation\_AMCQuotationReport.cshtml" />
     <Content Include="Views\MachinePartsQuotation\_PartsQuotationReport.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblPreCommissioningMachine.cshtml" />
@@ -468,6 +468,7 @@
     <Content Include="Views\Region\Index.cshtml" />
     <Content Include="Views\Notes\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblAMCQuotationDetail.cshtml" />
+    <Content Include="Views\AMC\_AMCServiceOverWritePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">

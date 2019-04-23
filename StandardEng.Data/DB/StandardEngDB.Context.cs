@@ -57,6 +57,8 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblAMCQNote> tblAMCQNote { get; set; }
         public virtual DbSet<tblAMCQuotation> tblAMCQuotation { get; set; }
         public virtual DbSet<tblNote> tblNote { get; set; }
+        public virtual DbSet<tblAMC> tblAMC { get; set; }
+        public virtual DbSet<tblAMCServices> tblAMCServices { get; set; }
     
         public virtual ObjectResult<AssignRoleList_Result> AssignRoleList(Nullable<int> roleId)
         {
@@ -139,6 +141,11 @@ namespace StandardEng.Data.DB
         public virtual ObjectResult<GetPerformaInvoieList_Result> GetPerformaInvoieList()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPerformaInvoieList_Result>("GetPerformaInvoieList");
+        }
+    
+        public virtual ObjectResult<GetAMCList_Result> GetAMCList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAMCList_Result>("GetAMCList");
         }
     }
 }

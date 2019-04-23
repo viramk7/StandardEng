@@ -1,0 +1,20 @@
+﻿@using StandardEng.Data.CustomModel
+@model AMCServiceCompltePartialModel
+
+<div class="k-edit-form-container">
+    @Html.HiddenFor(m => m.AMCServiceId)
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.ServiceRemarks)
+    </div>
+    <div class="k-edit-field">
+        @Html.TextAreaFor(m => m.ServiceRemarks, 3,5, new { @tabindex = "1", @class = "k-textbox" })
+        @Html.ValidationMessageFor(m => m.ServiceRemarks)
+    </div>
+
+    <div class="k-edit-buttons k-state-default">
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="ComplteAMCService()">Change Status</a>
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="ClosePopupItems() ">Cancel</a>
+    </div>
+</div>
+

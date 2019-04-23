@@ -1222,6 +1222,24 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service Date.
+        /// </summary>
+        public static string ServviceDate {
+            get {
+                return ResourceManager.GetString("ServviceDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Date is Required .
+        /// </summary>
+        public static string ServviceDateRequired {
+            get {
+                return ResourceManager.GetString("ServviceDateRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         public static string State {

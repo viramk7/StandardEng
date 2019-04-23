@@ -57,11 +57,6 @@
                                  columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName").Title("Customer");
                                  columns.ForeignKey(d => d.CustomerContactPId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName").Title("Contact Person");
                                  columns.Bound(d => d.FinalAmount);
-                                 //columns.Command(command =>
-                                 //{
-                                 //    command.Custom("GenerateAMC").Text("<span class='k-icon k-i-more-horizontal' title='Generate AMC'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMC" }).Click("onGenerateAMC");
-                                 //}).Title("Generate AMC").HtmlAttributes(WebHelper.StatusColumnStyle)
-                                 //.HeaderHtmlAttributes(WebHelper.StatusColumnStyle);
 
                              })
                              .ToolBar(toolbar =>
@@ -102,15 +97,6 @@
 </div>
 
 @*@(Html.Kendo().Window()
-              .Name("wAMC")
-              .Title("Generate AMC From Quotation")
-              .Visible(false)
-              .Draggable(true)
-              .Modal(true)
-              .Width(680)
-              .Height(180))
-
-@(Html.Kendo().Window()
               .Name("wReport")
               .Title("AMC Quotation Report")
               .Visible(false)
@@ -147,48 +133,6 @@
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                 var editButton = $(currenRow).find("#btnAMC");
                 editButton.hide();
-            }
-        }
-    }
-
-    function onGenerateAMC(e) {
-        var grid = $("#gridAMCQuotation").data("kendoGrid");
-        var tr = $(e.target).closest("tr");
-        var data = grid.dataItem(tr);
-
-        var urllink = '@Url.Action("GenerateAMCPartial", "AMCQuotation")';
-        var window = $("#wAMC").data("kendoWindow");
-        window.refresh({
-            url: urllink,
-            data: { "AMCQuotationId": data.Id }
-        });
-        window.center();
-        window.open();
-    }
-
-    function ClosePopupItems() {
-        closeKendoWindow("wAMC");
-    }
-
-    function GenerateAMC() {
-            var dataModel = {
-                'AMCQuotationId': getInputValueById('AMCQuotationId'),
-                'Remarks': getInputValueById('Remarks')
-            };
-
-
-            var url = '@Url.Action("GenerateAMC", "AMCQuotation")';
-            callwebservice(url, { model: dataModel }, GenerateAMCCompleted, false, datatypeEnum.text, typeEnum.post);
-    }
-
-    function GenerateAMCCompleted(returString) {
-        if (returString != null) {
-            if (returString !== "") {
-                var amcId = returString;
-                closeKendoWindow("wAMC");
-                window.location.href = '@Url.Action("Edit", "AMC")?id=' + amcId;
-            } else {
-                showMessageOnly('Something Went Wrong.', 'popup-error');
             }
         }
     }

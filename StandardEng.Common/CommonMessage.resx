@@ -582,4 +582,10 @@
   <data name="TotalDetailAmount" xml:space="preserve">
     <value>Total Detail Amount</value>
   </data>
+  <data name="ServviceDate" xml:space="preserve">
+    <value>Service Date</value>
+  </data>
+  <data name="ServviceDateRequired" xml:space="preserve">
+    <value>Service Date is Required </value>
+  </data>
 </root>

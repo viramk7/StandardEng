@@ -12,10 +12,15 @@ namespace StandardEng.Data.CustomModel
         public string Remarks { get; set; }
     }
 
-    public class AMCServiceStatusPartialModel
+    public class AMCServiceCompltePartialModel
     {
         public int AMCServiceId { get; set; }
-        public string Remarks { get; set; }
-        public bool IsServiceDone { get; set; }
+        public string ServiceRemarks { get; set; }
+    }
+    public class AMCServiceOverWritePartialModel
+    {
+        public int AMCServiceId { get; set; }
+        public DateTime ServiceOverrideDate { get; set; }
+        public string OverrideReason { get; set; }
     }
 }

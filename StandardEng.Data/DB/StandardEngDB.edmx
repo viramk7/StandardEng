@@ -13,6 +13,33 @@
           <Property Name="AccessoriesTypeName" Type="varchar(max)" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="tblAMC">
+          <Key>
+            <PropertyRef Name="AMCId" />
+          </Key>
+          <Property Name="AMCId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AMCQuotationId" Type="int" Nullable="false" />
+          <Property Name="AMCQDetailId" Type="int" Nullable="false" />
+          <Property Name="AMCStartDate" Type="date" Nullable="false" />
+          <Property Name="AMCEndDate" Type="date" Nullable="false" />
+          <Property Name="QuotationNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="int" Nullable="false" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="MachineTypeId" Type="int" Nullable="false" />
+          <Property Name="MachineModelId" Type="int" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GSTPercentageId" Type="int" Nullable="false" />
+          <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tblAMCQDetail">
           <Key>
             <PropertyRef Name="AMCQDetailId" />
@@ -63,6 +90,7 @@
           <Property Name="TotalDetailAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="GSTPercentageId" Type="int" />
           <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGSTAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="FinalAmountInWords" Type="varchar(max)" />
           <Property Name="SequenceNo" Type="int" />
@@ -76,6 +104,19 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblAMCServices">
+          <Key>
+            <PropertyRef Name="AMCServiceId" />
+          </Key>
+          <Property Name="AMCServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AMCId" Type="int" Nullable="false" />
+          <Property Name="ServviceDate" Type="date" Nullable="false" />
+          <Property Name="ServiceOverrideDate" Type="date" />
+          <Property Name="OverrideReason" Type="varchar(max)" />
+          <Property Name="ServiceRemarks" Type="varchar(max)" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
+          <Property Name="IsSystemGenerated" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblCity">
           <Key>
@@ -573,6 +614,20 @@
             </Principal>
             <Dependent Role="tblAMCQuotation">
               <PropertyRef Name="CustomerContactPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCServices_tblAMC">
+          <End Role="tblAMC" Type="Self.tblAMC" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblAMCServices" Type="Self.tblAMCServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAMC">
+              <PropertyRef Name="AMCId" />
+            </Principal>
+            <Dependent Role="tblAMCServices">
+              <PropertyRef Name="AMCId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1103,6 +1158,7 @@
           <Parameter Name="RoleId" Type="int" Mode="In" />
           <Parameter Name="IsSuperAdmin" Type="bit" Mode="In" />
         </Function>
+        <Function Name="GetAMCList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetCommissioningList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPartsQuoatationList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPCAsseccoryListDD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1122,9 +1178,11 @@
         <Function Name="GetWarrantyExpiryCustomerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="StandardEngModelStoreContainer">
           <EntitySet Name="tblAccessoriesType" EntityType="Self.tblAccessoriesType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAMC" EntityType="Self.tblAMC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAMCQDetail" EntityType="Self.tblAMCQDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAMCQNote" EntityType="Self.tblAMCQNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAMCQuotation" EntityType="Self.tblAMCQuotation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAMCServices" EntityType="Self.tblAMCServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommissioning" EntityType="Self.tblCommissioning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
@@ -1170,6 +1228,10 @@
           <AssociationSet Name="FK_tblAMCQuotation_tblCustomerContactPersons" Association="Self.FK_tblAMCQuotation_tblCustomerContactPersons">
             <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
             <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCServices_tblAMC" Association="Self.FK_tblAMCServices_tblAMC">
+            <End Role="tblAMC" EntitySet="tblAMC" />
+            <End Role="tblAMCServices" EntitySet="tblAMCServices" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCity_tblCountry" Association="Self.FK_tblCity_tblCountry">
             <End Role="tblCountry" EntitySet="tblCountry" />
@@ -1586,6 +1648,13 @@
           <AssociationSet Name="FK_tblAMCQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons">
             <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
             <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
+          <FunctionImport Name="GetAMCList" ReturnType="Collection(StandardEngModel.GetAMCList_Result)" />
+          <EntitySet Name="tblAMC" EntityType="StandardEngModel.tblAMC" />
+          <EntitySet Name="tblAMCServices" EntityType="StandardEngModel.tblAMCServices" />
+          <AssociationSet Name="FK_tblAMCServices_tblAMC" Association="StandardEngModel.FK_tblAMCServices_tblAMC">
+            <End Role="tblAMC" EntitySet="tblAMC" />
+            <End Role="tblAMCServices" EntitySet="tblAMCServices" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
@@ -2849,6 +2918,7 @@
           <Property Name="ShipAddressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ShipAddressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ShipGSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalGSTAmount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="tblNote">
           <Key>
@@ -2914,6 +2984,80 @@
             </Principal>
             <Dependent Role="tblAMCQuotation">
               <PropertyRef Name="CustomerContactPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetAMCList_Result">
+          <Property Type="Int32" Name="AMCId" Nullable="false" />
+          <Property Type="String" Name="QuotationNo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ContactPersonName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Remarks" Nullable="true" />
+          <Property Type="String" Name="MachineTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MachineName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MachineSerialNo" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GSTAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="GSTPercentage" Nullable="true" />
+          <Property Type="Decimal" Name="FinalAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="AMCStartDate" Nullable="false" />
+          <Property Type="DateTime" Name="AMCEndDate" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="tblAMC">
+          <Key>
+            <PropertyRef Name="AMCId" />
+          </Key>
+          <Property Name="AMCId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AMCQuotationId" Type="Int32" Nullable="false" />
+          <Property Name="AMCQDetailId" Type="Int32" Nullable="false" />
+          <Property Name="AMCStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AMCEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="QuotationNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="Int32" Nullable="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MachineTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MachineModelId" Type="Int32" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GSTPercentageId" Type="Int32" Nullable="false" />
+          <Property Name="GSTAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblAMCServices" Relationship="StandardEngModel.FK_tblAMCServices_tblAMC" FromRole="tblAMC" ToRole="tblAMCServices" />
+        </EntityType>
+        <EntityType Name="tblAMCServices">
+          <Key>
+            <PropertyRef Name="AMCServiceId" />
+          </Key>
+          <Property Name="AMCServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AMCId" Type="Int32" Nullable="false" />
+          <Property Name="ServviceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ServiceOverrideDate" Type="DateTime" Precision="0" />
+          <Property Name="OverrideReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsSystemGenerated" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblAMC" Relationship="StandardEngModel.FK_tblAMCServices_tblAMC" FromRole="tblAMCServices" ToRole="tblAMC" />
+        </EntityType>
+        <Association Name="FK_tblAMCServices_tblAMC">
+          <End Type="StandardEngModel.tblAMC" Role="tblAMC" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="StandardEngModel.tblAMCServices" Role="tblAMCServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAMC">
+              <PropertyRef Name="AMCId" />
+            </Principal>
+            <Dependent Role="tblAMCServices">
+              <PropertyRef Name="AMCId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3610,6 +3754,7 @@
           <EntitySetMapping Name="tblAMCQuotation">
             <EntityTypeMapping TypeName="StandardEngModel.tblAMCQuotation">
               <MappingFragment StoreEntitySet="tblAMCQuotation">
+                <ScalarProperty Name="TotalGSTAmount" ColumnName="TotalGSTAmount" />
                 <ScalarProperty Name="ShipGSTNo" ColumnName="ShipGSTNo" />
                 <ScalarProperty Name="ShipAddressline3" ColumnName="ShipAddressline3" />
                 <ScalarProperty Name="ShipAddressline2" ColumnName="ShipAddressline2" />
@@ -3655,6 +3800,70 @@
               <MappingFragment StoreEntitySet="tblNote">
                 <ScalarProperty Name="NoteText" ColumnName="NoteText" />
                 <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAMCList" FunctionName="StandardEngModel.Store.GetAMCList" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StandardEngModel.GetAMCList_Result">
+                <ScalarProperty Name="AMCId" ColumnName="AMCId" />
+                <ScalarProperty Name="QuotationNo" ColumnName="QuotationNo" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ContactPersonName" ColumnName="ContactPersonName" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="MachineTypeName" ColumnName="MachineTypeName" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="MachineSerialNo" ColumnName="MachineSerialNo" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentage" ColumnName="GSTPercentage" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="AMCStartDate" ColumnName="AMCStartDate" />
+                <ScalarProperty Name="AMCEndDate" ColumnName="AMCEndDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblAMC">
+            <EntityTypeMapping TypeName="StandardEngModel.tblAMC">
+              <MappingFragment StoreEntitySet="tblAMC">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentageId" ColumnName="GSTPercentageId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="MachineSerialNo" ColumnName="MachineSerialNo" />
+                <ScalarProperty Name="MachineModelId" ColumnName="MachineModelId" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="CustomerContactPId" ColumnName="CustomerContactPId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="QuotationNo" ColumnName="QuotationNo" />
+                <ScalarProperty Name="AMCEndDate" ColumnName="AMCEndDate" />
+                <ScalarProperty Name="AMCStartDate" ColumnName="AMCStartDate" />
+                <ScalarProperty Name="AMCQDetailId" ColumnName="AMCQDetailId" />
+                <ScalarProperty Name="AMCQuotationId" ColumnName="AMCQuotationId" />
+                <ScalarProperty Name="AMCId" ColumnName="AMCId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAMCServices">
+            <EntityTypeMapping TypeName="StandardEngModel.tblAMCServices">
+              <MappingFragment StoreEntitySet="tblAMCServices">
+                <ScalarProperty Name="IsSystemGenerated" ColumnName="IsSystemGenerated" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="ServiceRemarks" ColumnName="ServiceRemarks" />
+                <ScalarProperty Name="OverrideReason" ColumnName="OverrideReason" />
+                <ScalarProperty Name="ServiceOverrideDate" ColumnName="ServiceOverrideDate" />
+                <ScalarProperty Name="ServviceDate" ColumnName="ServviceDate" />
+                <ScalarProperty Name="AMCId" ColumnName="AMCId" />
+                <ScalarProperty Name="AMCServiceId" ColumnName="AMCServiceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

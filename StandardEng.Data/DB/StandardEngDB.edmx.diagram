@@ -82,6 +82,9 @@
         <AssociationConnector Association="StandardEngModel.FK_tblAMCQDetail_tblMachineType" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblCustomer" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" />
+        <EntityTypeShape EntityType="StandardEngModel.tblAMC" Width="1.5" PointX="17.375" PointY="1" />
+        <EntityTypeShape EntityType="StandardEngModel.tblAMCServices" Width="1.5" PointX="19.625" PointY="2.375" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCServices_tblAMC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -57,6 +57,7 @@ namespace StandardEng.Data.DB
         public string ShipAddressline2 { get; set; }
         public string ShipAddressline3 { get; set; }
         public string ShipGSTNo { get; set; }
+        public Nullable<decimal> TotalGSTAmount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAMCQDetail> tblAMCQDetail { get; set; }

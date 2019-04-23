@@ -1452,4 +1452,94 @@ namespace StandardEng.Data.DB
             public int ServiceEngineerId { get; set; }
         }
     }
+
+    [MetadataType(typeof(Metadata))]
+    public partial class tblAMCServices
+    {
+        internal class Metadata
+        {
+            [ScaffoldColumn(false)]
+            public int AMCServiceId { get; set; }
+
+            [ScaffoldColumn(false)]
+            public int AMCId { get; set; }
+
+            [DataType(DataType.Date)]
+            [Display(ResourceType = typeof(CommonMessage), Name = "ServviceDate", Order = 1)]
+            [Required(ErrorMessageResourceName = "ServviceDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public System.DateTime ServviceDate { get; set; }
+
+            [ScaffoldColumn(false)]
+            public Nullable<System.DateTime> ServiceOverrideDate { get; set; }
+            [ScaffoldColumn(false)]
+            public string OverrideReason { get; set; }
+            [ScaffoldColumn(false)]
+            public string ServiceRemarks { get; set; }
+            [ScaffoldColumn(false)]
+            public bool IsCompleted { get; set; }
+            [ScaffoldColumn(false)]
+            public bool IsSystemGenerated { get; set; }
+        }
+    }
+
+    [MetadataType(typeof(Metadata))]
+    public partial class tblAMC
+    {
+       internal class Metadata
+        {
+            public int AMCId { get; set; }
+            public int AMCQuotationId { get; set; }
+            public int AMCQDetailId { get; set; }
+
+            [Display(Name = "AMC Start Date")]
+            public System.DateTime AMCStartDate { get; set; }
+
+            [Display(Name = "AMC End Date")]
+            public System.DateTime AMCEndDate { get; set; }
+
+            [Display(Name = "Quotation No")]
+            public string QuotationNo { get; set; }
+
+            [Display(Name = "Customer")]
+            public int CustomerId { get; set; }
+
+            [Display(Name = "Customer Contact Person")]
+            public int CustomerContactPId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
+            public string ContactNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "Email")]
+            public string EmailAddress { get; set; }
+            public string Remarks { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
+            public int MachineTypeId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineModel")]
+            public int MachineModelId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineSerialNo")]
+            public string MachineSerialNo { get; set; }
+
+            [Display(Name = "Amount")]
+            public decimal Amount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "GSTPercentage")]
+            public int GSTPercentageId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "GSTAmount")]
+            public decimal GSTAmount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "FinalAmount")]
+            public decimal FinalAmount { get; set; }
+
+
+            public int CreatedBy { get; set; }
+            public System.DateTime CreatedDate { get; set; }
+            public Nullable<int> ModifiedBy { get; set; }
+            public Nullable<System.DateTime> ModifiedDate { get; set; }
+
+        }
+    }
 }

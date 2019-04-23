@@ -1,0 +1,29 @@
+﻿@using StandardEng.Data.CustomModel
+@model AMCServiceOverWritePartialModel
+
+<div class="k-edit-form-container">
+    @Html.HiddenFor(m => m.AMCServiceId)
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.ServiceOverrideDate)
+    </div>
+    <div class="k-edit-field">
+        @Html.Kendo().DatePickerFor(d=>d.ServiceOverrideDate).Value(DateTime.Now.Date).HtmlAttributes(new { @tabindex = "1" })
+        @Html.ValidationMessageFor(m => m.ServiceOverrideDate)
+    </div>
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.OverrideReason)
+    </div>
+    <div class="k-edit-field">
+        @Html.TextAreaFor(m => m.OverrideReason, 3, 5, new { @tabindex = "2", @class = "k-textbox" })
+        @Html.ValidationMessageFor(m => m.OverrideReason)
+    </div>
+
+    <div class="k-edit-buttons k-state-default">
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="OverWriteAMCService()">Change Status</a>
+        <a class="k-button k-button-icontext" href="javascript:void(0)" onclick="ClosePopupItems() ">Cancel</a>
+    </div>
+</div>
+
+

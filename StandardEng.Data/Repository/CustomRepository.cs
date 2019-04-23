@@ -258,5 +258,17 @@ namespace StandardEng.Data.Repository
                 return result;
             }
         }
+
+        public static List<GetAMCList_Result> GetAMCList()
+        {
+            List<GetAMCList_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetAMCList().ToList();
+            }
+
+            return dataList.OrderBy(m => m.CustomerName).ToList();
+        }
     }
 }

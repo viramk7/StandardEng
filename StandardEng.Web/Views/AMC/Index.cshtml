@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
 
-                    @(Html.Kendo().Grid<tblAMC>()
+                    @(Html.Kendo().Grid<GetAMCList_Result>()
                                      .Name("gridAMC")
                                      .Columns(columns =>
                                      {
@@ -48,16 +48,20 @@
                                              }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
                                              .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
                                          }
-                                         columns.Bound(d => d.AMCQuotationNo).Width(120);
+                                         columns.Bound(d => d.QuotationNo);
                                          columns.Bound(d => d.AMCStartDate).Format("{0:" + WebHelper.DateFormate + "}");
                                          columns.Bound(d => d.AMCEndDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                         columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName").Title("Customer");
-                                         columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName").Title("Machine Type");
-                                         columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName").Title("Machine Model");
+                                         columns.Bound(d => d.CustomerName);
+                                         columns.Bound(d => d.ContactPersonName);
+                                         columns.Bound(d => d.ContactNo);
+                                         columns.Bound(d => d.EmailAddress);
+                                         columns.Bound(d => d.MachineTypeName);
+                                         columns.Bound(d => d.MachineName);
                                          columns.Bound(d => d.MachineSerialNo);
-                                         columns.Bound(d => d.ActualAmount);
+                                         columns.Bound(d => d.Amount);
                                          columns.Bound(d => d.GSTPercentage);
-                                         columns.Bound(d => d.TotalAmount);
+                                         columns.Bound(d => d.GSTAmount);
+                                         columns.Bound(d => d.FinalAmount);
 
                                      })
                                      .Pageable(x =>
