@@ -55,10 +55,10 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
         public virtual DbSet<tblAMCQDetail> tblAMCQDetail { get; set; }
         public virtual DbSet<tblAMCQNote> tblAMCQNote { get; set; }
-        public virtual DbSet<tblAMCQuotation> tblAMCQuotation { get; set; }
         public virtual DbSet<tblNote> tblNote { get; set; }
         public virtual DbSet<tblAMC> tblAMC { get; set; }
         public virtual DbSet<tblAMCServices> tblAMCServices { get; set; }
+        public virtual DbSet<tblAMCQuotation> tblAMCQuotation { get; set; }
     
         public virtual ObjectResult<AssignRoleList_Result> AssignRoleList(Nullable<int> roleId)
         {
@@ -146,6 +146,15 @@ namespace StandardEng.Data.DB
         public virtual ObjectResult<GetAMCList_Result> GetAMCList()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAMCList_Result>("GetAMCList");
+        }
+    
+        public virtual ObjectResult<GetCommissioningListForPartsQuotation_Result> GetCommissioningListForPartsQuotation(Nullable<int> customerId)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommissioningListForPartsQuotation_Result>("GetCommissioningListForPartsQuotation", customerIdParameter);
         }
     }
 }

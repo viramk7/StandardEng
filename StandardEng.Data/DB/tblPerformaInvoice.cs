@@ -52,6 +52,8 @@ namespace StandardEng.Data.DB
         public string Addressline2 { get; set; }
         public string Addressline3 { get; set; }
         public string GSTNo { get; set; }
+        public string CompanyName { get; set; }
+        public string FreightTerms { get; set; }
     
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

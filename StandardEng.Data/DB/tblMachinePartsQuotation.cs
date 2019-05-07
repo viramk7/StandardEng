@@ -54,6 +54,9 @@ namespace StandardEng.Data.DB
         public string Addressline2 { get; set; }
         public string Addressline3 { get; set; }
         public string GSTNo { get; set; }
+        public string FreightTerms { get; set; }
+        public string CompanyName { get; set; }
+        public string QuotationYear { get; set; }
     
         public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }

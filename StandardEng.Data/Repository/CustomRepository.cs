@@ -270,5 +270,17 @@ namespace StandardEng.Data.Repository
 
             return dataList.OrderBy(m => m.CustomerName).ToList();
         }
+
+        public static List<GetCommissioningListForPartsQuotation_Result> GetCommissioningListForPartsQuotation(int CustomerId)
+        {
+            List<GetCommissioningListForPartsQuotation_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetCommissioningListForPartsQuotation(CustomerId).ToList();
+            }
+
+            return dataList.OrderByDescending(m => m.CommissioningId).ToList();
+        }
     }
 }

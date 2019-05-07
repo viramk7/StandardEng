@@ -73,7 +73,7 @@ namespace StandardEng.Web.Controllers
         {
             ViewBag.MachineTypeList = SelectionList.MachineTypeList().Select(m => new { m.MachineTypeId, m.MachineTypeName });
             ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
-            return View(new tblAMCQuotation { QuotationDate = DateTime.Now.Date });
+            return View(new tblAMCQuotation { QuotationDate = DateTime.Now.Date , AMCBy = SessionHelper.UserId});
         }
 
         public ActionResult Edit(int id)
@@ -197,6 +197,12 @@ namespace StandardEng.Web.Controllers
                                     amcObj.Amount = singleAMC.Amount;
                                     amcObj.CreatedDate = DateTime.Now;
                                     amcObj.CreatedBy = SessionHelper.UserId;
+                                    amcObj.IsDifferentShipAddress = quotationObj.IsDifferentShipAddress;
+                                    amcObj.ShipCompanyName = quotationObj.ShipCompanyName;
+                                    amcObj.ShipAddressline1 = quotationObj.ShipAddressline1;
+                                    amcObj.ShipAddressline2 = quotationObj.ShipAddressline2;
+                                    amcObj.ShipAddressline3 = quotationObj.ShipAddressline3;
+                                    amcObj.ShipGSTNo = quotationObj.ShipGSTNo;
 
                                     decimal finalAmount = singleAMC.Amount;
                                     if (quotationObj.GSTPercentageId.HasValue)

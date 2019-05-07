@@ -967,18 +967,18 @@ namespace StandardEng.Data.DB
             [MinLength(6, ErrorMessageResourceName = "PinCodeLength", ErrorMessageResourceType = typeof(CommonMessage))]
             public string PinCode { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "DefaultDiscount")]
-            public Nullable<decimal> DefaultDiscount { get; set; }
+            //[Display(ResourceType = typeof(CommonMessage), Name = "DefaultDiscount")]
+            //public Nullable<decimal> DefaultDiscount { get; set; }
 
             [Display(ResourceType = typeof(CommonMessage), Name = "ContactNo")]
             [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
             [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
             public string ContactNo { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "AlternativeContactNo")]
-            [StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
-            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-            public string AlternativeContactNo { get; set; }
+            //[Display(ResourceType = typeof(CommonMessage), Name = "AlternativeContactNo")]
+            //[StringLength(10, ErrorMessageResourceName = "PhoneLength", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+            //public string AlternativeContactNo { get; set; }
 
             [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
             [Display(ResourceType = typeof(CommonMessage), Name = "Email")]

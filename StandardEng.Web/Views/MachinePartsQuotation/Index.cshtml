@@ -45,7 +45,7 @@
                                                                {
                                                                    command.Custom("Delete").Text("<span class='k-icon k-i-close' title='Delete'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onDelete");
                                                                }
-                                                               if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                               if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
                                                                {
                                                                    command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
                                                                    command.Custom("GeneratePI").Text("<span class='k-icon k-i-checkbox-checked' title='Generate PI'></span>").HtmlAttributes(new { @style = "margin:2px;" ,@id = "btnPI" }).Click("onGeneratePI");
@@ -157,7 +157,7 @@
         var window = $("#wReport").data("kendoWindow");
         window.refresh({
             url: urllink,
-            data: { "PartsQuotationId": data.MachinePartsQuotationId, "Reportname": "PartsQuotation_" + data.QuotationNo }
+            data: { "PartsQuotationId": data.MachinePartsQuotationId, "Reportname": data.QuotationNo + "_" + data.CustomerName }
         });
         window.center();
         window.open();

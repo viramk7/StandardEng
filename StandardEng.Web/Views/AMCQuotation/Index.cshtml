@@ -45,10 +45,11 @@
                                          {
                                              command.Destroy().Text(" ");
                                          }
-                                         //if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                         //{
-                                         //    command.Custom("Report").Text("<span class='k-icon k-i-file-txt' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
-                                         //}
+                                         if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                         {
+                                             //command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                             command.Custom("GenerateAMCPI").Text("<span class='k-icon k-i-checkbox-checked' title='Generate AMC PI'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnPI" }).Click("onGenerateAMCPI");
+                                         }
                                      }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
                                      .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
                                  }
@@ -57,7 +58,7 @@
                                  columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName").Title("Customer");
                                  columns.ForeignKey(d => d.CustomerContactPId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName").Title("Contact Person");
                                  columns.Bound(d => d.FinalAmount);
-
+                                 columns.Bound(d => d.GSTPercentageId).Visible(false);
                              })
                              .ToolBar(toolbar =>
                              {
@@ -131,7 +132,7 @@
             var currentUid = gridData[i].uid;
             if (gridData[i].IsConvertedIntoAMC) {
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
-                var editButton = $(currenRow).find("#btnAMC");
+                var editButton = $(currenRow).find("#btnPI");
                 editButton.hide();
             }
         }
@@ -149,6 +150,26 @@
         });
         window.center();
         window.open();
+    }
+
+    function onGenerateAMCPI(e) {
+        e.preventDefault();
+        var grid = $("#gridAMCQuotation").data("kendoGrid");
+        var tr = $(e.target).closest("tr");
+        var data = grid.dataItem(tr);
+        if (data != null) {
+            if (data.FinalAmount > 0 && data.GSTPercentageId > 0) {
+            bootbox.confirm('Are you sure you want to Generate AMC ?', function (result) {
+            if (result === true) {
+                   var url = '@Url.Action("GenerateAMC", "AMCQuotation")?QuotationId=' + data.AMCQId;
+                   window.location.href = url;
+                }
+            }, 'popup-confirmation');
+        }
+        else {
+            showMessageOnly('Final amount and GST amount of AMC Quotation must be greater than 0.', 'popup-error');
+        }
+     }
     }
 </script>
 

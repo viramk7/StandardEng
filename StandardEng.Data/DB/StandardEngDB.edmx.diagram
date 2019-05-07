@@ -75,16 +75,16 @@
         <AssociationConnector Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" />
         <EntityTypeShape EntityType="StandardEngModel.tblAMCQDetail" Width="1.5" PointX="16.125" PointY="11.25" />
         <EntityTypeShape EntityType="StandardEngModel.tblAMCQNote" Width="1.5" PointX="3.375" PointY="5.75" />
-        <EntityTypeShape EntityType="StandardEngModel.tblAMCQuotation" Width="1.5" PointX="13.875" PointY="10" />
         <EntityTypeShape EntityType="StandardEngModel.tblNote" Width="1.5" PointX="16.375" PointY="15.75" />
-        <AssociationConnector Association="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMCQDetail_tblMachineModels" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMCQDetail_tblMachineType" />
-        <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblCustomer" />
-        <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" />
         <EntityTypeShape EntityType="StandardEngModel.tblAMC" Width="1.5" PointX="17.375" PointY="1" />
         <EntityTypeShape EntityType="StandardEngModel.tblAMCServices" Width="1.5" PointX="19.625" PointY="2.375" />
         <AssociationConnector Association="StandardEngModel.FK_tblAMCServices_tblAMC" />
+        <EntityTypeShape EntityType="StandardEngModel.tblAMCQuotation" Width="1.5" PointX="18.875" PointY="7.375" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblCustomer" />
+        <AssociationConnector Association="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

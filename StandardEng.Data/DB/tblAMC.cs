@@ -42,6 +42,12 @@ namespace StandardEng.Data.DB
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<bool> IsDifferentShipAddress { get; set; }
+        public string ShipCompanyName { get; set; }
+        public string ShipAddressline1 { get; set; }
+        public string ShipAddressline2 { get; set; }
+        public string ShipAddressline3 { get; set; }
+        public string ShipGSTNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAMCServices> tblAMCServices { get; set; }

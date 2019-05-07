@@ -59,7 +59,7 @@ namespace StandardEng.Web.Controllers
             ViewBag.MachineModelList = SelectionList.MachineModelsList().Select(m => new { m.MachineModelId, m.MachineName });
             ViewBag.MachinePartList = SelectionList.MachinePartsList().Select(m => new { m.MachinePartId, m.ProductValue });
             ViewBag.GSTPercentageList = SelectionList.GSTPercentageList().Select(m => new { m.Id, Percentage = m.Percentage + " %" });
-            return View(new tblMachinePartsQuotation { QuotationDate = DateTime.Now.Date , InquiryDate = DateTime.Now.Date , IsPIGenerated = false });
+            return View(new tblMachinePartsQuotation { QuotationDate = DateTime.Now.Date, InquiryDate = DateTime.Now.Date, IsPIGenerated = false });
         }
 
         public ActionResult Edit(int id)
@@ -87,7 +87,7 @@ namespace StandardEng.Web.Controllers
                     model.QuotationAmount = Math.Round(model.QuotationAmount.Value);
                     model.QuotationAmountInWords = CurrencyHelper.changeCurrencyToWords(model.QuotationAmount.Value);
                 }
-                
+
                 if (model.MachinePartsQuotationId > 0)
                 {
                     model.TotalFreightAmount = model.TotalFreightAmount.HasValue ? Math.Round(model.TotalFreightAmount.Value) : model.TotalFreightAmount;
@@ -152,12 +152,12 @@ namespace StandardEng.Web.Controllers
             return PartialView("_PartsQuotationReport");
         }
 
-        public ActionResult GeneratePIFromQuotation(int QuotationId , string SelectedIds = null)
+        public ActionResult GeneratePIFromQuotation(int QuotationId, string SelectedIds = null)
         {
             if (QuotationId > 0)
             {
                 tblMachinePartsQuotation quotationObj = _dbRepository.SelectById(QuotationId);
-                if(quotationObj != null)
+                if (quotationObj != null)
                 {
                     List<int> selectedIDs = new List<int>();
                     List<tblMachinePartsQuotationDetail> detailObj = new List<tblMachinePartsQuotationDetail>();
@@ -169,86 +169,88 @@ namespace StandardEng.Web.Controllers
                     {
                         selectedIDs = _dbRepositoryDetail.GetEntities().Where(m => m.MachinePartsQuotationId == QuotationId).Select(m => m.MPQDetailId).ToList();
                     }
-                    
-                    if(selectedIDs.Count > 0)
+
+                    if (selectedIDs.Count > 0)
                     {
 
-                    
-                    foreach(int id in selectedIDs)
-                    {
-                        tblMachinePartsQuotationDetail obj = _dbRepositoryDetail.SelectById(id);
-                        detailObj.Add(obj);
-                    }
-                    if(detailObj.Count > 0)
-                    {
-                        tblPerformaInvoice invoiceObj = new tblPerformaInvoice();
-                        invoiceObj.MPQuotationId = quotationObj.MachinePartsQuotationId;
-                        invoiceObj.QuotationNo = quotationObj.QuotationNo;
-                        invoiceObj.QuotationDate = quotationObj.QuotationDate;
-                        invoiceObj.CustomerId = quotationObj.CustomerId;
-                        invoiceObj.CustomerContactPId = quotationObj.CustomerContactPId;
-                        invoiceObj.CustomerContactPContactNo = quotationObj.CustomerContactPContactNo;
-                        invoiceObj.ReportServiceNo = quotationObj.ReportServiceNo;
-                        invoiceObj.InquiryNo = quotationObj.InquiryNo;
-                        invoiceObj.InquiryDate = quotationObj.InquiryDate;
-                        invoiceObj.PaymentTerms = quotationObj.PaymentTerms;
-                        invoiceObj.DeliveryWeeks = quotationObj.DeliveryWeeks;
-                        invoiceObj.Insurance = quotationObj.Insurance;
-                        invoiceObj.ValidityDays = quotationObj.ValidityDays;
-                        invoiceObj.Email = quotationObj.Email;
-                        invoiceObj.TotalFinalAmount = quotationObj.TotalFinalAmount;
-                        invoiceObj.FreightAmount = quotationObj.FreightAmount;
-                        invoiceObj.QuotationAmount = quotationObj.QuotationAmount;
-                        invoiceObj.TotalFreightAmount = quotationObj.TotalFreightAmount;
-                        invoiceObj.ServiceEngineerId = quotationObj.ServiceEngineerId;
-                        invoiceObj.FreightPercentage = quotationObj.FreightPercentage;
-                        invoiceObj.Remarks = quotationObj.Remarks;
-                        invoiceObj.SequenceNo = quotationObj.SequenceNo;
-                        invoiceObj.CreatedBy = SessionHelper.UserId;
-                        invoiceObj.CreatedDate = DateTime.Now;
-                        invoiceObj.IsDifferentShipAddress = quotationObj.IsDifferentShipAddress;
-                        invoiceObj.Addressline1 = quotationObj.Addressline1;
-                        invoiceObj.Addressline2 = quotationObj.Addressline2;
-                        invoiceObj.Addressline3 = quotationObj.Addressline3;
-                        invoiceObj.GSTNo = quotationObj.GSTNo;
-                        string result = _dbRepositoryPI.Insert(invoiceObj);
-                        if (string.IsNullOrEmpty(result))
+
+                        foreach (int id in selectedIDs)
                         {
-                            foreach(tblMachinePartsQuotationDetail obj in detailObj)
-                            {
-                                tblPerformaInvoiceDetail piDetailObj = new tblPerformaInvoiceDetail();
-                                piDetailObj.PerformaInvoiceId = invoiceObj.PerformaInvoiceId;
-                                piDetailObj.MPQDetailId = obj.MPQDetailId;
-                                piDetailObj.MachineTypeId = obj.MachineTypeId;
-                                piDetailObj.MachineModelId = obj.MachineModelId;
-                                piDetailObj.MachineModelSerialNo = obj.MachineModelSerialNo;
-                                piDetailObj.MachinePartsId = obj.MachinePartsId;
-                                piDetailObj.MachinePartsNo = obj.MachinePartsNo;
-                                piDetailObj.MachinePartDescription = obj.MachinePartDescription;
-                                piDetailObj.PartsHSNCode = obj.PartsHSNCode;
-                                piDetailObj.PartsQuantity = obj.PartsQuantity;
-                                piDetailObj.UnitPrice = obj.UnitPrice;
-                                piDetailObj.TotalPrice = obj.TotalPrice;
-                                piDetailObj.PAndFPercentage = obj.PAndFPercentage;
-                                piDetailObj.ProfitMarginPercentage = obj.ProfitMarginPercentage;
-                                piDetailObj.DiscountPercentage = obj.DiscountPercentage;
-                                piDetailObj.TaxablePrice = obj.TaxablePrice;
-                                piDetailObj.GSTPercentage = obj.GSTPercentage;
-                                piDetailObj.GSTAmount = obj.GSTAmount;
-                                piDetailObj.FinalAmount = obj.FinalAmount;
-                                piDetailObj.CreatedBy = SessionHelper.UserId;
-                                piDetailObj.CreatedDate = DateTime.Now;
-
-                                _dbRepositoryPIDetail.Insert(piDetailObj);
-
-                            }
-
-                            quotationObj.IsPIGenerated = true;
-                            _dbRepository.Update(quotationObj);
-
-                            return RedirectToAction("Edit", "PI", new { id = invoiceObj.PerformaInvoiceId });
+                            tblMachinePartsQuotationDetail obj = _dbRepositoryDetail.SelectById(id);
+                            detailObj.Add(obj);
                         }
-                    }
+                        if (detailObj.Count > 0)
+                        {
+                            tblPerformaInvoice invoiceObj = new tblPerformaInvoice();
+                            invoiceObj.MPQuotationId = quotationObj.MachinePartsQuotationId;
+                            invoiceObj.QuotationNo = quotationObj.QuotationNo;
+                            invoiceObj.QuotationDate = quotationObj.QuotationDate;
+                            invoiceObj.CustomerId = quotationObj.CustomerId;
+                            invoiceObj.CustomerContactPId = quotationObj.CustomerContactPId;
+                            invoiceObj.CustomerContactPContactNo = quotationObj.CustomerContactPContactNo;
+                            invoiceObj.ReportServiceNo = quotationObj.ReportServiceNo;
+                            invoiceObj.InquiryNo = quotationObj.InquiryNo;
+                            invoiceObj.InquiryDate = quotationObj.InquiryDate;
+                            invoiceObj.PaymentTerms = quotationObj.PaymentTerms;
+                            invoiceObj.DeliveryWeeks = quotationObj.DeliveryWeeks;
+                            invoiceObj.Insurance = quotationObj.Insurance;
+                            invoiceObj.ValidityDays = quotationObj.ValidityDays;
+                            invoiceObj.Email = quotationObj.Email;
+                            invoiceObj.TotalFinalAmount = quotationObj.TotalFinalAmount;
+                            invoiceObj.FreightAmount = quotationObj.FreightAmount;
+                            invoiceObj.QuotationAmount = quotationObj.QuotationAmount;
+                            invoiceObj.TotalFreightAmount = quotationObj.TotalFreightAmount;
+                            invoiceObj.ServiceEngineerId = quotationObj.ServiceEngineerId;
+                            invoiceObj.FreightPercentage = quotationObj.FreightPercentage;
+                            invoiceObj.Remarks = quotationObj.Remarks;
+                            invoiceObj.SequenceNo = quotationObj.SequenceNo;
+                            invoiceObj.CreatedBy = SessionHelper.UserId;
+                            invoiceObj.CreatedDate = DateTime.Now;
+                            invoiceObj.IsDifferentShipAddress = quotationObj.IsDifferentShipAddress;
+                            invoiceObj.Addressline1 = quotationObj.Addressline1;
+                            invoiceObj.Addressline2 = quotationObj.Addressline2;
+                            invoiceObj.Addressline3 = quotationObj.Addressline3;
+                            invoiceObj.GSTNo = quotationObj.GSTNo;
+                            invoiceObj.CompanyName = quotationObj.CompanyName;
+                            invoiceObj.FreightTerms = quotationObj.FreightTerms;
+                            string result = _dbRepositoryPI.Insert(invoiceObj);
+                            if (string.IsNullOrEmpty(result))
+                            {
+                                foreach (tblMachinePartsQuotationDetail obj in detailObj)
+                                {
+                                    tblPerformaInvoiceDetail piDetailObj = new tblPerformaInvoiceDetail();
+                                    piDetailObj.PerformaInvoiceId = invoiceObj.PerformaInvoiceId;
+                                    piDetailObj.MPQDetailId = obj.MPQDetailId;
+                                    piDetailObj.MachineTypeId = obj.MachineTypeId;
+                                    piDetailObj.MachineModelId = obj.MachineModelId;
+                                    piDetailObj.MachineModelSerialNo = obj.MachineModelSerialNo;
+                                    piDetailObj.MachinePartsId = obj.MachinePartsId;
+                                    piDetailObj.MachinePartsNo = obj.MachinePartsNo;
+                                    piDetailObj.MachinePartDescription = obj.MachinePartDescription;
+                                    piDetailObj.PartsHSNCode = obj.PartsHSNCode;
+                                    piDetailObj.PartsQuantity = obj.PartsQuantity;
+                                    piDetailObj.UnitPrice = obj.UnitPrice;
+                                    piDetailObj.TotalPrice = obj.TotalPrice;
+                                    piDetailObj.PAndFPercentage = obj.PAndFPercentage;
+                                    piDetailObj.ProfitMarginPercentage = obj.ProfitMarginPercentage;
+                                    piDetailObj.DiscountPercentage = obj.DiscountPercentage;
+                                    piDetailObj.TaxablePrice = obj.TaxablePrice;
+                                    piDetailObj.GSTPercentage = obj.GSTPercentage;
+                                    piDetailObj.GSTAmount = obj.GSTAmount;
+                                    piDetailObj.FinalAmount = obj.FinalAmount;
+                                    piDetailObj.CreatedBy = SessionHelper.UserId;
+                                    piDetailObj.CreatedDate = DateTime.Now;
+
+                                    _dbRepositoryPIDetail.Insert(piDetailObj);
+
+                                }
+
+                                quotationObj.IsPIGenerated = true;
+                                _dbRepository.Update(quotationObj);
+
+                                return RedirectToAction("Edit", "PI", new { id = invoiceObj.PerformaInvoiceId });
+                            }
+                        }
                     }
                     else
                     {
@@ -257,8 +259,13 @@ namespace StandardEng.Web.Controllers
                     }
                 }
             }
-            TempData["Error"] = "Something Went Wrong. Please try again later!"; 
+            TempData["Error"] = "Something Went Wrong. Please try again later!";
             return View("Index");
+        }
+
+        public ActionResult KendoReadCommissioninglist([DataSourceRequest] DataSourceRequest request,int CustomerId)
+        {
+            return Json(CustomRepository.GetCommissioningListForPartsQuotation(CustomerId).ToDataSourceResult(request));
         }
         #endregion
     }

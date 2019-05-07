@@ -35,6 +35,12 @@
           <Property Name="GSTPercentageId" Type="int" Nullable="false" />
           <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="ShipCompanyName" Type="varchar" MaxLength="50" />
+          <Property Name="ShipAddressline1" Type="varchar(max)" />
+          <Property Name="ShipAddressline2" Type="varchar(max)" />
+          <Property Name="ShipAddressline3" Type="varchar(max)" />
+          <Property Name="ShipGSTNo" Type="varchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
@@ -81,9 +87,7 @@
           <Property Name="Addressline3" Type="varchar(max)" />
           <Property Name="PinCode" Type="varchar" MaxLength="10" />
           <Property Name="ContactNo" Type="varchar" MaxLength="50" />
-          <Property Name="AlternativeContactNo" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
-          <Property Name="DefaultDiscount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CustomerGST" Type="varchar" MaxLength="20" />
           <Property Name="AMCBy" Type="int" />
           <Property Name="Remarks" Type="varchar(max)" />
@@ -96,6 +100,7 @@
           <Property Name="SequenceNo" Type="int" />
           <Property Name="IsConvertedIntoAMC" Type="bit" Nullable="false" />
           <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="ShipCompanyName" Type="varchar" MaxLength="50" />
           <Property Name="ShipAddressline1" Type="varchar(max)" />
           <Property Name="ShipAddressline2" Type="varchar(max)" />
           <Property Name="ShipAddressline3" Type="varchar(max)" />
@@ -104,6 +109,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="QuotationYear" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblAMCServices">
           <Key>
@@ -287,10 +293,13 @@
           <Property Name="QuotationAmountInWords" Type="varchar(max)" />
           <Property Name="QuatationByUser" Type="int" />
           <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" />
           <Property Name="Addressline1" Type="varchar(max)" />
           <Property Name="Addressline2" Type="varchar(max)" />
           <Property Name="Addressline3" Type="varchar(max)" />
           <Property Name="GSTNo" Type="varchar" MaxLength="50" />
+          <Property Name="FreightTerms" Type="varchar" MaxLength="200" />
+          <Property Name="QuotationYear" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblMachinePartsQuotationDetail">
           <Key>
@@ -385,10 +394,12 @@
           <Property Name="FreightPercentage" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalFreightAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" />
           <Property Name="Addressline1" Type="varchar(max)" />
           <Property Name="Addressline2" Type="varchar(max)" />
           <Property Name="Addressline3" Type="varchar(max)" />
           <Property Name="GSTNo" Type="varchar" MaxLength="50" />
+          <Property Name="FreightTerms" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="tblPerformaInvoiceDetail">
           <Key>
@@ -1160,6 +1171,9 @@
         </Function>
         <Function Name="GetAMCList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetCommissioningList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetCommissioningListForPartsQuotation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CustomerId" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetPartsQuoatationList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetPCAsseccoryListDD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PreCommissioningId" Type="int" Mode="In" />
@@ -1627,18 +1641,25 @@
           </AssociationSet>
           <EntitySet Name="tblAMCQDetail" EntityType="StandardEngModel.tblAMCQDetail" />
           <EntitySet Name="tblAMCQNote" EntityType="StandardEngModel.tblAMCQNote" />
-          <EntitySet Name="tblAMCQuotation" EntityType="StandardEngModel.tblAMCQuotation" />
           <EntitySet Name="tblNote" EntityType="StandardEngModel.tblNote" />
-          <AssociationSet Name="FK_tblAMCQDetail_tblAMCQuotation" Association="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation">
-            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
-            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblAMCQDetail_tblMachineModels" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineModels">
             <End Role="tblMachineModels" EntitySet="tblMachineModels" />
             <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_tblAMCQDetail_tblMachineType" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineType">
             <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <FunctionImport Name="GetAMCList" ReturnType="Collection(StandardEngModel.GetAMCList_Result)" />
+          <EntitySet Name="tblAMC" EntityType="StandardEngModel.tblAMC" />
+          <EntitySet Name="tblAMCServices" EntityType="StandardEngModel.tblAMCServices" />
+          <AssociationSet Name="FK_tblAMCServices_tblAMC" Association="StandardEngModel.FK_tblAMCServices_tblAMC">
+            <End Role="tblAMC" EntitySet="tblAMC" />
+            <End Role="tblAMCServices" EntitySet="tblAMCServices" />
+          </AssociationSet>
+          <EntitySet Name="tblAMCQuotation" EntityType="StandardEngModel.tblAMCQuotation" />
+          <AssociationSet Name="FK_tblAMCQDetail_tblAMCQuotation" Association="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation">
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
             <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_tblAMCQuotation_tblCustomer" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomer">
@@ -1649,13 +1670,9 @@
             <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
             <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
           </AssociationSet>
-          <FunctionImport Name="GetAMCList" ReturnType="Collection(StandardEngModel.GetAMCList_Result)" />
-          <EntitySet Name="tblAMC" EntityType="StandardEngModel.tblAMC" />
-          <EntitySet Name="tblAMCServices" EntityType="StandardEngModel.tblAMCServices" />
-          <AssociationSet Name="FK_tblAMCServices_tblAMC" Association="StandardEngModel.FK_tblAMCServices_tblAMC">
-            <End Role="tblAMC" EntitySet="tblAMC" />
-            <End Role="tblAMCServices" EntitySet="tblAMCServices" />
-          </AssociationSet>
+          <FunctionImport Name="GetCommissioningListForPartsQuotation" ReturnType="Collection(StandardEngModel.GetCommissioningListForPartsQuotation_Result)">
+          <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
           <Property Type="Int32" Name="RoleMenuPK" Nullable="false" />
@@ -2626,6 +2643,8 @@
           <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="GSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FreightTerms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tblPerformaInvoice_tblCustomerContactPersons">
           <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
@@ -2724,6 +2743,9 @@
           <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="GSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FreightTerms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_tblCustomer_tblCity">
           <End Type="StandardEngModel.tblCity" Role="tblCity" Multiplicity="1" />
@@ -2862,9 +2884,9 @@
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" FromRole="tblAMCQDetail" ToRole="tblAMCQuotation" />
           <NavigationProperty Name="tblMachineModels" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineModels" FromRole="tblAMCQDetail" ToRole="tblMachineModels" />
           <NavigationProperty Name="tblMachineType" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineType" FromRole="tblAMCQDetail" ToRole="tblMachineType" />
+          <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" FromRole="tblAMCQDetail" ToRole="tblAMCQuotation" />
         </EntityType>
         <EntityType Name="tblAMCQNote">
           <Key>
@@ -2874,52 +2896,6 @@
           <Property Name="AMCQId" Type="Int32" Nullable="false" />
           <Property Name="NoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="tblAMCQuotation">
-          <Key>
-            <PropertyRef Name="AMCQId" />
-          </Key>
-          <Property Name="AMCQId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerContactPId" Type="Int32" Nullable="false" />
-          <Property Name="CountryId" Type="Int32" Nullable="false" />
-          <Property Name="StateId" Type="Int32" Nullable="false" />
-          <Property Name="CityId" Type="Int32" Nullable="false" />
-          <Property Name="RegionId" Type="Int32" Nullable="false" />
-          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AlternativeContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DefaultDiscount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AMCBy" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="GSTPercentageId" Type="Int32" />
-          <Property Name="GSTAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="FinalAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="FinalAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" FromRole="tblAMCQuotation" ToRole="tblAMCQDetail" />
-          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblAMCQuotation" ToRole="tblCustomer" />
-          <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" FromRole="tblAMCQuotation" ToRole="tblCustomerContactPersons" />
-          <Property Name="AMCQuotationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="QuotationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="SequenceNo" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="CommissioningId" Type="Int32" />
-          <Property Name="IsConvertedIntoAMC" Type="Boolean" Nullable="false" />
-          <Property Name="CustomerGST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="TotalDetailAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsDifferentShipAddress" Type="Boolean" />
-          <Property Name="ShipAddressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ShipAddressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ShipAddressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ShipGSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TotalGSTAmount" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
         <EntityType Name="tblNote">
           <Key>
             <PropertyRef Name="NoteId" />
@@ -2927,18 +2903,6 @@
           <Property Name="NoteId" Type="Int32" Nullable="false" />
           <Property Name="NoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK_tblAMCQDetail_tblAMCQuotation">
-          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="1" />
-          <End Type="StandardEngModel.tblAMCQDetail" Role="tblAMCQDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblAMCQuotation">
-              <PropertyRef Name="AMCQId" />
-            </Principal>
-            <Dependent Role="tblAMCQDetail">
-              <PropertyRef Name="AMCQId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblAMCQDetail_tblMachineModels">
           <End Type="StandardEngModel.tblMachineModels" Role="tblMachineModels" Multiplicity="1" />
           <End Type="StandardEngModel.tblAMCQDetail" Role="tblAMCQDetail" Multiplicity="*" />
@@ -2960,30 +2924,6 @@
             </Principal>
             <Dependent Role="tblAMCQDetail">
               <PropertyRef Name="MachineTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblAMCQuotation_tblCustomer">
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="tblAMCQuotation">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblAMCQuotation_tblCustomerContactPersons">
-          <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
-          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomerContactPersons">
-              <PropertyRef Name="ContactPersonId" />
-            </Principal>
-            <Dependent Role="tblAMCQuotation">
-              <PropertyRef Name="CustomerContactPId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3032,6 +2972,12 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblAMCServices" Relationship="StandardEngModel.FK_tblAMCServices_tblAMC" FromRole="tblAMC" ToRole="tblAMCServices" />
+          <Property Name="IsDifferentShipAddress" Type="Boolean" />
+          <Property Name="ShipCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipGSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblAMCServices">
           <Key>
@@ -3061,6 +3007,107 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblAMCQuotation">
+          <Key>
+            <PropertyRef Name="AMCQId" />
+          </Key>
+          <Property Name="AMCQId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommissioningId" Type="Int32" />
+          <Property Name="AMCQuotationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerGST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AMCBy" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TotalDetailAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GSTPercentageId" Type="Int32" />
+          <Property Name="GSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SequenceNo" Type="Int32" />
+          <Property Name="IsConvertedIntoAMC" Type="Boolean" Nullable="false" />
+          <Property Name="IsDifferentShipAddress" Type="Boolean" />
+          <Property Name="ShipCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipGSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" FromRole="tblAMCQuotation" ToRole="tblAMCQDetail" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblAMCQuotation" ToRole="tblCustomer" />
+          <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" FromRole="tblAMCQuotation" ToRole="tblCustomerContactPersons" />
+          <Property Name="QuotationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tblAMCQDetail_tblAMCQuotation">
+          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="StandardEngModel.tblAMCQDetail" Role="tblAMCQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAMCQuotation">
+              <PropertyRef Name="AMCQId" />
+            </Principal>
+            <Dependent Role="tblAMCQDetail">
+              <PropertyRef Name="AMCQId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQuotation_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblAMCQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAMCQuotation_tblCustomerContactPersons">
+          <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerContactPersons">
+              <PropertyRef Name="ContactPersonId" />
+            </Principal>
+            <Dependent Role="tblAMCQuotation">
+              <PropertyRef Name="CustomerContactPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetCommissioningListForPartsQuotation_Result">
+          <Property Type="Int32" Name="CommissioningId" Nullable="false" />
+          <Property Type="String" Name="MachineTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MachineName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MachineSerialNo" Nullable="true" />
+          <Property Type="String" Name="AccessoriesTypeName" Nullable="true" />
+          <Property Type="String" Name="AccessoriesName" Nullable="true" />
+          <Property Type="String" Name="AccessoriesSerialNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ContactPersonName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ServiceEnginnerName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CommissioningDate" Nullable="false" />
+          <Property Type="DateTime" Name="WarrantyExpireDate" Nullable="false" />
+          <Property Type="Int32" Name="RemainingDays" Nullable="true" />
+          <Property Type="Boolean" Name="IsReadyForAMC" Nullable="true" />
+          <Property Type="Boolean" Name="IsConvertedToAMC" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3630,6 +3677,8 @@
           <EntitySetMapping Name="tblPerformaInvoice">
             <EntityTypeMapping TypeName="StandardEngModel.tblPerformaInvoice">
               <MappingFragment StoreEntitySet="tblPerformaInvoice">
+                <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="GSTNo" ColumnName="GSTNo" />
                 <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
                 <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
@@ -3690,6 +3739,9 @@
           <EntitySetMapping Name="tblMachinePartsQuotation">
             <EntityTypeMapping TypeName="StandardEngModel.tblMachinePartsQuotation">
               <MappingFragment StoreEntitySet="tblMachinePartsQuotation">
+                <ScalarProperty Name="QuotationYear" ColumnName="QuotationYear" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="FreightTerms" ColumnName="FreightTerms" />
                 <ScalarProperty Name="GSTNo" ColumnName="GSTNo" />
                 <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
                 <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
@@ -3751,50 +3803,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblAMCQuotation">
-            <EntityTypeMapping TypeName="StandardEngModel.tblAMCQuotation">
-              <MappingFragment StoreEntitySet="tblAMCQuotation">
-                <ScalarProperty Name="TotalGSTAmount" ColumnName="TotalGSTAmount" />
-                <ScalarProperty Name="ShipGSTNo" ColumnName="ShipGSTNo" />
-                <ScalarProperty Name="ShipAddressline3" ColumnName="ShipAddressline3" />
-                <ScalarProperty Name="ShipAddressline2" ColumnName="ShipAddressline2" />
-                <ScalarProperty Name="ShipAddressline1" ColumnName="ShipAddressline1" />
-                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
-                <ScalarProperty Name="TotalDetailAmount" ColumnName="TotalDetailAmount" />
-                <ScalarProperty Name="CustomerGST" ColumnName="CustomerGST" />
-                <ScalarProperty Name="IsConvertedIntoAMC" ColumnName="IsConvertedIntoAMC" />
-                <ScalarProperty Name="CommissioningId" ColumnName="CommissioningId" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
-                <ScalarProperty Name="QuotationDate" ColumnName="QuotationDate" />
-                <ScalarProperty Name="AMCQuotationNo" ColumnName="AMCQuotationNo" />
-                <ScalarProperty Name="FinalAmountInWords" ColumnName="FinalAmountInWords" />
-                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
-                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
-                <ScalarProperty Name="GSTPercentageId" ColumnName="GSTPercentageId" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="AMCBy" ColumnName="AMCBy" />
-                <ScalarProperty Name="DefaultDiscount" ColumnName="DefaultDiscount" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="AlternativeContactNo" ColumnName="AlternativeContactNo" />
-                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
-                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
-                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
-                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="CustomerContactPId" ColumnName="CustomerContactPId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="AMCQId" ColumnName="AMCQId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblNote">
             <EntityTypeMapping TypeName="StandardEngModel.tblNote">
               <MappingFragment StoreEntitySet="tblNote">
@@ -3828,6 +3836,12 @@
           <EntitySetMapping Name="tblAMC">
             <EntityTypeMapping TypeName="StandardEngModel.tblAMC">
               <MappingFragment StoreEntitySet="tblAMC">
+                <ScalarProperty Name="ShipGSTNo" ColumnName="ShipGSTNo" />
+                <ScalarProperty Name="ShipAddressline3" ColumnName="ShipAddressline3" />
+                <ScalarProperty Name="ShipAddressline2" ColumnName="ShipAddressline2" />
+                <ScalarProperty Name="ShipAddressline1" ColumnName="ShipAddressline1" />
+                <ScalarProperty Name="ShipCompanyName" ColumnName="ShipCompanyName" />
+                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -3867,6 +3881,71 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblAMCQuotation">
+            <EntityTypeMapping TypeName="StandardEngModel.tblAMCQuotation">
+              <MappingFragment StoreEntitySet="tblAMCQuotation">
+                <ScalarProperty Name="QuotationYear" ColumnName="QuotationYear" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ShipGSTNo" ColumnName="ShipGSTNo" />
+                <ScalarProperty Name="ShipAddressline3" ColumnName="ShipAddressline3" />
+                <ScalarProperty Name="ShipAddressline2" ColumnName="ShipAddressline2" />
+                <ScalarProperty Name="ShipAddressline1" ColumnName="ShipAddressline1" />
+                <ScalarProperty Name="ShipCompanyName" ColumnName="ShipCompanyName" />
+                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
+                <ScalarProperty Name="IsConvertedIntoAMC" ColumnName="IsConvertedIntoAMC" />
+                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+                <ScalarProperty Name="FinalAmountInWords" ColumnName="FinalAmountInWords" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="TotalGSTAmount" ColumnName="TotalGSTAmount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentageId" ColumnName="GSTPercentageId" />
+                <ScalarProperty Name="TotalDetailAmount" ColumnName="TotalDetailAmount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="AMCBy" ColumnName="AMCBy" />
+                <ScalarProperty Name="CustomerGST" ColumnName="CustomerGST" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CustomerContactPId" ColumnName="CustomerContactPId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="QuotationDate" ColumnName="QuotationDate" />
+                <ScalarProperty Name="AMCQuotationNo" ColumnName="AMCQuotationNo" />
+                <ScalarProperty Name="CommissioningId" ColumnName="CommissioningId" />
+                <ScalarProperty Name="AMCQId" ColumnName="AMCQId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCommissioningListForPartsQuotation" FunctionName="StandardEngModel.Store.GetCommissioningListForPartsQuotation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StandardEngModel.GetCommissioningListForPartsQuotation_Result">
+                <ScalarProperty Name="CommissioningId" ColumnName="CommissioningId" />
+                <ScalarProperty Name="MachineTypeName" ColumnName="MachineTypeName" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="MachineSerialNo" ColumnName="MachineSerialNo" />
+                <ScalarProperty Name="AccessoriesTypeName" ColumnName="AccessoriesTypeName" />
+                <ScalarProperty Name="AccessoriesName" ColumnName="AccessoriesName" />
+                <ScalarProperty Name="AccessoriesSerialNo" ColumnName="AccessoriesSerialNo" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ContactPersonName" ColumnName="ContactPersonName" />
+                <ScalarProperty Name="ServiceEnginnerName" ColumnName="ServiceEnginnerName" />
+                <ScalarProperty Name="CommissioningDate" ColumnName="CommissioningDate" />
+                <ScalarProperty Name="WarrantyExpireDate" ColumnName="WarrantyExpireDate" />
+                <ScalarProperty Name="RemainingDays" ColumnName="RemainingDays" />
+                <ScalarProperty Name="IsReadyForAMC" ColumnName="IsReadyForAMC" />
+                <ScalarProperty Name="IsConvertedToAMC" ColumnName="IsConvertedToAMC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

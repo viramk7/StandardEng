@@ -48,7 +48,7 @@ namespace StandardEng.Web.Controllers
         {
             using (var context = BaseContext.GetDbContext())
             {
-                var list = context.tblCustomer.Select(m => new { m.CustomerId, m.CustomerName }).OrderBy(m => new { m.CustomerName }).ToList();
+                var list = context.tblCustomer.Select(m => new { m.CustomerId, m.CustomerName , m.DefaultDiscount }).OrderBy(m => new { m.CustomerName }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
         }

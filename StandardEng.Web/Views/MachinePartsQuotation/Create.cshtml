@@ -63,6 +63,8 @@
                         @Html.HiddenFor(m => m.QuotationNo)
                         @Html.HiddenFor(m => m.SequenceNo)
                         @Html.HiddenFor(m => m.IsPIGenerated)
+                        @Html.HiddenFor(m => m.QuotationYear)
+                        <input type="hidden" id="CustomerDefaultDiscount" />
 
                         <div class="row">
                             <div class="col-lg-6">
@@ -70,19 +72,19 @@
                                     @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
-                                                                                                                                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
-                                                                                                                                                                      .Placeholder("--Select Customer --")
-                                                                                                                                                                      .DataTextField("CustomerName")
-                                                                                                                                                                      .DataValueField("CustomerId")
-                                                                                                                                                                      .HtmlAttributes(new { @tabindex = 1 })
-                                                                                                                                                                      .DataSource(source =>
-                                                                                                                                                                      {
-                                                                                                                                                                          source.Read(read =>
-                                                                                                                                                                          {
-                                                                                                                                                                              read.Action("GetCustomerList", "Common");
-                                                                                                                                                                          });
-                                                                                                                                                                      })
-                                                                                                                                                                      .Events(e => e.Change("onChangeCustomer"))
+                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                      .Placeholder("--Select Customer --")
+                                                      .DataTextField("CustomerName")
+                                                      .DataValueField("CustomerId")
+                                                      .HtmlAttributes(new { @tabindex = 1 })
+                                                      .DataSource(source =>
+                                                      {
+                                                          source.Read(read =>
+                                                          {
+                                                              read.Action("GetCustomerList", "Common");
+                                                          });
+                                                      })
+                                                      .Events(e => e.Change("onChangeCustomer"))
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CustomerId)
@@ -93,22 +95,22 @@
                                     @Html.LabelFor(m => m.CustomerContactPId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerContactPId)
-                                                                                                                                                                      .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
-                                                                                                                                                                      .Placeholder("--Select Contact Person --")
-                                                                                                                                                                      .DataTextField("ContactPersonName")
-                                                                                                                                                                      .DataValueField("ContactPersonId")
-                                                                                                                                                                      .Enable(false)
-                                                                                                                                                                      .AutoBind(false)
-                                                                                                                                                                      .CascadeFrom("CustomerId")
-                                                                                                                                                                      .HtmlAttributes(new { @tabindex = 3 })
-                                                                                                                                                                      .DataSource(source =>
-                                                                                                                                                                      {
-                                                                                                                                                                          source.Read(read =>
-                                                                                                                                                                          {
-                                                                                                                                                                              read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
-                                                                                                                                                                          }).ServerFiltering(true);
-                                                                                                                                                                      })
-                                                                                                                                                                      .Events(e => e.Change("onChangeContactPerson"))
+                                                                                                                                                                                              .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
+                                                                                                                                                                                              .Placeholder("--Select Contact Person --")
+                                                                                                                                                                                              .DataTextField("ContactPersonName")
+                                                                                                                                                                                              .DataValueField("ContactPersonId")
+                                                                                                                                                                                              .Enable(false)
+                                                                                                                                                                                              .AutoBind(false)
+                                                                                                                                                                                              .CascadeFrom("CustomerId")
+                                                                                                                                                                                              .HtmlAttributes(new { @tabindex = 3 })
+                                                                                                                                                                                              .DataSource(source =>
+                                                                                                                                                                                              {
+                                                                                                                                                                                                  source.Read(read =>
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                      read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
+                                                                                                                                                                                                  }).ServerFiltering(true);
+                                                                                                                                                                                              })
+                                                                                                                                                                                              .Events(e => e.Change("onChangeContactPerson"))
                                         )
                                         @Html.ValidationMessageFor(m => m.CustomerContactPId)
                                     </div>
@@ -149,23 +151,32 @@
                                     @Html.LabelFor(m => m.ServiceEngineerId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.ServiceEngineerId)
-                                                                                                                 .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
-                                                                                                                 .Placeholder("--Select --")
-                                                                                                                 .DataTextField("Name")
-                                                                                                                 .DataValueField("UserId")
-                                                                                                                 .HtmlAttributes(new { @tabindex = 1 })
-                                                                                                                 .DataSource(source =>
-                                                                                                                 {
-                                                                                                                     source.Read(read =>
-                                                                                                                     {
-                                                                                                                         read.Action("GetServiceEngineerList", "Common");
-                                                                                                                     });
-                                                                                                                 })
+                                                                                                                                         .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
+                                                                                                                                         .Placeholder("--Select --")
+                                                                                                                                         .DataTextField("Name")
+                                                                                                                                         .DataValueField("UserId")
+                                                                                                                                         .HtmlAttributes(new { @tabindex = 1 })
+                                                                                                                                         .DataSource(source =>
+                                                                                                                                         {
+                                                                                                                                             source.Read(read =>
+                                                                                                                                             {
+                                                                                                                                                 read.Action("GetServiceEngineerList", "Common");
+                                                                                                                                             });
+                                                                                                                                         })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.ServiceEngineerId)
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FreightTerms, new { @class = "col-sm-6 col-lg-6 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.FreightTerms).HtmlAttributes(new { @tabindex = 4 })
+                                        @Html.ValidationMessageFor(m => m.FreightTerms)
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="col-lg-6">
@@ -224,18 +235,18 @@
                                     @Html.LabelFor(m => m.QuatationByUser, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.QuatationByUser)
-                                                                                                                         .Value(Model.QuatationByUser == 0 ? string.Empty : Model.QuatationByUser.ToString())
-                                                                                                                         .Placeholder("--Select --")
-                                                                                                                         .DataTextField("Name")
-                                                                                                                         .DataValueField("UserId")
-                                                                                                                         .HtmlAttributes(new { @tabindex = 14 })
-                                                                                                                         .DataSource(source =>
-                                                                                                                         {
-                                                                                                                             source.Read(read =>
-                                                                                                                             {
-                                                                                                                                 read.Action("GetServiceEngineerList", "Common");
-                                                                                                                             });
-                                                                                                                         })
+                                                                                                                                         .Value(Model.QuatationByUser == 0 ? string.Empty : Model.QuatationByUser.ToString())
+                                                                                                                                         .Placeholder("--Select --")
+                                                                                                                                         .DataTextField("Name")
+                                                                                                                                         .DataValueField("UserId")
+                                                                                                                                         .HtmlAttributes(new { @tabindex = 14 })
+                                                                                                                                         .DataSource(source =>
+                                                                                                                                         {
+                                                                                                                                             source.Read(read =>
+                                                                                                                                             {
+                                                                                                                                                 read.Action("GetServiceEngineerList", "Common");
+                                                                                                                                             });
+                                                                                                                                         })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.QuatationByUser)
@@ -261,6 +272,15 @@
                                 </div>
 
                                 <div id="shipAddress2">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CompanyName, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.CompanyName).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.CompanyName)
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.Addressline1, new { @class = "col-sm-6 col-lg-4 col-form-label" })
                                         <div class="col-sm-6 col-lg-9">
@@ -278,7 +298,7 @@
                                     </div>
                                 </div>
 
-                                
+
                             </div>
                             <div class="col-lg-6">
                                 <div id="shipAddress1" style="margin-top: 63px;">
@@ -308,81 +328,122 @@
                 {
                     <div class="card">
                         <div class="card-header header-elements-inline">
+                            <h5 class="card-title">Related Machine List</h5>
+                        </div>
+                        <div class="card-body">
+
+                            @(Html.Kendo().Grid<GetCommissioningListForPartsQuotation_Result>()
+                                     .Name("gridCommissioninglist")
+                                     .Columns(columns =>
+                                     {
+                                         columns.Bound(d => d.CommissioningDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                         columns.Bound(d => d.CustomerName);
+                                         columns.Bound(d => d.ContactPersonName);
+                                         columns.Bound(d => d.MachineTypeName);
+                                         columns.Bound(d => d.MachineName);
+                                         columns.Bound(d => d.MachineSerialNo);
+                                         columns.Bound(d => d.AccessoriesTypeName);
+                                         columns.Bound(d => d.AccessoriesName);
+                                         columns.Bound(d => d.AccessoriesSerialNo);
+                                         columns.Bound(d => d.WarrantyExpireDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                         columns.Bound(d => d.RemainingDays);
+                                         columns.Bound(d => d.IsReadyForAMC);
+                                         columns.Bound(d => d.IsConvertedToAMC);
+                                         columns.Bound(d => d.ServiceEnginnerName);
+                                     })
+                                     .Sortable(sortable => sortable.AllowUnsort(false))
+                                     .Filterable()
+                                     .Scrollable(e => e.Enabled(true))
+                                     .NoRecords()
+                                     //.HtmlAttributes(new { @style = "height:500px" })
+                                     .Events(e => e.DataBound("onDataBoundCommisioning"))
+                                     .DataSource(dataSource => dataSource
+                                     .Ajax()
+                                     .ServerOperation(true)
+                                     .Model(model => model.Id(d => d.CommissioningId))
+                                     .Events(events => events.Error("onError(\"gridCommissioninglist\")"))
+                                     .Read(read => read.Action("KendoReadCommissioninglist", "MachinePartsQuotation").Data("filterCommissioning"))
+                                 ))
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
                             <h5 class="card-title">Parts Quotation Details</h5>
                         </div>
                         <div class="card-body">
 
                             @(Html.Kendo().Grid<tblMachinePartsQuotationDetail>()
-                                                                                                                            .Name("gridMPQDetail")
-                                                                                                                            .Columns(columns =>
-                                                                                                                            {
-                                                                                                                                if (!Model.IsPIGenerated.Value)
-                                                                                                                                {
-                                                                                                                                    columns.Select().Width(50);
-                                                                                                                                }
-                                                                                                                                columns.Command(command =>
-                                                                                                                                {
-                                                                                                                                    command.Edit().Text(" ");
-                                                                                                                                    command.Destroy().Text(" ");
-                                                                                                                                }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
-                                                                                                                                           .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                                                   .Name("gridMPQDetail")
+                                                                   .Columns(columns =>
+                                                                   {
+                                                                       if (!Model.IsPIGenerated.Value)
+                                                                       {
+                                                                           columns.Select().Width(50);
+                                                                       }
+                                                                       columns.Command(command =>
+                                                                       {
+                                                                           command.Edit().Text(" ");
+                                                                           command.Destroy().Text(" ");
+                                                                       }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                                                  .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
 
-                                                                                                                                columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
-                                                                                                                                columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
-                                                                                                                                columns.Bound(d => d.MachineModelSerialNo).Width(100);
-                                                                                                                                columns.ForeignKey(d => d.MachinePartsId, (IEnumerable)ViewBag.MachinePartList, "MachinePartId", "ProductValue");
-                                                                                                                                columns.Bound(d => d.MachinePartDescription).Width(150); ;
-                                                                                                                                columns.Bound(d => d.PartsHSNCode).Width(100).Title("HSN Code"); ;
-                                                                                                                                columns.Bound(d => d.PartsQuantity).ClientFooterTemplate("Total Quantity: #=sum#").Width(70);
-                                                                                                                                columns.Bound(d => d.SellingPrice).Width(80).Title("Rate");
-                                                                                                                                columns.Bound(d => d.DiscountPercentage).Width(70);
-                                                                                                                                columns.Bound(d => d.TaxablePrice).ClientFooterTemplate("<div> Total Taxable Price: #=sum# </div>").Width(70);
-                                                                                                                                columns.ForeignKey(d => d.GSTPercentage, (IEnumerable)ViewBag.GSTPercentageList, "Id", "Percentage").Width(70);
-                                                                                                                                columns.Bound(d => d.GSTAmount).ClientFooterTemplate("Total GST Amount: #=sum#").Width(70);
-                                                                                                                                columns.Bound(d => d.FinalAmount).ClientFooterTemplate("Total Amount: #=sum#").Width(70);
-                                                                                                                            })
-                                                                                                                            .ToolBar(toolbar =>
-                                                                                                                            {
-                                                                                                                                if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
-                                                                                                                                {
-                                                                                                                                    toolbar.Create().Text("Add");
-                                                                                                                                }
-                                                                                                                            })
-                                                                                                                            .Editable(editable =>
-                                                                                                                            {
-                                                                                                                                editable.Mode(GridEditMode.PopUp).TemplateName("tblMachinePartsQuotationDetail");
-                                                                                                                                editable.DisplayDeleteConfirmation("Are you sure you want to delete this Parts Quotation Detail?");
-                                                                                                                                editable.Window(x => x.Title("Manage Parts Quotation Detail"));
-                                                                                                                            })
-                                                                                                                            //.Pageable(x =>
-                                                                                                                            //{
-                                                                                                                            //    x.Refresh(true);
-                                                                                                                            //    x.PageSizes(WebHelper.PageSizes);
-                                                                                                                            //})
-                                                                                                                            .Sortable(sortable => sortable.AllowUnsort(false))
-                                                                                                                            //.Filterable()
-                                                                                                                            .PersistSelection()
-                                                                                                                            .NoRecords()
-                                                                                                                            .Scrollable(e => e.Enabled(true))
-                                                                                                                            .Events(grid => grid.Edit("onEdit").Save("onSave").DataBound("onDataBound").Change("onChange"))
-                                                                                                                            .DataSource(dataSource => dataSource
-                                                                                                                                .Ajax()
-                                                                                                                                .Aggregates(aggregates =>
-                                                                                                                                {
-                                                                                                                                    aggregates.Add(p => p.PartsQuantity).Sum();
-                                                                                                                                    aggregates.Add(p => p.TaxablePrice).Sum();
-                                                                                                                                    aggregates.Add(p => p.GSTAmount).Sum();
-                                                                                                                                    aggregates.Add(p => p.FinalAmount).Sum();
-                                                                                                                                })
-                                                                                                                                .ServerOperation(true)
-                                                                                                                                //.PageSize(WebHelper.PageSize)
-                                                                                                                                .Model(model => model.Id(d => d.MPQDetailId))
-                                                                                                                                .Events(events => events.Error("onError(\"gridMPQDetail\")").RequestEnd("onRequestEnd"))
-                                                                                                                                .Create(update => update.Action("KendoSave", "MachinePartsQuotationDetail"))
-                                                                                                                                .Read(read => read.Action("KendoRead", "MachinePartsQuotationDetail").Data("additionalData"))
-                                                                                                                                .Update(update => update.Action("KendoSave", "MachinePartsQuotationDetail"))
-                                                                                                                                .Destroy(update => update.Action("KendoDestroy", "MachinePartsQuotationDetail"))
-                                                                                                                            ))
+                                                                       columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
+                                                                       columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
+                                                                       columns.Bound(d => d.MachineModelSerialNo).Width(100);
+                                                                       columns.ForeignKey(d => d.MachinePartsId, (IEnumerable)ViewBag.MachinePartList, "MachinePartId", "ProductValue");
+                                                                       columns.Bound(d => d.MachinePartDescription).Width(150); ;
+                                                                       columns.Bound(d => d.PartsHSNCode).Width(100).Title("HSN Code"); ;
+                                                                       columns.Bound(d => d.PartsQuantity).ClientFooterTemplate("Total Quantity: #=sum#").Width(70);
+                                                                       columns.Bound(d => d.UnitPrice).Width(80).Title("Rate");
+                                                                       columns.Bound(d => d.DiscountPercentage).Width(70);
+                                                                       columns.Bound(d => d.TaxablePrice).ClientFooterTemplate("<div> Total Taxable Price: #=sum# </div>").Width(70);
+                                                                       columns.ForeignKey(d => d.GSTPercentage, (IEnumerable)ViewBag.GSTPercentageList, "Id", "Percentage").Width(70);
+                                                                       columns.Bound(d => d.GSTAmount).ClientFooterTemplate("Total GST Amount: #=sum#").Width(70);
+                                                                       columns.Bound(d => d.FinalAmount).ClientFooterTemplate("Total Amount: #=sum#").Width(70);
+                                                                   })
+                                                                   .ToolBar(toolbar =>
+                                                                   {
+                                                                       if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                       {
+                                                                           toolbar.Create().Text("Add");
+                                                                       }
+                                                                   })
+                                                                   .Editable(editable =>
+                                                                   {
+                                                                       editable.Mode(GridEditMode.PopUp).TemplateName("tblMachinePartsQuotationDetail");
+                                                                       editable.DisplayDeleteConfirmation("Are you sure you want to delete this Parts Quotation Detail?");
+                                                                       editable.Window(x => x.Title("Manage Parts Quotation Detail"));
+                                                                   })
+                                                                   //.Pageable(x =>
+                                                                   //{
+                                                                   //    x.Refresh(true);
+                                                                   //    x.PageSizes(WebHelper.PageSizes);
+                                                                   //})
+                                                                   .Sortable(sortable => sortable.AllowUnsort(false))
+                                                                   //.Filterable()
+                                                                   .PersistSelection()
+                                                                   .NoRecords()
+                                                                   .Scrollable(e => e.Enabled(true))
+                                                                   .Events(grid => grid.Edit("onEdit").Save("onSave").DataBound("onDataBound").Change("onChange"))
+                                                                   .DataSource(dataSource => dataSource
+                                                                       .Ajax()
+                                                                       .Aggregates(aggregates =>
+                                                                       {
+                                                                           aggregates.Add(p => p.PartsQuantity).Sum();
+                                                                           aggregates.Add(p => p.TaxablePrice).Sum();
+                                                                           aggregates.Add(p => p.GSTAmount).Sum();
+                                                                           aggregates.Add(p => p.FinalAmount).Sum();
+                                                                       })
+                                                                       .ServerOperation(true)
+                                                                       //.PageSize(WebHelper.PageSize)
+                                                                       .Model(model => model.Id(d => d.MPQDetailId))
+                                                                       .Events(events => events.Error("onError(\"gridMPQDetail\")").RequestEnd("onRequestEnd"))
+                                                                       .Create(update => update.Action("KendoSave", "MachinePartsQuotationDetail"))
+                                                                       .Read(read => read.Action("KendoRead", "MachinePartsQuotationDetail").Data("additionalData"))
+                                                                       .Update(update => update.Action("KendoSave", "MachinePartsQuotationDetail"))
+                                                                       .Destroy(update => update.Action("KendoDestroy", "MachinePartsQuotationDetail"))
+                                                                   ))
                         </div>
                     </div>
 
@@ -394,7 +455,7 @@
                                         @Html.LabelFor(m => m.TotalFinalAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.TotalFinalAmount).Spinners(false)
-                                                                                                                                                .HtmlAttributes(new { @readonly = "readonly" }))
+                                                                                                                                                        .HtmlAttributes(new { @readonly = "readonly" }))
                                             @Html.ValidationMessageFor(m => m.TotalFinalAmount)
                                         </div>
                                     </div>
@@ -405,7 +466,7 @@
                                         @Html.LabelFor(m => m.FreightAmount, new { @class = "col-sm-6 col-lg-4 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.FreightAmount).Spinners(false).Min(0)
-                                                                                                                                                .HtmlAttributes(new { @tabindex = 11 }).Events(e => e.Change("UpdateQuotationAmount")))
+                                                                                                                                                        .HtmlAttributes(new { @tabindex = 11 }).Events(e => e.Change("UpdateQuotationAmount")))
                                             @Html.ValidationMessageFor(m => m.FreightAmount)
                                         </div>
                                     </div>
@@ -416,7 +477,7 @@
                                         @Html.LabelFor(m => m.FreightPercentage, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.FreightPercentage).Spinners(false).Min(0)
-                                                                                                                                                .HtmlAttributes(new { @tabindex = 12 }).Events(e => e.Change("UpdateQuotationAmount")))
+                                                                                                                                                        .HtmlAttributes(new { @tabindex = 12 }).Events(e => e.Change("UpdateQuotationAmount")))
                                             @Html.ValidationMessageFor(m => m.FreightPercentage)
                                         </div>
                                     </div>
@@ -427,7 +488,7 @@
                                         @Html.LabelFor(m => m.TotalFreightAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
                                             @(Html.Kendo().NumericTextBoxFor(m => m.TotalFreightAmount).Spinners(false).Min(0)
-                                                                                                          .HtmlAttributes(new { @tabindex = 11, @readonly = "readonly" }))
+                                                                                                                  .HtmlAttributes(new { @tabindex = 11, @readonly = "readonly" }))
                                             @Html.ValidationMessageFor(m => m.TotalFreightAmount)
                                         </div>
                                     </div>
@@ -503,6 +564,12 @@
         };
     }
 
+    function filterCommissioning(e) {
+        return {
+            CustomerId: getKendComboboxValue('CustomerId')
+        };
+    }
+
     function onChangeContactPerson(e) {
         var dataItemProject = $('#CustomerContactPId').data("kendoComboBox");
         if (dataItemProject != undefined) {
@@ -517,6 +584,17 @@
     function onChangeCustomer(e) {
         setInputValueById('CustomerContactPContactNo', '');
         setInputValueById('Email', '');
+        setCustomerDefaultDiscount();
+    }
+
+    function setCustomerDefaultDiscount() {
+        var dataItemCustomer = $('#CustomerId').data("kendoComboBox");
+        if (dataItemCustomer != undefined) {
+            var dataItem = dataItemCustomer.dataItem(dataItemCustomer.select());
+            if (dataItem != undefined) {
+                setInputValueById('CustomerDefaultDiscount', dataItem.DefaultDiscount);
+            }
+        }
     }
 
     function additionalData(e) {
@@ -526,12 +604,14 @@
     }
 
     function onEdit(e) {
+        setCustomerDefaultDiscount();
         if (e.model.isNew()) {
             var MachinePartsQuotationId = getInputValueById('MachinePartsQuotationId');
             e.model.set("MachinePartsQuotationId", MachinePartsQuotationId);
             e.model.set("MachineTypeId", '');
             e.model.set("MachineModelId", '');
             e.model.set("MachinePartsId", '');
+            e.model.set("DiscountPercentage", getInputValueById('CustomerDefaultDiscount'));
 
             var totalRows = $("#gridMPQDetail").data("kendoGrid").dataSource.total();
             if (totalRows > 1) {
@@ -596,6 +676,14 @@
         var totalFreightamount = freightAmount + freightAmount2;
 
         setkendoNumericTextBoxValue('QuotationAmount', finalAmount + totalFreightamount);
+    }
+
+    function onDataBoundCommisioning(e) {
+        var grid = $("#gridCommissioninglist").data("kendoGrid");
+
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
     }
 
     function onRequestEnd(e) {
@@ -763,7 +851,7 @@
         var window = $("#wReport").data("kendoWindow");
         window.refresh({
             url: urllink,
-            data: { "PartsQuotationId": getInputValueById('MachinePartsQuotationId'), "Reportname": "PartsQuotation_" + getInputValueById('QuotationNo') }
+            data: { "PartsQuotationId": getInputValueById('MachinePartsQuotationId'), "Reportname": getInputValueById('QuotationNo') + " _ " + getKendComboboxText('CustomerId') }
         });
         window.center();
         window.open();
@@ -781,7 +869,8 @@
             setInputValueById('Addressline1','');
             setInputValueById('Addressline2','');
             setInputValueById('Addressline3','');
-            setInputValueById('GSTNo','');
+            setInputValueById('GSTNo', '');
+            setInputValueById('CompanyName', '');
         }
        
     }
