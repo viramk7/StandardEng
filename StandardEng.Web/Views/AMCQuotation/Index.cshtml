@@ -47,7 +47,7 @@
                                          }
                                          if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
                                          {
-                                             //command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                             command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
                                              command.Custom("GenerateAMCPI").Text("<span class='k-icon k-i-checkbox-checked' title='Generate AMC PI'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnPI" }).Click("onGenerateAMCPI");
                                          }
                                      }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
@@ -97,14 +97,14 @@
     </div>
 </div>
 
-@*@(Html.Kendo().Window()
+@(Html.Kendo().Window()
               .Name("wReport")
               .Title("AMC Quotation Report")
               .Visible(false)
               .Draggable(true)
               .Modal(true)
               .Width(850)
-              .Height(600))*@
+              .Height(600))
 
 <script type="text/javascript">
 
@@ -146,7 +146,7 @@
         var window = $("#wReport").data("kendoWindow");
         window.refresh({
             url: urllink,
-            data: { "AMCQuotationId": data.Id, "Reportname": "AMCQuotation_" + data.AMCQuotationNo }
+            data: { "AMCQuotationId": data.AMCQId, "Reportname": "AMCQuotation_" + data.AMCQuotationNo }
         });
         window.center();
         window.open();

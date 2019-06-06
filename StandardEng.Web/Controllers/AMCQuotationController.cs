@@ -273,12 +273,12 @@ namespace StandardEng.Web.Controllers
             }
         }
 
-        //public ActionResult AMCQuotationReport(int AMCQuotationId , string Reportname)
-        //{
-        //    ViewBag.AMCQuotationId = AMCQuotationId;
-        //    ViewBag.Reportname = Reportname;
-        //    return PartialView("_AMCQuotationReport");
-        //}
+        public ActionResult AMCQuotationReport(int AMCQuotationId, string Reportname)
+        {
+            ViewBag.AMCQuotationId = AMCQuotationId;
+            ViewBag.Reportname = Reportname;
+            return PartialView("_AMCQuotationReport");
+        }
         #endregion
 
         #region AMC Quotation Notes 
