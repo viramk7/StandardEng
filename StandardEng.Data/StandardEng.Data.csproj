@@ -60,6 +60,9 @@
     <Compile Include="DB\GetAMCList_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\GetChargebleList_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\GetCommissioningListForPartsQuotation_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
@@ -124,6 +127,21 @@
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblAMCServices.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblChargeble.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblChargebleNote.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblChargebleQDetail.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblChargebleQNote.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblChargebleQuotation.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblCity.cs">

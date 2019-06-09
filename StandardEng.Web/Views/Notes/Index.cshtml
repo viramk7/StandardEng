@@ -14,7 +14,7 @@
         <div class="d-flex">
             <div class="breadcrumb">
                 <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                <span class="breadcrumb-item active">Master - Notes</span>
+                <span class="breadcrumb-item active">Master - AMC Notes</span>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header header-elements-inline">
-                    <h5 class="card-title">Notes List</h5>
+                    <h5 class="card-title">AMC Notes List</h5>
                 </div>
                 <div class="card-body">
                     @(Html.Kendo().Grid<tblNote>()
@@ -59,7 +59,7 @@
                                  .PageSize(WebHelper.PageSize)  
                                  .Events(events => events.Error("onError(\"gridNote\")"))
                                  .Model(model => model.Id(p => p.NoteId))
-                                 .Create(update => update.Action("KendoSave", "Notes"))
+                                 .Create(update => update.Action("KendoSave", "ChargebleMasterNotes"))
                                  .Read(read => read.Action("KendoRead", "Notes"))
                                  .Update(update => update.Action("KendoSave", "Notes"))
                                  .Destroy(update => update.Action("KendoDestroy", "Notes"))

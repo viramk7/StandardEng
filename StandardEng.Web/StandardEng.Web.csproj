@@ -183,6 +183,10 @@
     <Compile Include="Controllers\AMCQuotationController.cs" />
     <Compile Include="Controllers\AMCQuoteDetailController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChargebleController.cs" />
+    <Compile Include="Controllers\ChargebleMasterNotesController.cs" />
+    <Compile Include="Controllers\ChargebleQuotationController.cs" />
+    <Compile Include="Controllers\ChargebleQuotationDetailController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CommissioningController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -375,6 +379,7 @@
     <Folder Include="Uploads\" />
     <Folder Include="Views\AMCQuoteDetail\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\ChargebleQuotationDetail\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\ContactPerson\" />
     <Folder Include="Views\MachinePartsQuotationDetail\" />
@@ -469,6 +474,13 @@
     <Content Include="Views\Notes\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblAMCQuotationDetail.cshtml" />
     <Content Include="Views\AMC\_AMCServiceOverWritePartial.cshtml" />
+    <Content Include="Views\ChargebleQuotation\Index.cshtml" />
+    <Content Include="Views\ChargebleQuotation\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\tblChargebleQuotationDetail.cshtml" />
+    <Content Include="Views\Chargeble\Index.cshtml" />
+    <Content Include="Views\Chargeble\Create.cshtml" />
+    <Content Include="Views\ChargebleQuotation\_ChargebleQuotationReport.cshtml" />
+    <Content Include="Views\ChargebleMasterNotes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">

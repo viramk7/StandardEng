@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "Chargeble Quotation";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Chargeble Quotation</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Chargeble Quotation</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">Chargeble Quotation List</h5>
+                </div>
+                <div class="card-body">
+
+                    @(Html.Kendo().Grid<tblChargebleQuotation>()
+                                             .Name("gridChargebleQuotation")
+                                             .Columns(columns =>
+                                             {
+                                                 if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                 {
+                                                     columns.Command(command =>
+                                                     {
+                                                         if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                         {
+                                                             command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                         }
+                                                         if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                         {
+                                                             command.Destroy().Text(" ");
+                                                         }
+                                                         if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                         {
+                                                             //command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                                             command.Custom("GenerateAMCPI").Text("<span class='k-icon k-i-checkbox-checked' title='Generate Chargeble PI'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnPI" }).Click("onGenerateAMCPI");
+                                                         }
+                                                     }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                     .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                                 }
+                                                 columns.Bound(d => d.QuotationNo).Width(120);
+                                                 columns.Bound(d => d.QuotationDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                 columns.ForeignKey(d => d.CustomerId, (IEnumerable)ViewBag.CustomerList, "CustomerId", "CustomerName").Title("Customer");
+                                                 columns.ForeignKey(d => d.CustomerContactPId, (IEnumerable)ViewBag.ContactPersonsList, "ContactPersonId", "ContactPersonName").Title("Contact Person");
+                                                 columns.Bound(d => d.FinalAmount);
+                                                 columns.Bound(d => d.GSTPercentageId).Visible(false);
+                                             })
+                                             .ToolBar(toolbar =>
+                                             {
+                                                 if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                 {
+                                                     toolbar.Template("<a class='k-button k-button-icontext' onclick='onAdd()' href='javascript:void(0)'><span class='k-icon k-i-plus' title='Add'></span>Add</a> ");
+                                                 }
+                                             })
+                                             .Pageable(x =>
+                                             {
+                                                 x.Refresh(true);
+                                                 x.PageSizes(WebHelper.PageSizes);
+                                             })
+                                              .Editable(editable =>
+                                              {
+                                                  editable.DisplayDeleteConfirmation("Are you sure you want to delete these Chargeble Quotation?");
+                                              })
+                                             .Sortable(sortable => sortable.AllowUnsort(false))
+                                             .Filterable()
+                                             .Scrollable(e => e.Enabled(true))
+                                             .NoRecords()
+                                             .Events(e => e.DataBound("onDataBound"))
+                                             .DataSource(dataSource => dataSource
+                                             .Ajax()
+                                             .ServerOperation(true)
+                                             .PageSize(WebHelper.PageSize)
+                                             .Model(model => model.Id(d => d.ChargebleQId))
+                                             .Events(events => events.Error("onError(\"gridChargebleQuotation\")"))
+                                             .Read(read => read.Action("KendoRead", "ChargebleQuotation"))
+                                             .Destroy(update => update.Action("KendoDestroy", "ChargebleQuotation"))
+
+                                      ))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@(Html.Kendo().Window()
+                  .Name("wReport")
+                  .Title("Chargeble Quotation Report")
+                  .Visible(false)
+                  .Draggable(true)
+                  .Modal(true)
+                  .Width(850)
+                  .Height(600))
+
+<script type="text/javascript">
+
+    function onAdd() {
+        window.location.href = '@Url.Action("Create", "ChargebleQuotation")'
+    }
+
+    function onEdit(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("Edit", "ChargebleQuotation")';
+        if (data != null)
+            window.location.href = urllink + "?id=" + data.ChargebleQId;
+    }
+
+    function onDataBound(e) {
+        var grid = $("#gridChargebleQuotation").data("kendoGrid");
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
+
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (gridData[i].IsConvertedIntoChargeble) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var editButton = $(currenRow).find("#btnPI");
+                editButton.hide();
+            }
+        }
+    }
+
+    function onReport(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("ChargebleQuotationReport", "ChargebleQuotation")';
+        var window = $("#wReport").data("kendoWindow");
+        window.refresh({
+            url: urllink,
+            data: { "ChargebleQId": data.ChargebleQId, "Reportname": "ChargebleQuotation_" + data.QuotationNo }
+        });
+        window.center();
+        window.open();
+    }
+
+    function onGenerateAMCPI(e) {
+        e.preventDefault();
+        var grid = $("#gridChargebleQuotation").data("kendoGrid");
+        var tr = $(e.target).closest("tr");
+        var data = grid.dataItem(tr);
+        if (data != null) {
+            if (data.FinalAmount > 0 && data.GSTPercentageId > 0) {
+            bootbox.confirm('Are you sure you want to Generate Chargeble ?', function (result) {
+            if (result === true) {
+                var url = '@Url.Action("GenerateChargeble", "ChargebleQuotation")?QuotationId=' + data.ChargebleQId;
+                   window.location.href = url;
+                }
+            }, 'popup-confirmation');
+        }
+        else {
+            showMessageOnly('Final amount and GST amount of AMC Quotation must be greater than 0.', 'popup-error');
+        }
+     }
+    }
+</script>
+
