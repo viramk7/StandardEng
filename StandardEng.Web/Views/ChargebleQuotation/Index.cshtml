@@ -47,7 +47,7 @@
                                                          }
                                                          if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
                                                          {
-                                                             //command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                                             command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
                                                              command.Custom("GenerateAMCPI").Text("<span class='k-icon k-i-checkbox-checked' title='Generate Chargeble PI'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnPI" }).Click("onGenerateAMCPI");
                                                          }
                                                      }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
@@ -146,7 +146,7 @@
         var window = $("#wReport").data("kendoWindow");
         window.refresh({
             url: urllink,
-            data: { "ChargebleQId": data.ChargebleQId, "Reportname": "ChargebleQuotation_" + data.QuotationNo }
+            data: { "QuotationId": data.ChargebleQId, "Reportname": "ChargebleQuotation_" + data.QuotationNo }
         });
         window.center();
         window.open();
