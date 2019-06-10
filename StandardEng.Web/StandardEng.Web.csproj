@@ -216,6 +216,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ChargebleQuotation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ChargebleQuotation.Designer.cs">
+      <DependentUpon>ChargebleQuotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\AMCQuotation.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -494,6 +500,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\ChargebleQuotation.resx">
+      <DependentUpon>ChargebleQuotation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\AMCQuotation.resx">
       <DependentUpon>AMCQuotation.cs</DependentUpon>
     </EmbeddedResource>

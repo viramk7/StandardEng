@@ -1,6 +1,6 @@
 namespace StandardEng.Web.Reports
 {
-    partial class AMCQuotation
+    partial class ChargebleQuotation
     {
         #region Component Designer generated code
         /// <summary>
@@ -16,6 +16,7 @@ namespace StandardEng.Web.Reports
             Telerik.Reporting.TableGroup tableGroup5 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup6 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup7 = new Telerik.Reporting.TableGroup();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChargebleQuotation));
             Telerik.Reporting.TableGroup tableGroup8 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup9 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup10 = new Telerik.Reporting.TableGroup();
@@ -24,7 +25,6 @@ namespace StandardEng.Web.Reports
             Telerik.Reporting.TableGroup tableGroup13 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup14 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup15 = new Telerik.Reporting.TableGroup();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AMCQuotation));
             Telerik.Reporting.TableGroup tableGroup16 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup17 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup18 = new Telerik.Reporting.TableGroup();
@@ -62,6 +62,7 @@ namespace StandardEng.Web.Reports
             Telerik.Reporting.TableGroup tableGroup50 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup51 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.TableGroup tableGroup52 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup53 = new Telerik.Reporting.TableGroup();
             Telerik.Reporting.ReportParameter reportParameter1 = new Telerik.Reporting.ReportParameter();
             Telerik.Reporting.ReportParameter reportParameter2 = new Telerik.Reporting.ReportParameter();
             Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
@@ -128,6 +129,8 @@ namespace StandardEng.Web.Reports
             this.textBox44 = new Telerik.Reporting.TextBox();
             this.textBox40 = new Telerik.Reporting.TextBox();
             this.textBox43 = new Telerik.Reporting.TextBox();
+            this.textBox46 = new Telerik.Reporting.TextBox();
+            this.textBox50 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox38
@@ -274,9 +277,7 @@ namespace StandardEng.Web.Reports
             this.textBox30.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(0.5D);
             this.textBox30.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox30.StyleName = "";
-            this.textBox30.Value = "Annual Service contract charges for servicing of Ingersoll-Rand make Screw Compre" +
-    "ssor\r\nModel - {Fields.MachineName}  {Fields.MachineTypeName}\r\nSrl. No. - {Fields" +
-    ".MachineSerialNo}\r\n";
+            this.textBox30.Value = resources.GetString("textBox30.Value");
             // 
             // textBox33
             // 
@@ -335,8 +336,8 @@ namespace StandardEng.Web.Reports
             this.DetailDataSource.ConnectionString = "StandardEngEntitiesSimple";
             this.DetailDataSource.Name = "DetailDataSource";
             this.DetailDataSource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
-            new Telerik.Reporting.SqlDataSourceParameter("@AMCQuotationId", System.Data.DbType.Int32, "= Parameters.AMCQuotationId.Value")});
-            this.DetailDataSource.SelectCommand = "dbo.GetAMCQuotationDetailReportData";
+            new Telerik.Reporting.SqlDataSourceParameter("@ChargebleQuotationId", System.Data.DbType.Int32, "= Parameters.ChargebleQuotationId.Value")});
+            this.DetailDataSource.SelectCommand = "dbo.GetChargebleQuotationDetailReportData";
             this.DetailDataSource.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
             // HeaderDataSource
@@ -344,8 +345,8 @@ namespace StandardEng.Web.Reports
             this.HeaderDataSource.ConnectionString = "StandardEngEntitiesSimple";
             this.HeaderDataSource.Name = "HeaderDataSource";
             this.HeaderDataSource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
-            new Telerik.Reporting.SqlDataSourceParameter("@AMCQuotationId", System.Data.DbType.Int32, "= Parameters.AMCQuotationId.Value")});
-            this.HeaderDataSource.SelectCommand = "dbo.GetAMCQuotationReportData";
+            new Telerik.Reporting.SqlDataSourceParameter("@ChargebleQuotationId", System.Data.DbType.Int32, "= Parameters.ChargebleQuotationId.Value")});
+            this.HeaderDataSource.SelectCommand = "dbo.GetChargebleQuotationReportData";
             this.HeaderDataSource.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
             // reportHeaderSection1
@@ -375,7 +376,7 @@ namespace StandardEng.Web.Reports
             this.textBox1.Style.LineStyle = Telerik.Reporting.Drawing.LineStyle.Solid;
             this.textBox1.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox1.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox1.Value = "ANNUAL MAINTENANCE CONTRACT QUOTATION ";
+            this.textBox1.Value = "CHARGEBLE SERVICE QUOTATION";
             // 
             // table1
             // 
@@ -535,7 +536,7 @@ namespace StandardEng.Web.Reports
             this.textBox11.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(0.5D);
             this.textBox11.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox11.StyleName = "";
-            this.textBox11.Value = "= Fields.AMCQuotationNo";
+            this.textBox11.Value = "= Fields.QuotationNo";
             // 
             // textBox7
             // 
@@ -674,8 +675,8 @@ namespace StandardEng.Web.Reports
             this.NotesDataSource.ConnectionString = "StandardEngEntitiesSimple";
             this.NotesDataSource.Name = "NotesDataSource";
             this.NotesDataSource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
-            new Telerik.Reporting.SqlDataSourceParameter("@AMCQuotationId", System.Data.DbType.Int32, "= Parameters.AMCQuotationId.Value")});
-            this.NotesDataSource.SelectCommand = "dbo.GetAMCQuotationNotesReportData";
+            new Telerik.Reporting.SqlDataSourceParameter("@ChargebleQuotationId", System.Data.DbType.Int32, "= Parameters.ChargebleQuotationId.Value")});
+            this.NotesDataSource.SelectCommand = "dbo.GetChargebleQuotationNotesReportData";
             this.NotesDataSource.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
             // table5
@@ -880,20 +881,23 @@ namespace StandardEng.Web.Reports
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.7116660475730896D)));
+            this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.50000059604644775D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D)));
             this.table6.Body.SetCellContent(6, 0, this.textBox21);
             this.table6.Body.SetCellContent(6, 1, this.textBox24);
-            this.table6.Body.SetCellContent(8, 0, this.textBox31);
-            this.table6.Body.SetCellContent(7, 0, this.textBox27);
-            this.table6.Body.SetCellContent(7, 1, this.textBox34);
-            this.table6.Body.SetCellContent(8, 1, this.textBox29);
+            this.table6.Body.SetCellContent(9, 0, this.textBox31);
+            this.table6.Body.SetCellContent(8, 0, this.textBox27);
+            this.table6.Body.SetCellContent(8, 1, this.textBox34);
+            this.table6.Body.SetCellContent(9, 1, this.textBox29);
             this.table6.Body.SetCellContent(0, 0, this.textBox42, 1, 2);
             this.table6.Body.SetCellContent(1, 0, this.textBox32, 1, 2);
             this.table6.Body.SetCellContent(2, 0, this.textBox49, 1, 2);
             this.table6.Body.SetCellContent(3, 0, this.textBox44, 1, 2);
             this.table6.Body.SetCellContent(4, 0, this.textBox40, 1, 2);
             this.table6.Body.SetCellContent(5, 0, this.textBox43, 1, 2);
+            this.table6.Body.SetCellContent(7, 0, this.textBox46);
+            this.table6.Body.SetCellContent(7, 1, this.textBox50);
             tableGroup41.Name = "tableGroup5";
             tableGroup42.Name = "group16";
             this.table6.ColumnGroups.Add(tableGroup41);
@@ -911,7 +915,9 @@ namespace StandardEng.Web.Reports
             this.textBox27,
             this.textBox34,
             this.textBox31,
-            this.textBox29});
+            this.textBox29,
+            this.textBox46,
+            this.textBox50});
             this.table6.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(3.5199999809265137D));
             this.table6.Name = "table6";
             tableGroup44.Name = "group25";
@@ -921,8 +927,9 @@ namespace StandardEng.Web.Reports
             tableGroup48.Name = "group28";
             tableGroup49.Name = "group31";
             tableGroup50.Name = "group13";
-            tableGroup51.Name = "group17";
-            tableGroup52.Name = "group18";
+            tableGroup51.Name = "group32";
+            tableGroup52.Name = "group17";
+            tableGroup53.Name = "group18";
             tableGroup43.ChildGroups.Add(tableGroup44);
             tableGroup43.ChildGroups.Add(tableGroup45);
             tableGroup43.ChildGroups.Add(tableGroup46);
@@ -932,10 +939,11 @@ namespace StandardEng.Web.Reports
             tableGroup43.ChildGroups.Add(tableGroup50);
             tableGroup43.ChildGroups.Add(tableGroup51);
             tableGroup43.ChildGroups.Add(tableGroup52);
+            tableGroup43.ChildGroups.Add(tableGroup53);
             tableGroup43.Groupings.Add(new Telerik.Reporting.Grouping(null));
             tableGroup43.Name = "detailTableGroup2";
             this.table6.RowGroups.Add(tableGroup43);
-            this.table6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19D), Telerik.Reporting.Drawing.Unit.Cm(4.7116670608520508D));
+            this.table6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19D), Telerik.Reporting.Drawing.Unit.Cm(5.2116670608520508D));
             this.table6.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.table6.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             this.table6.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(0.5D);
@@ -968,18 +976,20 @@ namespace StandardEng.Web.Reports
             this.textBox31.Name = "textBox31";
             this.textBox31.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.000000953674316D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.textBox31.Style.Font.Bold = true;
-            this.textBox31.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox31.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox31.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox31.StyleName = "";
+            this.textBox31.Value = "Branch : Odhav Branch           IFSC Code : BKDNo110579  ";
             // 
             // textBox27
             // 
             this.textBox27.Name = "textBox27";
             this.textBox27.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.000000953674316D), Telerik.Reporting.Drawing.Unit.Cm(0.50000011920928955D));
             this.textBox27.Style.Font.Bold = true;
-            this.textBox27.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox27.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox27.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox27.StyleName = "";
+            this.textBox27.Value = "Bank Name :  Dena Bank        A/c. No. 057911023880    ";
             // 
             // textBox34
             // 
@@ -1071,7 +1081,26 @@ namespace StandardEng.Web.Reports
             this.textBox43.StyleName = "";
             this.textBox43.Value = "Terms : Net cash against Deliver.";
             // 
-            // AMCQuotation
+            // textBox46
+            // 
+            this.textBox46.Name = "textBox46";
+            this.textBox46.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.000001907348633D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox46.Style.Font.Bold = true;
+            this.textBox46.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
+            this.textBox46.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox46.StyleName = "";
+            this.textBox46.Value = "Bank Details :-          ";
+            // 
+            // textBox50
+            // 
+            this.textBox50.Name = "textBox50";
+            this.textBox50.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(8.9999980926513672D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox50.Style.Font.Bold = true;
+            this.textBox50.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox50.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox50.StyleName = "";
+            // 
+            // ChargebleQuotation
             // 
             this.DataSource = null;
             this.DocumentName = "= Parameters.ReportName.Value ";
@@ -1084,9 +1113,9 @@ namespace StandardEng.Web.Reports
             this.PageSettings.Landscape = false;
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Cm(0.5D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
-            reportParameter1.Name = "AMCQuotationId";
+            reportParameter1.Name = "ChargebleQuotationId";
             reportParameter1.Type = Telerik.Reporting.ReportParameterType.Integer;
-            reportParameter1.Value = "8";
+            reportParameter1.Value = "7";
             reportParameter2.Name = "Reportname";
             reportParameter2.Value = "Test";
             this.ReportParameters.Add(reportParameter1);
@@ -1168,5 +1197,7 @@ namespace StandardEng.Web.Reports
         private Telerik.Reporting.TextBox textBox44;
         private Telerik.Reporting.TextBox textBox49;
         private Telerik.Reporting.TextBox textBox43;
+        private Telerik.Reporting.TextBox textBox46;
+        private Telerik.Reporting.TextBox textBox50;
     }
 }
