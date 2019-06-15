@@ -124,6 +124,109 @@
           <Property Name="IsCompleted" Type="bit" Nullable="false" />
           <Property Name="IsSystemGenerated" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblChargeble">
+          <Key>
+            <PropertyRef Name="ChargebleId" />
+          </Key>
+          <Property Name="ChargebleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChargebleQId" Type="int" Nullable="false" />
+          <Property Name="ChargebleQDetailId" Type="int" Nullable="false" />
+          <Property Name="ChargebleDate" Type="date" Nullable="false" />
+          <Property Name="QuotationNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="int" Nullable="false" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="MachineTypeId" Type="int" Nullable="false" />
+          <Property Name="MachineModelId" Type="int" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GSTPercentageId" Type="int" Nullable="false" />
+          <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="ShipCompanyName" Type="varchar" MaxLength="50" />
+          <Property Name="ShipAddressline1" Type="varchar(max)" />
+          <Property Name="ShipAddressline2" Type="varchar(max)" />
+          <Property Name="ShipAddressline3" Type="varchar(max)" />
+          <Property Name="ShipGSTNo" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblChargebleNote">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoteText" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblChargebleQDetail">
+          <Key>
+            <PropertyRef Name="ChargebleQDetailId" />
+          </Key>
+          <Property Name="ChargebleQDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChargebleQId" Type="int" Nullable="false" />
+          <Property Name="MachineTypeId" Type="int" Nullable="false" />
+          <Property Name="MachineModelId" Type="int" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblChargebleQNote">
+          <Key>
+            <PropertyRef Name="ChargebleQNoteId" />
+          </Key>
+          <Property Name="ChargebleQNoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChargebleQId" Type="int" Nullable="false" />
+          <Property Name="NoteText" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblChargebleQuotation">
+          <Key>
+            <PropertyRef Name="ChargebleQId" />
+          </Key>
+          <Property Name="ChargebleQId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuotationNo" Type="varchar" MaxLength="50" />
+          <Property Name="QuotationDate" Type="date" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+          <Property Name="Addressline1" Type="varchar(max)" />
+          <Property Name="Addressline2" Type="varchar(max)" />
+          <Property Name="Addressline3" Type="varchar(max)" />
+          <Property Name="PinCode" Type="varchar" MaxLength="10" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerGST" Type="varchar" MaxLength="20" />
+          <Property Name="ChargebleBy" Type="int" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="TotalDetailAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GSTPercentageId" Type="int" />
+          <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGSTAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmountInWords" Type="varchar(max)" />
+          <Property Name="SequenceNo" Type="int" />
+          <Property Name="IsConvertedIntoChargeble" Type="bit" Nullable="false" />
+          <Property Name="IsDifferentShipAddress" Type="bit" />
+          <Property Name="ShipCompanyName" Type="varchar" MaxLength="50" />
+          <Property Name="ShipAddressline1" Type="varchar(max)" />
+          <Property Name="ShipAddressline2" Type="varchar(max)" />
+          <Property Name="ShipAddressline3" Type="varchar(max)" />
+          <Property Name="ShipGSTNo" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="QuotationYear" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblCity">
           <Key>
             <PropertyRef Name="CityId" />
@@ -639,6 +742,82 @@
             </Principal>
             <Dependent Role="tblAMCServices">
               <PropertyRef Name="AMCId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQDetail_tblChargebleQuotation">
+          <End Role="tblChargebleQuotation" Type="Self.tblChargebleQuotation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblChargebleQDetail" Type="Self.tblChargebleQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChargebleQuotation">
+              <PropertyRef Name="ChargebleQId" />
+            </Principal>
+            <Dependent Role="tblChargebleQDetail">
+              <PropertyRef Name="ChargebleQId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQDetail_tblMachineModels">
+          <End Role="tblMachineModels" Type="Self.tblMachineModels" Multiplicity="1" />
+          <End Role="tblChargebleQDetail" Type="Self.tblChargebleQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineModels">
+              <PropertyRef Name="MachineModelId" />
+            </Principal>
+            <Dependent Role="tblChargebleQDetail">
+              <PropertyRef Name="MachineModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQDetail_tblMachineType">
+          <End Role="tblMachineType" Type="Self.tblMachineType" Multiplicity="1" />
+          <End Role="tblChargebleQDetail" Type="Self.tblChargebleQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineType">
+              <PropertyRef Name="MachineTypeId" />
+            </Principal>
+            <Dependent Role="tblChargebleQDetail">
+              <PropertyRef Name="MachineTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQNote_tblChargebleQuotation">
+          <End Role="tblChargebleQuotation" Type="Self.tblChargebleQuotation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblChargebleQNote" Type="Self.tblChargebleQNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChargebleQuotation">
+              <PropertyRef Name="ChargebleQId" />
+            </Principal>
+            <Dependent Role="tblChargebleQNote">
+              <PropertyRef Name="ChargebleQId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQuotation_tblCustomer">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
+          <End Role="tblChargebleQuotation" Type="Self.tblChargebleQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblChargebleQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQuotation_tblCustomerContactPersons">
+          <End Role="tblCustomerContactPersons" Type="Self.tblCustomerContactPersons" Multiplicity="1" />
+          <End Role="tblChargebleQuotation" Type="Self.tblChargebleQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerContactPersons">
+              <PropertyRef Name="ContactPersonId" />
+            </Principal>
+            <Dependent Role="tblChargebleQuotation">
+              <PropertyRef Name="CustomerContactPId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1170,6 +1349,7 @@
           <Parameter Name="IsSuperAdmin" Type="bit" Mode="In" />
         </Function>
         <Function Name="GetAMCList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetChargebleList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetCommissioningList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetCommissioningListForPartsQuotation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerId" Type="int" Mode="In" />
@@ -1197,6 +1377,11 @@
           <EntitySet Name="tblAMCQNote" EntityType="Self.tblAMCQNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAMCQuotation" EntityType="Self.tblAMCQuotation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAMCServices" EntityType="Self.tblAMCServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblChargeble" EntityType="Self.tblChargeble" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblChargebleNote" EntityType="Self.tblChargebleNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblChargebleQDetail" EntityType="Self.tblChargebleQDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblChargebleQNote" EntityType="Self.tblChargebleQNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblChargebleQuotation" EntityType="Self.tblChargebleQuotation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommissioning" EntityType="Self.tblCommissioning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
@@ -1246,6 +1431,30 @@
           <AssociationSet Name="FK_tblAMCServices_tblAMC" Association="Self.FK_tblAMCServices_tblAMC">
             <End Role="tblAMC" EntitySet="tblAMC" />
             <End Role="tblAMCServices" EntitySet="tblAMCServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQDetail_tblChargebleQuotation" Association="Self.FK_tblChargebleQDetail_tblChargebleQuotation">
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineModels" Association="Self.FK_tblChargebleQDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineType" Association="Self.FK_tblChargebleQDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQNote_tblChargebleQuotation" Association="Self.FK_tblChargebleQNote_tblChargebleQuotation">
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+            <End Role="tblChargebleQNote" EntitySet="tblChargebleQNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomer" Association="Self.FK_tblChargebleQuotation_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomerContactPersons" Association="Self.FK_tblChargebleQuotation_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCity_tblCountry" Association="Self.FK_tblCity_tblCountry">
             <End Role="tblCountry" EntitySet="tblCountry" />
@@ -1673,6 +1882,36 @@
           <FunctionImport Name="GetCommissioningListForPartsQuotation" ReturnType="Collection(StandardEngModel.GetCommissioningListForPartsQuotation_Result)">
           <Parameter Name="CustomerId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tblChargeble" EntityType="StandardEngModel.tblChargeble" />
+          <EntitySet Name="tblChargebleQDetail" EntityType="StandardEngModel.tblChargebleQDetail" />
+          <EntitySet Name="tblChargebleQNote" EntityType="StandardEngModel.tblChargebleQNote" />
+          <EntitySet Name="tblChargebleQuotation" EntityType="StandardEngModel.tblChargebleQuotation" />
+          <AssociationSet Name="FK_tblChargebleQDetail_tblChargebleQuotation" Association="StandardEngModel.FK_tblChargebleQDetail_tblChargebleQuotation">
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineModels" Association="StandardEngModel.FK_tblChargebleQDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineType" Association="StandardEngModel.FK_tblChargebleQDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomer" Association="StandardEngModel.FK_tblChargebleQuotation_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblChargebleQuotation_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQNote_tblChargebleQuotation" Association="StandardEngModel.FK_tblChargebleQNote_tblChargebleQuotation">
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+            <End Role="tblChargebleQNote" EntitySet="tblChargebleQNote" />
+          </AssociationSet>
+          <FunctionImport Name="GetChargebleList" ReturnType="Collection(StandardEngModel.GetChargebleList_Result)" />
+          <EntitySet Name="tblChargebleNote" EntityType="StandardEngModel.tblChargebleNote" />
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
           <Property Type="Int32" Name="RoleMenuPK" Nullable="false" />
@@ -1749,6 +1988,7 @@
           <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomerContactPersons" ToRole="tblCustomer" />
           <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblMachinePartsQuotation" />
           <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblAMCQuotation" />
+          <NavigationProperty Name="tblChargebleQuotation" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblChargebleQuotation" />
         </EntityType>
         <EntityType Name="tblMachineAccessories">
           <Key>
@@ -1784,6 +2024,7 @@
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblMachinePartsQuotationDetail" />
           <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblPerformaInvoiceDetail" />
           <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblAMCQDetail" />
+          <NavigationProperty Name="tblChargebleQDetail" Relationship="StandardEngModel.FK_tblChargebleQDetail_tblMachineType" FromRole="tblMachineType" ToRole="tblChargebleQDetail" />
         </EntityType>
         <EntityType Name="tblMenu">
           <Key>
@@ -2014,6 +2255,7 @@
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblMachinePartsQuotationDetail" />
           <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblPerformaInvoiceDetail" />
           <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblAMCQDetail" />
+          <NavigationProperty Name="tblChargebleQDetail" Relationship="StandardEngModel.FK_tblChargebleQDetail_tblMachineModels" FromRole="tblMachineModels" ToRole="tblChargebleQDetail" />
         </EntityType>
         <Association Name="FK_tblMachineModels_tblMachineType">
           <End Type="StandardEngModel.tblMachineType" Role="tblMachineType" Multiplicity="1" />
@@ -2701,6 +2943,7 @@
           <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblCustomer" ToRole="tblPerformaInvoice" />
           <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioning_tblCustomer" FromRole="tblCustomer" ToRole="tblPreCommissioning" />
           <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblAMCQuotation" />
+          <NavigationProperty Name="tblChargebleQuotation" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblChargebleQuotation" />
         </EntityType>
         <EntityType Name="tblMachinePartsQuotation">
           <Key>
@@ -3108,6 +3351,208 @@
           <Property Type="Boolean" Name="IsReadyForAMC" Nullable="true" />
           <Property Type="Boolean" Name="IsConvertedToAMC" Nullable="true" />
         </ComplexType>
+        <EntityType Name="tblChargeble">
+          <Key>
+            <PropertyRef Name="ChargebleId" />
+          </Key>
+          <Property Name="ChargebleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChargebleQId" Type="Int32" Nullable="false" />
+          <Property Name="ChargebleQDetailId" Type="Int32" Nullable="false" />
+          <Property Name="ChargebleDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="QuotationNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="Int32" Nullable="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MachineTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MachineModelId" Type="Int32" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GSTPercentageId" Type="Int32" Nullable="false" />
+          <Property Name="GSTAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsDifferentShipAddress" Type="Boolean" />
+          <Property Name="ShipCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipGSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblChargebleQDetail">
+          <Key>
+            <PropertyRef Name="ChargebleQDetailId" />
+          </Key>
+          <Property Name="ChargebleQDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChargebleQId" Type="Int32" Nullable="false" />
+          <Property Name="MachineTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MachineModelId" Type="Int32" Nullable="false" />
+          <Property Name="MachineSerialNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblChargebleQuotation" Relationship="StandardEngModel.FK_tblChargebleQDetail_tblChargebleQuotation" FromRole="tblChargebleQDetail" ToRole="tblChargebleQuotation" />
+          <NavigationProperty Name="tblMachineModels" Relationship="StandardEngModel.FK_tblChargebleQDetail_tblMachineModels" FromRole="tblChargebleQDetail" ToRole="tblMachineModels" />
+          <NavigationProperty Name="tblMachineType" Relationship="StandardEngModel.FK_tblChargebleQDetail_tblMachineType" FromRole="tblChargebleQDetail" ToRole="tblMachineType" />
+        </EntityType>
+        <EntityType Name="tblChargebleQNote">
+          <Key>
+            <PropertyRef Name="ChargebleQNoteId" />
+          </Key>
+          <Property Name="ChargebleQNoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChargebleQId" Type="Int32" Nullable="false" />
+          <Property Name="NoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblChargebleQuotation" Relationship="StandardEngModel.FK_tblChargebleQNote_tblChargebleQuotation" FromRole="tblChargebleQNote" ToRole="tblChargebleQuotation" />
+        </EntityType>
+        <EntityType Name="tblChargebleQuotation">
+          <Key>
+            <PropertyRef Name="ChargebleQId" />
+          </Key>
+          <Property Name="ChargebleQId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuotationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContactPId" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerGST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ChargebleBy" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TotalDetailAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GSTPercentageId" Type="Int32" />
+          <Property Name="GSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SequenceNo" Type="Int32" />
+          <Property Name="IsConvertedIntoChargeble" Type="Boolean" Nullable="false" />
+          <Property Name="IsDifferentShipAddress" Type="Boolean" />
+          <Property Name="ShipCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShipGSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="QuotationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblChargebleQDetail" Relationship="StandardEngModel.FK_tblChargebleQDetail_tblChargebleQuotation" FromRole="tblChargebleQuotation" ToRole="tblChargebleQDetail" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomer" FromRole="tblChargebleQuotation" ToRole="tblCustomer" />
+          <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomerContactPersons" FromRole="tblChargebleQuotation" ToRole="tblCustomerContactPersons" />
+          <NavigationProperty Name="tblChargebleQNote" Relationship="StandardEngModel.FK_tblChargebleQNote_tblChargebleQuotation" FromRole="tblChargebleQuotation" ToRole="tblChargebleQNote" />
+        </EntityType>
+        <Association Name="FK_tblChargebleQDetail_tblChargebleQuotation">
+          <End Type="StandardEngModel.tblChargebleQuotation" Role="tblChargebleQuotation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="StandardEngModel.tblChargebleQDetail" Role="tblChargebleQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChargebleQuotation">
+              <PropertyRef Name="ChargebleQId" />
+            </Principal>
+            <Dependent Role="tblChargebleQDetail">
+              <PropertyRef Name="ChargebleQId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQDetail_tblMachineModels">
+          <End Type="StandardEngModel.tblMachineModels" Role="tblMachineModels" Multiplicity="1" />
+          <End Type="StandardEngModel.tblChargebleQDetail" Role="tblChargebleQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineModels">
+              <PropertyRef Name="MachineModelId" />
+            </Principal>
+            <Dependent Role="tblChargebleQDetail">
+              <PropertyRef Name="MachineModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQDetail_tblMachineType">
+          <End Type="StandardEngModel.tblMachineType" Role="tblMachineType" Multiplicity="1" />
+          <End Type="StandardEngModel.tblChargebleQDetail" Role="tblChargebleQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMachineType">
+              <PropertyRef Name="MachineTypeId" />
+            </Principal>
+            <Dependent Role="tblChargebleQDetail">
+              <PropertyRef Name="MachineTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQuotation_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblChargebleQuotation" Role="tblChargebleQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblChargebleQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQuotation_tblCustomerContactPersons">
+          <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
+          <End Type="StandardEngModel.tblChargebleQuotation" Role="tblChargebleQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerContactPersons">
+              <PropertyRef Name="ContactPersonId" />
+            </Principal>
+            <Dependent Role="tblChargebleQuotation">
+              <PropertyRef Name="CustomerContactPId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQNote_tblChargebleQuotation">
+          <End Type="StandardEngModel.tblChargebleQuotation" Role="tblChargebleQuotation" Multiplicity="1" />
+          <End Type="StandardEngModel.tblChargebleQNote" Role="tblChargebleQNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChargebleQuotation">
+              <PropertyRef Name="ChargebleQId" />
+            </Principal>
+            <Dependent Role="tblChargebleQNote">
+              <PropertyRef Name="ChargebleQId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetChargebleList_Result">
+          <Property Type="Int32" Name="ChargebleId" Nullable="false" />
+          <Property Type="DateTime" Name="ChargebleDate" Nullable="false" />
+          <Property Type="String" Name="QuotationNo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ContactPersonName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Remarks" Nullable="true" />
+          <Property Type="String" Name="MachineTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MachineName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MachineSerialNo" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GSTAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="GSTPercentage" Nullable="true" />
+          <Property Type="Decimal" Name="FinalAmount" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
+        <EntityType Name="tblChargebleNote">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3946,6 +4391,135 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tblChargeble">
+            <EntityTypeMapping TypeName="StandardEngModel.tblChargeble">
+              <MappingFragment StoreEntitySet="tblChargeble">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ShipGSTNo" ColumnName="ShipGSTNo" />
+                <ScalarProperty Name="ShipAddressline3" ColumnName="ShipAddressline3" />
+                <ScalarProperty Name="ShipAddressline2" ColumnName="ShipAddressline2" />
+                <ScalarProperty Name="ShipAddressline1" ColumnName="ShipAddressline1" />
+                <ScalarProperty Name="ShipCompanyName" ColumnName="ShipCompanyName" />
+                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentageId" ColumnName="GSTPercentageId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="MachineSerialNo" ColumnName="MachineSerialNo" />
+                <ScalarProperty Name="MachineModelId" ColumnName="MachineModelId" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="CustomerContactPId" ColumnName="CustomerContactPId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="QuotationNo" ColumnName="QuotationNo" />
+                <ScalarProperty Name="ChargebleDate" ColumnName="ChargebleDate" />
+                <ScalarProperty Name="ChargebleQDetailId" ColumnName="ChargebleQDetailId" />
+                <ScalarProperty Name="ChargebleQId" ColumnName="ChargebleQId" />
+                <ScalarProperty Name="ChargebleId" ColumnName="ChargebleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblChargebleQDetail">
+            <EntityTypeMapping TypeName="StandardEngModel.tblChargebleQDetail">
+              <MappingFragment StoreEntitySet="tblChargebleQDetail">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MachineSerialNo" ColumnName="MachineSerialNo" />
+                <ScalarProperty Name="MachineModelId" ColumnName="MachineModelId" />
+                <ScalarProperty Name="MachineTypeId" ColumnName="MachineTypeId" />
+                <ScalarProperty Name="ChargebleQId" ColumnName="ChargebleQId" />
+                <ScalarProperty Name="ChargebleQDetailId" ColumnName="ChargebleQDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblChargebleQNote">
+            <EntityTypeMapping TypeName="StandardEngModel.tblChargebleQNote">
+              <MappingFragment StoreEntitySet="tblChargebleQNote">
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="ChargebleQId" ColumnName="ChargebleQId" />
+                <ScalarProperty Name="ChargebleQNoteId" ColumnName="ChargebleQNoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblChargebleQuotation">
+            <EntityTypeMapping TypeName="StandardEngModel.tblChargebleQuotation">
+              <MappingFragment StoreEntitySet="tblChargebleQuotation">
+                <ScalarProperty Name="QuotationYear" ColumnName="QuotationYear" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ShipGSTNo" ColumnName="ShipGSTNo" />
+                <ScalarProperty Name="ShipAddressline3" ColumnName="ShipAddressline3" />
+                <ScalarProperty Name="ShipAddressline2" ColumnName="ShipAddressline2" />
+                <ScalarProperty Name="ShipAddressline1" ColumnName="ShipAddressline1" />
+                <ScalarProperty Name="ShipCompanyName" ColumnName="ShipCompanyName" />
+                <ScalarProperty Name="IsDifferentShipAddress" ColumnName="IsDifferentShipAddress" />
+                <ScalarProperty Name="IsConvertedIntoChargeble" ColumnName="IsConvertedIntoChargeble" />
+                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+                <ScalarProperty Name="FinalAmountInWords" ColumnName="FinalAmountInWords" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="TotalGSTAmount" ColumnName="TotalGSTAmount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentageId" ColumnName="GSTPercentageId" />
+                <ScalarProperty Name="TotalDetailAmount" ColumnName="TotalDetailAmount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ChargebleBy" ColumnName="ChargebleBy" />
+                <ScalarProperty Name="CustomerGST" ColumnName="CustomerGST" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CustomerContactPId" ColumnName="CustomerContactPId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="QuotationDate" ColumnName="QuotationDate" />
+                <ScalarProperty Name="QuotationNo" ColumnName="QuotationNo" />
+                <ScalarProperty Name="ChargebleQId" ColumnName="ChargebleQId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetChargebleList" FunctionName="StandardEngModel.Store.GetChargebleList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StandardEngModel.GetChargebleList_Result">
+                <ScalarProperty Name="ChargebleId" ColumnName="ChargebleId" />
+                <ScalarProperty Name="ChargebleDate" ColumnName="ChargebleDate" />
+                <ScalarProperty Name="QuotationNo" ColumnName="QuotationNo" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ContactPersonName" ColumnName="ContactPersonName" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="MachineTypeName" ColumnName="MachineTypeName" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="MachineSerialNo" ColumnName="MachineSerialNo" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+                <ScalarProperty Name="GSTPercentage" ColumnName="GSTPercentage" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblChargebleNote">
+            <EntityTypeMapping TypeName="StandardEngModel.tblChargebleNote">
+              <MappingFragment StoreEntitySet="tblChargebleNote">
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

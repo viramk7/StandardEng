@@ -1,0 +1,762 @@
+﻿@model tblChargebleQuotation
+@{
+    ViewBag.Title = "Manage Chargeble Quotation";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Chargeble Quotation</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">Manage Chargeble Quotation</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("SaveModelData", "ChargebleQuotation", FormMethod.Post, new { @class = "form form-horizontal", @id = "validation-form", @enctype = "multipart/form-data" }))
+            {
+                <div class="card">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title">
+                            @if (Model.ChargebleQId > 0)
+                            {
+                                @Html.Label("Chargeble Quotation Number :  ")
+                                @Html.DisplayFor(m => m.QuotationNo)
+                            }
+                        </h5>
+                        <div class="col-lg-7 text-right">
+                            @if (Model.ChargebleQId > 0)
+                            {
+                                <input type="submit" class="btn btn-outline-primary legitRipple" value="Save" name="create" />
+                                if (!Model.IsConvertedIntoChargeble)
+                                {
+                                    <input type="button" class="btn btn-outline-primary legitRipple" value="Generate Chargeble" onclick="onGenerateChargeble()" />
+                                }
+                            }
+                            else
+                            {
+                                <input type="submit" class="btn btn-outline-primary legitRipple" value="Save & Continue" name="create" />
+                            }
+                            <a href="@Url.Action("Index", "ChargebleQuotation")" class="btn btn-outline-primary legitRipple" tabindex="18">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        @Html.HiddenFor(m => m.ChargebleQId)
+                        @Html.HiddenFor(m => m.CreatedBy)
+                        @Html.HiddenFor(m => m.CreatedDate)
+                        @Html.HiddenFor(m => m.QuotationNo)
+                        @Html.HiddenFor(m => m.SequenceNo)
+                        @Html.HiddenFor(m => m.IsConvertedIntoChargeble)
+                        @Html.HiddenFor(m => m.QuotationYear)
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.QuotationDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().DatePickerFor(m => m.QuotationDate).HtmlAttributes(new { @tabindex = 1 })
+                                        @Html.ValidationMessageFor(m => m.QuotationDate)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
+                                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                                      .Placeholder("--Select Customer --")
+                                                                      .DataTextField("CustomerName")
+                                                                      .DataValueField("CustomerId")
+                                                                      .HtmlAttributes(new { @tabindex = "2" })
+                                                                      .DataSource(source =>
+                                                                      {
+                                                                          source.Read(read =>
+                                                                          {
+                                                                              read.Action("GetCustomerListWithAllDetails", "Common");
+                                                                          });
+                                                                      })
+                                                                      .Events(e => e.Change("onChangeCustomer"))
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.CustomerId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerContactPId, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CustomerContactPId)
+                                                                      .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
+                                                                      .Placeholder("--Select Contact Person --")
+                                                                      .DataTextField("ContactPersonName")
+                                                                      .DataValueField("ContactPersonId")
+                                                                      .Enable(false)
+                                                                      .AutoBind(false)
+                                                                      .CascadeFrom("CustomerId")
+                                                                      .HtmlAttributes(new { @tabindex = 3 })
+                                                                      .DataSource(source =>
+                                                                      {
+                                                                          source.Read(read =>
+                                                                          {
+                                                                              read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
+                                                                          }).ServerFiltering(true);
+                                                                      })
+                                                                      .Events(e => e.Change("onChangeCustomerContact"))
+                                        )
+                                        @Html.ValidationMessageFor(m => m.CustomerContactPId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CountryId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CountryId)
+                                              .Value(Model.CountryId == 0 ? string.Empty : Model.CountryId.ToString())
+                                              .Placeholder("--Select Country --")
+                                              .DataTextField("CountryName")
+                                              .DataValueField("CountryId")
+                                              .HtmlAttributes(new { @tabindex = 4 })
+                                              .DataSource(source =>
+                                              {
+                                                  source.Read(read =>
+                                                  {
+                                                      read.Action("GetCountryList", "Common");
+                                                  });
+                                              })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.CountryId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.StateId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.StateId)
+                                              .Value(Model.StateId == 0 ? string.Empty : Model.StateId.ToString())
+                                              .Placeholder("--Select State --")
+                                              .DataTextField("StateName")
+                                              .DataValueField("StateId")
+                                              .Enable(false)
+                                              .AutoBind(false)
+                                              .CascadeFrom("CountryId")
+                                              .HtmlAttributes(new { @tabindex = 5 })
+                                              .DataSource(source =>
+                                              {
+                                                  source.Read(read =>
+                                                  {
+                                                      read.Action("GetStateList", "Common").Data("filterState");
+                                                  }).ServerFiltering(true);
+                                              })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.StateId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CityId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CityId)
+                                              .Value(Model.CityId == 0 ? string.Empty : Model.CityId.ToString())
+                                              .Placeholder("--Select City --")
+                                              .DataTextField("CityName")
+                                              .DataValueField("CityId")
+                                              .Enable(false)
+                                              .AutoBind(false)
+                                              .CascadeFrom("StateId")
+                                              .HtmlAttributes(new { @tabindex = 6 })
+                                              .DataSource(source =>
+                                              {
+                                                  source.Read(read =>
+                                                  {
+                                                      read.Action("GetCityList", "Common").Data("filterCity");
+                                                  }).ServerFiltering(true);
+                                              })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.CityId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RegionId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.RegionId)
+                                              .Value(Model.RegionId == 0 ? string.Empty : Model.RegionId.ToString())
+                                              .Placeholder("--Select Region --")
+                                              .DataTextField("Name")
+                                              .DataValueField("Id")
+                                              .Enable(false)
+                                              .AutoBind(false)
+                                              .CascadeFrom("CityId")
+                                              .HtmlAttributes(new { @tabindex = 7 })
+                                              .DataSource(source =>
+                                              {
+                                                  source.Read(read =>
+                                                  {
+                                                      read.Action("GetRegionList", "Common").Data("filterRegion");
+                                                  }).ServerFiltering(true);
+                                              })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.RegionId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CustomerGST, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.CustomerGST).HtmlAttributes(new { @tabindex = 8 })
+                                        @Html.ValidationMessageFor(m => m.CustomerGST)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ChargebleBy, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.ChargebleBy)
+                                                                      .Value(Model.ChargebleBy == 0 ? string.Empty : Model.ChargebleBy.ToString())
+                                                                      .Placeholder("--Select --")
+                                                                      .DataTextField("Name")
+                                                                      .DataValueField("UserId")
+                                                                      .HtmlAttributes(new { @tabindex = 9, @readonly = "readonly" })
+                                                                      .DataSource(source =>
+                                                                      {
+                                                                          source.Read(read =>
+                                                                          {
+                                                                              read.Action("GetServiceEngineerList", "Common");
+                                                                          });
+                                                                      }))
+                                        @Html.ValidationMessageFor(m => m.ChargebleBy)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Addressline1, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.Addressline1).HtmlAttributes(new { @tabindex = 10 })
+                                        @Html.ValidationMessageFor(m => m.Addressline1)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Addressline2, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.Addressline2).HtmlAttributes(new { @tabindex = 11 })
+                                        @Html.ValidationMessageFor(m => m.Addressline2)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Addressline3, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.Addressline3).HtmlAttributes(new { @tabindex = 12 })
+                                        @Html.ValidationMessageFor(m => m.Addressline3)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PinCode, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.PinCode).HtmlAttributes(new { @tabindex = 13, @type = "number" })
+                                        @Html.ValidationMessageFor(m => m.PinCode)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ContactNo, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.ContactNo).HtmlAttributes(new { @tabindex = 14 })
+                                        @Html.ValidationMessageFor(m => m.ContactNo)
+                                    </div>
+                                </div>
+                                
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.Email).HtmlAttributes(new { @tabindex = 16, @type = "email" })
+                                        @Html.ValidationMessageFor(m => m.Email)
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(m => m.DefaultDiscount, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                        <div class="col-sm-6 col-lg-9 controls">
+                                            @Html.Kendo().TextBoxFor(m => m.DefaultDiscount).HtmlAttributes(new { @tabindex = 17, @type = "number" })
+                                            @Html.ValidationMessageFor(m => m.DefaultDiscount)
+                                        </div>
+                                    </div>*@
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Remarks, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                    <div class="col-sm-6 col-lg-12">
+                                        @(Html.TextAreaFor(m => m.Remarks, new { @tabindex = 18, @class = "k-textbox" }))
+                                        @Html.ValidationMessageFor(m => m.Remarks)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.Label("Is Different Ship-Address", new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                    <div class="col-sm-6 col-lg-9">
+                                        @Html.Kendo().CheckBoxFor(m => m.IsDifferentShipAddress).HtmlAttributes(new { @tabindex = 14, @onclick = "isDiffrentShipChk()" })
+                                        @Html.ValidationMessageFor(m => m.IsDifferentShipAddress)
+                                    </div>
+                                </div>
+
+                                <div id="shipAddress2">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShipCompanyName, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.ShipCompanyName).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.ShipCompanyName)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShipAddressline1, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.ShipAddressline1).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.ShipAddressline1)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShipAddressline3, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.ShipAddressline3).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.ShipAddressline3)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="shipAddress1" style="margin-top: 63px;">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShipAddressline2, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.ShipAddressline2).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.ShipAddressline2)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ShipGSTNo, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-9">
+                                            @Html.Kendo().TextBoxFor(m => m.ShipGSTNo).HtmlAttributes(new { @tabindex = 16 })
+                                            @Html.ValidationMessageFor(m => m.ShipGSTNo)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                if (Model.ChargebleQId > 0)
+                {
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h5 class="card-title">Chargeble Quotation Details</h5>
+                        </div>
+                        <div class="card-body">
+
+                            @(Html.Kendo().Grid<tblChargebleQDetail>()
+                                  .Name("gridQDetail")
+                                  .Columns(columns =>
+                                  {
+                                      if (!Model.IsConvertedIntoChargeble)
+                                      {
+                                          columns.Select().Width(50);
+
+                                          columns.Command(command =>
+                                          {
+                                              command.Edit().Text(" ");
+                                              command.Destroy().Text(" ");
+                                          }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
+                                                     .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
+                                      }
+                                      columns.ForeignKey(d => d.MachineTypeId, (IEnumerable)ViewBag.MachineTypeList, "MachineTypeId", "MachineTypeName");
+                                      columns.ForeignKey(d => d.MachineModelId, (IEnumerable)ViewBag.MachineModelList, "MachineModelId", "MachineName");
+                                      columns.Bound(d => d.MachineSerialNo);
+                                      columns.Bound(d => d.Quantity).ClientFooterTemplate("Total Quantity: #=sum#");
+                                      columns.Bound(d => d.Amount).Width(80).Title("Rate");
+                                      columns.Bound(d => d.TotalAmount).ClientFooterTemplate("Total Amount: #=sum#");
+                                      columns.Bound(d => d.Description);
+                                  })
+                                  .ToolBar(toolbar =>
+                                  {
+                                      if (AuthorizationHelper.CanAdd(ViewContext.RouteData.Values["Controller"].ToString()))
+                                      {
+                                          toolbar.Create().Text("Add");
+                                      }
+                                  })
+                                  .Editable(editable =>
+                                  {
+                                      editable.Mode(GridEditMode.PopUp).TemplateName("tblChargebleQuotationDetail");
+                                      editable.DisplayDeleteConfirmation("Are you sure you want to delete this Chargeble Quotation Detail?");
+                                      editable.Window(x => x.Title("Manage Chargeble Quotation Detail"));
+                                  })
+                                  .Sortable(sortable => sortable.AllowUnsort(false))
+                                  .PersistSelection()
+                                  .NoRecords()
+                                  .Scrollable(e => e.Enabled(true))
+                                  .Events(grid =>
+                                  {
+                                      grid.Save("onDetailSave");
+                                      grid.DataBound("onDataBound");
+                                      grid.Change("onChange");
+                                  })
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .Aggregates(aggregates =>
+                                      {
+                                          aggregates.Add(p => p.Quantity).Sum();
+                                          aggregates.Add(p => p.TotalAmount).Sum();
+                                      })
+                                      .ServerOperation(true)
+                                      .Model(model => {
+                                          model.Id(d => d.ChargebleQDetailId);
+                                          model.Field(d => d.Quantity).DefaultValue(1).Editable(false);
+                                      })
+                                      .Events(events => events.Error("onError(\"gridQDetail\")").RequestEnd("onRequestEnd"))
+                                      .Create(update => update.Action("KendoSave", "ChargebleQuotationDetail"))
+                                      .Read(read => read.Action("KendoRead", "ChargebleQuotationDetail").Data("additionalData"))
+                                      .Update(update => update.Action("KendoSave", "ChargebleQuotationDetail"))
+                                      .Destroy(update => update.Action("KendoDestroy", "ChargebleQuotationDetail"))
+                                  ))
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.TotalDetailAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                        <div class="col-sm-6 col-lg-12">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.TotalDetailAmount).Spinners(false)
+                                                                                                                                  .HtmlAttributes(new { @readonly = "readonly" }))
+                                            @Html.ValidationMessageFor(m => m.TotalDetailAmount)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GSTAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                        <div class="col-sm-6 col-lg-12">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.GSTAmount).Spinners(false).Min(0).Events(e => e.Change("onChangeGST")))
+                                            @Html.ValidationMessageFor(m => m.GSTAmount)
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-lg-6">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.GSTPercentageId, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                        <div class="col-sm-6 col-lg-12">
+                                            @(Html.Kendo().ComboBoxFor(m => m.GSTPercentageId)
+                                                                                          .Value(Model.GSTPercentageId == 0 ? string.Empty : Model.GSTPercentageId.ToString())
+                                                                                          .Placeholder("--Select GST Percentage --")
+                                                                                          .DataTextField("Percentage")
+                                                                                          .DataValueField("Id")
+                                                                                          .HtmlAttributes(new { @tabindex = 20 })
+                                                                                          .DataSource(source =>
+                                                                                          {
+                                                                                              source.Read(read =>
+                                                                                              {
+                                                                                                  read.Action("GetGSTPercentageList", "Common");
+                                                                                              });
+                                                                                          })
+                                                                                          .Events(e => e.Change("onChangeGST"))
+                                            )
+                                            @Html.ValidationMessageFor(m => m.GSTPercentageId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.FinalAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
+                                        <div class="col-sm-6 col-lg-12">
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.FinalAmount).Spinners(false).HtmlAttributes(new { @readonly = "readonly" }))
+                                            @Html.ValidationMessageFor(m => m.FinalAmount)
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h5 class="card-title">Chargeble Quotation Notes</h5>
+                        </div>
+                        <div class="card-body">
+                            @(Html.Kendo().Grid<tblChargebleQNote>()
+                                .Name("gridQNote")
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(p => p.NoteText);
+                                    columns.Command(command =>
+                                    {
+                                        command.Edit();
+                                        command.Destroy();
+                                    }).Width(250);
+                                })
+                                .ToolBar(toolbar => toolbar.Create())
+                                .Editable(editable =>
+                                {
+                                    editable.Mode(GridEditMode.InLine);
+                                    editable.DisplayDeleteConfirmation("Are you sure you want to delete this Note?");
+                                })
+                                .Pageable(x =>
+                                {
+                                    x.Refresh(true);
+                                    x.PageSizes(WebHelper.PageSizes);
+                                })
+                                .Sortable(sortable => sortable.AllowUnsort(false))
+                                .Filterable()
+                                .NoRecords()
+                                .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    .ServerOperation(true)
+                                    .PageSize(WebHelper.PageSize)
+                                    .Events(events => events.Error("onError(\"gridQNote\")"))
+                                    .Model(model =>
+                                    {
+                                        model.Id(p => p.ChargebleQNoteId);
+                                        model.Field(p => p.ChargebleQId).DefaultValue(Model.ChargebleQId);
+                                    })
+                                        .Create(update => update.Action("KendoSaveNotes", "ChargebleQuotation"))
+                                        .Read(read => read.Action("KendoReadChargebleNotes", "ChargebleQuotation").Data("additionalData"))
+                                        .Update(update => update.Action("KendoSaveNotes", "ChargebleQuotation"))
+                                        .Destroy(update => update.Action("KendoDestroyNotes", "ChargebleQuotation"))
+                                    ))
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    var selectedDetailId;
+
+    $(document).ready(function () {
+        isDiffrentShipChk();
+    });
+
+    function filterContactPerson(e) {
+        return {
+            CustomerId: getKendComboboxValue('CustomerId')
+        };
+    }
+
+    function filterState() {
+        return {
+            CountryId: $("#CountryId").val()
+        };
+    }
+
+    function filterCity() {
+        return {
+            CountryId: $("#CountryId").val(),
+            StateId: $("#StateId").val()
+        };
+    }
+
+    function filterRegion() {
+        return {
+            CityId: $("#CityId").val(),
+        };
+    }
+
+    function onChangeCustomer(e) {
+        var dataItemCustomer = $('#CustomerId').data("kendoComboBox");
+        if (dataItemCustomer != undefined) {
+            var dataItem = dataItemCustomer.dataItem(dataItemCustomer.select());
+            if (dataItem != undefined) {
+                setKendComboboxValue('CountryId', dataItem.CountryId);
+                setKendComboboxValue('StateId', dataItem.StateId);
+                setKendComboboxValue('CityId', dataItem.CityId);
+                setKendComboboxValue('RegionId', dataItem.RegionId);
+                setInputValueById('Addressline1', dataItem.Addressline1);
+                setInputValueById('Addressline2', dataItem.Addressline2);
+                setInputValueById('Addressline3', dataItem.Addressline3);
+                setInputValueById('CustomerGST', dataItem.GST);
+                //setInputValueById('ContactNo', dataItem.ContactNo);
+                //setInputValueById('AlternativeContactNo', dataItem.AlternativeContactNo);
+                setInputValueById('Email', dataItem.Email);
+                setInputValueById('PinCode', dataItem.PinCode);
+                setInputValueById('DefaultDiscount', dataItem.DefaultDiscount);
+            }
+        }
+    }
+
+    function onChangeCustomerContact(e) {
+        var dataItemCustomerP = $('#CustomerContactPId').data("kendoComboBox");
+        if (dataItemCustomerP != undefined) {
+            var dataItem = dataItemCustomerP.dataItem(dataItemCustomerP.select());
+            if (dataItem != undefined) {
+                setInputValueById('ContactNo', dataItem.ContactNo);
+            }
+        }
+    }
+
+    //Functions related to Detail Grid
+    function additionalData(e) {
+        return {
+            ChargebleQId: getInputValueById('ChargebleQId')
+        };
+    }
+
+
+    function filterMachine(e) {
+        return {
+            MachineTypeId: getKendComboboxValue('MachineTypeId')
+        };
+    }
+
+    function onRequestEnd(e) {
+        if (e.response.Errors === null) {
+            var type = e.type;
+            if (type === "update" || type === "create" || type == "destroy") {
+                readKendoGrid('gridQDetail');
+            }
+        }
+    }
+
+    function onDetailSave(e) {
+        e.model.set("ChargebleQId", getInputValueById('ChargebleQId'));
+        e.model.set("TotalAmount", getInputValueById('TotalAmount'));
+    }
+
+    function ChangeTotalAmount(e) {
+        var quantity = getkendoNumericTextBoxValue('Quantity');
+        var unitPrice = getkendoNumericTextBoxValue('Amount');
+        var totalPrice = quantity * unitPrice;
+        setkendoNumericTextBoxValue('TotalAmount', totalPrice);
+    }
+
+    function onChange(e) {
+        selectedDetailId = this.selectedKeyNames().join(", ");
+    }
+
+    function onDataBound(e) {
+        debugger;
+        var grid = $("#gridQDetail").data("kendoGrid");
+
+        var totalDetailAmount = 0;
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            //var currentUid = gridData[i].uid;
+            if (gridData[i].TotalAmount > 0) {
+                totalDetailAmount = totalDetailAmount + gridData[i].TotalAmount;
+            }
+        }
+
+        setkendoNumericTextBoxValue('TotalDetailAmount', totalDetailAmount);
+
+        var gstPer = getKendComboboxText('GSTPercentageId');
+        var gstAmount = 0;
+        if (gstPer > 0) {
+            gstAmount = (totalDetailAmount * gstPer) / 100;
+        }
+        var totalFinalAmount = totalDetailAmount + gstAmount;
+
+        setkendoNumericTextBoxValue('FinalAmount', totalFinalAmount);
+    }
+
+    function onChangeGST(e) {
+
+        var totalDetailAmount = getkendoNumericTextBoxValue('TotalDetailAmount');
+        var gstPer = getKendComboboxText('GSTPercentageId');
+        //var gstA = getkendoNumericTextBoxValue('GSTAmount');
+
+        var gstAmount = 0;
+        if (gstPer > 0) {
+            gstAmount = (totalDetailAmount * gstPer) / 100;
+        }
+
+        //var totalGSTamount = 0;
+        //if (gstA > 0) {
+        //    totalGSTamount = gstAmount + gstA;
+        //} else {
+        //    totalGSTamount = gstAmount;
+        //}
+
+        var totalFinalAmount = totalDetailAmount + gstAmount;
+
+        setkendoNumericTextBoxValue('GSTAmount', gstAmount);
+        setkendoNumericTextBoxValue('FinalAmount', totalFinalAmount);
+    }
+
+    function isDiffrentShipChk(e) {
+        var state = $("#IsDifferentShipAddress").is(':checked');
+        if (state) {
+            $("#shipAddress1").show();
+            $("#shipAddress2").show();
+        }
+        else {
+            $("#shipAddress1").hide();
+            $("#shipAddress2").hide();
+            setInputValueById('ShipAddressline1', '');
+            setInputValueById('ShipAddressline2', '');
+            setInputValueById('ShipAddressline3', '');
+            setInputValueById('ShipGSTNo', '');
+            setInputValueById('ShipCompanyName', '');
+        }
+    }
+
+    function onGenerateChargeble() {
+        var selectedGst = getKendComboboxValue('GSTPercentageId');
+        if (selectedDetailId != null && selectedDetailId != "" && selectedDetailId != typeof (undefined)) {
+
+            if (selectedGst != null && selectedGst != "") {
+                bootbox.confirm('Are you sure you want to Generate Chargeble ?', function (result) {
+                if (result === true) {
+                    var url = '@Url.Action("GenerateChargeble", "ChargebleQuotation")?QuotationId=' + getInputValueById('ChargebleQId') + "&SelectedIds=" + selectedDetailId ;
+                    window.location.href = url;
+                }
+            }, 'popup-confirmation');
+            }
+            else {
+                showMessageOnly('Please select GST percentage first.', 'popup-error');
+            }
+
+        }
+        else {
+            showMessageOnly('Please select at lease one Quotation detail.', 'popup-error');
+        }
+    }
+</script>
+

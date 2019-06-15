@@ -183,6 +183,10 @@
     <Compile Include="Controllers\AMCQuotationController.cs" />
     <Compile Include="Controllers\AMCQuoteDetailController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChargebleController.cs" />
+    <Compile Include="Controllers\ChargebleMasterNotesController.cs" />
+    <Compile Include="Controllers\ChargebleQuotationController.cs" />
+    <Compile Include="Controllers\ChargebleQuotationDetailController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CommissioningController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -212,6 +216,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ChargebleQuotation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ChargebleQuotation.Designer.cs">
+      <DependentUpon>ChargebleQuotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\AMCQuotation.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -377,6 +387,7 @@
     <Folder Include="Uploads\" />
     <Folder Include="Views\AMCQuoteDetail\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\ChargebleQuotationDetail\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\ContactPerson\" />
     <Folder Include="Views\MachinePartsQuotationDetail\" />
@@ -471,6 +482,13 @@
     <Content Include="Views\Notes\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tblAMCQuotationDetail.cshtml" />
     <Content Include="Views\AMC\_AMCServiceOverWritePartial.cshtml" />
+    <Content Include="Views\ChargebleQuotation\Index.cshtml" />
+    <Content Include="Views\ChargebleQuotation\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\tblChargebleQuotationDetail.cshtml" />
+    <Content Include="Views\Chargeble\Index.cshtml" />
+    <Content Include="Views\Chargeble\Create.cshtml" />
+    <Content Include="Views\ChargebleQuotation\_ChargebleQuotationReport.cshtml" />
+    <Content Include="Views\ChargebleMasterNotes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">
@@ -484,6 +502,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\ChargebleQuotation.resx">
+      <DependentUpon>ChargebleQuotation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\AMCQuotation.resx">
       <DependentUpon>AMCQuotation.cs</DependentUpon>
     </EmbeddedResource>

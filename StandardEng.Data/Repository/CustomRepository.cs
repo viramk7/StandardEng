@@ -271,6 +271,7 @@ namespace StandardEng.Data.Repository
             return dataList.OrderBy(m => m.CustomerName).ToList();
         }
 
+
         public static List<GetCommissioningListForPartsQuotation_Result> GetCommissioningListForPartsQuotation(int CustomerId)
         {
             List<GetCommissioningListForPartsQuotation_Result> dataList;
@@ -281,6 +282,18 @@ namespace StandardEng.Data.Repository
             }
 
             return dataList.OrderByDescending(m => m.CommissioningId).ToList();
+        }
+
+        public static List<GetChargebleList_Result> GetChargebleList()
+        {
+            List<GetChargebleList_Result> dataList;
+
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                dataList = context.GetChargebleList().ToList();
+            }
+
+            return dataList.OrderBy(m => m.CustomerName).ToList();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace StandardEng.Web.Controllers
         #region private variables
         private readonly GenericRepository<tblAMC> _dbRepository;
         private readonly GenericRepository<tblAMCServices> _dbRepositoryAMCService;
+        private readonly GenericRepository<tblAMCQuotation> _dbRepositoryAMCQuotation;
         #endregion
 
         #region Constructor
@@ -27,6 +28,7 @@ namespace StandardEng.Web.Controllers
         {
             _dbRepository = new GenericRepository<tblAMC>();
             _dbRepositoryAMCService = new GenericRepository<tblAMCServices>();
+            _dbRepositoryAMCQuotation = new GenericRepository<tblAMCQuotation>();
         }
         #endregion
 
@@ -101,6 +103,11 @@ namespace StandardEng.Web.Controllers
 
         public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, tblAMC model)
         {
+
+            //tblAMCQuotation quotationObj = _dbRepositoryAMCQuotation.SelectById(model.AMCQuotationId);
+            //quotationObj.IsConvertedIntoAMC = false;
+            //_dbRepositoryAMCQuotation.Update(quotationObj);
+
             string deleteMessage = _dbRepository.Delete(model.AMCId);
 
             ModelState.Clear();

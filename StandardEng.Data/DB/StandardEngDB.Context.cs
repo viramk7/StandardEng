@@ -59,6 +59,11 @@ namespace StandardEng.Data.DB
         public virtual DbSet<tblAMC> tblAMC { get; set; }
         public virtual DbSet<tblAMCServices> tblAMCServices { get; set; }
         public virtual DbSet<tblAMCQuotation> tblAMCQuotation { get; set; }
+        public virtual DbSet<tblChargeble> tblChargeble { get; set; }
+        public virtual DbSet<tblChargebleQDetail> tblChargebleQDetail { get; set; }
+        public virtual DbSet<tblChargebleQNote> tblChargebleQNote { get; set; }
+        public virtual DbSet<tblChargebleQuotation> tblChargebleQuotation { get; set; }
+        public virtual DbSet<tblChargebleNote> tblChargebleNote { get; set; }
     
         public virtual ObjectResult<AssignRoleList_Result> AssignRoleList(Nullable<int> roleId)
         {
@@ -155,6 +160,11 @@ namespace StandardEng.Data.DB
                 new ObjectParameter("CustomerId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommissioningListForPartsQuotation_Result>("GetCommissioningListForPartsQuotation", customerIdParameter);
+        }
+    
+        public virtual ObjectResult<GetChargebleList_Result> GetChargebleList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetChargebleList_Result>("GetChargebleList");
         }
     }
 }

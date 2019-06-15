@@ -58,7 +58,7 @@
     @Html.LabelFor(m => m.Quantity)
 </div>
 <div class="editor-field">
-    @(Html.Kendo().NumericTextBoxFor(m => m.Quantity).HtmlAttributes(new { @tabindex = 4 })
+    @(Html.Kendo().NumericTextBoxFor(m => m.Quantity).HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
                           .Spinners(false).Min(0).Events(e => e.Change("ChangeTotalAmount")))
     @Html.ValidationMessageFor(m => m.Quantity)
 </div>

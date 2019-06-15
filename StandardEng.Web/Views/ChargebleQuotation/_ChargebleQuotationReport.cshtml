@@ -1,0 +1,30 @@
+﻿@using StandardEng.Web.Reports
+
+@{
+    var typeReportSource = new TypeReportSource { TypeName = typeof(ChargebleQuotation).AssemblyQualifiedName };
+    typeReportSource.Parameters.Add("ChargebleQuotationId", ViewBag.QuotationId);
+    typeReportSource.Parameters.Add("Reportname", ViewBag.Reportname);
+}
+<style>
+    #RpChargebleQuotation {
+        position: absolute;
+        left: 5px;
+        right: 5px;
+        top: 5px;
+        bottom: 5px;
+        overflow: hidden;
+    }
+</style>
+
+@(Html.TelerikReporting().ReportViewer()
+               .Id("RpChargebleQuotation")
+               .ServiceUrl(WebHelper.ReportApiController)
+               .TemplateUrl(WebHelper.ReportTemplate)
+               .ReportSource(typeReportSource)
+               .ViewMode(ViewMode.PrintPreview)
+               .ScaleMode(ScaleMode.Specific)
+               .Scale(1.0)
+               .PersistSession(false)
+)
+
+

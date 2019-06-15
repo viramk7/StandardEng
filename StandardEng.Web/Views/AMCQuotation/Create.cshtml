@@ -448,7 +448,11 @@
                                                                                               aggregates.Add(p => p.TotalAmount).Sum();
                                                                                           })
                                                                                           .ServerOperation(true)
-                                                                                          .Model(model => model.Id(d => d.AMCQDetailId))
+                                                                                          .Model(model =>
+                                                                                          {
+                                                                                              model.Id(d => d.AMCQDetailId);
+                                                                                              model.Field(d => d.Quantity).DefaultValue(1).Editable(false);
+                                                                                          })
                                                                                           .Events(events => events.Error("onError(\"gridAMCQDetail\")").RequestEnd("onRequestEnd"))
                                                                                           .Create(update => update.Action("KendoSave", "AMCQuoteDetail"))
                                                                                           .Read(read => read.Action("KendoRead", "AMCQuoteDetail").Data("additionalData"))
@@ -637,7 +641,10 @@
     function onChangeCustomerContact(e) {
         var dataItemCustomerP = $('#CustomerContactPId').data("kendoComboBox");
         if (dataItemCustomerP != undefined) {
-            setInputValueById('ContactNo', dataItem.ContactNo);
+            var dataItem = dataItemCustomerP.dataItem(dataItemCustomerP.select());
+            if (dataItem != undefined) {
+                setInputValueById('ContactNo', dataItem.ContactNo);
+            }
         }
     }
 
