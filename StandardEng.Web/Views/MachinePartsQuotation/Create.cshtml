@@ -738,12 +738,13 @@
 
     function filterMachine(e) {
         return {
-            MachineTypeId: getKendComboboxValue('MachineTypeId')
+            MachineTypeId: getKendComboboxValue('MachineTypeId'),
+            text: $("#MachinePartsId").data("kendoComboBox").input.val()
         };
     }
 
     function onChangeMPart(e) {
-        debugger;
+
         var dataItemMachinePart = $('#MachinePartsId').data("kendoComboBox");
         if (dataItemMachinePart != undefined) {
             var dataItem = dataItemMachinePart.dataItem(dataItemMachinePart.select());

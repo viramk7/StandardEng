@@ -142,13 +142,13 @@ namespace StandardEng.Web.Controllers
             }
         }
 
-        public ActionResult GetMachinePartList(int? MachineTypeId = 0)
+        public ActionResult GetMachinePartList(int? MachineTypeId = 0, string text = "")
         {
             using (var context = BaseContext.GetDbContext())
             {
                 if(MachineTypeId > 0)
                 {
-                    var list = context.tblMachineParts.Where(m=>m.MachineTypeId == MachineTypeId).Select(m => new { m.MachinePartId, ProductValue = m.ProductValue + "-" + m.AlternateProductValue + "-" + m.AlternateProductValue1, m.Description, m.HSNCode ,m.IPL}).OrderBy(m => new { m.MachinePartId }).ToList();
+                    var list = context.tblMachineParts.Where(m=>m.MachineTypeId == MachineTypeId && (m.AlternateProductValue.Contains(text) || m.ProductValue.Contains(text) || m.AlternateProductValue1.Contains(text))).Select(m => new { m.MachinePartId, ProductValue = m.ProductValue + "-" + m.AlternateProductValue + "-" + m.AlternateProductValue1, m.Description, m.HSNCode ,m.IPL}).OrderBy(m => new { m.MachinePartId }).ToList();
                     return Json(list, JsonRequestBehavior.AllowGet);
                 }
                 else

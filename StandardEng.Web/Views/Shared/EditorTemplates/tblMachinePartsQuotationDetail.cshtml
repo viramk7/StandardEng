@@ -91,7 +91,9 @@
                                .AutoBind(false)
                                .CascadeFrom("MachineTypeId")
                                .HtmlAttributes(new { @tabindex = 4, @data_value_primitive = true })
-                               //.Filter("startswith")
+                              // .Filter("contains")
+                                .MinLength(3)
+                               .Filter("startswith")
                                .DataSource(source =>
                                {
                                    source.Read(read =>
@@ -99,7 +101,7 @@
                                        read.Action("GetMachinePartList", "Common").Data("filterMachine");
                                    }).ServerFiltering(true);
                                })
-                               .Suggest(true)
+                               // .Suggest(true)
                                .Events(e => e.Change("onChangeMPart"))
         )
         @Html.ValidationMessageFor(m => m.MachinePartsId)
