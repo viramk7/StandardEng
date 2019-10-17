@@ -61,7 +61,7 @@ namespace StandardEng.Data.DB
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAMCQDetail> tblAMCQDetail { get; set; }
-        public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
+        public virtual tblCustomer tblCustomer { get; set; }
     }
 }

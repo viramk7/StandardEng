@@ -41,12 +41,19 @@ namespace StandardEng.Web.Controllers
 
         public ActionResult KendoRead([DataSourceRequest] DataSourceRequest request)
         {
-            if (!request.Sorts.Any())
+            try
             {
-                request.Sorts.Add(new SortDescriptor("CustomerName", ListSortDirection.Ascending));
-            }
+                if (!request.Sorts.Any())
+                {
+                    request.Sorts.Add(new SortDescriptor("CustomerName", ListSortDirection.Ascending));
+                }
 
-            return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
+                return Json(_dbRepository.GetEntities().ToDataSourceResult(request));
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
         }
 
         public ActionResult Create()
@@ -61,7 +68,7 @@ namespace StandardEng.Web.Controllers
 
         public ActionResult SaveModelData(tblCustomer model, string create = null)
         {
-             if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("Create", model);
             }

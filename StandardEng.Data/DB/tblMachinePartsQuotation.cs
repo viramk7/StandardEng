@@ -58,9 +58,9 @@ namespace StandardEng.Data.DB
         public string CompanyName { get; set; }
         public string QuotationYear { get; set; }
     
-        public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
+        public virtual tblCustomer tblCustomer { get; set; }
     }
 }

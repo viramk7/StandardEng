@@ -17,12 +17,12 @@ namespace StandardEng.Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCustomer()
         {
+            this.tblAMCQuotation = new HashSet<tblAMCQuotation>();
+            this.tblChargebleQuotation = new HashSet<tblChargebleQuotation>();
             this.tblCustomerContactPersons = new HashSet<tblCustomerContactPersons>();
             this.tblMachinePartsQuotation = new HashSet<tblMachinePartsQuotation>();
             this.tblPerformaInvoice = new HashSet<tblPerformaInvoice>();
             this.tblPreCommissioning = new HashSet<tblPreCommissioning>();
-            this.tblAMCQuotation = new HashSet<tblAMCQuotation>();
-            this.tblChargebleQuotation = new HashSet<tblChargebleQuotation>();
         }
     
         public int CustomerId { get; set; }
@@ -42,6 +42,10 @@ namespace StandardEng.Data.DB
         public Nullable<decimal> DefaultDiscount { get; set; }
         public bool IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAMCQuotation> tblAMCQuotation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblChargebleQuotation> tblChargebleQuotation { get; set; }
         public virtual tblCity tblCity { get; set; }
         public virtual tblCountry tblCountry { get; set; }
         public virtual tblRegion tblRegion { get; set; }
@@ -54,9 +58,5 @@ namespace StandardEng.Data.DB
         public virtual ICollection<tblPerformaInvoice> tblPerformaInvoice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPreCommissioning> tblPreCommissioning { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblAMCQuotation> tblAMCQuotation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblChargebleQuotation> tblChargebleQuotation { get; set; }
     }
 }

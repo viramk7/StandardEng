@@ -1806,8 +1806,80 @@
             <End Role="tblPerformaInvoice" EntitySet="tblPerformaInvoice" />
             <End Role="tblPerformaInvoiceDetail" EntitySet="tblPerformaInvoiceDetail" />
           </AssociationSet>
-          <EntitySet Name="tblCustomer" EntityType="StandardEngModel.tblCustomer" />
           <EntitySet Name="tblMachinePartsQuotation" EntityType="StandardEngModel.tblMachinePartsQuotation" />
+          <AssociationSet Name="FK_tblMachinePartsQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblMachinePartsQuotation" EntitySet="tblMachinePartsQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation">
+            <End Role="tblMachinePartsQuotation" EntitySet="tblMachinePartsQuotation" />
+            <End Role="tblMachinePartsQuotationDetail" EntitySet="tblMachinePartsQuotationDetail" />
+          </AssociationSet>
+          <EntitySet Name="tblAMCQDetail" EntityType="StandardEngModel.tblAMCQDetail" />
+          <EntitySet Name="tblAMCQNote" EntityType="StandardEngModel.tblAMCQNote" />
+          <EntitySet Name="tblNote" EntityType="StandardEngModel.tblNote" />
+          <AssociationSet Name="FK_tblAMCQDetail_tblMachineModels" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQDetail_tblMachineType" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <FunctionImport Name="GetAMCList" ReturnType="Collection(StandardEngModel.GetAMCList_Result)" />
+          <EntitySet Name="tblAMC" EntityType="StandardEngModel.tblAMC" />
+          <EntitySet Name="tblAMCServices" EntityType="StandardEngModel.tblAMCServices" />
+          <AssociationSet Name="FK_tblAMCServices_tblAMC" Association="StandardEngModel.FK_tblAMCServices_tblAMC">
+            <End Role="tblAMC" EntitySet="tblAMC" />
+            <End Role="tblAMCServices" EntitySet="tblAMCServices" />
+          </AssociationSet>
+          <EntitySet Name="tblAMCQuotation" EntityType="StandardEngModel.tblAMCQuotation" />
+          <AssociationSet Name="FK_tblAMCQDetail_tblAMCQuotation" Association="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation">
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAMCQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
+          <FunctionImport Name="GetCommissioningListForPartsQuotation" ReturnType="Collection(StandardEngModel.GetCommissioningListForPartsQuotation_Result)">
+          <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblChargeble" EntityType="StandardEngModel.tblChargeble" />
+          <EntitySet Name="tblChargebleQDetail" EntityType="StandardEngModel.tblChargebleQDetail" />
+          <EntitySet Name="tblChargebleQNote" EntityType="StandardEngModel.tblChargebleQNote" />
+          <EntitySet Name="tblChargebleQuotation" EntityType="StandardEngModel.tblChargebleQuotation" />
+          <AssociationSet Name="FK_tblChargebleQDetail_tblChargebleQuotation" Association="StandardEngModel.FK_tblChargebleQDetail_tblChargebleQuotation">
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineModels" Association="StandardEngModel.FK_tblChargebleQDetail_tblMachineModels">
+            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineType" Association="StandardEngModel.FK_tblChargebleQDetail_tblMachineType">
+            <End Role="tblMachineType" EntitySet="tblMachineType" />
+            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblChargebleQuotation_tblCustomerContactPersons">
+            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQNote_tblChargebleQuotation" Association="StandardEngModel.FK_tblChargebleQNote_tblChargebleQuotation">
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+            <End Role="tblChargebleQNote" EntitySet="tblChargebleQNote" />
+          </AssociationSet>
+          <FunctionImport Name="GetChargebleList" ReturnType="Collection(StandardEngModel.GetChargebleList_Result)" />
+          <EntitySet Name="tblChargebleNote" EntityType="StandardEngModel.tblChargebleNote" />
+          <EntitySet Name="tblCustomer" EntityType="StandardEngModel.tblCustomer" />
+          <AssociationSet Name="FK_tblAMCQuotation_tblCustomer" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomer" Association="StandardEngModel.FK_tblChargebleQuotation_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblCustomer_tblCity" Association="StandardEngModel.FK_tblCustomer_tblCity">
             <End Role="tblCity" EntitySet="tblCity" />
             <End Role="tblCustomer" EntitySet="tblCustomer" />
@@ -1840,78 +1912,6 @@
             <End Role="tblCustomer" EntitySet="tblCustomer" />
             <End Role="tblPreCommissioning" EntitySet="tblPreCommissioning" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblMachinePartsQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons">
-            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
-            <End Role="tblMachinePartsQuotation" EntitySet="tblMachinePartsQuotation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" Association="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation">
-            <End Role="tblMachinePartsQuotation" EntitySet="tblMachinePartsQuotation" />
-            <End Role="tblMachinePartsQuotationDetail" EntitySet="tblMachinePartsQuotationDetail" />
-          </AssociationSet>
-          <EntitySet Name="tblAMCQDetail" EntityType="StandardEngModel.tblAMCQDetail" />
-          <EntitySet Name="tblAMCQNote" EntityType="StandardEngModel.tblAMCQNote" />
-          <EntitySet Name="tblNote" EntityType="StandardEngModel.tblNote" />
-          <AssociationSet Name="FK_tblAMCQDetail_tblMachineModels" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineModels">
-            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
-            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblAMCQDetail_tblMachineType" Association="StandardEngModel.FK_tblAMCQDetail_tblMachineType">
-            <End Role="tblMachineType" EntitySet="tblMachineType" />
-            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
-          </AssociationSet>
-          <FunctionImport Name="GetAMCList" ReturnType="Collection(StandardEngModel.GetAMCList_Result)" />
-          <EntitySet Name="tblAMC" EntityType="StandardEngModel.tblAMC" />
-          <EntitySet Name="tblAMCServices" EntityType="StandardEngModel.tblAMCServices" />
-          <AssociationSet Name="FK_tblAMCServices_tblAMC" Association="StandardEngModel.FK_tblAMCServices_tblAMC">
-            <End Role="tblAMC" EntitySet="tblAMC" />
-            <End Role="tblAMCServices" EntitySet="tblAMCServices" />
-          </AssociationSet>
-          <EntitySet Name="tblAMCQuotation" EntityType="StandardEngModel.tblAMCQuotation" />
-          <AssociationSet Name="FK_tblAMCQDetail_tblAMCQuotation" Association="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation">
-            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
-            <End Role="tblAMCQDetail" EntitySet="tblAMCQDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblAMCQuotation_tblCustomer" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomer">
-            <End Role="tblCustomer" EntitySet="tblCustomer" />
-            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblAMCQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons">
-            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
-            <End Role="tblAMCQuotation" EntitySet="tblAMCQuotation" />
-          </AssociationSet>
-          <FunctionImport Name="GetCommissioningListForPartsQuotation" ReturnType="Collection(StandardEngModel.GetCommissioningListForPartsQuotation_Result)">
-          <Parameter Name="CustomerId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="tblChargeble" EntityType="StandardEngModel.tblChargeble" />
-          <EntitySet Name="tblChargebleQDetail" EntityType="StandardEngModel.tblChargebleQDetail" />
-          <EntitySet Name="tblChargebleQNote" EntityType="StandardEngModel.tblChargebleQNote" />
-          <EntitySet Name="tblChargebleQuotation" EntityType="StandardEngModel.tblChargebleQuotation" />
-          <AssociationSet Name="FK_tblChargebleQDetail_tblChargebleQuotation" Association="StandardEngModel.FK_tblChargebleQDetail_tblChargebleQuotation">
-            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
-            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineModels" Association="StandardEngModel.FK_tblChargebleQDetail_tblMachineModels">
-            <End Role="tblMachineModels" EntitySet="tblMachineModels" />
-            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblChargebleQDetail_tblMachineType" Association="StandardEngModel.FK_tblChargebleQDetail_tblMachineType">
-            <End Role="tblMachineType" EntitySet="tblMachineType" />
-            <End Role="tblChargebleQDetail" EntitySet="tblChargebleQDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomer" Association="StandardEngModel.FK_tblChargebleQuotation_tblCustomer">
-            <End Role="tblCustomer" EntitySet="tblCustomer" />
-            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblChargebleQuotation_tblCustomerContactPersons" Association="StandardEngModel.FK_tblChargebleQuotation_tblCustomerContactPersons">
-            <End Role="tblCustomerContactPersons" EntitySet="tblCustomerContactPersons" />
-            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblChargebleQNote_tblChargebleQuotation" Association="StandardEngModel.FK_tblChargebleQNote_tblChargebleQuotation">
-            <End Role="tblChargebleQuotation" EntitySet="tblChargebleQuotation" />
-            <End Role="tblChargebleQNote" EntitySet="tblChargebleQNote" />
-          </AssociationSet>
-          <FunctionImport Name="GetChargebleList" ReturnType="Collection(StandardEngModel.GetChargebleList_Result)" />
-          <EntitySet Name="tblChargebleNote" EntityType="StandardEngModel.tblChargebleNote" />
           </EntityContainer>
         <ComplexType Name="AssignRoleList_Result">
           <Property Type="Int32" Name="RoleMenuPK" Nullable="false" />
@@ -1985,10 +1985,10 @@
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioning_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblPreCommissioning" />
           <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblPerformaInvoice" />
-          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomerContactPersons" ToRole="tblCustomer" />
           <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblMachinePartsQuotation" />
           <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblAMCQuotation" />
           <NavigationProperty Name="tblChargebleQuotation" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomerContactPersons" FromRole="tblCustomerContactPersons" ToRole="tblChargebleQuotation" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomerContactPersons" ToRole="tblCustomer" />
         </EntityType>
         <EntityType Name="tblMachineAccessories">
           <Key>
@@ -2879,7 +2879,6 @@
           <Property Name="TotalFreightAmount" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomerContactPersons" FromRole="tblPerformaInvoice" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblPerformaInvoiceDetail" Relationship="StandardEngModel.FK_tblPerformaInvoiceDetail_tblPerformaInvoice" FromRole="tblPerformaInvoice" ToRole="tblPerformaInvoiceDetail" />
-          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblPerformaInvoice" ToRole="tblCustomer" />
           <Property Name="IsDifferentShipAddress" Type="Boolean" />
           <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -2887,6 +2886,7 @@
           <Property Name="GSTNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FreightTerms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblPerformaInvoice" ToRole="tblCustomer" />
         </EntityType>
         <Association Name="FK_tblPerformaInvoice_tblCustomerContactPersons">
           <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
@@ -2914,37 +2914,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblCustomer">
-          <Key>
-            <PropertyRef Name="CustomerId" />
-          </Key>
-          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CountryId" Type="Int32" Nullable="false" />
-          <Property Name="StateId" Type="Int32" Nullable="false" />
-          <Property Name="CityId" Type="Int32" Nullable="false" />
-          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="GST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AlternativeContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RegionId" Type="Int32" />
-          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DefaultDiscount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tblCity" Relationship="StandardEngModel.FK_tblCustomer_tblCity" FromRole="tblCustomer" ToRole="tblCity" />
-          <NavigationProperty Name="tblCountry" Relationship="StandardEngModel.FK_tblCustomer_tblCountry" FromRole="tblCustomer" ToRole="tblCountry" />
-          <NavigationProperty Name="tblRegion" Relationship="StandardEngModel.FK_tblCustomer_tblRegion" FromRole="tblCustomer" ToRole="tblRegion" />
-          <NavigationProperty Name="tblState" Relationship="StandardEngModel.FK_tblCustomer_tblState" FromRole="tblCustomer" ToRole="tblState" />
-          <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomer" ToRole="tblCustomerContactPersons" />
-          <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblMachinePartsQuotation" />
-          <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblCustomer" ToRole="tblPerformaInvoice" />
-          <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioning_tblCustomer" FromRole="tblCustomer" ToRole="tblPreCommissioning" />
-          <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblAMCQuotation" />
-          <NavigationProperty Name="tblChargebleQuotation" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblChargebleQuotation" />
-        </EntityType>
         <EntityType Name="tblMachinePartsQuotation">
           <Key>
             <PropertyRef Name="MachinePartsQuotationId" />
@@ -2978,7 +2947,6 @@
           <Property Name="ServiceEngineerId" Type="Int32" />
           <Property Name="QuotationAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="QuatationByUser" Type="Int32" />
-          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblMachinePartsQuotation" ToRole="tblCustomer" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomerContactPersons" FromRole="tblMachinePartsQuotation" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblMachinePartsQuotationDetail" Relationship="StandardEngModel.FK_tblMachinePartsQuotationDetail_tblMachinePartsQuotation" FromRole="tblMachinePartsQuotation" ToRole="tblMachinePartsQuotationDetail" />
           <Property Name="IsDifferentShipAddress" Type="Boolean" />
@@ -2989,105 +2957,8 @@
           <Property Name="FreightTerms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="QuotationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblMachinePartsQuotation" ToRole="tblCustomer" />
         </EntityType>
-        <Association Name="FK_tblCustomer_tblCity">
-          <End Type="StandardEngModel.tblCity" Role="tblCity" Multiplicity="1" />
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblCustomer">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCustomer_tblCountry">
-          <End Type="StandardEngModel.tblCountry" Role="tblCountry" Multiplicity="1" />
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCountry">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="tblCustomer">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCustomer_tblRegion">
-          <End Type="StandardEngModel.tblRegion" Role="tblRegion" Multiplicity="0..1" />
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblRegion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblCustomer">
-              <PropertyRef Name="RegionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCustomer_tblState">
-          <End Type="StandardEngModel.tblState" Role="tblState" Multiplicity="1" />
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblState">
-              <PropertyRef Name="StateId" />
-            </Principal>
-            <Dependent Role="tblCustomer">
-              <PropertyRef Name="StateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCustomerContactPersons_tblCustomer">
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="tblCustomerContactPersons">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblMachinePartsQuotation_tblCustomer">
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="StandardEngModel.tblMachinePartsQuotation" Role="tblMachinePartsQuotation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="tblMachinePartsQuotation">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblPerformaInvoice_tblCustomer">
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="StandardEngModel.tblPerformaInvoice" Role="tblPerformaInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="tblPerformaInvoice">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblPreCommissioning_tblCustomer">
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="StandardEngModel.tblPreCommissioning" Role="tblPreCommissioning" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="tblPreCommissioning">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblMachinePartsQuotation_tblCustomerContactPersons">
           <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="1" />
           <End Type="StandardEngModel.tblMachinePartsQuotation" Role="tblMachinePartsQuotation" Multiplicity="*" />
@@ -3292,9 +3163,9 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblAMCQDetail" Relationship="StandardEngModel.FK_tblAMCQDetail_tblAMCQuotation" FromRole="tblAMCQuotation" ToRole="tblAMCQDetail" />
-          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblAMCQuotation" ToRole="tblCustomer" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomerContactPersons" FromRole="tblAMCQuotation" ToRole="tblCustomerContactPersons" />
           <Property Name="QuotationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblAMCQuotation" ToRole="tblCustomer" />
         </EntityType>
         <Association Name="FK_tblAMCQDetail_tblAMCQuotation">
           <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="1">
@@ -3307,18 +3178,6 @@
             </Principal>
             <Dependent Role="tblAMCQDetail">
               <PropertyRef Name="AMCQId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblAMCQuotation_tblCustomer">
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="tblAMCQuotation">
-              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3451,9 +3310,9 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="QuotationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblChargebleQDetail" Relationship="StandardEngModel.FK_tblChargebleQDetail_tblChargebleQuotation" FromRole="tblChargebleQuotation" ToRole="tblChargebleQDetail" />
-          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomer" FromRole="tblChargebleQuotation" ToRole="tblCustomer" />
           <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomerContactPersons" FromRole="tblChargebleQuotation" ToRole="tblCustomerContactPersons" />
           <NavigationProperty Name="tblChargebleQNote" Relationship="StandardEngModel.FK_tblChargebleQNote_tblChargebleQuotation" FromRole="tblChargebleQuotation" ToRole="tblChargebleQNote" />
+          <NavigationProperty Name="tblCustomer" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomer" FromRole="tblChargebleQuotation" ToRole="tblCustomer" />
         </EntityType>
         <Association Name="FK_tblChargebleQDetail_tblChargebleQuotation">
           <End Type="StandardEngModel.tblChargebleQuotation" Role="tblChargebleQuotation" Multiplicity="1">
@@ -3490,18 +3349,6 @@
             </Principal>
             <Dependent Role="tblChargebleQDetail">
               <PropertyRef Name="MachineTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblChargebleQuotation_tblCustomer">
-          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="StandardEngModel.tblChargebleQuotation" Role="tblChargebleQuotation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerId" />
-            </Principal>
-            <Dependent Role="tblChargebleQuotation">
-              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3553,6 +3400,159 @@
           <Property Name="NoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NoteText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="Addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GST" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlternativeContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultDiscount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblAMCQuotation" Relationship="StandardEngModel.FK_tblAMCQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblAMCQuotation" />
+          <NavigationProperty Name="tblChargebleQuotation" Relationship="StandardEngModel.FK_tblChargebleQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblChargebleQuotation" />
+          <NavigationProperty Name="tblCity" Relationship="StandardEngModel.FK_tblCustomer_tblCity" FromRole="tblCustomer" ToRole="tblCity" />
+          <NavigationProperty Name="tblCountry" Relationship="StandardEngModel.FK_tblCustomer_tblCountry" FromRole="tblCustomer" ToRole="tblCountry" />
+          <NavigationProperty Name="tblRegion" Relationship="StandardEngModel.FK_tblCustomer_tblRegion" FromRole="tblCustomer" ToRole="tblRegion" />
+          <NavigationProperty Name="tblState" Relationship="StandardEngModel.FK_tblCustomer_tblState" FromRole="tblCustomer" ToRole="tblState" />
+          <NavigationProperty Name="tblCustomerContactPersons" Relationship="StandardEngModel.FK_tblCustomerContactPersons_tblCustomer" FromRole="tblCustomer" ToRole="tblCustomerContactPersons" />
+          <NavigationProperty Name="tblMachinePartsQuotation" Relationship="StandardEngModel.FK_tblMachinePartsQuotation_tblCustomer" FromRole="tblCustomer" ToRole="tblMachinePartsQuotation" />
+          <NavigationProperty Name="tblPerformaInvoice" Relationship="StandardEngModel.FK_tblPerformaInvoice_tblCustomer" FromRole="tblCustomer" ToRole="tblPerformaInvoice" />
+          <NavigationProperty Name="tblPreCommissioning" Relationship="StandardEngModel.FK_tblPreCommissioning_tblCustomer" FromRole="tblCustomer" ToRole="tblPreCommissioning" />
+        </EntityType>
+        <Association Name="FK_tblAMCQuotation_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblAMCQuotation" Role="tblAMCQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblAMCQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblChargebleQuotation_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblChargebleQuotation" Role="tblChargebleQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblChargebleQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblCity">
+          <End Type="StandardEngModel.tblCity" Role="tblCity" Multiplicity="1" />
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblCountry">
+          <End Type="StandardEngModel.tblCountry" Role="tblCountry" Multiplicity="1" />
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblRegion">
+          <End Type="StandardEngModel.tblRegion" Role="tblRegion" Multiplicity="0..1" />
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblState">
+          <End Type="StandardEngModel.tblState" Role="tblState" Multiplicity="1" />
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblState">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomerContactPersons_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="StandardEngModel.tblCustomerContactPersons" Role="tblCustomerContactPersons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblCustomerContactPersons">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMachinePartsQuotation_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblMachinePartsQuotation" Role="tblMachinePartsQuotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblMachinePartsQuotation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPerformaInvoice_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblPerformaInvoice" Role="tblPerformaInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblPerformaInvoice">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPreCommissioning_tblCustomer">
+          <End Type="StandardEngModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="StandardEngModel.tblPreCommissioning" Role="tblPreCommissioning" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="tblPreCommissioning">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4159,28 +4159,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblCustomer">
-            <EntityTypeMapping TypeName="StandardEngModel.tblCustomer">
-              <MappingFragment StoreEntitySet="tblCustomer">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="DefaultDiscount" ColumnName="DefaultDiscount" />
-                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="AlternativeContactNo" ColumnName="AlternativeContactNo" />
-                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-                <ScalarProperty Name="GST" ColumnName="GST" />
-                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
-                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
-                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblMachinePartsQuotation">
             <EntityTypeMapping TypeName="StandardEngModel.tblMachinePartsQuotation">
               <MappingFragment StoreEntitySet="tblMachinePartsQuotation">
@@ -4517,6 +4495,28 @@
               <MappingFragment StoreEntitySet="tblChargebleNote">
                 <ScalarProperty Name="NoteText" ColumnName="NoteText" />
                 <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomer">
+            <EntityTypeMapping TypeName="StandardEngModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DefaultDiscount" ColumnName="DefaultDiscount" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AlternativeContactNo" ColumnName="AlternativeContactNo" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="GST" ColumnName="GST" />
+                <ScalarProperty Name="Addressline3" ColumnName="Addressline3" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

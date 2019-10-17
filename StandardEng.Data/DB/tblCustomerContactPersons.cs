@@ -35,12 +35,12 @@ namespace StandardEng.Data.DB
         public virtual ICollection<tblPreCommissioning> tblPreCommissioning { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPerformaInvoice> tblPerformaInvoice { get; set; }
-        public virtual tblCustomer tblCustomer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMachinePartsQuotation> tblMachinePartsQuotation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAMCQuotation> tblAMCQuotation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblChargebleQuotation> tblChargebleQuotation { get; set; }
+        public virtual tblCustomer tblCustomer { get; set; }
     }
 }
