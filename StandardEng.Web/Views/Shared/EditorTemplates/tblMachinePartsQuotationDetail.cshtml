@@ -7,18 +7,19 @@
 </div>
 <div class="editor-field">
     @(Html.Kendo().ComboBoxFor(m => m.MachineTypeId)
-                                                                  .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
-                                                                  .Placeholder("--Select Machine Type --")
-                                                                  .DataTextField("MachineTypeName")
-                                                                  .DataValueField("MachineTypeId")
-                                                                  .HtmlAttributes(new { @tabindex = 1, @data_value_primitive = true })
-                                                                  .DataSource(source =>
-                                                                  {
-                                                                      source.Read(read =>
-                                                                      {
-                                                                          read.Action("GetMachineTypeList", "Common");
-                                                                      });
-                                                                  })
+                  .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
+                  .Placeholder("--Select Machine Type --")
+                  .DataTextField("MachineTypeName")
+                  .DataValueField("MachineTypeId")
+                  .Events(e=>e.Change("onChangeMachineType"))
+                  .HtmlAttributes(new { @tabindex = 1, @data_value_primitive = true })
+                  .DataSource(source =>
+                  {
+                      source.Read(read =>
+                      {
+                          read.Action("GetMachineTypeList", "Common");
+                      });
+                  })
     )
 
     @Html.ValidationMessageFor(m => m.MachineTypeId)

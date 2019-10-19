@@ -875,5 +875,16 @@
         }
        
     }
+
+    function onChangeMachineType(e) {
+        var machineType = getKendComboboxValue('MachineTypeId');
+        setkendoNumericTextBoxValue('ProfitMarginPercentage', '4');
+        if (machineType == 2) {
+            setkendoNumericTextBoxValue('PAndFPercentage', '5');
+        }
+        else {
+            setkendoNumericTextBoxValue('PAndFPercentage', '3');
+        }
+    }
 </script>
 

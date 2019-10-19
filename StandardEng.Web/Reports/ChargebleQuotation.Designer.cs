@@ -140,7 +140,7 @@ namespace StandardEng.Web.Reports
             this.textBox38.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox38.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox38.StyleName = "";
-            this.textBox38.Value = "Odhav , Ahmedabad-382 415.";
+            this.textBox38.Value = "Ahmedabad-382 415.";
             // 
             // textBox39
             // 
@@ -149,7 +149,7 @@ namespace StandardEng.Web.Reports
             this.textBox39.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox39.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox39.StyleName = "";
-            this.textBox39.Value = "Near Odhav Police Station,";
+            this.textBox39.Value = "Vatva";
             // 
             // textBox19
             // 
@@ -157,7 +157,7 @@ namespace StandardEng.Web.Reports
             this.textBox19.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.5D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.textBox19.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox19.StyleName = "";
-            this.textBox19.Value = "Adinath Nagar Road,";
+            this.textBox19.Value = "Phase 4 , GIDC";
             // 
             // textBox41
             // 
@@ -166,7 +166,7 @@ namespace StandardEng.Web.Reports
             this.textBox41.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox41.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox41.StyleName = "";
-            this.textBox41.Value = "41 , Uday Industrial Estate";
+            this.textBox41.Value = "3710/2 , ROAD 4\t";
             // 
             // textBox35
             // 
@@ -383,10 +383,10 @@ namespace StandardEng.Web.Reports
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(9.5D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.75D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.75D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.75844049453735352D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.75844073295593262D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.75844049453735352D)));
-            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.93346536159515381D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.75844055414199829D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.75844079256057739D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.75844055414199829D)));
+            this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.93346542119979858D)));
             this.table1.Body.SetCellContent(0, 1, this.textBox3);
             this.table1.Body.SetCellContent(3, 1, this.textBox2);
             this.table1.Body.SetCellContent(3, 2, this.textBox4);
@@ -872,7 +872,7 @@ namespace StandardEng.Web.Reports
             // 
             // table6
             // 
-            this.table6.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(10.000001907348633D)));
+            this.table6.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(10.000002861022949D)));
             this.table6.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(8.9999980926513672D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
@@ -882,7 +882,7 @@ namespace StandardEng.Web.Reports
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.7116660475730896D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
-            this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.50000059604644775D)));
+            this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.50000065565109253D)));
             this.table6.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D)));
             this.table6.Body.SetCellContent(6, 0, this.textBox21);
             this.table6.Body.SetCellContent(6, 1, this.textBox24);
@@ -912,12 +912,12 @@ namespace StandardEng.Web.Reports
             this.textBox43,
             this.textBox21,
             this.textBox24,
+            this.textBox46,
+            this.textBox50,
             this.textBox27,
             this.textBox34,
             this.textBox31,
-            this.textBox29,
-            this.textBox46,
-            this.textBox50});
+            this.textBox29});
             this.table6.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(3.5199999809265137D));
             this.table6.Name = "table6";
             tableGroup44.Name = "group25";

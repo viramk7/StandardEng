@@ -325,7 +325,7 @@ namespace StandardEng.Data.DB
 
             [DataType(DataType.EmailAddress, ErrorMessageResourceName = "InvalidEmail", ErrorMessageResourceType = typeof(CommonMessage))]
             [Display(ResourceType = typeof(CommonMessage), Name = "Email", Order = 3)]
-            [Required(ErrorMessageResourceName = "EmailRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            //[Required(ErrorMessageResourceName = "EmailRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             [UIHint("Email")]
             public string ContactPersonEmail { get; set; }
 
