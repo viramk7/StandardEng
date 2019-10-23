@@ -132,6 +132,13 @@ namespace StandardEng.Web.Controllers
             return deleteMessage;
         }
 
+        public ActionResult PartsPIReport(int PerformaInvoiceId, string Reportname)
+        {
+            ViewBag.PerformaInvoiceId = PerformaInvoiceId;
+            ViewBag.Reportname = Reportname;
+            return PartialView("_PerformaInvoiceReport");
+        }
+
         #endregion
     }
 }

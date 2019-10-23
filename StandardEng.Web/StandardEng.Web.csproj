@@ -228,6 +228,12 @@
     <Compile Include="Reports\AMCQuotation.Designer.cs">
       <DependentUpon>AMCQuotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\PartsPI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PartsPI.Designer.cs">
+      <DependentUpon>PartsPI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\PartsQuotation.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -489,6 +495,7 @@
     <Content Include="Views\Chargeble\Create.cshtml" />
     <Content Include="Views\ChargebleQuotation\_ChargebleQuotationReport.cshtml" />
     <Content Include="Views\ChargebleMasterNotes\Index.cshtml" />
+    <Content Include="Views\PI\_PerformaInvoiceReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">
@@ -507,6 +514,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\AMCQuotation.resx">
       <DependentUpon>AMCQuotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PartsPI.resx">
+      <DependentUpon>PartsPI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PartsQuotation.resx">
       <DependentUpon>PartsQuotation.cs</DependentUpon>

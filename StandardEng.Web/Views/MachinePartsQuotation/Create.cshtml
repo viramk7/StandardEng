@@ -621,6 +621,8 @@
                 var machineTypeId = grid._data[1].MachineTypeId;
                 var machineModelId = grid._data[1].MachineModelId;
                 var machineModelSerialNo = grid._data[1].MachineModelSerialNo;
+                var pfper = grid._data[1].PAndFPercentage;
+                var pmper = grid._data[1].ProfitMarginPercentage;
 
                 e.container.find("[name=MachineTypeId]").val(machineTypeId).trigger("change");
                 e.model.set("MachineTypeId", machineTypeId);
@@ -633,6 +635,12 @@
                 e.container.find("[name=MachineModelSerialNo]").val(machineModelSerialNo).trigger("change");
                 e.model.set("MachineModelSerialNo", machineModelSerialNo);
                 e.container.find('[name=MachineModelSerialNo]').attr("readonly", true);
+
+                e.container.find("[name=PAndFPercentage]").val(pfper).trigger("change");
+                e.model.set("PAndFPercentage", pfper);
+
+                e.container.find("[name=ProfitMarginPercentage]").val(pmper).trigger("change");
+                e.model.set("ProfitMarginPercentage", pmper);
 
                 e.container.find("td:eq(3) input").focus();
             }
