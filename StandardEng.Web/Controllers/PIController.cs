@@ -18,6 +18,7 @@ namespace StandardEng.Web.Controllers
     {
         #region private variables
 
+        private readonly GenericRepository<tblMachinePartsQuotation> _dbRepositoryQuotation;
         private readonly GenericRepository<tblPerformaInvoice> _dbRepository;
         #endregion
 
@@ -25,6 +26,7 @@ namespace StandardEng.Web.Controllers
         public PIController()
         {
             _dbRepository = new GenericRepository<tblPerformaInvoice>();
+            _dbRepositoryQuotation = new GenericRepository<tblMachinePartsQuotation>();
         }
         #endregion
 
@@ -117,6 +119,15 @@ namespace StandardEng.Web.Controllers
             {
                 if (id != 0)
                 {
+                    tblPerformaInvoice obj = _dbRepository.SelectById(id);
+                    if(obj != null)
+                    {
+                        int quotationId = obj.MPQuotationId.Value;
+                        tblMachinePartsQuotation quotation = _dbRepositoryQuotation.SelectById(quotationId);
+                        quotation.IsPIGenerated = false;
+                        _dbRepositoryQuotation.Update(quotation);
+                    }
+
                     deleteMessage = _dbRepository.Delete(id);
                 }
                 else
