@@ -278,7 +278,7 @@ namespace StandardEng.Web.Reports
             this.textBox39.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox39.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox39.StyleName = "";
-            this.textBox39.Value = "Vatva";
+            this.textBox39.Value = "Vatva,";
             // 
             // textBox15
             // 
@@ -286,7 +286,7 @@ namespace StandardEng.Web.Reports
             this.textBox15.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.5D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.textBox15.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox15.StyleName = "";
-            this.textBox15.Value = "Phase 4 , GIDC";
+            this.textBox15.Value = "Phase 4 , GIDC,";
             // 
             // textBox41
             // 
@@ -295,7 +295,7 @@ namespace StandardEng.Web.Reports
             this.textBox41.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox41.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox41.StyleName = "";
-            this.textBox41.Value = "3710/2 , ROAD 4";
+            this.textBox41.Value = "3710/2 , Road 4P,";
             // 
             // textBox35
             // 
@@ -959,7 +959,7 @@ namespace StandardEng.Web.Reports
             this.textBox36.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.5D), Telerik.Reporting.Drawing.Unit.Cm(0.49999997019767761D));
             this.textBox36.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox36.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox36.Value = "Phone : (079) 22872231 / 22972231";
+            this.textBox36.Value = "Mob. (OFFICE) - +91 9904022231";
             // 
             // textBox37
             // 
@@ -976,7 +976,7 @@ namespace StandardEng.Web.Reports
             this.textBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.5D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.textBox1.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox1.StyleName = "";
-            this.textBox1.Value = "Email : pdesai@stdengco.com / parts@stdengco.com";
+            this.textBox1.Value = "Email : parts@stdengco.com / spares@stdengco.com";
             // 
             // textBox2
             // 
@@ -1867,7 +1867,7 @@ namespace StandardEng.Web.Reports
             this.textBox147.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(0.5D);
             this.textBox147.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox147.StyleName = "";
-            this.textBox147.Value = " : ex-works Vatva, Ahmedabad";
+            this.textBox147.Value = " : Ex-works Vatva, Ahmedabad";
             // 
             // textBox148
             // 
