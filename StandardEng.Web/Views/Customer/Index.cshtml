@@ -1,4 +1,6 @@
-﻿@{
+﻿@using System.Collections;
+
+@{
     ViewBag.Title = "Customer";
 }
 
@@ -31,22 +33,7 @@
                            .Name("gridCustomer")
                            .Columns(columns =>
                            {
-                               if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
-                               {
-                                   columns.Command(command =>
-                                   {
-                                       if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
-                                       {
-                                           command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
-                                       }
-                                       if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
-                                       {
-                                           command.Custom("Delete").Text("<span class='k-icon k-i-close' title='Delete'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onDelete");
-                                       }
-                                   }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit)
-                                      .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanEdit);
-
-                               }
+                               
                                columns.Bound(d => d.CustomerName);
                                //columns.Bound(d => d.ContactNo);
                                columns.Bound(d => d.Email);
