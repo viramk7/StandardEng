@@ -4,11 +4,43 @@
 <div class="k-edit-form-container">
     @Html.HiddenFor(m => m.AMCServiceId)
 
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.ServiceEngineerId)
+    </div>
+    <div class="k-edit-field">
+        @(Html.Kendo().ComboBoxFor(m => m.ServiceEngineerId)
+              .Value(Model.ServiceEngineerId == 0 ? string.Empty : Model.ServiceEngineerId.ToString())
+              .Placeholder("--Select --")
+              .DataTextField("Name")
+              .DataValueField("UserId")
+              .HtmlAttributes(new { @tabindex = 1 })
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetServiceEngineerList", "Common");
+                  });
+              }))
+        @Html.ValidationMessageFor(m => m.ServiceEngineerId)
+    </div>
+
+
+
+    <div class="k-edit-label">
+        @Html.LabelFor(m => m.ServiceReportNo)
+    </div>
+    <div class="k-edit-field">
+        @Html.Kendo().TextBoxFor(m => m.ServiceReportNo).HtmlAttributes(new { @tabindex = 2 })
+        @Html.ValidationMessageFor(m => m.ServiceReportNo)
+    </div>
+
+
     <div class="k-edit-label">
         @Html.LabelFor(m => m.ServiceRemarks)
     </div>
     <div class="k-edit-field">
-        @Html.TextAreaFor(m => m.ServiceRemarks, 3,5, new { @tabindex = "1", @class = "k-textbox" })
+        @Html.TextAreaFor(m => m.ServiceRemarks, 3, 5, new { @tabindex = "3", @class = "k-textbox" })
         @Html.ValidationMessageFor(m => m.ServiceRemarks)
     </div>
 

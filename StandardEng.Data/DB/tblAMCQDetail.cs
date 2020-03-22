@@ -24,8 +24,8 @@ namespace StandardEng.Data.DB
         public decimal TotalAmount { get; set; }
         public string Description { get; set; }
     
+        public virtual tblAMCQuotation tblAMCQuotation { get; set; }
         public virtual tblMachineModels tblMachineModels { get; set; }
         public virtual tblMachineType tblMachineType { get; set; }
-        public virtual tblAMCQuotation tblAMCQuotation { get; set; }
     }
 }

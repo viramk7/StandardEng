@@ -61,9 +61,9 @@ namespace StandardEng.Data.DB
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblChargebleQDetail> tblChargebleQDetail { get; set; }
-        public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblChargebleQNote> tblChargebleQNote { get; set; }
         public virtual tblCustomer tblCustomer { get; set; }
+        public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
     }
 }

@@ -23,12 +23,12 @@ namespace StandardEng.Data.DB
         public int MachineAccessoriesId { get; set; }
         public int AccessoriesTypeId { get; set; }
         public string AccessoriesName { get; set; }
+        public Nullable<int> WarrantyPeriod { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<int> WarrantyPeriod { get; set; }
     
         public virtual tblAccessoriesType tblAccessoriesType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

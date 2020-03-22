@@ -14,6 +14,8 @@ namespace StandardEng.Data.DB
     public partial class GetAMCList_Result
     {
         public int AMCId { get; set; }
+        public Nullable<System.DateTime> AMCStartDate { get; set; }
+        public Nullable<System.DateTime> AMCEndDate { get; set; }
         public string QuotationNo { get; set; }
         public string CustomerName { get; set; }
         public string ContactPersonName { get; set; }
@@ -27,7 +29,7 @@ namespace StandardEng.Data.DB
         public decimal GSTAmount { get; set; }
         public Nullable<int> GSTPercentage { get; set; }
         public decimal FinalAmount { get; set; }
-        public System.DateTime AMCStartDate { get; set; }
-        public System.DateTime AMCEndDate { get; set; }
+        public Nullable<System.DateTime> AMCDate { get; set; }
+        public Nullable<bool> IsServiceStarted { get; set; }
     }
 }

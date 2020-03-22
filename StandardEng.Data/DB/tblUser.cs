@@ -17,6 +17,7 @@ namespace StandardEng.Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblUser()
         {
+            this.tblAMCServices = new HashSet<tblAMCServices>();
             this.tblCommissioning = new HashSet<tblCommissioning>();
             this.tblPreCommissioningDetail = new HashSet<tblPreCommissioningDetail>();
         }
@@ -35,10 +36,12 @@ namespace StandardEng.Data.DB
         public Nullable<System.DateTime> TokenExpiryDateTime { get; set; }
         public string UserCode { get; set; }
     
-        public virtual tblRole tblRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAMCServices> tblAMCServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCommissioning> tblCommissioning { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPreCommissioningDetail> tblPreCommissioningDetail { get; set; }
+        public virtual tblRole tblRole { get; set; }
     }
 }

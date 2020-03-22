@@ -29,7 +29,7 @@ namespace StandardEng.Data.DB
         public string CustomerName { get; set; }
         public int CountryId { get; set; }
         public int StateId { get; set; }
-        public int CityId { get; set; }
+        public Nullable<int> CityId { get; set; }
         public string Addressline1 { get; set; }
         public string Addressline2 { get; set; }
         public string Addressline3 { get; set; }

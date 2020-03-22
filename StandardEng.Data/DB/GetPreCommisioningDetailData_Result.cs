@@ -14,6 +14,8 @@ namespace StandardEng.Data.DB
     public partial class GetPreCommisioningDetailData_Result
     {
         public int PCDetailId { get; set; }
+        public Nullable<int> PCAccesseriesId { get; set; }
+        public Nullable<int> PCMachineId { get; set; }
         public int PreCommissionId { get; set; }
         public string MachineSerialNo { get; set; }
         public string MachineTypeName { get; set; }
@@ -26,8 +28,6 @@ namespace StandardEng.Data.DB
         public System.DateTime PreCommisoningDate { get; set; }
         public string PrecommisioningRemark { get; set; }
         public string ServiceEngineer { get; set; }
-        public Nullable<int> PCAccesseriesId { get; set; }
-        public Nullable<int> PCMachineId { get; set; }
         public int ServiceEngineerId { get; set; }
         public string PreCommisioningFileName { get; set; }
         public System.DateTime CreatedDate { get; set; }

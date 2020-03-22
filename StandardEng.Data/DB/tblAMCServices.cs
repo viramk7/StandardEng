@@ -20,9 +20,12 @@ namespace StandardEng.Data.DB
         public Nullable<System.DateTime> ServiceOverrideDate { get; set; }
         public string OverrideReason { get; set; }
         public string ServiceRemarks { get; set; }
+        public string ServiceReportNo { get; set; }
+        public Nullable<int> ServiceEngineerId { get; set; }
         public bool IsCompleted { get; set; }
         public bool IsSystemGenerated { get; set; }
     
         public virtual tblAMC tblAMC { get; set; }
+        public virtual tblUser tblUser { get; set; }
     }
 }

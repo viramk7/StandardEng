@@ -15,6 +15,8 @@ namespace StandardEng.Data.CustomModel
     public class AMCServiceCompltePartialModel
     {
         public int AMCServiceId { get; set; }
+        public string ServiceReportNo { get; set; }
+        public Nullable<int> ServiceEngineerId { get; set; }
         public string ServiceRemarks { get; set; }
     }
     public class AMCServiceOverWritePartialModel

@@ -30,65 +30,66 @@
                 <div class="card-body">
 
                     @(Html.Kendo().Grid<GetAMCList_Result>()
-                                     .Name("gridAMC")
-                                     .Columns(columns =>
-                                     {
-                                         if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
-                                         {
-                                             columns.Command(command =>
+                                             .Name("gridAMC")
+                                             .Columns(columns =>
                                              {
-                                                 if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                 if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
                                                  {
-                                                     command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                     columns.Command(command =>
+                                                     {
+                                                         if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                         {
+                                                             command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                         }
+                                                         if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                         {
+                                                             command.Destroy().Text(" ");
+                                                         }
+                                                         command.Custom("StartAMCService").Text("<span class='k-icon k-i-checkbox-checked' title='Start AMC Service'></span>").HtmlAttributes(new { @style = "margin:2px;", @id = "btnAMCPI" }).Click("onStartAMCService");
+                                                     }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                                     .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
                                                  }
-                                                 if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
-                                                 {
-                                                     command.Destroy().Text(" ");
-                                                 }
-                                             }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
-                                             .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
-                                         }
-                                         columns.Bound(d => d.QuotationNo);
-                                         columns.Bound(d => d.AMCStartDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                         columns.Bound(d => d.AMCEndDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                         columns.Bound(d => d.CustomerName);
-                                         columns.Bound(d => d.ContactPersonName);
-                                         columns.Bound(d => d.ContactNo);
-                                         columns.Bound(d => d.EmailAddress);
-                                         columns.Bound(d => d.MachineTypeName);
-                                         columns.Bound(d => d.MachineName);
-                                         columns.Bound(d => d.MachineSerialNo);
-                                         columns.Bound(d => d.Amount);
-                                         columns.Bound(d => d.GSTPercentage);
-                                         columns.Bound(d => d.GSTAmount);
-                                         columns.Bound(d => d.FinalAmount);
+                                                 columns.Bound(d => d.QuotationNo);
+                                                 columns.Bound(d => d.AMCDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                 //columns.Bound(d => d.AMCEndDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                 columns.Bound(d => d.CustomerName);
+                                                 columns.Bound(d => d.ContactPersonName);
+                                                 columns.Bound(d => d.ContactNo);
+                                                 columns.Bound(d => d.EmailAddress);
+                                                 columns.Bound(d => d.MachineTypeName);
+                                                 columns.Bound(d => d.MachineName);
+                                                 columns.Bound(d => d.MachineSerialNo);
+                                                 columns.Bound(d => d.Amount);
+                                                 columns.Bound(d => d.GSTPercentage);
+                                                 columns.Bound(d => d.GSTAmount);
+                                                 columns.Bound(d => d.FinalAmount);
 
-                                     })
-                                     .Pageable(x =>
-                                     {
-                                         x.Refresh(true);
-                                         x.PageSizes(WebHelper.PageSizes);
-                                     })
-                                      .Editable(editable =>
-                                      {
-                                          editable.DisplayDeleteConfirmation("Are you sure you want to delete these AMC?");
-                                      })
-                                     .Sortable(sortable => sortable.AllowUnsort(false))
-                                     .Filterable()
-                                     .Scrollable(e => e.Enabled(true))
-                                     .NoRecords()
-                                     .HtmlAttributes(new { @style = "height:500px" })
-                                     .Events(e => e.DataBound("onDataBound"))
-                                     .DataSource(dataSource => dataSource
-                                     .Ajax()
-                                     .ServerOperation(true)
-                                     .PageSize(WebHelper.PageSize)
-                                     .Model(model => model.Id(d => d.AMCId))
-                                     .Events(events => events.Error("onError(\"gridAMC\")"))
-                                     .Read(read => read.Action("KendoRead", "AMC"))
-                                     .Destroy(update => update.Action("KendoDestroy", "AMC"))
+                                             })
+                                             .Pageable(x =>
+                                             {
+                                                 x.Refresh(true);
+                                                 x.PageSizes(WebHelper.PageSizes);
+                                             })
+                                              .Editable(editable =>
+                                              {
+                                                  editable.DisplayDeleteConfirmation("Are you sure you want to delete these AMC?");
+                                              })
+                                             .Sortable(sortable => sortable.AllowUnsort(false))
+                                             .Filterable()
+                                             .Scrollable(e => e.Enabled(true))
+                                             .NoRecords()
+                                             .HtmlAttributes(new { @style = "height:500px" })
+                                             .Events(e => e.DataBound("onDataBound"))
+                                             .DataSource(dataSource => dataSource
+                                             .Ajax()
+                                             .ServerOperation(true)
+                                             .PageSize(WebHelper.PageSize)
+                                             .Model(model => model.Id(d => d.AMCId))
+                                             .Events(events => events.Error("onError(\"gridAMC\")"))
+                                             .Read(read => read.Action("KendoRead", "AMC"))
+                                             .Destroy(update => update.Action("KendoDestroy", "AMC"))
 
-                                ))
+                                        ))
                 </div>
             </div>
         </div>
@@ -112,8 +113,35 @@
         for (var i = 0; i < grid.columns.length; i++) {
             grid.autoFitColumn(i);
         }
+
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (gridData[i].IsServiceStarted) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var editButton = $(currenRow).find("#btnAMCPI");
+                editButton.hide();
+            }
+        }
+
     }
 
+    function onStartAMCService(e) {
+        e.preventDefault();
+        var grid = $("#gridAMC").data("kendoGrid");
+        var tr = $(e.target).closest("tr");
+        var data = grid.dataItem(tr);
+        if (data != null) {
+
+            bootbox.confirm('Are you sure you want to Start AMC Service?', function (result) {
+            if (result === true) {
+                var url = '@Url.Action("StartAMCService", "AMC")?AMCId=' + data.AMCId;
+                   window.location.href = url;
+                }
+            }, 'popup-confirmation');
+
+     }
+    }
 </script>
 
 

@@ -183,11 +183,22 @@ namespace StandardEng.Web.Controllers
                                     tblAMC amcObj = new tblAMC();
                                     amcObj.AMCQuotationId = quotationObj.AMCQId;
                                     amcObj.AMCQDetailId = singleAMC.AMCQDetailId;
-                                    amcObj.AMCStartDate = DateTime.Now.Date;
-                                    amcObj.AMCEndDate = DateTime.Now.Date.AddYears(1);
+                                    amcObj.AMCDate = DateTime.Now.Date;
+                                    //amcObj.AMCStartDate = DateTime.Now.Date;
+                                    //amcObj.AMCEndDate = DateTime.Now.Date.AddYears(1);
                                     amcObj.QuotationNo = quotationObj.AMCQuotationNo;
                                     amcObj.CustomerId = quotationObj.CustomerId;
                                     amcObj.CustomerContactPId = quotationObj.CustomerContactPId;
+
+                                    amcObj.CountryId = quotationObj.CountryId;
+                                    amcObj.StateId = quotationObj.StateId;
+                                    amcObj.CityId = quotationObj.CityId;
+                                    amcObj.RegionId = quotationObj.RegionId;
+                                    amcObj.Addressline1 = quotationObj.Addressline1;
+                                    amcObj.Addressline2 = quotationObj.Addressline2;
+                                    amcObj.Addressline3 = quotationObj.Addressline3;
+                                    amcObj.PinCode = quotationObj.PinCode;
+
                                     amcObj.ContactNo = quotationObj.ContactNo;
                                     amcObj.EmailAddress = quotationObj.Email;
                                     amcObj.Remarks = quotationObj.Remarks;
@@ -223,36 +234,36 @@ namespace StandardEng.Web.Controllers
 
                                     result = _dBAMC.Insert(amcObj);
 
-                                    if (string.IsNullOrEmpty(result))
-                                    {
-                                        tblAMCServices amcServie1 = new tblAMCServices();
-                                        amcServie1.AMCId = amcObj.AMCId;
-                                        amcServie1.ServviceDate = DateTime.Now.Date.AddMonths(3);
-                                        amcServie1.IsCompleted = false;
-                                        amcServie1.IsSystemGenerated = true;
-                                        result = _dBAMCServices.Insert(amcServie1);
+                                    //if (string.IsNullOrEmpty(result))
+                                    //{
+                                    //    tblAMCServices amcServie1 = new tblAMCServices();
+                                    //    amcServie1.AMCId = amcObj.AMCId;
+                                    //    amcServie1.ServviceDate = DateTime.Now.Date.AddMonths(3);
+                                    //    amcServie1.IsCompleted = false;
+                                    //    amcServie1.IsSystemGenerated = true;
+                                    //    result = _dBAMCServices.Insert(amcServie1);
 
-                                        tblAMCServices amcServie2 = new tblAMCServices();
-                                        amcServie2.AMCId = amcObj.AMCId;
-                                        amcServie2.ServviceDate = DateTime.Now.Date.AddMonths(6);
-                                        amcServie2.IsCompleted = false;
-                                        amcServie2.IsSystemGenerated = true;
-                                        result = _dBAMCServices.Insert(amcServie2);
+                                    //    tblAMCServices amcServie2 = new tblAMCServices();
+                                    //    amcServie2.AMCId = amcObj.AMCId;
+                                    //    amcServie2.ServviceDate = DateTime.Now.Date.AddMonths(6);
+                                    //    amcServie2.IsCompleted = false;
+                                    //    amcServie2.IsSystemGenerated = true;
+                                    //    result = _dBAMCServices.Insert(amcServie2);
 
-                                        tblAMCServices amcServie3 = new tblAMCServices();
-                                        amcServie3.AMCId = amcObj.AMCId;
-                                        amcServie3.ServviceDate = DateTime.Now.Date.AddMonths(9);
-                                        amcServie3.IsCompleted = false;
-                                        amcServie3.IsSystemGenerated = true;
-                                        result = _dBAMCServices.Insert(amcServie3);
+                                    //    tblAMCServices amcServie3 = new tblAMCServices();
+                                    //    amcServie3.AMCId = amcObj.AMCId;
+                                    //    amcServie3.ServviceDate = DateTime.Now.Date.AddMonths(9);
+                                    //    amcServie3.IsCompleted = false;
+                                    //    amcServie3.IsSystemGenerated = true;
+                                    //    result = _dBAMCServices.Insert(amcServie3);
 
-                                        tblAMCServices amcServie4 = new tblAMCServices();
-                                        amcServie4.AMCId = amcObj.AMCId;
-                                        amcServie4.ServviceDate = DateTime.Now.Date.AddMonths(12);
-                                        amcServie4.IsCompleted = false;
-                                        amcServie4.IsSystemGenerated = true;
-                                        result = _dBAMCServices.Insert(amcServie4);
-                                    }
+                                    //    tblAMCServices amcServie4 = new tblAMCServices();
+                                    //    amcServie4.AMCId = amcObj.AMCId;
+                                    //    amcServie4.ServviceDate = DateTime.Now.Date.AddMonths(12);
+                                    //    amcServie4.IsCompleted = false;
+                                    //    amcServie4.IsSystemGenerated = true;
+                                    //    result = _dBAMCServices.Insert(amcServie4);
+                                    //}
                                 }
 
                                 if (string.IsNullOrEmpty(result))

@@ -41,7 +41,7 @@ namespace StandardEng.Data.DB
     
         public virtual tblMachineModels tblMachineModels { get; set; }
         public virtual tblMachineParts tblMachineParts { get; set; }
-        public virtual tblMachineType tblMachineType { get; set; }
         public virtual tblMachinePartsQuotation tblMachinePartsQuotation { get; set; }
+        public virtual tblMachineType tblMachineType { get; set; }
     }
 }

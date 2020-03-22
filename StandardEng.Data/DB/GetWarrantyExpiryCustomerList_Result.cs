@@ -15,6 +15,8 @@ namespace StandardEng.Data.DB
     {
         public string MachineTypeName { get; set; }
         public string MachineName { get; set; }
+        public string MachineSerialNo { get; set; }
+        public string WarrantyExpireDate { get; set; }
         public string CustomerName { get; set; }
         public string CustomerContactNo { get; set; }
         public string CustomerAlterContactNo { get; set; }
@@ -22,8 +24,6 @@ namespace StandardEng.Data.DB
         public string ContactPersonName { get; set; }
         public string ContactPersonContactNo { get; set; }
         public string ContactPersonEmail { get; set; }
-        public string MachineSerialNo { get; set; }
-        public string WarrantyExpireDate { get; set; }
         public int CommissioningId { get; set; }
         public string CreatedUser { get; set; }
         public string CretedUserEmail { get; set; }

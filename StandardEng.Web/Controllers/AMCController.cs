@@ -21,6 +21,8 @@ namespace StandardEng.Web.Controllers
         private readonly GenericRepository<tblAMC> _dbRepository;
         private readonly GenericRepository<tblAMCServices> _dbRepositoryAMCService;
         private readonly GenericRepository<tblAMCQuotation> _dbRepositoryAMCQuotation;
+        private readonly GenericRepository<tblAMCStart> _dbRepositoryAMCStart;
+
         #endregion
 
         #region Constructor
@@ -29,6 +31,7 @@ namespace StandardEng.Web.Controllers
             _dbRepository = new GenericRepository<tblAMC>();
             _dbRepositoryAMCService = new GenericRepository<tblAMCServices>();
             _dbRepositoryAMCQuotation = new GenericRepository<tblAMCQuotation>();
+            _dbRepositoryAMCStart = new GenericRepository<tblAMCStart>();
         }
         #endregion
 
@@ -118,6 +121,62 @@ namespace StandardEng.Web.Controllers
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
+
+        public ActionResult StartAMCService(int AMCId)
+        {
+            string result = string.Empty;
+            if (AMCId > 0)
+            {
+                //Add AMC start refrence
+                tblAMCStart obj = new tblAMCStart();
+                obj.AMCId = AMCId;
+                obj.AMCStartDate = DateTime.Now.Date;
+                obj.AMCEndDate = DateTime.Now.Date.AddYears(1);
+                obj.IsActive = true;
+                obj.CreatedBy = SessionHelper.UserId;
+                obj.CreatedDate = DateTime.Now.Date;
+                _dbRepositoryAMCStart.Insert(obj);
+                
+                //Add services for AMC 
+                tblAMCServices amcServie1 = new tblAMCServices();
+                amcServie1.AMCId = AMCId;
+                amcServie1.ServviceDate = DateTime.Now.Date.AddMonths(3);
+                amcServie1.IsCompleted = false;
+                amcServie1.IsSystemGenerated = true;
+                result = _dbRepositoryAMCService.Insert(amcServie1);
+
+                tblAMCServices amcServie2 = new tblAMCServices();
+                amcServie2.AMCId = AMCId;
+                amcServie2.ServviceDate = DateTime.Now.Date.AddMonths(6);
+                amcServie2.IsCompleted = false;
+                amcServie2.IsSystemGenerated = true;
+                result = _dbRepositoryAMCService.Insert(amcServie2);
+
+                tblAMCServices amcServie3 = new tblAMCServices();
+                amcServie3.AMCId = AMCId;
+                amcServie3.ServviceDate = DateTime.Now.Date.AddMonths(9);
+                amcServie3.IsCompleted = false;
+                amcServie3.IsSystemGenerated = true;
+                result = _dbRepositoryAMCService.Insert(amcServie3);
+
+                tblAMCServices amcServie4 = new tblAMCServices();
+                amcServie4.AMCId = AMCId;
+                amcServie4.ServviceDate = DateTime.Now.Date.AddMonths(12);
+                amcServie4.IsCompleted = false;
+                amcServie4.IsSystemGenerated = true;
+                result = _dbRepositoryAMCService.Insert(amcServie4);
+
+                if (string.IsNullOrEmpty(result))
+                {
+                    tblAMC amc = _dbRepository.SelectById(AMCId);
+                    amc.IsServiceStarted = true;
+                    _dbRepository.Update(amc);
+                }
+
+                return RedirectToAction("Index", "AMCServices");
+            }
+            return RedirectToAction("Edit", "AMC", new { id = AMCId });
+        }
         #endregion
 
         #region AMC Service Methods
@@ -137,7 +196,9 @@ namespace StandardEng.Web.Controllers
                 {
                     serviceObj.ServiceRemarks = model.ServiceRemarks;
                     serviceObj.IsCompleted = true;
-                    _dbRepositoryAMCService.Update(serviceObj);
+                    serviceObj.ServiceEngineerId = model.ServiceEngineerId;
+                    serviceObj.ServiceReportNo = model.ServiceReportNo;
+                    string msg = _dbRepositoryAMCService.Update(serviceObj);
                     return model.AMCServiceId.ToString();
                 }
             }

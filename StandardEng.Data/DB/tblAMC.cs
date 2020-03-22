@@ -18,16 +18,26 @@ namespace StandardEng.Data.DB
         public tblAMC()
         {
             this.tblAMCServices = new HashSet<tblAMCServices>();
+            this.tblAMCStart = new HashSet<tblAMCStart>();
         }
     
         public int AMCId { get; set; }
         public int AMCQuotationId { get; set; }
         public int AMCQDetailId { get; set; }
-        public System.DateTime AMCStartDate { get; set; }
-        public System.DateTime AMCEndDate { get; set; }
+        public Nullable<System.DateTime> AMCDate { get; set; }
+        public Nullable<System.DateTime> AMCStartDate { get; set; }
+        public Nullable<System.DateTime> AMCEndDate { get; set; }
         public string QuotationNo { get; set; }
         public int CustomerId { get; set; }
         public int CustomerContactPId { get; set; }
+        public Nullable<int> CountryId { get; set; }
+        public Nullable<int> StateId { get; set; }
+        public Nullable<int> CityId { get; set; }
+        public Nullable<int> RegionId { get; set; }
+        public string Addressline1 { get; set; }
+        public string Addressline2 { get; set; }
+        public string Addressline3 { get; set; }
+        public string PinCode { get; set; }
         public string ContactNo { get; set; }
         public string EmailAddress { get; set; }
         public string Remarks { get; set; }
@@ -38,18 +48,25 @@ namespace StandardEng.Data.DB
         public int GSTPercentageId { get; set; }
         public decimal GSTAmount { get; set; }
         public decimal FinalAmount { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<int> ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsDifferentShipAddress { get; set; }
         public string ShipCompanyName { get; set; }
         public string ShipAddressline1 { get; set; }
         public string ShipAddressline2 { get; set; }
         public string ShipAddressline3 { get; set; }
         public string ShipGSTNo { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<bool> IsServiceStarted { get; set; }
     
+        public virtual tblCity tblCity { get; set; }
+        public virtual tblCountry tblCountry { get; set; }
+        public virtual tblRegion tblRegion { get; set; }
+        public virtual tblState tblState { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAMCServices> tblAMCServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAMCStart> tblAMCStart { get; set; }
     }
 }

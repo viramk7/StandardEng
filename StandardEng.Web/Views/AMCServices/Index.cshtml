@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+        <div class="page-title d-flex">
+            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - AMC Services</h4>
+            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index","Home")" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                <span class="breadcrumb-item active">AMC Services</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">AMC Services List</h5>
+                </div>
+                <div class="card-body">
+
+                    @(Html.Kendo().Grid<tblAMCStart>()
+                                                                             .Name("gridAMCService")
+                                                                             .Columns(columns =>
+                                                                             {
+                                                                                 if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                                 {
+                                                                                     columns.Command(command =>
+                                                                                    {
+                                                                                        if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                                        {
+                                                                                            command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                                                        }
+                                                                                    }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                                                                         .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
+                                                                                 }
+                                                                                 columns.ForeignKey(d => d.AMCId, (IEnumerable)ViewBag.AMCList, "AMCId", "QuotationNo").Title("AMC Quotation No");
+                                                                                 columns.Bound(d => d.AMCStartDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                                                 columns.Bound(d => d.AMCEndDate).Format("{0:" + WebHelper.DateFormate + "}");
+
+                                                                             })
+                                                                             .Pageable(x =>
+                                                                             {
+                                                                                 x.Refresh(true);
+                                                                                 x.PageSizes(WebHelper.PageSizes);
+                                                                             })
+                                                                             .Sortable(sortable => sortable.AllowUnsort(false))
+                                                                             .Filterable()
+                                                                             .Scrollable(e => e.Enabled(true))
+                                                                             .NoRecords()
+                                                                             .HtmlAttributes(new { @style = "height:500px" })
+                                                                             //.Events(e => e.DataBound("onDataBound"))
+                                                                             .DataSource(dataSource => dataSource
+                                                                             .Ajax()
+                                                                             .ServerOperation(true)
+                                                                             .PageSize(WebHelper.PageSize)
+                                                                             .Model(model => model.Id(d => d.Id))
+                                                                             .Events(events => events.Error("onError(\"gridAMCService\")"))
+                                                                             .Read(read => read.Action("KendoRead", "AMCServices"))
+                                                                        ))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     function onEdit(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("Edit", "AMCServices")';
+        if (data != null)
+            window.location.href = urllink + "?id=" + data.Id;
+    }
+</script>

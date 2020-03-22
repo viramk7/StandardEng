@@ -17,14 +17,17 @@ namespace StandardEng.Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblRegion()
         {
+            this.tblAMC = new HashSet<tblAMC>();
             this.tblCustomer = new HashSet<tblCustomer>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool IsActive { get; set; }
         public int CityId { get; set; }
+        public bool IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAMC> tblAMC { get; set; }
         public virtual tblCity tblCity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCustomer> tblCustomer { get; set; }

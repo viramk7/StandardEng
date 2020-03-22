@@ -12,12 +12,16 @@ namespace StandardEng.Data.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class tblAMCQNote
+    public partial class tblAMCStart
     {
-        public int AMCQNoteId { get; set; }
-        public int AMCQId { get; set; }
-        public string NoteText { get; set; }
+        public int Id { get; set; }
+        public int AMCId { get; set; }
+        public System.DateTime AMCStartDate { get; set; }
+        public System.DateTime AMCEndDate { get; set; }
+        public bool IsActive { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
     
-        public virtual tblAMCQuotation tblAMCQuotation { get; set; }
+        public virtual tblAMC tblAMC { get; set; }
     }
 }

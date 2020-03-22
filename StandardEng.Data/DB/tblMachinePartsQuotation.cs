@@ -50,17 +50,17 @@ namespace StandardEng.Data.DB
         public string QuotationAmountInWords { get; set; }
         public Nullable<int> QuatationByUser { get; set; }
         public Nullable<bool> IsDifferentShipAddress { get; set; }
+        public string CompanyName { get; set; }
         public string Addressline1 { get; set; }
         public string Addressline2 { get; set; }
         public string Addressline3 { get; set; }
         public string GSTNo { get; set; }
         public string FreightTerms { get; set; }
-        public string CompanyName { get; set; }
         public string QuotationYear { get; set; }
     
+        public virtual tblCustomer tblCustomer { get; set; }
         public virtual tblCustomerContactPersons tblCustomerContactPersons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMachinePartsQuotationDetail> tblMachinePartsQuotationDetail { get; set; }
-        public virtual tblCustomer tblCustomer { get; set; }
     }
 }

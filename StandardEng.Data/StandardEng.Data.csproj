@@ -60,7 +60,25 @@
     <Compile Include="DB\GetAMCList_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\GetAMCQuotationDetailReportData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetAMCQuotationNotesReportData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetAMCQuotationReportData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\GetChargebleList_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetChargebleQuotationDetailReportData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetChargebleQuotationNotesReportData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetChargebleQuotationReportData_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\GetCommissioningListForPartsQuotation_Result.cs">
@@ -72,10 +90,22 @@
     <Compile Include="DB\GetPartsQuoatationList_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\GetPartsQuotationDetailReportData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetPatrsQuotationReportsData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\GetPCAsseccoryListDD_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\GetPCMachineListDD_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetPerformaInvoiceDetailReportData_Result.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\GetPerformaInvoiceReportsData_Result.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\GetPerformaInvoieList_Result.cs">
@@ -127,6 +157,9 @@
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblAMCServices.cs">
+      <DependentUpon>StandardEngDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblAMCStart.cs">
       <DependentUpon>StandardEngDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tblChargeble.cs">
@@ -227,18 +260,6 @@
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\MetadataClass.cs" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <None Include="App.config" />
-    <EntityDeploy Include="DB\StandardEngDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StandardEngDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DB\StandardEngDB.edmx.diagram">
-      <DependentUpon>StandardEngDB.edmx</DependentUpon>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
   <ItemGroup>
     <Content Include="DB\StandardEngDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -252,6 +273,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="DB\StandardEngDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StandardEngDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DB\StandardEngDB.edmx.diagram">
+      <DependentUpon>StandardEngDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +291,11 @@
       <Project>{5CEB3FBF-920F-4202-BD31-6DAAC8983F61}</Project>
       <Name>StandardEng.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.2.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

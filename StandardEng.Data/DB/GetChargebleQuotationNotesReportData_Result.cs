@@ -10,14 +10,10 @@
 namespace StandardEng.Data.DB
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblAMCQNote
+    public partial class GetChargebleQuotationNotesReportData_Result
     {
-        public int AMCQNoteId { get; set; }
-        public int AMCQId { get; set; }
+        public int ChargebleQNoteId { get; set; }
         public string NoteText { get; set; }
-    
-        public virtual tblAMCQuotation tblAMCQuotation { get; set; }
     }
 }

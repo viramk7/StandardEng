@@ -54,10 +54,10 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.AMCStartDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+                                    @Html.LabelFor(m => m.AMCDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
                                     <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().DatePickerFor(m => m.AMCStartDate).HtmlAttributes(new { @tabindex = 5, @readonly = "readonly" })
-                                        @Html.ValidationMessageFor(m => m.AMCStartDate)
+                                        @Html.Kendo().DatePickerFor(m => m.AMCDate).HtmlAttributes(new { @tabindex = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AMCDate)
                                     </div>
                                 </div>
 
@@ -65,18 +65,18 @@
                                     @Html.LabelFor(m => m.CustomerId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerId)
-                                                                                                              .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
-                                                                                                              .Placeholder("--Select Customer --")
-                                                                                                              .DataTextField("CustomerName")
-                                                                                                              .DataValueField("CustomerId")
-                                                                                                              .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
-                                                                                                              .DataSource(source =>
-                                                                                                              {
-                                                                                                                  source.Read(read =>
-                                                                                                                  {
-                                                                                                                      read.Action("GetCustomerList", "Common");
-                                                                                                                  });
-                                                                                                              })
+                                                                                                                      .Value(Model.CustomerId == 0 ? string.Empty : Model.CustomerId.ToString())
+                                                                                                                      .Placeholder("--Select Customer --")
+                                                                                                                      .DataTextField("CustomerName")
+                                                                                                                      .DataValueField("CustomerId")
+                                                                                                                      .HtmlAttributes(new { @tabindex = 1, @readonly = "readonly" })
+                                                                                                                      .DataSource(source =>
+                                                                                                                      {
+                                                                                                                          source.Read(read =>
+                                                                                                                          {
+                                                                                                                              read.Action("GetCustomerList", "Common");
+                                                                                                                          });
+                                                                                                                      })
                                         )
 
                                         @Html.ValidationMessageFor(m => m.CustomerId)
@@ -87,35 +87,163 @@
                                     @Html.LabelFor(m => m.CustomerContactPId, new { @class = "col-sm-6 col-lg-4 control-label" })
                                     <div class="col-sm-6 col-lg-9 controls">
                                         @(Html.Kendo().ComboBoxFor(m => m.CustomerContactPId)
-                                                                                              .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
-                                                                                              .Placeholder("--Select Contact Person --")
-                                                                                              .DataTextField("ContactPersonName")
-                                                                                              .DataValueField("ContactPersonId")
-                                                                                              .Enable(false)
-                                                                                              .AutoBind(false)
-                                                                                              .CascadeFrom("CustomerId")
-                                                                                              .HtmlAttributes(new { @tabindex = 3, @readonly = "readonly" })
-                                                                                              .DataSource(source =>
-                                                                                              {
-                                                                                                  source.Read(read =>
-                                                                                                  {
-                                                                                                      read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
-                                                                                                  }).ServerFiltering(true);
-                                                                                              })
+                                                                                                      .Value(Model.CustomerContactPId == 0 ? string.Empty : Model.CustomerContactPId.ToString())
+                                                                                                      .Placeholder("--Select Contact Person --")
+                                                                                                      .DataTextField("ContactPersonName")
+                                                                                                      .DataValueField("ContactPersonId")
+                                                                                                      .Enable(false)
+                                                                                                      .AutoBind(false)
+                                                                                                      .CascadeFrom("CustomerId")
+                                                                                                      .HtmlAttributes(new { @tabindex = 3, @readonly = "readonly" })
+                                                                                                      .DataSource(source =>
+                                                                                                      {
+                                                                                                          source.Read(read =>
+                                                                                                          {
+                                                                                                              read.Action("GetCustomerContactPersonList", "Common").Data("filterContactPerson");
+                                                                                                          }).ServerFiltering(true);
+                                                                                                      })
                                         )
                                         @Html.ValidationMessageFor(m => m.CustomerContactPId)
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CountryId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CountryId)
+                                                                                                                                                                    .Value(Model.CountryId == 0 ? string.Empty : Model.CountryId.ToString())
+                                                                                                                                                                    .Placeholder("--Select Country --")
+                                                                                                                                                                    .DataTextField("CountryName")
+                                                                                                                                                                    .DataValueField("CountryId")
+                                                                                                                                                                    .HtmlAttributes(new { @tabindex = 4 })
+                                                                                                                                                                    .DataSource(source =>
+                                                                                                                                                                    {
+                                                                                                                                                                        source.Read(read =>
+                                                                                                                                                                        {
+                                                                                                                                                                            read.Action("GetCountryList", "Common");
+                                                                                                                                                                        });
+                                                                                                                                                                    })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.CountryId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.StateId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.StateId)
+                                                                                                                                                                      .Value(Model.StateId == 0 ? string.Empty : Model.StateId.ToString())
+                                                                                                                                                                      .Placeholder("--Select State --")
+                                                                                                                                                                      .DataTextField("StateName")
+                                                                                                                                                                      .DataValueField("StateId")
+                                                                                                                                                                      .Enable(false)
+                                                                                                                                                                      .AutoBind(false)
+                                                                                                                                                                      .CascadeFrom("CountryId")
+                                                                                                                                                                      .HtmlAttributes(new { @tabindex = 5 })
+                                                                                                                                                                      .DataSource(source =>
+                                                                                                                                                                      {
+                                                                                                                                                                          source.Read(read =>
+                                                                                                                                                                          {
+                                                                                                                                                                              read.Action("GetStateList", "Common").Data("filterState");
+                                                                                                                                                                          }).ServerFiltering(true);
+                                                                                                                                                                      })
+                                        )
+                                        @Html.ValidationMessageFor(m => m.StateId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CityId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.CityId)
+                                                                                                                                                                         .Value(Model.CityId == 0 ? string.Empty : Model.CityId.ToString())
+                                                                                                                                                                         .Placeholder("--Select City --")
+                                                                                                                                                                         .DataTextField("CityName")
+                                                                                                                                                                         .DataValueField("CityId")
+                                                                                                                                                                         .Enable(false)
+                                                                                                                                                                         .AutoBind(false)
+                                                                                                                                                                         .CascadeFrom("StateId")
+                                                                                                                                                                         .HtmlAttributes(new { @tabindex = 6 })
+                                                                                                                                                                         .DataSource(source =>
+                                                                                                                                                                         {
+                                                                                                                                                                             source.Read(read =>
+                                                                                                                                                                             {
+                                                                                                                                                                                 read.Action("GetCityList", "Common").Data("filterCity");
+                                                                                                                                                                             }).ServerFiltering(true);
+                                                                                                                                                                         })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.CityId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.RegionId, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @(Html.Kendo().ComboBoxFor(m => m.RegionId)
+                                                                                                                                                                      .Value(Model.RegionId == 0 ? string.Empty : Model.RegionId.ToString())
+                                                                                                                                                                      .Placeholder("--Select Region --")
+                                                                                                                                                                      .DataTextField("Name")
+                                                                                                                                                                      .DataValueField("Id")
+                                                                                                                                                                      .Enable(false)
+                                                                                                                                                                      .AutoBind(false)
+                                                                                                                                                                      .CascadeFrom("CityId")
+                                                                                                                                                                      .HtmlAttributes(new { @tabindex = 7 })
+                                                                                                                                                                      .DataSource(source =>
+                                                                                                                                                                      {
+                                                                                                                                                                          source.Read(read =>
+                                                                                                                                                                          {
+                                                                                                                                                                              read.Action("GetRegionList", "Common").Data("filterRegion");
+                                                                                                                                                                          }).ServerFiltering(true);
+                                                                                                                                                                      })
+                                        )
+
+                                        @Html.ValidationMessageFor(m => m.RegionId)
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-lg-6">
 
+                                @*<div class="form-group">
+            @Html.LabelFor(m => m.AMCEndDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
+            <div class="col-sm-6 col-lg-9">
+                @Html.Kendo().DatePickerFor(m => m.AMCEndDate).HtmlAttributes(new { @tabindex = 5, @readonly = "readonly" })
+                @Html.ValidationMessageFor(m => m.AMCEndDate)
+            </div>
+        </div>*@
+
+
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.AMCEndDate, new { @class = "col-sm-6 col-lg-4 col-form-label" })
-                                    <div class="col-sm-6 col-lg-9">
-                                        @Html.Kendo().DatePickerFor(m => m.AMCEndDate).HtmlAttributes(new { @tabindex = 5, @readonly = "readonly" })
-                                        @Html.ValidationMessageFor(m => m.AMCEndDate)
+                                    @Html.LabelFor(m => m.Addressline1, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.Addressline1).HtmlAttributes(new { @tabindex = 10 })
+                                        @Html.ValidationMessageFor(m => m.Addressline1)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Addressline2, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.Addressline2).HtmlAttributes(new { @tabindex = 11 })
+                                        @Html.ValidationMessageFor(m => m.Addressline2)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Addressline3, new { @class = "col-sm-6 col-lg-3 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.Addressline3).HtmlAttributes(new { @tabindex = 12 })
+                                        @Html.ValidationMessageFor(m => m.Addressline3)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PinCode, new { @class = "col-sm-6 col-lg-4 control-label" })
+                                    <div class="col-sm-6 col-lg-9 controls">
+                                        @Html.Kendo().TextBoxFor(m => m.PinCode).HtmlAttributes(new { @tabindex = 13, @type = "number" })
+                                        @Html.ValidationMessageFor(m => m.PinCode)
                                     </div>
                                 </div>
 
@@ -324,7 +452,7 @@
                 </div>
             }
 
-            @if (Model.AMCId > 0)
+            @*@if (Model.AMCId > 0)
             {
                 <div class="card">
                     <div class="card-header header-elements-inline">
@@ -388,7 +516,7 @@
                                         ))
                     </div>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -417,6 +545,25 @@
     function filterContactPerson(e) {
         return {
             CustomerId: getKendComboboxValue('CustomerId')
+        };
+    }
+
+    function filterState() {
+        return {
+            CountryId: $("#CountryId").val()
+        };
+    }
+
+    function filterCity() {
+        return {
+            CountryId: $("#CountryId").val(),
+            StateId: $("#StateId").val()
+        };
+    }
+
+    function filterRegion() {
+        return {
+            CityId: $("#CityId").val(),
         };
     }
 

@@ -10,14 +10,15 @@
 namespace StandardEng.Data.DB
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblAMCQNote
+    public partial class GetAMCQuotationDetailReportData_Result
     {
-        public int AMCQNoteId { get; set; }
-        public int AMCQId { get; set; }
-        public string NoteText { get; set; }
-    
-        public virtual tblAMCQuotation tblAMCQuotation { get; set; }
+        public string MachineSerialNo { get; set; }
+        public int Quantity { get; set; }
+        public decimal Amount { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string MachineTypeName { get; set; }
+        public string MachineName { get; set; }
+        public string Description { get; set; }
     }
 }

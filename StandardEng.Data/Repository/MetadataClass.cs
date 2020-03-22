@@ -1469,6 +1469,14 @@ namespace StandardEng.Data.DB
             [Required(ErrorMessageResourceName = "ServviceDateRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public System.DateTime ServviceDate { get; set; }
 
+            [Display(ResourceType = typeof(CommonMessage), Name = "ServiceReportNo")]
+            public string ServiceReportNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "ServiceEngineer")]
+            [Required(ErrorMessageResourceName = "ServiceEngineerRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public Nullable<int> ServiceEngineerId { get; set; }
+
+
             [ScaffoldColumn(false)]
             public Nullable<System.DateTime> ServiceOverrideDate { get; set; }
             [ScaffoldColumn(false)]

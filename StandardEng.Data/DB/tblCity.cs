@@ -17,8 +17,9 @@ namespace StandardEng.Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCity()
         {
-            this.tblRegion = new HashSet<tblRegion>();
+            this.tblAMC = new HashSet<tblAMC>();
             this.tblCustomer = new HashSet<tblCustomer>();
+            this.tblRegion = new HashSet<tblRegion>();
         }
     
         public int CityId { get; set; }
@@ -27,11 +28,13 @@ namespace StandardEng.Data.DB
         public int StateId { get; set; }
         public bool IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblAMC> tblAMC { get; set; }
         public virtual tblCountry tblCountry { get; set; }
         public virtual tblState tblState { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblRegion> tblRegion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCustomer> tblCustomer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblRegion> tblRegion { get; set; }
     }
 }

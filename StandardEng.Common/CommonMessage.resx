@@ -588,4 +588,7 @@
   <data name="ServviceDateRequired" xml:space="preserve">
     <value>Service Date is Required </value>
   </data>
+  <data name="ServiceReportNo" xml:space="preserve">
+    <value>Service Report No</value>
+  </data>
 </root>

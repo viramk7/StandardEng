@@ -126,6 +126,15 @@ namespace StandardEng.Web.Common
             }
         }
 
+        public static List<tblAMC> AMCList()
+        {
+            using (StandardEngEntities dbContext = BaseContext.GetDbContext())
+            {
+                List<tblAMC> result = dbContext.tblAMC.OrderBy(m => m.AMCId).ToList();
+                return result;
+            }
+        }
+
         //public static List<tblPreCommissioningAccessories> PreCommissioningAccessoriesList(int? id = 0)
         //{
         //    using (StandardEngEntities dbContext = BaseContext.GetDbContext())
@@ -140,7 +149,7 @@ namespace StandardEng.Web.Common
         //            List<tblPreCommissioningAccessories> result = dbContext.tblPreCommissioningAccessories.ToList();
         //            return result;
         //        }
-                
+
         //    }
         //}
 
