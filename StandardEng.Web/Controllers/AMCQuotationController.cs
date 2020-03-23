@@ -205,6 +205,7 @@ namespace StandardEng.Web.Controllers
                                     amcObj.MachineTypeId = singleAMC.MachineTypeId;
                                     amcObj.MachineModelId = singleAMC.MachineModelId;
                                     amcObj.MachineSerialNo = singleAMC.MachineSerialNo;
+                                    amcObj.Description = singleAMC.Description;
                                     amcObj.Amount = singleAMC.Amount;
                                     amcObj.CreatedDate = DateTime.Now;
                                     amcObj.CreatedBy = SessionHelper.UserId;
@@ -231,7 +232,7 @@ namespace StandardEng.Web.Controllers
                                     //    finalAmount = quotationObj.GSTAmount.Value;
                                     //}
                                     amcObj.FinalAmount = finalAmount;
-
+                                    amcObj.FinalAmountInWords = CurrencyHelper.changeCurrencyToWords(finalAmount);
                                     result = _dBAMC.Insert(amcObj);
 
                                     //if (string.IsNullOrEmpty(result))

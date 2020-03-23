@@ -1045,6 +1045,9 @@ namespace StandardEng.Data.DB
             [ScaffoldColumn(false)]
             public int AMCQId { get; set; }
 
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineDescription")]
+            public string Description { get; set; }
+
             [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
             [Required(ErrorMessageResourceName = "MachineTypeRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public int MachineTypeId { get; set; }
@@ -1069,8 +1072,7 @@ namespace StandardEng.Data.DB
             [Display(ResourceType = typeof(CommonMessage), Name = "TotalAmount")]
             public decimal TotalAmount { get; set; }
 
-            [Display(ResourceType = typeof(CommonMessage), Name = "Description")]
-            public string Description { get; set; }
+            
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -1548,6 +1550,69 @@ namespace StandardEng.Data.DB
             public Nullable<int> ModifiedBy { get; set; }
             public Nullable<System.DateTime> ModifiedDate { get; set; }
 
+        }
+    }
+
+
+    [MetadataType(typeof(Metadata))]
+    public partial class tblChargebleQDetail : IValidatableObject
+    {
+        internal class Metadata
+        {
+            [ScaffoldColumn(false)]
+            public int ChargebleQDetailId { get; set; }
+
+            [ScaffoldColumn(false)]
+            public int ChargebleQId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineDescription")]
+            public string Description { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineType")]
+            [Required(ErrorMessageResourceName = "MachineTypeRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int MachineTypeId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineModel")]
+            [Required(ErrorMessageResourceName = "MachineModelRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int MachineModelId { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineSerialNo")]
+            [Required(ErrorMessageResourceName = "MachineSerialNoRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public string MachineSerialNo { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "MachineQuantity")]
+            [Required(ErrorMessageResourceName = "MachineQuantityRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public int Quantity { get; set; }
+
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "UnitPrice")]
+            [Required(ErrorMessageResourceName = "UnitPriceRequired", ErrorMessageResourceType = typeof(CommonMessage))]
+            public decimal Amount { get; set; }
+
+            [Display(ResourceType = typeof(CommonMessage), Name = "TotalAmount")]
+            public decimal TotalAmount { get; set; }
+
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (CustomRepository.IsChargebleQMachineSerialNoExists(ChargebleQDetailId, MachineSerialNo, MachineModelId))
+            {
+                var fieldName = new[] { "MachineSerialNo" };
+                yield return new ValidationResult("Machine Serial No is Already Exists.", fieldName);
+            }
+
+            if (Quantity == 0)
+            {
+                var fieldName = new[] { "Quantity" };
+                yield return new ValidationResult("Quantity must be greater than 0", fieldName);
+            }
+
+            if (Amount == 0)
+            {
+                var fieldName = new[] { "Amount" };
+                yield return new ValidationResult("Unit Price must be greater than 0", fieldName);
+            }
         }
     }
 }

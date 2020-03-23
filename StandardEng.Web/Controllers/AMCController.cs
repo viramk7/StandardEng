@@ -177,6 +177,13 @@ namespace StandardEng.Web.Controllers
             }
             return RedirectToAction("Edit", "AMC", new { id = AMCId });
         }
+
+        public ActionResult AMCReport(int AMCId, string Reportname)
+        {
+            ViewBag.AMCId = AMCId;
+            ViewBag.Reportname = Reportname;
+            return PartialView("_AMCReport");
+        }
         #endregion
 
         #region AMC Service Methods

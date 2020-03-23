@@ -217,6 +217,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\AMC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AMC.Designer.cs">
+      <DependentUpon>AMC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Chargeble.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Chargeble.Designer.cs">
+      <DependentUpon>Chargeble.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ChargebleQuotation.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -499,6 +511,8 @@
     <Content Include="Views\PI\_PerformaInvoiceReport.cshtml" />
     <Content Include="Views\AMCServices\Index.cshtml" />
     <Content Include="Views\AMCServices\Create.cshtml" />
+    <Content Include="Views\AMC\_AMCReport.cshtml" />
+    <Content Include="Views\Chargeble\_ChargebleReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardEng.Common\StandardEng.Common.csproj">
@@ -512,6 +526,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\AMC.resx">
+      <DependentUpon>AMC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Chargeble.resx">
+      <DependentUpon>Chargeble.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\ChargebleQuotation.resx">
       <DependentUpon>ChargebleQuotation.cs</DependentUpon>
     </EmbeddedResource>

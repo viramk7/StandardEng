@@ -591,4 +591,7 @@
   <data name="ServiceReportNo" xml:space="preserve">
     <value>Service Report No</value>
   </data>
+  <data name="MachineDescription" xml:space="preserve">
+    <value>Machine Description</value>
+  </data>
 </root>

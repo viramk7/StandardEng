@@ -59,6 +59,8 @@ namespace StandardEng.Data.DB
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsServiceStarted { get; set; }
+        public string Description { get; set; }
+        public string FinalAmountInWords { get; set; }
     
         public virtual tblCity tblCity { get; set; }
         public virtual tblCountry tblCountry { get; set; }

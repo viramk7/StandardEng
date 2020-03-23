@@ -106,6 +106,13 @@ namespace StandardEng.Web.Controllers
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
+
+        public ActionResult ChargebleReport(int ChargebleId, string Reportname)
+        {
+            ViewBag.ChargebleId = ChargebleId;
+            ViewBag.Reportname = Reportname;
+            return PartialView("_ChargebleReport");
+        }
         #endregion
     }
 }

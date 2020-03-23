@@ -40,10 +40,12 @@
           <Property Name="MachineTypeId" Type="int" Nullable="false" />
           <Property Name="MachineModelId" Type="int" Nullable="false" />
           <Property Name="MachineSerialNo" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="GSTPercentageId" Type="int" Nullable="false" />
           <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FinalAmountInWords" Type="varchar(max)" />
           <Property Name="IsDifferentShipAddress" Type="bit" />
           <Property Name="ShipCompanyName" Type="varchar" MaxLength="50" />
           <Property Name="ShipAddressline1" Type="varchar(max)" />
@@ -165,10 +167,12 @@
           <Property Name="MachineTypeId" Type="int" Nullable="false" />
           <Property Name="MachineModelId" Type="int" Nullable="false" />
           <Property Name="MachineSerialNo" Type="varchar" MaxLength="50" />
+          <Property Name="MachineDescription" Type="varchar(max)" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="GSTPercentageId" Type="int" Nullable="false" />
           <Property Name="GSTAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="FinalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FinalAmountInWords" Type="varchar(max)" />
           <Property Name="IsDifferentShipAddress" Type="bit" />
           <Property Name="ShipCompanyName" Type="varchar" MaxLength="50" />
           <Property Name="ShipAddressline1" Type="varchar(max)" />
@@ -1858,6 +1862,8 @@
           <NavigationProperty Name="tblAMCServices" Relationship="Self.FK_tblAMCServices_tblAMC" FromRole="tblAMC" ToRole="tblAMCServices" />
           <NavigationProperty Name="tblAMCStart" Relationship="Self.FK_tblAMCStart_tblAMC" FromRole="tblAMC" ToRole="tblAMCStart" />
           <Property Name="IsServiceStarted" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FinalAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblAMCQDetail">
           <Key>
@@ -1993,6 +1999,8 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="MachineDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FinalAmountInWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblChargebleNote">
           <Key>
@@ -4107,6 +4115,8 @@
           <EntitySetMapping Name="tblAMC">
             <EntityTypeMapping TypeName="StandardEngModel.tblAMC">
               <MappingFragment StoreEntitySet="tblAMC">
+                <ScalarProperty Name="FinalAmountInWords" ColumnName="FinalAmountInWords" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsServiceStarted" ColumnName="IsServiceStarted" />
                 <ScalarProperty Name="AMCId" ColumnName="AMCId" />
                 <ScalarProperty Name="AMCQuotationId" ColumnName="AMCQuotationId" />
@@ -4248,6 +4258,8 @@
           <EntitySetMapping Name="tblChargeble">
             <EntityTypeMapping TypeName="StandardEngModel.tblChargeble">
               <MappingFragment StoreEntitySet="tblChargeble">
+                <ScalarProperty Name="FinalAmountInWords" ColumnName="FinalAmountInWords" />
+                <ScalarProperty Name="MachineDescription" ColumnName="MachineDescription" />
                 <ScalarProperty Name="ChargebleId" ColumnName="ChargebleId" />
                 <ScalarProperty Name="ChargebleQId" ColumnName="ChargebleQId" />
                 <ScalarProperty Name="ChargebleQDetailId" ColumnName="ChargebleQDetailId" />

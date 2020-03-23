@@ -259,6 +259,15 @@ namespace StandardEng.Data.Repository
             }
         }
 
+        public static bool IsChargebleQMachineSerialNoExists(int ChargebleQDetailId, string MachineSerialNo, int MachineModelId)
+        {
+            using (StandardEngEntities context = BaseContext.GetDbContext())
+            {
+                bool result = context.tblChargebleQDetail.Any(m => m.MachineSerialNo.Trim().ToLower() == MachineSerialNo.Trim().ToLower() && m.ChargebleQDetailId != ChargebleQDetailId && m.MachineModelId == MachineModelId);
+                return result;
+            }
+        }
+
         public static List<GetAMCList_Result> GetAMCList()
         {
             List<GetAMCList_Result> dataList;

@@ -30,70 +30,82 @@
                 <div class="card-body">
 
                     @(Html.Kendo().Grid<GetChargebleList_Result>()
-                                             .Name("gridChargeble")
-                                             .Columns(columns =>
-                                             {
-                                                 if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
-                                                 {
-                                                     columns.Command(command =>
+                                                     .Name("gridChargeble")
+                                                     .Columns(columns =>
                                                      {
-                                                         if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                         if (AuthorizationHelper.CanEditDelete(ViewContext.RouteData.Values["Controller"].ToString()))
                                                          {
-                                                             command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                             columns.Command(command =>
+                                                             {
+                                                                 if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                 {
+                                                                     command.Custom("Edit").Text("<span class='k-icon k-i-edit' title='Edit'></span>").HtmlAttributes(new { @style = "margin:2px" }).Click("onEdit");
+                                                                 }
+                                                                 if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                 {
+                                                                     command.Destroy().Text(" ");
+                                                                 }
+                                                                 if (AuthorizationHelper.CanEdit(ViewContext.RouteData.Values["Controller"].ToString()))
+                                                                 {
+                                                                     command.Custom("Report").Text("<span class='k-icon k-i-print' title='Report'></span>").HtmlAttributes(new { @style = "margin:2px;" }).Click("onReport");
+                                                                 }
+                                                             }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
+                                                             .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
                                                          }
-                                                         if (AuthorizationHelper.CanDelete(ViewContext.RouteData.Values["Controller"].ToString()))
-                                                         {
-                                                             command.Destroy().Text(" ");
-                                                         }
-                                                     }).Title("Action").HtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus)
-                                                     .HeaderHtmlAttributes(WebHelper.ActionCenterColumnStyleWithCanStatus);
-                                                 }
-                                                 columns.Bound(d => d.QuotationNo);
-                                                 columns.Bound(d => d.ChargebleDate).Format("{0:" + WebHelper.DateFormate + "}");
-                                                 columns.Bound(d => d.CustomerName);
-                                                 columns.Bound(d => d.ContactPersonName);
-                                                 columns.Bound(d => d.ContactNo);
-                                                 columns.Bound(d => d.EmailAddress);
-                                                 columns.Bound(d => d.MachineTypeName);
-                                                 columns.Bound(d => d.MachineName);
-                                                 columns.Bound(d => d.MachineSerialNo);
-                                                 columns.Bound(d => d.Amount);
-                                                 columns.Bound(d => d.GSTPercentage);
-                                                 columns.Bound(d => d.GSTAmount);
-                                                 columns.Bound(d => d.FinalAmount);
+                                                         columns.Bound(d => d.QuotationNo);
+                                                         columns.Bound(d => d.ChargebleDate).Format("{0:" + WebHelper.DateFormate + "}");
+                                                         columns.Bound(d => d.CustomerName);
+                                                         columns.Bound(d => d.ContactPersonName);
+                                                         columns.Bound(d => d.ContactNo);
+                                                         columns.Bound(d => d.EmailAddress);
+                                                         columns.Bound(d => d.MachineTypeName);
+                                                         columns.Bound(d => d.MachineName);
+                                                         columns.Bound(d => d.MachineSerialNo);
+                                                         columns.Bound(d => d.Amount);
+                                                         columns.Bound(d => d.GSTPercentage);
+                                                         columns.Bound(d => d.GSTAmount);
+                                                         columns.Bound(d => d.FinalAmount);
 
-                                             })
-                                             .Pageable(x =>
-                                             {
-                                                 x.Refresh(true);
-                                                 x.PageSizes(WebHelper.PageSizes);
-                                             })
-                                              .Editable(editable =>
-                                              {
-                                                  editable.DisplayDeleteConfirmation("Are you sure you want to delete these Chargeble?");
-                                              })
-                                             .Sortable(sortable => sortable.AllowUnsort(false))
-                                             .Filterable()
-                                             .Scrollable(e => e.Enabled(true))
-                                             .NoRecords()
-                                             .HtmlAttributes(new { @style = "height:500px" })
-                                             .Events(e => e.DataBound("onDataBound"))
-                                             .DataSource(dataSource => dataSource
-                                             .Ajax()
-                                             .ServerOperation(true)
-                                             .PageSize(WebHelper.PageSize)
-                                             .Model(model => model.Id(d => d.ChargebleId))
-                                             .Events(events => events.Error("onError(\"gridChargeble\")"))
-                                             .Read(read => read.Action("KendoRead", "Chargeble"))
-                                             .Destroy(update => update.Action("KendoDestroy", "Chargeble"))
+                                                     })
+                                                     .Pageable(x =>
+                                                     {
+                                                         x.Refresh(true);
+                                                         x.PageSizes(WebHelper.PageSizes);
+                                                     })
+                                                      .Editable(editable =>
+                                                      {
+                                                          editable.DisplayDeleteConfirmation("Are you sure you want to delete these Chargeble?");
+                                                      })
+                                                     .Sortable(sortable => sortable.AllowUnsort(false))
+                                                     .Filterable()
+                                                     .Scrollable(e => e.Enabled(true))
+                                                     .NoRecords()
+                                                     .HtmlAttributes(new { @style = "height:500px" })
+                                                     .Events(e => e.DataBound("onDataBound"))
+                                                     .DataSource(dataSource => dataSource
+                                                     .Ajax()
+                                                     .ServerOperation(true)
+                                                     .PageSize(WebHelper.PageSize)
+                                                     .Model(model => model.Id(d => d.ChargebleId))
+                                                     .Events(events => events.Error("onError(\"gridChargeble\")"))
+                                                     .Read(read => read.Action("KendoRead", "Chargeble"))
+                                                     .Destroy(update => update.Action("KendoDestroy", "Chargeble"))
 
-                                        ))
+                                                ))
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+@(Html.Kendo().Window()
+                      .Name("wReport")
+                      .Title("Chargeble Quotation Report")
+                      .Visible(false)
+                      .Draggable(true)
+                      .Modal(true)
+                      .Width(850)
+                      .Height(600))
 
 <script type="text/javascript">
 
@@ -111,6 +123,20 @@
         for (var i = 0; i < grid.columns.length; i++) {
             grid.autoFitColumn(i);
         }
+    }
+
+      function onReport(e) {
+        e.preventDefault();
+        var tr = $(e.target).closest("tr");
+        var data = this.dataItem(tr);
+        var urllink = '@Url.Action("ChargebleReport", "Chargeble")';
+        var window = $("#wReport").data("kendoWindow");
+        window.refresh({
+            url: urllink,
+            data: { "ChargebleId": data.ChargebleId, "Reportname": "Chargeble_" + data.QuotationNo }
+        });
+        window.center();
+        window.open();
     }
 
 </script>

@@ -181,6 +181,7 @@ namespace StandardEng.Web.Controllers
                                     amcObj.MachineTypeId = singleAMC.MachineTypeId;
                                     amcObj.MachineModelId = singleAMC.MachineModelId;
                                     amcObj.MachineSerialNo = singleAMC.MachineSerialNo;
+                                    amcObj.MachineDescription = singleAMC.Description;
                                     amcObj.Amount = singleAMC.Amount;
                                     amcObj.CreatedDate = DateTime.Now;
                                     amcObj.CreatedBy = SessionHelper.UserId;
@@ -203,6 +204,7 @@ namespace StandardEng.Web.Controllers
                                         finalAmount = finalAmount + amount;
                                     }
                                     amcObj.FinalAmount = finalAmount;
+                                    amcObj.FinalAmountInWords = CurrencyHelper.changeCurrencyToWords(finalAmount); ;
 
                                     result = _dBChargeble.Insert(amcObj);
                                 }

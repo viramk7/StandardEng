@@ -718,6 +718,15 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Machine Description.
+        /// </summary>
+        public static string MachineDescription {
+            get {
+                return ResourceManager.GetString("MachineDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Machine Model.
         /// </summary>
         public static string MachineModel {

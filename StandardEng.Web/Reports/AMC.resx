@@ -118,10 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="DetailDataSource.ParameterValues" xml:space="preserve">
-    <value>{"@ChargebleQuotationId":"7"}</value>
-  </metadata>
-  <metadata name="HeaderDataSource.ParameterValues" xml:space="preserve">
-    <value>{"@ChargebleQuotationId":"7"}</value>
+    <value>{"@AMCId":"9"}</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Value" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -495,9 +492,6 @@
         Q8oMzjpkSJnBWYcMKTM465AhZQZnHTKkzOAsQ1HR/wUi++mC3Y2kCwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="NotesDataSource.ParameterValues" xml:space="preserve">
-    <value>{"@ChargebleQuotationId":"7"}</value>
-  </metadata>
   <metadata name="$this.ShowSnapGrid" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
