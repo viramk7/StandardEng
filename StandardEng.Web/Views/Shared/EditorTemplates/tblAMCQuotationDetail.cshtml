@@ -2,31 +2,25 @@
 
 @Html.HiddenFor(m => m.AMCQDetailId)
 
-<div class="editor-label">
-    @Html.LabelFor(m => m.Description)
-</div>
-<div class="editor-field">
-    @Html.TextAreaFor(m => m.Description, new { @class = "k-textbox", @tabindex = 1 })
-    @Html.ValidationMessageFor(m => m.Description)
-</div>
+
 
 <div class="editor-label">
     @Html.LabelFor(m => m.MachineTypeId)
 </div>
 <div class="editor-field">
     @(Html.Kendo().ComboBoxFor(m => m.MachineTypeId)
-                                           .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
-                                           .Placeholder("--Select Machine Type --")
-                                           .DataTextField("MachineTypeName")
-                                           .DataValueField("MachineTypeId")
-                                           .HtmlAttributes(new { @tabindex = 2, @data_value_primitive = true })
-                                           .DataSource(source =>
-                                           {
-                                               source.Read(read =>
-                                               {
-                                                   read.Action("GetMachineTypeList", "Common");
-                                               });
-                                           })
+                                                   .Value(Model.MachineTypeId == 0 ? string.Empty : Model.MachineTypeId.ToString())
+                                                   .Placeholder("--Select Machine Type --")
+                                                   .DataTextField("MachineTypeName")
+                                                   .DataValueField("MachineTypeId")
+                                                   .HtmlAttributes(new { @tabindex = 1, @data_value_primitive = true })
+                                                   .DataSource(source =>
+                                                   {
+                                                       source.Read(read =>
+                                                       {
+                                                           read.Action("GetMachineTypeList", "Common");
+                                                       });
+                                                   })
     )
 
     @Html.ValidationMessageFor(m => m.MachineTypeId)
@@ -36,21 +30,21 @@
 </div>
 <div class="editor-field">
     @(Html.Kendo().ComboBoxFor(m => m.MachineModelId)
-                                          .Value(Model.MachineModelId == 0 ? string.Empty : Model.MachineModelId.ToString())
-                                          .Placeholder("--Select Machine --")
-                                          .DataTextField("MachineName")
-                                          .DataValueField("MachineModelId")
-                                          .Enable(false)
-                                          .AutoBind(false)
-                                          .CascadeFrom("MachineTypeId")
-                                          .HtmlAttributes(new { @tabindex = 3, @data_value_primitive = true })
-                                          .DataSource(source =>
-                                          {
-                                              source.Read(read =>
-                                              {
-                                                  read.Action("GetMachineModelList", "Common").Data("filterMachine");
-                                              }).ServerFiltering(true);
-                                          })
+                                                  .Value(Model.MachineModelId == 0 ? string.Empty : Model.MachineModelId.ToString())
+                                                  .Placeholder("--Select Machine --")
+                                                  .DataTextField("MachineName")
+                                                  .DataValueField("MachineModelId")
+                                                  .Enable(false)
+                                                  .AutoBind(false)
+                                                  .CascadeFrom("MachineTypeId")
+                                                  .HtmlAttributes(new { @tabindex = 2, @data_value_primitive = true })
+                                                  .DataSource(source =>
+                                                  {
+                                                      source.Read(read =>
+                                                      {
+                                                          read.Action("GetMachineModelList", "Common").Data("filterMachine");
+                                                      }).ServerFiltering(true);
+                                                  })
     )
     @Html.ValidationMessageFor(m => m.MachineModelId)
 </div>
@@ -58,7 +52,7 @@
     @Html.LabelFor(m => m.MachineSerialNo)
 </div>
 <div class="editor-field">
-    @Html.Kendo().TextBoxFor(m => m.MachineSerialNo).HtmlAttributes(new { @tabindex = 4 })
+    @Html.Kendo().TextBoxFor(m => m.MachineSerialNo).HtmlAttributes(new { @tabindex = 3 })
     @Html.ValidationMessageFor(m => m.MachineSerialNo)
 </div>
 
@@ -66,8 +60,8 @@
     @Html.LabelFor(m => m.Quantity)
 </div>
 <div class="editor-field">
-    @(Html.Kendo().NumericTextBoxFor(m => m.Quantity).HtmlAttributes(new { @tabindex = 5, @readonly = "readonly" })
-                                  .Spinners(false).Min(0).Events(e => e.Change("ChangeTotalAmount")))
+    @(Html.Kendo().NumericTextBoxFor(m => m.Quantity).HtmlAttributes(new { @tabindex = 4, @readonly = "readonly" })
+                                          .Spinners(false).Min(0).Events(e => e.Change("ChangeTotalAmount")))
     @Html.ValidationMessageFor(m => m.Quantity)
 </div>
 
@@ -75,8 +69,8 @@
     @Html.LabelFor(m => m.Amount)
 </div>
 <div class="editor-field">
-    @(Html.Kendo().NumericTextBoxFor(m => m.Amount).HtmlAttributes(new { @tabindex = 6 })
-                          .Spinners(false).Min(0).Events(e => e.Change("ChangeTotalAmount")))
+    @(Html.Kendo().NumericTextBoxFor(m => m.Amount).HtmlAttributes(new { @tabindex = 5 })
+                                  .Spinners(false).Min(0).Events(e => e.Change("ChangeTotalAmount")))
     @Html.ValidationMessageFor(m => m.Amount)
 </div>
 
@@ -85,8 +79,15 @@
 </div>
 <div class="editor-field">
     @(Html.Kendo().NumericTextBoxFor(m => m.TotalAmount).HtmlAttributes(new { @readonly = "readonly" })
-                          .Spinners(false).Min(0).Decimals(2))
+                                  .Spinners(false).Min(0).Decimals(2))
     @Html.ValidationMessageFor(m => m.TotalAmount)
 </div>
 
+<div class="editor-label">
+    @Html.LabelFor(m => m.Description)
+</div>
+<div class="editor-field">
+    @Html.TextAreaFor(m => m.Description, new { @class = "k-textbox", @tabindex = 6 })
+    @Html.ValidationMessageFor(m => m.Description)
+</div>
 
