@@ -1231,6 +1231,15 @@ namespace StandardEng.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service Remarks.
+        /// </summary>
+        public static string ServiceRemarks {
+            get {
+                return ResourceManager.GetString("ServiceRemarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Service Report No.
         /// </summary>
         public static string ServiceReportNo {

@@ -1,6 +1,9 @@
-﻿using System;
+﻿using StandardEng.Common;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,8 +18,14 @@ namespace StandardEng.Data.CustomModel
     public class AMCServiceCompltePartialModel
     {
         public int AMCServiceId { get; set; }
+
+        [Display(ResourceType = typeof(CommonMessage), Name = "ServiceReportNo")]
         public string ServiceReportNo { get; set; }
+
+        [Display(ResourceType = typeof(CommonMessage), Name = "ServiceEngineer")]
         public Nullable<int> ServiceEngineerId { get; set; }
+
+        [Display(ResourceType = typeof(CommonMessage), Name = "ServiceRemarks")]
         public string ServiceRemarks { get; set; }
     }
     public class AMCServiceOverWritePartialModel

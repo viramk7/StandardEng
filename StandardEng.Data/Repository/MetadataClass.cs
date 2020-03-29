@@ -1474,6 +1474,7 @@ namespace StandardEng.Data.DB
             [Display(ResourceType = typeof(CommonMessage), Name = "ServiceReportNo")]
             public string ServiceReportNo { get; set; }
 
+            [UIHint("GridForeignKey")]
             [Display(ResourceType = typeof(CommonMessage), Name = "ServiceEngineer")]
             [Required(ErrorMessageResourceName = "ServiceEngineerRequired", ErrorMessageResourceType = typeof(CommonMessage))]
             public Nullable<int> ServiceEngineerId { get; set; }
