@@ -134,6 +134,33 @@ namespace StandardEng.Web.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public string updatetblAMCQuotation(updatetblAMCquotation model)
+        {
+            if (model != null)
+            {
+                var amcquotation = _dbRepository.SelectById(model.AMCQuotationId);
+                amcquotation.TotalDetailAmount = model.TotalDetailAmount;
+                amcquotation.GSTPercentageId = model.GSTPercentageId;
+                amcquotation.GSTAmount = model.GSTAmount;
+                amcquotation.FinalAmount = model.finalAmount;
+                amcquotation.FinalAmountInWords = CurrencyHelper.changeCurrencyToWords(model.finalAmount);
+
+               
+               string msg =  _dbRepository.Update(amcquotation);
+                if (!String.IsNullOrEmpty(msg))
+                {
+                    return "";
+                }
+                else
+                {
+                    return msg;
+                }
+
+            }
+            return "Something went wrong";
+        }
+
         public ActionResult KendoDestroy([DataSourceRequest] DataSourceRequest request, tblAMCQuotation model)
         {
             string deleteMessage = _dbRepository.Delete(model.AMCQId);

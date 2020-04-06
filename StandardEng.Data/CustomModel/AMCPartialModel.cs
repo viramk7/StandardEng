@@ -25,4 +25,13 @@ namespace StandardEng.Data.CustomModel
         public DateTime ServiceOverrideDate { get; set; }
         public string OverrideReason { get; set; }
     }
+
+    public class updatetblAMCquotation
+    {
+        public int AMCQuotationId { get; set; }
+        public decimal TotalDetailAmount { get; set; }
+        public int GSTPercentageId { get; set; }
+        public decimal GSTAmount { get; set; }
+        public decimal finalAmount { get; set; }
+    }
 }

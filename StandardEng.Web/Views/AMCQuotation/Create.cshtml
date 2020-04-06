@@ -512,7 +512,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.FinalAmount, new { @class = "col-sm-6 col-lg-6 col-form-label" })
                                         <div class="col-sm-6 col-lg-12">
-                                            @(Html.Kendo().NumericTextBoxFor(m => m.FinalAmount).Spinners(false).HtmlAttributes(new { @readonly = "readonly" }))
+                                            @(Html.Kendo().NumericTextBoxFor(m => m.FinalAmount).Spinners(false).HtmlAttributes(new { @readonly = "readonly", @onchange = "onchangefinalamount()" }))
                                             @Html.ValidationMessageFor(m => m.FinalAmount)
                                         </div>
                                     </div>
@@ -589,7 +589,16 @@
 
     $(document).ready(function () {
         isDiffrentShipChk();
+
+        $("#FinalAmount").on("change", function(){
+        // Print entered value in a div box
+        $("#FinalAmount").text($(this).val());
     });
+    });
+
+    function onchangefinalamount() {
+        alert(1);
+    }
 
     function filterContactPerson(e) {
         return {
@@ -667,6 +676,7 @@
             var type = e.type;
             if (type === "update" || type === "create" || type == "destroy") {
                 readKendoGrid('gridAMCQDetail');
+                 
             }
         }
     }
@@ -674,6 +684,8 @@
     function onDetailSave(e) {
         e.model.set("AMCQId", getInputValueById('AMCQId'));
         e.model.set("TotalAmount", getInputValueById('TotalAmount'));
+
+        
     }
 
     function ChangeTotalAmount(e) {
@@ -681,6 +693,7 @@
         var unitPrice = getkendoNumericTextBoxValue('Amount');
         var totalPrice = quantity * unitPrice;
         setkendoNumericTextBoxValue('TotalAmount', totalPrice);
+         
     }
 
     function onChange(e) {
@@ -688,7 +701,7 @@
     }
 
     function onDataBound(e) {
-        debugger;
+       
         var grid = $("#gridAMCQDetail").data("kendoGrid");
 
         var totalDetailAmount = 0;
@@ -710,6 +723,34 @@
         var totalFinalAmount = totalDetailAmount + gstAmount;
 
         setkendoNumericTextBoxValue('FinalAmount', totalFinalAmount);
+
+        setkendoNumericTextBoxValue('GSTAmount', gstAmount);
+        //GSTAmount
+
+       
+        updatetblAMCQuotation();
+
+        //alert("2");
+    }
+
+   
+
+    function updatetblAMCQuotation() {
+        debugger;
+          var dataModel = {
+                'finalAmount': getInputValueById('FinalAmount'),
+                'GSTAmount': getInputValueById('GSTAmount'),
+                'GSTPercentageId': getKendComboboxValue('GSTPercentageId'),
+              'TotalDetailAmount': getInputValueById('TotalDetailAmount'),
+                'AMCQuotationId': getInputValueById('AMCQId')
+            };
+
+            var url = '@Url.Action("updatetblAMCQuotation", "AMCQuotation")';
+        callwebservice(url, { model: dataModel }, completeUpdatetblAMCQuotation, false, datatypeEnum.text, typeEnum.post);
+    }
+
+    function completeUpdatetblAMCQuotation(returnString) {
+       // alert(returnString);
     }
 
     function onChangeGST(e) {
